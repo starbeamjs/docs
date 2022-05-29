@@ -1,0 +1,23 @@
+{
+  "$schema": "./contributors.schema.json",
+  "contributors": [
+    {
+      "name": "Yehuda Katz",
+      "github": "wycats",
+      "social": {
+        "twitter": "wycats"
+      }
+    },
+    {
+      "name": "Tom Dale",
+      "github": "tomdale",
+      "social": {
+        "twitter": "tomdale"
+      }
+    },
+    {
+      "name": "Chirag Patel",
+      "github": "chiragpat"
+    }
+  ]
+}

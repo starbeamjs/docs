@@ -1,0 +1,62 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Projects */
+    "incremental": true /* Save .tsbuildinfo files to allow for incremental compilation of projects. */,
+    "tsBuildInfoFile": "./.vitepress/dist/.tsbuildinfo" /* Specify the path to .tsbuildinfo incremental compilation file. */,
+
+    /* Language and Environment */
+    "target": "esnext",
+    "moduleDetection": "force",
+
+    "module": "esnext",
+    "moduleResolution": "nodenext",
+
+    "types": [
+      "./env.d.ts",
+      "./scripts/node_modules/ohmyfetch/dist/index",
+      "vite/client",
+      "vite-plugin-pages/client",
+      "vite-plugin-pwa/client",
+      "vitepress"
+    ],
+
+    "lib": ["ESNext", "DOM"],
+
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "importHelpers": true,
+
+    /** Modern Builds */
+    "importsNotUsedAsValues": "remove",
+    "preserveConstEnums": true,
+    "preserveValueImports": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true,
+
+    /** Build */
+    "stripInternal": true,
+
+    /* Type Checking */
+    "strict": true,
+
+    /* Performance */
+    "skipLibCheck": true,
+
+    /** Path Mapping */
+    "paths": {
+      "ohmyfetch": ["./scripts/node_modules/ohmyfetch/dist/index.js"]
+    }
+  },
+  "include": ["scripts/**/*.ts"],
+  "ts-node": {
+    "transpileOnly": true,
+    "swc": false,
+    "experimentalResolverFeatures": true,
+    "esm": true,
+    "preferTsExts": true
+  }
+}

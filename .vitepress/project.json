@@ -1,0 +1,9 @@
+{
+  "name": "Starbeam",
+  "description": "Universal Reactivity",
+  "url": "https://starbeam.app",
+  "images": {
+    "preview": "https://starbeam.app/preview.png"
+  },
+  "font": "https://fonts.googleapis.com/css?family=Readex+Pro:wght@200;400;600;700&display=swap"
+}
