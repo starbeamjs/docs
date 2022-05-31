@@ -1,5 +1,3 @@
-/// <reference path="./node_modules/ohmyfetch/dist/index.d.ts" />
-
 import { resolve } from "path";
 import dirname from "tiny-dirname";
 

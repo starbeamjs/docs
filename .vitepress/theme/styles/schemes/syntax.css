@@ -1,0 +1,31 @@
+/**
+ * Syntax highlighting (tk = token)
+ */
+:root {
+  --ch-tk-grey: 0;
+  --cs-tk-grey: 0%;
+
+  --ch-tk-rose: 358;
+  --cs-tk-rose: 65%;
+
+  --ch-tk-blue: 210;
+  --cs-tk-blue: 51%;
+
+  --ch-tk-orange: 24;
+  --cs-tk-orange: 85%;
+
+  --ch-tk-gold: 41;
+  --cs-tk-gold: 92%;
+
+  --ch-tk-lavender: 299;
+  --cs-tk-lavender: 34%;
+
+  --ch-tk-green: 142;
+  --cs-tk-green: 49%;
+
+  --ch-tk-teal: 179;
+  --cs-tk-teal: 50%;
+
+  --ch-tk-darkgreen: 120;
+  --cs-tk-darkgreen: 100%;
+}

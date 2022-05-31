@@ -1,0 +1,25 @@
+.content p {
+  margin-block: 1rem;
+}
+
+.content ol {
+  list-style: decimal;
+  list-style-position: outside;
+  padding-inline-start: 1rem;
+}
+
+.content ol li::marker {
+  --current-color: var(--accent-color);
+}
+
+.content :is(em, i) {
+  --weight: var(--xbold);
+}
+
+.content :is(strong, b) {
+  --weight: var(--xxbold);
+}
+
+.content a {
+  --weight: var(--bold);
+}

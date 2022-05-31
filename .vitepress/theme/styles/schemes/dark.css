@@ -1,0 +1,73 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ch-accent: 79deg;
+    --cs-accent: 71%;
+    --cl-accent: 45%;
+
+    --cs-text: 70%;
+    --cl-text: 97%;
+
+    --cl-text-bright-fg: 90%;
+    --cl-text-bright-bg: 20%;
+    --cl-text-dim-fg: 80%;
+    --cl-text-dim-bg: 20%;
+    --cl-text-dimmer-fg: 64%;
+    --cl-text-dimmer-bg: 40%;
+
+    --cl-bg: 0%;
+    --cl-bgbox: 30%;
+    --cl-faint: 15%;
+    --cl-fg: 100%;
+
+    --cl-divider: 67%;
+
+    --cl-block-title: 97%;
+    --cl-block-border: 80%;
+    --cl-block-fg: 95%;
+    --cl-block-bg: 50%;
+
+    --cl-button-bg: 35%;
+    --cl-button-hover: 25%;
+
+    /** I haven't finished cleaning up how these colors work yet */
+    --bg-gradient: 20, 20, 20;
+    --cm-ttc-c-thumb: hsl(0, 0%, 20%);
+    --cm-ttc-c-track: hsl(0, 0%, 7%);
+  }
+
+  *,
+  *::before,
+  *::after,
+  *::marker {
+    --body-dark-mode: 1;
+    --code-dark-mode: 0;
+  }
+
+  /**
+    * "Brand" accent colors
+    */
+  :root {
+    --cl-brand: 80%;
+    --cl-brand-bright: 50%;
+    --cl-brand-dim: 85%;
+
+    --cs-brand-active-bg: 50%;
+    --cs-brand-active-fg: 30%;
+  }
+
+  /**
+   * Syntax highlighting (tk = token)
+   */
+  :root {
+    --cl-tk-grey-comment: 40%;
+    --cl-tk-grey-punctuation: 20%;
+    --cl-tk-rose: 32%;
+    --cl-tk-blue: 41%;
+    --cl-tk-orange: 39%;
+    --cl-tk-gold: 35%;
+    --cl-tk-lavender: 40%;
+    --cl-tk-green: 20%;
+    --cl-tk-teal: 40%;
+    --cl-tk-darkgreen: 30%;
+  }
+}

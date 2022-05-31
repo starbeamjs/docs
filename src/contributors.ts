@@ -1,6 +1,6 @@
-import "@starbeam/docs/env";
+/// <reference path="./env.d.ts" />
 
-import { contributors } from "./contributors.json" assert { type: "json" };
+import { contributors } from "./contributors.json";
 
 enum Team {
   Library = "Library",
@@ -10,9 +10,9 @@ export interface Contributor {
   name: string;
   avatar: string;
   bio?: string;
+  github?: string;
   social?: {
     twitter?: string;
-    github?: string;
   };
   team?: Team;
 }
@@ -25,5 +25,11 @@ const getAvatarUrl = (name: string) =>
     : `/user-avatars/${name}.png`;
 
 export default Object.fromEntries(
-  contributors.map(({ github }) => [github, getAvatarUrl(github)])
-) as Record<keyof typeof contributors, string>;
+  contributors.map((contributor) => [
+    contributor.github,
+    {
+      ...contributor,
+      avatar: getAvatarUrl(contributor.github),
+    },
+  ])
+) as Record<keyof typeof contributors, Contributor & { avatar: string }>;

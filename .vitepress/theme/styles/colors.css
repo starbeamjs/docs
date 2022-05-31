@@ -1,0 +1,38 @@
+:root {
+  --accent-color: var(--c-brand);
+  --current-color: var(--c-text);
+}
+
+.bg-warning {
+  --current-ch: var(--ch-warning);
+}
+
+.bg-tip {
+  --current-ch: var(--ch-tip);
+}
+
+.btn {
+  background-color: hsl(var(--current-ch), var(--cs-block), var(--current-cl));
+  --current-color: hsl(var(--current-ch), var(--cs-block), var(--cl-text));
+  --current-cl: var(--cl-button-bg);
+}
+
+.btn:hover {
+  --current-cl: var(--cl-button-hover);
+}
+
+.btn:active {
+  --current-cl: var(--cl-button-bg);
+}
+
+*,
+*::before,
+*::after,
+*::backdrop,
+*::cue,
+*::file-selector-button,
+*::marker,
+*::placeholder,
+*::target-text {
+  color: var(--current-color);
+}

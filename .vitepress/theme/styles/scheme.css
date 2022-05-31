@@ -1,0 +1,15 @@
+/** Dark mode colors used in light mode (dark theme code) */
+
+:root {
+  --cs-dark-text: 70%;
+  --cl-dark-text: 97%;
+
+  --cs-light-text: 29%;
+  --cl-light-text: 24%;
+
+  --c-light-text: hsl(
+    var(--ch-text),
+    var(--cs-light-text),
+    var(--cl-light-text)
+  );
+}

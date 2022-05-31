@@ -2,8 +2,64 @@
   "name": "Starbeam",
   "description": "Universal Reactivity",
   "url": "https://starbeam.app",
+  "sidebar": {
+    "Why Starbeam": {
+      "root": "guides",
+      "pages": {
+        "Why Starbeam": "why"
+      }
+    },
+    "Guides": {
+      "root": "guides",
+      "pages": {
+        "Getting Started": "getting-started",
+        "Guiding Principles": "principles",
+        "The Rules": "rules",
+        "Reactive Objects": "reactive-objects",
+        "Resources": "resources",
+        "Element Modifiers": "element-modifiers"
+      }
+    },
+    "Frameworks": {
+      "root": "frameworks",
+      "pages": {
+        "React": "react",
+        "Svelte": "svelte"
+      }
+    },
+    "Contributing": {
+      "root": "guides",
+      "pages": {
+        "Styles": "styles"
+      }
+    }
+  },
+
   "images": {
     "preview": "https://starbeam.app/preview.png"
   },
-  "font": "https://fonts.googleapis.com/css?family=Readex+Pro:wght@200;400;600;700&display=swap"
+  "fonts": [
+    {
+      "type": "google",
+      "name": "Readex Pro",
+      "weight": "160..700"
+    },
+    {
+      "type": "google",
+      "name": "Comfortaa",
+      "weight": "300..700"
+    },
+    {
+      "type": "google",
+      "name": "Expletus Sans",
+      "weight": "400..700",
+      "italic": ["0", "1"]
+    },
+    {
+      "type": "google",
+      "name": "Azeret Mono",
+      "weight": "100..900",
+      "italic": ["0", "1"]
+    }
+  ]
 }

@@ -1,0 +1,188 @@
+/**
+ * Key:
+ *
+ * - ch: color hue
+ * - cs: color saturation
+ * - cl: color lightness
+ *
+ * - tk: token kind
+ */
+
+/** Used by all media queries */
+:root {
+  color-scheme: light dark;
+
+  --ch-green: 120;
+  --ch-red: 0;
+  --ch-yellow: 60;
+  --ch-blue: 210;
+
+  --ch-brand: 150;
+  --ch-text: var(--ch-blue);
+  --ch-text-dim: var(--ch-blue);
+  --ch-divider: 240deg;
+  --ch-grey: 0deg;
+
+  --cs-brand: 70%;
+  --cs-brand-bright: 100%;
+  --cs-brand-dim: 50%;
+
+  --cs-brand-active-bg: 50%;
+  --cs-brand-active-fg: 30%;
+
+  --cs-divider: 2%;
+  --cs-grey: 0%;
+
+  --ch-warning: var(--ch-yellow);
+  --ch-danger: var(--ch-red);
+  --ch-tip: var(--ch-green);
+  --ch-info: var(--ch-blue);
+
+  --ch-inline-code-bg: 180deg;
+  --cs-inline-code-bg: 3%;
+  --ch-inline-code-fg: 220deg;
+  --cs-inline-code-fg: 13%;
+
+  --cs-block: 100%;
+  --cs-block-bg: 40%;
+}
+
+/** Computed */
+:root {
+  --c-brand: hsl(var(--ch-brand), var(--cs-brand), var(--cl-brand-dim));
+  --c-brand-bright: hsl(
+    var(--ch-brand),
+    var(--cs-brand),
+    var(--cl-brand-bright)
+  );
+  --c-brand-dim: hsl(var(--ch-brand), var(--cs-brand), var(--cl-brand-dim));
+
+  --c-brand-active-fg: hsl(
+    var(--ch-brand),
+    var(--cs-brand-active-fg),
+    var(--cl-brand-active-fg)
+  );
+
+  --c-brand-active-bg: hsl(
+    var(--ch-brand),
+    var(--cs-brand-active-bg),
+    var(--cl-brand-active-bg)
+  );
+
+  --c-accent: hsl(var(--ch-accent), var(--cs-accent), var(--cl-accent));
+
+  --c-bg: hsl(var(--ch-grey), var(--cs-grey), var(--cl-bg));
+  --c-bgbox: hsl(var(--ch-bgbox), var(--cs-bgbox), var(--cl-bgbox));
+  --c-bgbox-bg: hsl(var(--ch-bgbox-bg), var(--cs-bgbox-bg), var(--cl-bgbox-bg));
+
+  --c-bg-faint: hsl(var(--ch-grey), var(--cs-grey), var(--cl-faint));
+  --c-fg: hsl(var(--ch-grey), var(--cs-grey), var(--cl-fg));
+
+  --c-divider: hsl(var(--ch-divider), var(--cs-divider), var(--cl-divider));
+
+  --c-text: hsl(var(--ch-text), var(--cs-text), var(--cl-text));
+  --c-text-dim: hsl(var(--ch-text), var(--cs-text), var(--cl-text-dim-fg));
+  --c-text-dimmer: hsl(
+    var(--ch-text),
+    var(--cs-text),
+    var(--cl-text-dimmer-fg)
+  );
+
+  /** misnomers, but I don't want to have to update all of Vitepress right now :P */
+  --c-text-light: var(--c-text-dim);
+  --c-text-lighter: var(--c-text-dimmer);
+  --c-brand-light: var(--c-brand-dim);
+  --c-bg-accent: var(--c-bg-faint);
+
+  --c-fg-inline-code: hsl(
+    var(--ch-fg-inline-code),
+    var(--cs-fg-inline-code),
+    var(--cl-fg-inline-code)
+  );
+
+  --c-bg-inline-code: hsl(
+    var(--ch-bg-inline-code),
+    var(--cs-bg-inline-code),
+    var(--cl-bg-inline-code)
+  );
+
+  --is-flipped: 0;
+}
+
+:root {
+  /**
+   * Shadows
+   * --------------------------------------------------------------------- */
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 3px 12px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.07);
+  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-4: 0 14px 44px rgba(0, 0, 0, var(--a-shadow-4)),
+    0 3px 9px rgba(0, 0, 0, var(--a-shadow-4));
+  --a-shadow-4: 0.12;
+  --shadow-5: 0 18px 56px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+/**
+ * These styles are applied to * to avoid creating a cycle. Specifically, this allows individual rules to disable the `--is-body` variable, which flips the mode to allow light mode embedded in dark mode and vice versa.
+ */
+*,
+*::before,
+*::after,
+*::marker {
+  /**
+    * Truth table:
+    *
+    * | `--body-dark-mode` | `--is-flipped` | `--dark-mode` |
+     * | --------------------| -------------| ------------ |
+     * | `0`                | `0`          | `0`          |
+     * | `0`                | `1`          | `1`          |
+     * | `1`                | `0`          | `1`          |
+     * | `1`                | `1`          | `0`          |
+     *
+     * This is a logical XOR.
+     *
+     * --xor: calc((var(--k) - var(--i))*(var(--k) - var(--i)))
+     * 
+     * (https://css-tricks.com/logical-operations-with-css-variables/)
+     */
+  --dark-mode: calc(
+    (var(--body-dark-mode) - var(--is-flipped)) *
+      (var(--body-dark-mode) - var(--is-flipped))
+  );
+
+  --light-mode: max((var(--dark-mode) * -1) + 1);
+
+  --cl-xdim-fg: calc((var(--dark-mode) * 24%) + (var(--light-mode) * 80%));
+  --cl-xdim-bg: calc((var(--dark-mode) * 80%) + (var(--light-mode) * 24%));
+  --cl-dim-fg: calc((var(--dark-mode) * 40%) + (var(--light-mode) * 60%));
+  --cl-dim-bg: calc((var(--dark-mode) * 60%) + (var(--light-mode) * 40%));
+  --cl-regular-fg: calc((var(--dark-mode) * 60%) + (var(--light-mode) * 40%));
+  --cl-regular-bg: calc((var(--dark-mode) * 40%) + (var(--light-mode) * 60%));
+  --cl-bright-fg: calc((var(--dark-mode) * 80%) + (var(--light-mode) * 24%));
+  --cl-bright-bg: calc((var(--dark-mode) * 24%) + (var(--light-mode) * 80%));
+  --cl-xbright-fg: calc((var(--dark-mode) * 100%) + (var(--light-mode) * 10%));
+  --cl-xbright-bg: calc((var(--dark-mode) * 10%) + (var(--light-mode) * 100%));
+
+  --c-red-fg: hsl(var(--ch-red), var(--cs-block), var(--cl-bright-fg));
+  --c-red-bg: hsl(var(--ch-red), var(--cs-block), var(--cl-bright-bg));
+  --c-green-fg: hsl(var(--ch-green), var(--cs-block), var(--cl-bright-fg));
+  --c-green-bg: hsl(var(--ch-green), var(--cs-block), var(--cl-bright-bg));
+
+  --c-code-bg: hsl(var(--ch-grey), var(--cs-grey), var(--cl-xbright-bg));
+
+  --cl-inline-code-bg: var(--cl-text-bright-bg);
+  --cl-inline-code-fg: var(--cl-text-bright-fg);
+
+  --c-inline-code-bg: hsl(
+    var(--ch-inline-code-bg),
+    var(--cs-inline-code-bg),
+    var(--cl-inline-code-bg)
+  );
+
+  --c-inline-code-fg: hsl(
+    var(--ch-inline-code-fg),
+    var(--cs-inline-code-fg),
+    var(--cl-inline-code-fg)
+  );
+}

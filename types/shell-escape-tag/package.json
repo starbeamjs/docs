@@ -1,0 +1,9 @@
+{
+  "name": "@types/shell-escape-tag",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts"
+    }
+  }
+}

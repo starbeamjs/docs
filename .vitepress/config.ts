@@ -1,6 +1,14 @@
-import { defineConfig } from "vitepress";
+import { defineConfig, type HeadConfig } from "vitepress";
 
-import * as project from "./project.json" assert { type: "json" };
+import project from "./project.json" assert { type: "json" };
+import { container } from "./theme/container.js";
+import { GoogleFonts, type SpecifiedFont } from "./theme/fonts/google.js";
+const root = process.env.VITE_ROOT || process.cwd();
+import "prismjs";
+import "prism-svelte";
+import type { DefaultTheme } from "vitepress";
+
+const FONTS = fonts();
 
 export default defineConfig({
   title: "Starbeam",
@@ -40,7 +48,6 @@ export default defineConfig({
     ["meta", { name: "twitter:description", content: project.description }],
     ["meta", { name: "twitter:image", content: project.images.preview }],
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["link", { href: project.font, rel: "stylesheet" }],
     ["link", { rel: "mask-icon", href: "/logo.svg", color: "#ffffff" }],
     [
       "link",
@@ -50,26 +57,61 @@ export default defineConfig({
         sizes: "180x180",
       },
     ],
+    FONTS,
   ],
 
   themeConfig: {
     sidebar: {
-      "/": [
-        { text: "Why Starbeam", link: "/pages/guides/why" },
-        {
-          text: "Guides",
-          children: [
-            {
-              text: "Getting Started",
-              link: "/pages/guides/getting-started",
-            },
-            {
-              text: "Guiding Principles",
-              link: "/pages/guides/principles",
-            },
-          ],
-        },
-      ],
+      "/": sidebar(),
+    },
+  },
+
+  markdown: {
+    config: (md) => {
+      container("philosophy")(md);
     },
   },
 });
+
+function sidebar() {
+  const sidebar = project.sidebar;
+
+  return entries(sidebar).map(([key, value]): DefaultTheme.SideBarItem => {
+    const pages = entries(value.pages as Record<string, string>);
+
+    if (pages.length === 1) {
+      return {
+        text: key,
+        link: `/pages/${value.root}/${pages[0][1]}`,
+      };
+    } else {
+      return {
+        text: key,
+        children: pages.map(([key, child]) => ({
+          text: key,
+          link: `/pages/${value.root}/${child}`,
+        })),
+      };
+    }
+  });
+}
+
+function fonts(): HeadConfig {
+  const fonts = GoogleFonts.from(project.fonts as SpecifiedFont[]);
+
+  return [
+    "link",
+    {
+      rel: "stylesheet",
+      href: fonts.toURL(),
+    },
+  ];
+}
+
+type Entry<R> = {
+  [P in keyof R]: [P, R[P]];
+}[keyof R];
+
+function entries<R extends Record<string, unknown>>(object: R): Entry<R>[] {
+  return Object.entries(object) as Entry<R>[];
+}

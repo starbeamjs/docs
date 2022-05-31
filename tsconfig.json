@@ -14,7 +14,7 @@
     "moduleResolution": "nodenext",
 
     "types": [
-      "./env.d.ts",
+      "./src/env.d.ts",
       "./scripts/node_modules/ohmyfetch/dist/index",
       "vite/client",
       "vite-plugin-pages/client",
@@ -48,10 +48,28 @@
 
     /** Path Mapping */
     "paths": {
-      "ohmyfetch": ["./scripts/node_modules/ohmyfetch/dist/index.js"]
+      "ohmyfetch": ["./scripts/node_modules/ohmyfetch/dist/index.js"],
+      "monaco-editor/esm/vs/*?worker": ["./monaco-editor/esm/vs/*"],
+      "vitepress/theme": ["./node_modules/vitepress/theme.d.ts"],
+      "unocss/vite": ["./node_modules/unocss/vite.d.ts"],
+      "unplugin-vue-components/vite": [
+        "./node_modules/unplugin-vue-components/dist/vite.d.ts"
+      ],
+      "unplugin-auto-import/vite": [
+        "./node_modules/unplugin-auto-import/dist/vite.d.ts"
+      ]
     }
   },
-  "include": ["scripts/**/*.ts"],
+  "typeAcquisition": { "enable": true },
+  "include": [
+    "vite.config.ts",
+    "scripts/**/*.ts",
+    "src/**/*.{vue,ts}",
+    "src/components.d.ts",
+    ".vitepress/theme/**/*.ts",
+    ".vitepress/config.ts"
+  ],
+  "exclude": [".vitepress/dist", "node_modules", "scripts/node_modules"],
   "ts-node": {
     "transpileOnly": true,
     "swc": false,
