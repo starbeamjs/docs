@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-78a2e969","path":"/frameworks/ember/","title":"Ember","lang":"en-US","frontmatter":{"index":false,"dir":{"title":"Ember"}},"excerpt":"","headers":[],"git":{"createdTime":null,"updatedTime":null,"contributors":[]},"readingTime":{"minutes":0,"words":1},"filePathRelative":"frameworks/ember/README.md"}');export{e as data};

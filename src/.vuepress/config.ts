@@ -51,6 +51,8 @@ export default defineUserConfig({
         children: [
           "/frameworks/react/README.md",
           "/frameworks/svelte/README.md",
+          "/frameworks/vue/README.md",
+          "/frameworks/ember/README.md",
         ],
       },
       "/demos/README.md",
