@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-747068c8","path":"/guides/3-collections/4-sets.html","title":"Reactive Sets","lang":"en-US","frontmatter":{"order":3},"excerpt":"","headers":[],"git":{},"readingTime":{"minutes":0.01,"words":2},"filePathRelative":"guides/3-collections/4-sets.md"}');export{e as data};

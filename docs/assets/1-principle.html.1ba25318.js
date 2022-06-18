@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-475090f8","path":"/guides/1-principle.html","title":"Our Guiding Principle","lang":"en-US","frontmatter":{"order":1},"excerpt":"","headers":[],"git":{},"readingTime":{"minutes":0.32,"words":96},"filePathRelative":"guides/1-principle.md"}');export{e as data};

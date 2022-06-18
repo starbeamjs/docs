@@ -1,0 +1,53 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs:build": "vuepress build src -d docs",
+    "docs:clean-dev": "vuepress dev src --clean-cache",
+    "docs:dev": "vuepress dev src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@swc/core": "^1.2.203",
+    "@types/markdown-it": "^12.2.3",
+    "@types/prettier": "^2.6.3",
+    "@types/react": "^18",
+    "@typescript-eslint/parser": "^5.28.0",
+    "@typescript/lib-dom": "npm:@types/web@^0.0.68",
+    "@vuepress/client": "2.0.0-beta.48",
+    "@vuepress/plugin-docsearch": "2.0.0-beta.48",
+    "@vuepress/plugin-search": "2.0.0-beta.48",
+    "docs-snippet": "^1.0.0",
+    "esbuild": "^0.14.43",
+    "eslint": "^8.17.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "gulp-preserve-typescript-whitespace": "^1.0.3",
+    "markdown-it": "^13.0.1",
+    "markdown-it-vuepress-code-snippet-enhanced": "^1.0.1",
+    "prettier": "^2.7.0",
+    "prettier-eslint": "^15.0.1",
+    "prettier-plugin-sort-imports": "^1.7.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "remove-types": "^1.0.0",
+    "typescript": "4.8.0-dev.20220613",
+    "vite": "^2.9.12",
+    "vitest": "^0.15.0",
+    "vue": "^3.2.37",
+    "vuepress": "2.0.0-beta.48",
+    "vuepress-plugin-md-enhance": "2.0.0-beta.83",
+    "vuepress-theme-hope": "2.0.0-beta.82"
+  },
+  "dependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/traverse": "^7.18.5",
+    "@starbeam/core": "link:/home/wycats/Code/Starbeam/starbeam/packages/core",
+    "@starbeam/js": "link:/home/wycats/Code/Starbeam/starbeam/packages/js",
+    "@starbeam/peer": "link:/home/wycats/Code/Starbeam/starbeam/packages/peer"
+  }
+}

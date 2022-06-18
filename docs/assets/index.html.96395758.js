@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-1ff45151","path":"/guides/4-devtools/","title":"Developer Tools","lang":"en-US","frontmatter":{"index":false,"order":4,"dir":{"order":4,"link":true,"collapsable":false}},"excerpt":"","headers":[],"git":{},"readingTime":{"minutes":0.01,"words":2},"filePathRelative":"guides/4-devtools/README.md"}');export{e as data};

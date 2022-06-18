@@ -1,0 +1,3 @@
+# API Docs
+
+- cell.freeze()
