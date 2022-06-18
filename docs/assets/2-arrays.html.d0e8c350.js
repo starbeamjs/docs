@@ -1,1 +1,0 @@
-import{_ as a,o as r,c as t,a as e,b as s}from"./app.d65f44b6.js";const c={},o=e("h1",{id:"reactive-arrays",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#reactive-arrays","aria-hidden":"true"},"#"),s(" Reactive Arrays")],-1),_=[o];function n(i,d){return r(),t("div",null,_)}var l=a(c,[["render",n],["__file","2-arrays.html.vue"]]);export{l as default};

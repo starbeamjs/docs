@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-8a0dd318","path":"/guides/3-collections/1-objects.html","title":"Reactive Objects","lang":"en-US","frontmatter":{"order":1},"excerpt":"","headers":[],"git":{},"readingTime":{"minutes":0.01,"words":2},"filePathRelative":"guides/3-collections/1-objects.md"}');export{e as data};

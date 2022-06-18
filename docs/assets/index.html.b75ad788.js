@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-8daa1a0e","path":"/","title":"Starbeam","lang":"en-US","frontmatter":{"home":true,"dir":{"title":"Starbeam"}},"excerpt":"","headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":"README.md"}');export{e as data};

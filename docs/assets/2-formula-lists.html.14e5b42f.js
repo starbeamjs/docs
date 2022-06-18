@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-6d187cd2","path":"/guides/6-optimization/2-formula-lists.html","title":"Formula Lists","lang":"en-US","frontmatter":{},"excerpt":"","headers":[],"git":{},"readingTime":{"minutes":0.01,"words":2},"filePathRelative":"guides/6-optimization/2-formula-lists.md"}');export{t as data};

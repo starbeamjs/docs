@@ -12,6 +12,7 @@ import { snippetPlugin } from "./plugins/snippet";
 export default defineUserConfig({
   lang: "en-US",
   title: "Starbeam Documentation",
+  base: "/docs/",
 
   head: [
     font("Readex Pro", { weight: "160..700" }),
