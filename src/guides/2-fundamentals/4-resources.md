@@ -85,7 +85,6 @@ async function main() {
     output.innerHTML = `The current time is: ${stopwatch.current}`;
   });
 
-  // After 3 seconds, finalize the owner to stop the stopwatch.
   button.addEventListener(
     "click",
     () => {

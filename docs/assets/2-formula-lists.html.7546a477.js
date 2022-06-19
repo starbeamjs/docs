@@ -1,1 +1,0 @@
-import{_ as a,o as s,c as t,a as e,b as r}from"./app.2b56bc34.js";const o={},c=e("h1",{id:"formula-lists",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#formula-lists","aria-hidden":"true"},"#"),r(" Formula Lists")],-1),l=[c];function _(i,n){return s(),t("div",null,l)}var f=a(o,[["render",_],["__file","2-formula-lists.html.vue"]]);export{f as default};

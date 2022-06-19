@@ -1,1 +1,0 @@
-import{_ as t,o as c,c as a,a as e,b as s}from"./app.2b56bc34.js";const r={},o=e("h1",{id:"reactive-objects",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#reactive-objects","aria-hidden":"true"},"#"),s(" Reactive Objects")],-1),_=[o];function n(i,d){return c(),a("div",null,_)}var l=t(r,[["render",n],["__file","1-objects.html.vue"]]);export{l as default};

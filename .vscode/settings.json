@@ -12,5 +12,6 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "rewrap.wrappingColumn": 100
+  "rewrap.wrappingColumn": 100,
+  "quokka.automaticStartRegex": "\\.quokka\\.(js|ts)$"
 }

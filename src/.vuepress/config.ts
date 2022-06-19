@@ -56,6 +56,7 @@ export default defineUserConfig({
         ],
       },
       "/demos/README.md",
+      "/details/README.md",
     ],
     sidebar: {
       "/guides/": "structure",
@@ -65,6 +66,7 @@ export default defineUserConfig({
       "/frameworks/vue": "structure",
       "/frameworks/ember": "structure",
       "/demos/": "structure",
+      "/details/": "structure",
     },
     headerDepth: 1,
     iconAssets: "iconfont",

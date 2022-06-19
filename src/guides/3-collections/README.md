@@ -15,10 +15,10 @@ based on.
 
 Starbeam ships with a number of built-in reactive collections.
 
-- [Reactive Object](./1-objects.md)
-- [Reactive Array](./2-arrays.md)
-- [Reactive Map and WeakMap](./3-maps.md)
-- [Reactive Set and WeakSet](./4-sets.md)
+- Reactive Object
+- Reactive Array
+- Reactive Map and WeakMap
+- Reactive Set and WeakSet
 
 From a usage perspective, these collections identical to their JavaScript counterparts. Instances of
 reactive collections have exactly the same methods as their JavaScript counterparts, and those

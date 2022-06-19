@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-14ee4026","path":"/details/","title":"Digging Deeper","lang":"en-US","frontmatter":{"dir":{"text":"Digging Deeper","link":false},"text":"Digging Deeper"},"excerpt":"","headers":[],"git":{"createdTime":null,"updatedTime":null,"contributors":[]},"readingTime":{"minutes":0.01,"words":2},"filePathRelative":"details/README.md"}');export{e as data};

@@ -1,5 +1,6 @@
 {
   "name": "docs",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -46,8 +47,8 @@
   "dependencies": {
     "@babel/core": "^7.18.5",
     "@babel/traverse": "^7.18.5",
-    "@starbeam/core": "link:/home/wycats/Code/Starbeam/starbeam/packages/core",
-    "@starbeam/js": "link:/home/wycats/Code/Starbeam/starbeam/packages/js",
-    "@starbeam/peer": "link:/home/wycats/Code/Starbeam/starbeam/packages/peer"
+    "@starbeam/core": "link:./starbeam/packages/core",
+    "@starbeam/js": "link:./starbeam/packages/js",
+    "@starbeam/peer": "link:./starbeam/packages/peer"
   }
 }

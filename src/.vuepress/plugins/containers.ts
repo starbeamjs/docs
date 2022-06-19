@@ -16,7 +16,15 @@ export const lightBulb: PluginSimple = (md) =>
     closeRender: () => "</div>\n",
   });
 
+export const algorithm: PluginSimple = (md) =>
+  container(md, {
+    name: "algorithm",
+    openRender: () => "<div class='algorithm'>\n",
+    closeRender: () => "</div>\n",
+  });
+
 export const containers: PluginSimple = (md) => {
   md.use(blockEmphasis);
   md.use(lightBulb);
+  md.use(algorithm);
 };

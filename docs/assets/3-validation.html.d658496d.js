@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-43a42342","path":"/guides/2-fundamentals/3-validation.html","title":"Consumption and Validation","lang":"en-US","frontmatter":{"order":3},"excerpt":"","headers":[],"git":{"createdTime":null,"updatedTime":null,"contributors":[]},"readingTime":{"minutes":1.94,"words":583},"filePathRelative":"guides/2-fundamentals/3-validation.md"}');export{e as data};
