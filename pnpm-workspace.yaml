@@ -1,3 +1,5 @@
 packages:
   - .
   - ./starbeam/packages/*
+  - ./starbeam/framework/*/*
+  - ./src/frameworks/*

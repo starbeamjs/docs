@@ -146,7 +146,7 @@ export function snippetPlugin(app: App) {
       state.line = startLine + 1;
 
       const token = state.push("fence", "code", 0);
-      token.info = "ts" + meta;
+      token.info = "tsx" + meta;
 
       // @ts-ignore
       token.src = path.resolve(filename) + region;
@@ -282,9 +282,16 @@ class FenceInfo {
 }
 
 function error(message: string) {
-  return `<div class="language-error ext-error"><pre class="ext-error"><code>${breakable(
+  return `<div class="language-error ext-error"><pre class="ext-error"><code>${normalize(
     message
   )}</code></pre></div>`;
+}
+
+function normalize(data: string) {
+  // escape < and >
+  return breakable(data)
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 function breakable(data: string) {

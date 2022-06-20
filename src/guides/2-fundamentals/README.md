@@ -1,6 +1,6 @@
 ---
 dir:
-  order: 2
+  order: 3
   text: "Fundamentals"
   collapsable: false
   link: true

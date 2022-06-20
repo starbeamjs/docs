@@ -7,6 +7,7 @@ import {
 import { hopeTheme } from "vuepress-theme-hope";
 import { containers } from "./plugins/containers";
 import { deps } from "./plugins/flowchart";
+import { fences } from "./plugins/fences";
 import { snippetPlugin } from "./plugins/snippet";
 
 export default defineUserConfig({
@@ -25,6 +26,7 @@ export default defineUserConfig({
     md.use(snippetPlugin(app));
     md.use(containers);
     md.use(deps);
+    md.use(fences);
   },
   markdown: {
     importCode: false,
@@ -49,7 +51,10 @@ export default defineUserConfig({
         text: "Frameworks",
         icon: "style",
         children: [
-          "/frameworks/react/README.md",
+          {
+            text: "React",
+            link: "/frameworks/react/1-getting-started.md",
+          },
           "/frameworks/svelte/README.md",
           "/frameworks/vue/README.md",
           "/frameworks/ember/README.md",
@@ -61,16 +66,17 @@ export default defineUserConfig({
     sidebar: {
       "/guides/": "structure",
       "/api/": "structure",
-      "/frameworks/react": "structure",
-      "/frameworks/svelte": "structure",
-      "/frameworks/vue": "structure",
-      "/frameworks/ember": "structure",
+      "/frameworks/react/": "structure",
+      "/frameworks/svelte/": "structure",
+      "/frameworks/vue/": "structure",
+      "/frameworks/ember/": "structure",
       "/demos/": "structure",
       "/details/": "structure",
     },
     headerDepth: 1,
     iconAssets: "iconfont",
     plugins: {
+      components: ["StackBlitz"],
       mdEnhance: {
         gfm: true,
         container: true,

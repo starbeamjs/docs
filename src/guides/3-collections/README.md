@@ -3,7 +3,7 @@ dir:
   text: "Reactive Collections"
   collapsable: false
   link: true
-  order: 3
+  order: 4
 index: false
 title: JS Builtins
 ---

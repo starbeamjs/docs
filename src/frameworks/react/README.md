@@ -1,7 +1,10 @@
 ---
-index: false
 dir:
-  title: React
+  index: false
+  text: Getting Started with React
+  collapsable: false
+  link: true
+title: React
 ---
 
-# React
+# Getting Started with React

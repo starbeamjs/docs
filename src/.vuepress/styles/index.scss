@@ -18,6 +18,31 @@
   }
 }
 
+div.custom-container.info {
+  display: grid;
+  padding-block: 1rem;
+  row-gap: 0.5rem;
+
+  p,
+  p.custom-container-title,
+  p.custom-container-title::before {
+    margin-block: 0rem;
+    color: var(--info-border-color);
+    fill: var(--info-border-color);
+  }
+
+  p.custom-container-title::before {
+    filter: invert(100%) hue-rotate(195deg) brightness(80%);
+  }
+
+  p code {
+    background-color: hsl(195, 100%, 90%);
+    padding-inline: 0.2em;
+    padding-block: 0.1em;
+    border-radius: 0.2em;
+  }
+}
+
 p.custom-container-title {
   display: grid;
   align-items: center;

@@ -1,8 +1,7 @@
 ---
 index: false
-order: 4
 dir:
-  order: 4
+  order: 5
   link: true
   collapsable: false
 ---
