@@ -6,9 +6,9 @@ importers:
     specifiers:
       '@babel/core': ^7.18.5
       '@babel/traverse': ^7.18.5
-      '@starbeam/core': link:./starbeam/packages/core
-      '@starbeam/js': link:./starbeam/packages/js
-      '@starbeam/peer': link:./starbeam/packages/peer
+      '@starbeam/core': ^0.5.1
+      '@starbeam/js': ^0.5.1
+      '@starbeam/peer': ^1.0.1
       '@swc/core': ^1.2.204
       '@types/markdown-it': ^12.2.3
       '@types/prettier': ^2.6.3
@@ -43,9 +43,9 @@ importers:
     dependencies:
       '@babel/core': 7.18.5
       '@babel/traverse': 7.18.5
-      '@starbeam/core': link:starbeam/packages/core
-      '@starbeam/js': link:starbeam/packages/js
-      '@starbeam/peer': link:starbeam/packages/peer
+      '@starbeam/core': 0.5.1
+      '@starbeam/js': 0.5.1
+      '@starbeam/peer': 1.0.1
     devDependencies:
       '@swc/core': 1.2.204
       '@types/markdown-it': 12.2.3
@@ -78,6 +78,27 @@ importers:
       vuepress: 2.0.0-beta.48_cvdz5rjhltiqfsopd7oft5nvg4
       vuepress-plugin-md-enhance: 2.0.0-beta.83
       vuepress-theme-hope: 2.0.0-beta.83
+
+  src/frameworks/react:
+    specifiers:
+      '@starbeam/core': ^0.5.1
+      '@starbeam/js': ^0.5.1
+      '@starbeam/peer': ^1.0.1
+      '@starbeam/react': ^0.5.1
+      '@types/react': ^18.0.14
+      '@types/react-dom': ^18.0.5
+      react: ^18.2.0
+      react-dom: 18.2.0
+    dependencies:
+      '@starbeam/core': 0.5.1
+      '@starbeam/js': 0.5.1
+      '@starbeam/peer': 1.0.1
+      '@starbeam/react': 0.5.1_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      '@types/react': 18.0.14
+      '@types/react-dom': 18.0.5
 
 packages:
 
@@ -1528,6 +1549,90 @@ packages:
       rollup: 2.75.6
     dev: true
 
+  /@starbeam/core-utils/0.5.1:
+    resolution: {integrity: sha512-HeFqkuDz39udWLf/SpiQMhIW/+6mHXtJwoBj7j8Knmq4afTVVE/LAa8W9l5qSi2FCjueRM6hlL5yhKWBR6ldPA==}
+    dev: false
+
+  /@starbeam/core/0.5.1:
+    resolution: {integrity: sha512-a/fEvYuxaWFGaO2w3Ny5vdjnp6lBxb7I7S3atG5nwnv/NzZIcYuArNcKHO0BLqJDBKdusifyCpLXnRAzPpKkBg==}
+    dependencies:
+      '@starbeam/core-utils': 0.5.1
+      '@starbeam/debug': 0.5.1
+      '@starbeam/peer': 1.0.1
+      '@starbeam/timeline': 0.5.1
+      '@starbeam/verify': 0.5.1
+    dev: false
+
+  /@starbeam/debug/0.5.1:
+    resolution: {integrity: sha512-IftZPjy7h4OoNo15XhKDOG7sbIZLK8nDBWkxMEeXQZ1hl5jIo+OT+p2RT3kHnH7cKrNVNDUSIp5cTWBHTe4eww==}
+    dependencies:
+      '@starbeam/verify': 0.5.1
+      stacktracey: 2.1.8
+    dev: false
+
+  /@starbeam/js/0.5.1:
+    resolution: {integrity: sha512-kc8SZ4XboeXkv0DTiRzrYw2OS/zeBT9VJRl3ld+m/fXdR1LlDFu2y6KyJ5ylFW0stzFZIEX47+kbMfud7eR79w==}
+    dependencies:
+      '@starbeam/core': 0.5.1
+      '@starbeam/core-utils': 0.5.1
+      '@starbeam/debug': 0.5.1
+      '@starbeam/verify': 0.5.1
+    dev: false
+
+  /@starbeam/modifier/0.5.1:
+    resolution: {integrity: sha512-ahHTVMSJE0LNKrlFEarllMdVccwGuuRlPK5VOH4AaWu+e2NThPTav9z/yG4UbC9JE1VUQY+kAIjq7VQRWCQhbA==}
+    dependencies:
+      '@starbeam/core': 0.5.1
+      '@starbeam/debug': 0.5.1
+      '@starbeam/peer': 1.0.1
+      '@starbeam/verify': 0.5.1
+    dev: false
+
+  /@starbeam/peer/1.0.1:
+    resolution: {integrity: sha512-HU8aXuzm2mX1wGSuj9Qab+YGa4ZFdjjaXnbegObxP3sy88aspuoBuzt4ZS0Ou+SOOsMskK/MNxWKajbf1IX9GA==}
+    dev: false
+
+  /@starbeam/react/0.5.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-iRmKkRPQcVKFCocnynYpu4fkZBSSyK1SzK6xu/pnJg4r5l7T63wx/KCPOEWc5R58/Q75fRO9kuVWhXleaeQpvQ==}
+    peerDependencies:
+      react: ^18.1.0
+      react-dom: ^18.1.0
+    dependencies:
+      '@starbeam/core': 0.5.1
+      '@starbeam/core-utils': 0.5.1
+      '@starbeam/debug': 0.5.1
+      '@starbeam/js': 0.5.1
+      '@starbeam/modifier': 0.5.1
+      '@starbeam/peer': 1.0.1
+      '@starbeam/timeline': 0.5.1
+      '@starbeam/use-resource': 0.5.1_react@18.2.0
+      '@starbeam/verify': 0.5.1
+      '@types/use-sync-external-store': 0.0.3
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      use-sync-external-store: 1.0.0-rc.3_react@18.2.0
+    dev: false
+
+  /@starbeam/timeline/0.5.1:
+    resolution: {integrity: sha512-1s26bl0e5QPsNYZWUefmvutdnm2Gsbq1FAUs4dainyY+U4130PXB5jERuybFnyjXUckpIxWLFhjyjHMzY+5ghQ==}
+    dependencies:
+      '@starbeam/debug': 0.5.1
+      '@starbeam/peer': 1.0.1
+      '@starbeam/verify': 0.5.1
+    dev: false
+
+  /@starbeam/use-resource/0.5.1_react@18.2.0:
+    resolution: {integrity: sha512-c97kfP8YxKv3g4CuW0CWr1h4rS7+JUqb5uRUaHcLMsPCp+hrnufNBkA2aE56IUvru8AnFooVG1BymOuUnrwSaA==}
+    peerDependencies:
+      react: ^18.1.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /@starbeam/verify/0.5.1:
+    resolution: {integrity: sha512-UmKHmj2Tk735o+FMhfgBEmtSNsBe8JqABbJjlwhdqqnivrbxfL5FqVXK95e54gK1x3QzQ+k7hbH9TgU5AIKBlw==}
+    dev: false
+
   /@surma/rollup-plugin-off-main-thread/2.2.3:
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
     dependencies:
@@ -1762,6 +1867,12 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: true
 
+  /@types/react-dom/18.0.5:
+    resolution: {integrity: sha512-OWPWTUrY/NIrjsAPkAk1wW9LZeIjSvkXRhclsFO8CZcZGCOg2G0YZy4ft+rOyYxy8B7ui5iZzi9OkDebZ7/QSA==}
+    dependencies:
+      '@types/react': 18.0.14
+    dev: true
+
   /@types/react/18.0.14:
     resolution: {integrity: sha512-x4gGuASSiWmo0xjDLpm5mPb52syZHJx02VKbqUKdLmKtAwIh63XClGsiTI1K6DO5q7ox4xAsQrU+Gl3+gGXF9Q==}
     dependencies:
@@ -1789,6 +1900,10 @@ packages:
   /@types/trusted-types/2.0.2:
     resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}
     dev: true
+
+  /@types/use-sync-external-store/0.0.3:
+    resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
+    dev: false
 
   /@types/web/0.0.68:
     resolution: {integrity: sha512-zyNR/I74DQPCL4eAv6Cwp9kjGJswxNUsYNW6FtohKLu903b1LZwzgICQUaXWP0CkGdONgTk+zu5foW24UculqA==}
@@ -2454,6 +2569,12 @@ packages:
       es-abstract: 1.20.1
       es-shim-unscopables: 1.0.0
     dev: true
+
+  /as-table/1.0.55:
+    resolution: {integrity: sha512-xvsWESUJn0JN421Xb9MQw6AsMHRCUknCe0Wjlxvjud80mU4E6hQf1A6NzQKcYNmYw62MfzEtXc+badstZP3JpQ==}
+    dependencies:
+      printable-characters: 1.0.42
+    dev: false
 
   /assertion-error/1.1.0:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
@@ -3272,6 +3393,10 @@ packages:
       lodash: 4.17.21
     dev: true
 
+  /data-uri-to-buffer/2.0.2:
+    resolution: {integrity: sha512-ND9qDTLc6diwj+Xe5cdAgVTbLVdXbtxTJRXRhli8Mowuaan+0EJOtdqJ0QCHNSSPyoXGx9HX2/VMnKeC34AChA==}
+    dev: false
+
   /dayjs/1.11.3:
     resolution: {integrity: sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A==}
     dev: true
@@ -4052,6 +4177,13 @@ packages:
     resolution: {integrity: sha512-I0UBV/XOz1XkIJHEUDMZAbzCThU/H8DxmSfmdGcKPnVhu2VfFqr34jr9777IyaTYvxjedWhqVIilEDsCdP5G6g==}
     dev: true
 
+  /get-source/2.0.12:
+    resolution: {integrity: sha512-X5+4+iD+HoSeEED+uwrQ07BOQr0kEDFMVqqpBuI+RaZBpBpHCuXxo70bjar6f0b0u/DQJsJ7ssurpP0V60Az+w==}
+    dependencies:
+      data-uri-to-buffer: 2.0.2
+      source-map: 0.6.1
+    dev: false
+
   /get-stream/6.0.1:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
     engines: {node: '>=10'}
@@ -4616,7 +4748,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: true
 
   /loupe/2.3.4:
     resolution: {integrity: sha512-OvKfgCC2Ndby6aSTREl5aCCPTNIzlDfQZvZxNUrBrihDhL3xcrYegTblhmEiCrg2kKQz4XsFIaemE5BF4ybSaQ==}
@@ -4990,6 +5121,10 @@ packages:
       ansi-styles: 3.2.1
     dev: true
 
+  /printable-characters/1.0.42:
+    resolution: {integrity: sha512-dKp+C4iXWK4vVYZmYSd0KBH5F/h1HoZRsbJ82AVKRO3PEo8L4lBS/vLwhVtpwwuYcoIsVY+1JYKR268yn480uQ==}
+    dev: false
+
   /prismjs/1.28.0:
     resolution: {integrity: sha512-8aaXdYvl1F7iC7Xm1spqSaY/OJBpYW3v+KJ+F17iYxvdc8sfjW194COK5wVhMZX45tGteiBQgdvD/nhxcRwylw==}
     engines: {node: '>=6'}
@@ -5028,14 +5163,12 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: true
 
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: true
 
   /readable-stream/2.3.7:
     resolution: {integrity: sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==}
@@ -5249,7 +5382,6 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-    dev: true
 
   /section-matter/1.0.0:
     resolution: {integrity: sha512-vfD3pmTzGpufjScBh50YHKzEu2lxBWhVEHsNGoEXmCmn2hKGfeNLYMzCJpe8cD7gqX7TJluOVpBkAequ6dgMmA==}
@@ -5337,7 +5469,6 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /source-map/0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
@@ -5353,6 +5484,13 @@ packages:
   /sprintf-js/1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: true
+
+  /stacktracey/2.1.8:
+    resolution: {integrity: sha512-Kpij9riA+UNg7TnphqjH7/CzctQ/owJGNbFkfEeve4Z4uxT5+JapVLFXcsurIfN34gnTWZNJ/f7NMG0E8JDzTw==}
+    dependencies:
+      as-table: 1.0.55
+      get-source: 2.0.12
+    dev: false
 
   /string.prototype.matchall/4.0.7:
     resolution: {integrity: sha512-f48okCX7JiwVi1NXCVWcFnZgADDC/n2vePlQ/KUCNqCikLLilQvwjMO8+BHVKvgzH0JB0J9LEPgxOGT02RoETg==}
@@ -5680,6 +5818,14 @@ packages:
     dependencies:
       punycode: 2.1.1
     dev: true
+
+  /use-sync-external-store/1.0.0-rc.3_react@18.2.0:
+    resolution: {integrity: sha512-f846OUIwzgEZoTVTPpZpM6InnC0pKAgAopX+W334j90UJGHvExG73hZucfq8QjjHuz1ec4KOgV4e7kOXv0g2gQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0-rc
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}

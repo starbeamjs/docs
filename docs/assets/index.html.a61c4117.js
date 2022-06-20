@@ -1,0 +1,1 @@
+import{_ as a,o as r,c as t,a as e,b as c}from"./app.590b66e2.js";const n={},o=e("h1",{id:"ember",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#ember","aria-hidden":"true"},"#"),c(" Ember")],-1),s=[o];function _(d,i){return r(),t("div",null,s)}var l=a(n,[["render",_],["__file","index.html.vue"]]);export{l as default};

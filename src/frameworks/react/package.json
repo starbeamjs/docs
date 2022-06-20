@@ -2,9 +2,10 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@starbeam/core": "workspace:*",
-    "@starbeam/js": "workspace:*",
-    "@starbeam/react": "workspace:*",
+    "@starbeam/core": "^0.5.1",
+    "@starbeam/js": "^0.5.1",
+    "@starbeam/react": "^0.5.1",
+    "@starbeam/peer": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "18.2.0"
   },

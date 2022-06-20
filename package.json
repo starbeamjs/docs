@@ -48,8 +48,8 @@
   "dependencies": {
     "@babel/core": "^7.18.5",
     "@babel/traverse": "^7.18.5",
-    "@starbeam/core": "link:./starbeam/packages/core",
-    "@starbeam/js": "link:./starbeam/packages/js",
-    "@starbeam/peer": "link:./starbeam/packages/peer"
+    "@starbeam/core": "^0.5.1",
+    "@starbeam/js": "^0.5.1",
+    "@starbeam/peer": "^1.0.1"
   }
 }
