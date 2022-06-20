@@ -12,7 +12,8 @@ import { snippetPlugin } from "./plugins/snippet";
 
 export default defineUserConfig({
   lang: "en-US",
-  title: "Starbeam Documentation",
+  title: "Starbeam",
+  description: "Reactivity Made Simple and Fun ✨",
   base: "/docs/",
 
   head: [
@@ -60,7 +61,6 @@ export default defineUserConfig({
           "/frameworks/ember/README.md",
         ],
       },
-      "/demos/README.md",
       "/details/README.md",
     ],
     sidebar: {

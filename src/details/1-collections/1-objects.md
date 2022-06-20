@@ -25,7 +25,7 @@ The `has` operation occurs when property membership is **checked**:
 1. Using `Reflect.has`
 2. Using `in`
 
-| Reflect Operation                |
+| Spec Operation                   |
 | -------------------------------- |
 | [`[[HasProperty]]`][hasproperty] |
 

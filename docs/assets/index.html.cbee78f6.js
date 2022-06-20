@@ -1,1 +1,0 @@
-import{_ as a,o as r,c as t,a as e,b as o}from"./app.590b66e2.js";const s={},c=e("h1",{id:"frameworks",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#frameworks","aria-hidden":"true"},"#"),o(" Frameworks")],-1),n=[c];function _(d,i){return r(),t("div",null,n)}var h=a(s,[["render",_],["__file","index.html.vue"]]);export{h as default};
