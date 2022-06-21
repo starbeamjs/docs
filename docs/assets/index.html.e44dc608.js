@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-53e6c331","path":"/starbeamx/","title":"@starbeamx","lang":"en-US","frontmatter":{"dir":{"text":"@starbeamx","link":false},"text":"Starbeam Extensions"},"excerpt":"","headers":[],"git":{"createdTime":null,"updatedTime":null,"contributors":[]},"readingTime":{"minutes":0.25,"words":74},"filePathRelative":"starbeamx/README.md"}');export{e as data};

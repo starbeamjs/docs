@@ -14,7 +14,7 @@ export default defineUserConfig({
   lang: "en-US",
   title: "Starbeam",
   description: "Reactivity Made Simple and Fun ✨",
-  base: "/docs/",
+  base: "/",
 
   head: [
     font("Readex Pro", { weight: "160..700" }),
@@ -62,6 +62,7 @@ export default defineUserConfig({
         ],
       },
       "/details/README.md",
+      "/starbeamx/README.md",
     ],
     sidebar: {
       "/guides/": "structure",
