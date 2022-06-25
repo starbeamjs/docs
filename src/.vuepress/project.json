@@ -1,0 +1,31 @@
+{
+  "$schema": "./config/project.schema.json",
+  "nav": [
+    "/guides/",
+    "/api/",
+    {
+      "text": "Frameworks",
+      "icon": "style",
+      "children": [
+        {
+          "text": "React",
+          "link": "/frameworks/react/1-getting-started"
+        },
+        "/frameworks/svelte/",
+        "/frameworks/vue/",
+        "/frameworks/ember/",
+        "/frameworks/renderer/"
+      ]
+    },
+    "/details/"
+  ],
+  "sidebar": [
+    "/guides",
+    "/api",
+    {
+      "/frameworks": ["react", "svelte", "vue", "ember"]
+    },
+    "/demos",
+    "/details"
+  ]
+}

@@ -9,6 +9,13 @@ import { containers } from "./plugins/containers";
 import { deps } from "./plugins/flowchart";
 import { fences } from "./plugins/fences";
 import { snippetPlugin } from "./plugins/snippet";
+import project from "./project.json" assert { type: "json" };
+import { Nav } from "./config/nav";
+import { vite } from "./config/vite";
+import { sidebarFrom } from "./config/sidebar";
+
+const navbar = Nav.fromJSON(project.nav).toConfig();
+const sidebar = sidebarFrom(project.sidebar);
 
 export default defineUserConfig({
   lang: "en-US",
@@ -33,47 +40,11 @@ export default defineUserConfig({
     importCode: false,
   },
 
-  bundler: viteBundler({
-    viteOptions: {
-      build: {
-        target: "esnext",
-      },
-      esbuild: {
-        target: "node18",
-      },
-    },
-  }),
+  bundler: vite,
 
   theme: hopeTheme({
-    navbar: [
-      "/guides/README.md",
-      "/api/README.md",
-      {
-        text: "Frameworks",
-        icon: "style",
-        children: [
-          {
-            text: "React",
-            link: "/frameworks/react/1-getting-started.md",
-          },
-          "/frameworks/svelte/README.md",
-          "/frameworks/vue/README.md",
-          "/frameworks/ember/README.md",
-        ],
-      },
-      "/details/README.md",
-      "/starbeamx/README.md",
-    ],
-    sidebar: {
-      "/guides/": "structure",
-      "/api/": "structure",
-      "/frameworks/react/": "structure",
-      "/frameworks/svelte/": "structure",
-      "/frameworks/vue/": "structure",
-      "/frameworks/ember/": "structure",
-      "/demos/": "structure",
-      "/details/": "structure",
-    },
+    navbar,
+    sidebar,
     headerDepth: 1,
     iconAssets: "iconfont",
     plugins: {
