@@ -14,12 +14,14 @@ import project from "./project.json" assert { type: "json" };
 const navbar = Nav.fromJSON(project.nav).toConfig();
 const sidebar = sidebarFrom(project.sidebar);
 const mdEnhance = buildMdEnhance(project.markdown);
+const base =
+  (project.base as "/" | `/${string}/` | undefined) ?? "/";
 
 export default defineUserConfig({
-  lang: "en-US",
-  title: "Starbeam",
-  description: "Reactivity Made Simple and Fun ✨",
-  base: "/",
+  lang: project.lang,
+  title: project.title,
+  description: project.description,
+  base,
 
   head: [
     font("Readex Pro", { weight: "160..700" }),

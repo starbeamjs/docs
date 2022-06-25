@@ -1,5 +1,10 @@
 {
   "$schema": "./config/project.schema.json",
+  "lang": "en-US",
+  "title": "Starbeam",
+  "description": "Reactivity Made Simple and Fun ✨",
+  "base": "/",
+
   "nav": [
     "/guides/",
     "/api/",
