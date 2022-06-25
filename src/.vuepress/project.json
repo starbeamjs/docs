@@ -27,5 +27,24 @@
     },
     "/demos",
     "/details"
-  ]
+  ],
+  "markdown": {
+    "features": [
+      "gfm",
+      "container",
+      "sup",
+      "sub",
+      "footnote",
+      "flowchart",
+      "mark",
+      "imageMark",
+      "tabs",
+      "codetabs",
+      "mermaid",
+      "vpre"
+    ],
+    "linkCheck": "always",
+    "attrs": true,
+    "taskList": true
+  }
 }

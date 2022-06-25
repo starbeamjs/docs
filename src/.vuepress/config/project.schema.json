@@ -60,6 +60,7 @@
       ]
     }
   },
+  "required": ["nav", "sidebar"],
   "properties": {
     "nav": {
       "type": "array",
@@ -82,6 +83,83 @@
           }
         ]
       }
+    },
+    "markdown": {
+      "oneOf": [
+        {
+          "enum": ["all"]
+        },
+        {
+          "type": "object",
+          "required": ["features"],
+          "properties": {
+            "features": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "gfm",
+                  "container",
+                  "vpre",
+                  "tabs",
+                  "codetabs",
+                  "align",
+                  "sup",
+                  "sub",
+                  "footnote",
+                  "imageMark",
+                  "lazyLoad",
+                  "mark",
+                  "chart",
+                  "echarts",
+                  "flowchart",
+                  "mermaid"
+                ]
+              }
+            },
+            "linkCheck": {
+              "enum": ["always", "dev", "build", "never"]
+            },
+            "attrs": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "left": {
+                      "type": "string"
+                    },
+                    "right": {
+                      "type": "string"
+                    },
+                    "allowed": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "taskList": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "array",
+                  "description": "disabled disables the checkbox, enabled enables the checkbox, label wraps the text in a <label>",
+                  "items": {
+                    "enum": ["disabled", "label"]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
   }
 }

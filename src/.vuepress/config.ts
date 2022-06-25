@@ -1,21 +1,19 @@
 import { searchPlugin } from "@vuepress/plugin-search";
-import {
-  defineUserConfig,
-  HeadConfig,
-  viteBundler,
-} from "vuepress";
+import { defineUserConfig, HeadConfig } from "vuepress";
 import { hopeTheme } from "vuepress-theme-hope";
+import { buildMdEnhance } from "./config/markdown";
+import { Nav } from "./config/nav";
+import { sidebarFrom } from "./config/sidebar";
+import { vite } from "./config/vite";
 import { containers } from "./plugins/containers";
-import { deps } from "./plugins/flowchart";
 import { fences } from "./plugins/fences";
+import { deps } from "./plugins/flowchart";
 import { snippetPlugin } from "./plugins/snippet";
 import project from "./project.json" assert { type: "json" };
-import { Nav } from "./config/nav";
-import { vite } from "./config/vite";
-import { sidebarFrom } from "./config/sidebar";
 
 const navbar = Nav.fromJSON(project.nav).toConfig();
 const sidebar = sidebarFrom(project.sidebar);
+const mdEnhance = buildMdEnhance(project.markdown);
 
 export default defineUserConfig({
   lang: "en-US",
@@ -49,23 +47,7 @@ export default defineUserConfig({
     iconAssets: "iconfont",
     plugins: {
       components: ["StackBlitz"],
-      mdEnhance: {
-        gfm: true,
-        container: true,
-        sup: true,
-        sub: true,
-        footnote: true,
-        tex: true,
-        flowchart: true,
-        stylize: [],
-        mark: true,
-        imageMark: true,
-        tabs: true,
-        codetabs: true,
-        mermaid: true,
-        vpre: true,
-        demo: true,
-      },
+      mdEnhance,
     },
   }),
 
