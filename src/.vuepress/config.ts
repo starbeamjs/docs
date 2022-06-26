@@ -1,20 +1,33 @@
 import { searchPlugin } from "@vuepress/plugin-search";
-import {
-  defineUserConfig,
-  HeadConfig,
-  viteBundler,
-} from "vuepress";
+import { defineUserConfig, HeadConfig } from "vuepress";
 import { hopeTheme } from "vuepress-theme-hope";
+import { buildMdEnhance } from "./config/markdown";
+import { Nav } from "./config/nav";
+import { sidebarFrom } from "./config/sidebar";
+import { vite } from "./config/vite";
 import { containers } from "./plugins/containers";
-import { deps } from "./plugins/flowchart";
 import { fences } from "./plugins/fences";
+import { deps } from "./plugins/flowchart";
 import { snippetPlugin } from "./plugins/snippet";
+import project from "./project.json" assert { type: "json" };
+
+export type Flags = {
+  [key: string]: "disabled" | "ready" | "enabled";
+};
+
+const navbar = Nav.fromJSON(project.nav).toConfig(
+  project.flags as Flags
+);
+const sidebar = sidebarFrom(project.sidebar);
+const mdEnhance = buildMdEnhance(project.markdown);
+const base =
+  (project.base as "/" | `/${string}/` | undefined) ?? "/";
 
 export default defineUserConfig({
-  lang: "en-US",
-  title: "Starbeam",
-  description: "Reactivity Made Simple and Fun ✨",
-  base: "/",
+  lang: project.lang,
+  title: project.title,
+  description: project.description,
+  base,
 
   head: [
     font("Readex Pro", { weight: "160..700" }),
@@ -33,68 +46,16 @@ export default defineUserConfig({
     importCode: false,
   },
 
-  bundler: viteBundler({
-    viteOptions: {
-      build: {
-        target: "esnext",
-      },
-      esbuild: {
-        target: "node18",
-      },
-    },
-  }),
+  bundler: vite,
 
   theme: hopeTheme({
-    navbar: [
-      "/guides/README.md",
-      "/api/README.md",
-      {
-        text: "Frameworks",
-        icon: "style",
-        children: [
-          {
-            text: "React",
-            link: "/frameworks/react/1-getting-started.md",
-          },
-          "/frameworks/svelte/README.md",
-          "/frameworks/vue/README.md",
-          "/frameworks/ember/README.md",
-        ],
-      },
-      "/details/README.md",
-      "/starbeamx/README.md",
-    ],
-    sidebar: {
-      "/guides/": "structure",
-      "/api/": "structure",
-      "/frameworks/react/": "structure",
-      "/frameworks/svelte/": "structure",
-      "/frameworks/vue/": "structure",
-      "/frameworks/ember/": "structure",
-      "/demos/": "structure",
-      "/details/": "structure",
-    },
+    navbar,
+    sidebar,
     headerDepth: 1,
     iconAssets: "iconfont",
     plugins: {
       components: ["StackBlitz"],
-      mdEnhance: {
-        gfm: true,
-        container: true,
-        sup: true,
-        sub: true,
-        footnote: true,
-        tex: true,
-        flowchart: true,
-        stylize: [],
-        mark: true,
-        imageMark: true,
-        tabs: true,
-        codetabs: true,
-        mermaid: true,
-        vpre: true,
-        demo: true,
-      },
+      mdEnhance,
     },
   }),
 
