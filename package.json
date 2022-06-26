@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "docs:build": "vuepress build src -d docs",
+    "docs:build:preview": "serve docs",
     "docs:clean-dev": "vuepress dev src --clean-cache",
     "docs:dev": "vuepress dev src"
   },
@@ -37,6 +38,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remove-types": "^1.0.0",
+    "serve": "^13.0.2",
     "typescript": "4.8.0-dev.20220613",
     "vite": "^2.9.12",
     "vitest": "^0.15.1",
