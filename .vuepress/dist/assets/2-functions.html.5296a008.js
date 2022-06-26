@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-587ad40b","path":"/src/guides/2-fundamentals/2-functions.html","title":"Functions","lang":"en-US","frontmatter":{"order":2},"excerpt":"","headers":[],"git":{"updatedTime":1655534445000,"contributors":[{"name":"Yehuda Katz","email":"wycats@gmail.com","commits":1}]},"filePathRelative":"src/guides/2-fundamentals/2-functions.md"}');export{t as data};

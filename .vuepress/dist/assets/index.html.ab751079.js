@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-5cb4cbe1","path":"/src/guides/5-advanced/","title":"Advanced","lang":"en-US","frontmatter":{"dir":{"order":5},"index":false},"excerpt":"","headers":[],"git":{"updatedTime":1655534445000,"contributors":[{"name":"Yehuda Katz","email":"wycats@gmail.com","commits":1}]},"filePathRelative":"src/guides/5-advanced/README.md"}');export{e as data};
