@@ -46,7 +46,13 @@
     "/guides",
     "/api",
     {
-      "/frameworks": ["react", "svelte", "vue", "ember"]
+      "/frameworks": [
+        "react",
+        "svelte",
+        "vue",
+        "ember",
+        "renderer"
+      ]
     },
     "/demos",
     "/details"
