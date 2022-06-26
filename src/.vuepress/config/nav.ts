@@ -1,23 +1,28 @@
+/// <reference path="../env.d.ts" />
+
 import {
   AutoLink,
   HopeThemeNavbarConfig,
   HopeThemeNavbarGroup,
   HopeThemeNavbarItem,
 } from "vuepress-theme-hope";
-
-type NavItem = string | NavEntryJSON;
+import { Flags } from "../config";
+import { inspect } from "util";
+import { isDev, isProd } from "./env";
 
 type NavJSON = NavChildJSON[];
 
 interface NavEntryJSON {
-  text: string;
+  text?: string;
   link: string;
+  flag?: string;
   activeWhen?: string;
   icon?: string;
 }
 
 interface NavGroupJSON {
   text: string;
+  flag?: string;
   icon?: string;
   link?: string;
   prefix?: string;
@@ -26,10 +31,6 @@ interface NavGroupJSON {
 
 type NavChildJSON = string | NavEntryJSON | NavGroupJSON;
 type NavChild = NavLink | NavAutoLink | NavGroup;
-
-interface ProjectJSON {
-  nav: NavItem[];
-}
 
 export class Nav {
   static fromJSON(json: NavJSON) {
@@ -40,9 +41,26 @@ export class Nav {
 
   constructor(readonly entries: NavChild[]) {}
 
-  toConfig(): HopeThemeNavbarConfig {
-    return this.entries.map((entry) => entry.toConfig());
+  toConfig(flags: Flags): HopeThemeNavbarConfig {
+    return navList(this.entries, flags);
   }
+}
+
+function navList(
+  children: NavChild[],
+  flags: Flags
+): HopeThemeNavbarConfig {
+  return children.flatMap((entry) => {
+    if (
+      entry.flag &&
+      flags[entry.flag] !== "enabled" &&
+      isProd()
+    ) {
+      return [];
+    } else {
+      return [entry.toConfig(flags)];
+    }
+  });
 }
 
 export abstract class NavEntry {
@@ -56,70 +74,124 @@ export abstract class NavEntry {
         {
           icon: json.icon,
           link: json.link,
+          flag: json.flag,
           prefix: json.prefix,
         }
       );
     } else {
-      return new NavLink(json.text, json.link);
+      return new NavLink(json.link, {
+        text: json.text,
+        flag: json.flag,
+        activeWhen: json.activeWhen,
+        icon: json.icon,
+      });
     }
   }
 
-  readonly text: string;
+  readonly text?: string;
   readonly icon?: string;
   readonly ariaLabel?: string;
+  readonly flag?: string;
 
   constructor(
-    text: string,
     options: {
+      text?: string;
       activeWhen?: string;
+      flag?: string;
       ariaLabel?: string;
       icon?: string;
     } = {}
   ) {
-    this.text = text;
+    this.text = options.text;
     this.ariaLabel = options.ariaLabel;
     this.icon = options.icon;
+    this.flag = options.flag;
   }
 
-  abstract toConfig():
+  /**
+   * Convert to config object.
+   *
+   * @param flags A list of enabled flags
+   */
+  abstract toConfig(
+    flags: Flags
+  ):
     | HopeThemeNavbarGroup
     | HopeThemeNavbarItem
-    | string;
+    | string
+    | undefined;
 }
 
-export class NavAutoLink extends NavEntry {
-  readonly url: string;
+export class NavAutoLink {
+  readonly flag = undefined;
 
-  toConfig(): string {
-    return this.text;
+  constructor(readonly url: string) {}
+
+  toConfig(flags: Flags): string {
+    return this.url;
   }
 }
 
 export class NavLink extends NavEntry {
-  readonly link: string;
   readonly activeWhen?: string;
+  readonly flag?: string;
 
   constructor(
-    text: string,
-    link: string,
+    readonly link: string,
     options: {
+      text?: string;
       activeWhen?: string;
       icon?: string;
+      flag?: string;
     } = {}
   ) {
-    super(text, options);
-    this.link = link;
+    super(options);
     this.activeWhen = options.activeWhen;
+    this.flag = options.flag;
   }
 
-  toConfig(): AutoLink {
-    return {
-      text: this.text,
-      link: urlFor(this.link),
-      icon: this.icon,
-      ariaLabel: this.ariaLabel,
-      activeMatch: this.activeWhen,
-    };
+  toConfig(flags: Flags): AutoLink | string {
+    if (
+      !this.text &&
+      !this.activeWhen &&
+      !this.icon &&
+      !this.ariaLabel
+    ) {
+      if (isDevPreview(flags, this.flag)) {
+        return {
+          icon: "preview",
+          text: `${this.text} (🧪)`,
+          link: this.link,
+        };
+      }
+      return this.link;
+    }
+
+    if (this.text === undefined) {
+      throw Error(
+        `NavLink with link ${
+          this.link
+        } has no text (${inspect(this)})`
+      );
+    }
+
+    if (isDevPreview(flags, this.flag)) {
+      return {
+        text: this.text,
+        link: urlFor(this.link),
+        icon: "preview",
+        ariaLabel: this.ariaLabel,
+        activeMatch: this.activeWhen,
+      };
+    } else {
+      return {
+        text: this.text,
+        link: urlFor(this.link),
+        icon: this.icon,
+        ariaLabel: this.ariaLabel,
+        activeMatch: this.activeWhen,
+      };
+    }
   }
 }
 
@@ -127,34 +199,32 @@ export class NavGroup extends NavEntry {
   readonly prefix?: string;
   readonly link?: string;
   readonly ariaLabel?: string;
-  readonly children: NavChild[];
 
   constructor(
-    text: string,
-    children: NavChild[],
+    readonly text: string,
+    readonly children: NavChild[],
     options: {
       icon?: string;
+      flag?: string;
       link?: string;
       ariaLabel?: string;
       prefix?: string;
     } = {}
   ) {
-    super(text, options);
+    super(options);
     this.children = children;
     this.prefix = options.prefix;
     this.link = options.link;
     this.ariaLabel = options.ariaLabel;
   }
 
-  toConfig(): HopeThemeNavbarGroup {
+  toConfig(flags: Flags): HopeThemeNavbarGroup {
     return {
       text: this.text,
       icon: this.icon,
       link: this.prefix,
       ariaLabel: this.ariaLabel,
-      children: this.children.map((child) =>
-        child.toConfig()
-      ),
+      children: navList(this.children, flags),
     };
   }
 }
@@ -169,4 +239,11 @@ function urlFor(link: string) {
   } else {
     return `${link}.md`;
   }
+}
+
+function isDevPreview(
+  flags: Flags,
+  flag: string | undefined
+) {
+  return flag && flags[flag] !== "enabled" && isDev();
 }

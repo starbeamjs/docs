@@ -5,7 +5,7 @@
     "navItem": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["link", "text"],
+      "required": ["link"],
       "properties": {
         "link": {
           "type": "string"
@@ -14,6 +14,9 @@
           "type": "string"
         },
         "icon": {
+          "type": "string"
+        },
+        "flag": {
           "type": "string"
         }
       }
@@ -27,6 +30,9 @@
           "type": "string"
         },
         "icon": {
+          "type": "string"
+        },
+        "flag": {
           "type": "string"
         },
         "prefix": {
@@ -80,6 +86,12 @@
       "description": "The base path for the site (must start and end with `/`)",
       "format": "uri-reference",
       "pattern": "^/$|^/.*/$"
+    },
+    "flags": {
+      "type": "object",
+      "additionalProperties": {
+        "enum": ["disabled", "ready", "enabled"]
+      }
     },
     "nav": {
       "type": "array",

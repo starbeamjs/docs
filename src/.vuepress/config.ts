@@ -11,7 +11,13 @@ import { deps } from "./plugins/flowchart";
 import { snippetPlugin } from "./plugins/snippet";
 import project from "./project.json" assert { type: "json" };
 
-const navbar = Nav.fromJSON(project.nav).toConfig();
+export type Flags = {
+  [key: string]: "disabled" | "ready" | "enabled";
+};
+
+const navbar = Nav.fromJSON(project.nav).toConfig(
+  project.flags as Flags
+);
 const sidebar = sidebarFrom(project.sidebar);
 const mdEnhance = buildMdEnhance(project.markdown);
 const base =
