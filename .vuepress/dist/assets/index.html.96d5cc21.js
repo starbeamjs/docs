@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-7ce49fbe","path":"/src/frameworks/svelte/","title":"Svelte","lang":"en-US","frontmatter":{"index":false,"dir":{"title":"Svelte"}},"excerpt":"","headers":[],"git":{"updatedTime":1655725818000,"contributors":[{"name":"Yehuda Katz","email":"wycats@gmail.com","commits":3}]},"filePathRelative":"src/frameworks/svelte/README.md"}');export{e as data};

@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-b4ab0e54","path":"/src/frameworks/","title":"Frameworks","lang":"en-US","frontmatter":{"dir":{"title":"Frameworks"}},"excerpt":"","headers":[],"git":{"updatedTime":1655590181000,"contributors":[{"name":"Yehuda Katz","email":"wycats@gmail.com","commits":2}]},"filePathRelative":"src/frameworks/README.md"}');export{e as data};

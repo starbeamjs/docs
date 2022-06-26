@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-744ccd44","path":"/src/","title":"","lang":"en-US","frontmatter":{"home":true,"dir":{"title":"Starbeam"}},"excerpt":"","headers":[],"git":{"updatedTime":1655725818000,"contributors":[{"name":"Yehuda Katz","email":"wycats@gmail.com","commits":2}]},"filePathRelative":"src/README.md"}');export{t as data};

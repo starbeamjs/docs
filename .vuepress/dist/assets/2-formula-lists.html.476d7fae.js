@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-dd156d46","path":"/src/guides/6-optimization/2-formula-lists.html","title":"Formula Lists","lang":"en-US","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1655534445000,"contributors":[{"name":"Yehuda Katz","email":"wycats@gmail.com","commits":1}]},"filePathRelative":"src/guides/6-optimization/2-formula-lists.md"}');export{t as data};
