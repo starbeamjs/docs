@@ -176,7 +176,6 @@ A promise that resolves after the next render completes.
 /**
  * @returns {"Promise<void>"} A promise that resolves after the next render completes.
  */
- */
 function nextIdle() {}
 ```
 
