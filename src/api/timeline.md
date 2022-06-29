@@ -172,17 +172,13 @@ function render(input, render, description) {}
 
 A promise that resolves after the next render completes.
 
-```ts
-function nextIdle(): Promise<void>;
+```ts:signature
+/**
+ * @returns {"Promise<void>"} A promise that resolves after the next render completes.
+ */
+ */
+function nextIdle() {}
 ```
-
-<dl class="signature">
-  <dt>returns</dt>
-  <dd>
-    <code>Promise&lt;void&gt;</code>
-    <span>A promise that resolves after the next render completes.</span>
-  </dd>
-</dl>
 
 :::
 
