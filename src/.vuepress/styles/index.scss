@@ -1,3 +1,5 @@
+@import "./flowcharts.scss";
+
 // light mode
 @media (prefers-color-scheme: light) {
   :root {
@@ -211,5 +213,43 @@ div.ext-error {
 
   & > ol {
     margin: 0;
+  }
+}
+
+dl {
+  dt {
+    font-family: "Baloo 2", sans-serif;
+    font-style: italic;
+
+    code {
+      font-style: normal;
+    }
+  }
+
+  &.properties {
+    dt code {
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  dd {
+    display: grid;
+
+    span {
+      font-family: "Baloo 2", sans-serif;
+    }
+  }
+}
+
+div.api {
+  padding-inline: 1rem;
+  padding-block-start: 0.5rem;
+  border: 1px solid var(--info-border-color);
+  background-color: var(--info-bg-color);
+  border-radius: 0.5rem;
+
+  & + div.api {
+    margin-block-start: 1rem;
   }
 }

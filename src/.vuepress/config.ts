@@ -7,7 +7,7 @@ import { sidebarFrom } from "./config/sidebar";
 import { vite } from "./config/vite";
 import { containers } from "./plugins/containers";
 import { fences } from "./plugins/fences";
-import { deps } from "./plugins/flowchart";
+import { flowchart } from "./plugins/flowchart";
 import { snippetPlugin } from "./plugins/snippet";
 import project from "./project.json" assert { type: "json" };
 
@@ -39,11 +39,14 @@ export default defineUserConfig({
   extendsMarkdown: (md, app) => {
     md.use(snippetPlugin(app));
     md.use(containers);
-    md.use(deps);
+    md.use(flowchart);
     md.use(fences);
   },
   markdown: {
     importCode: false,
+    extractHeaders: {
+      level: [2, 3, 4, 5, 6],
+    },
   },
 
   bundler: vite,
@@ -82,7 +85,7 @@ function font(
       href: `https://fonts.googleapis.com/css2?family=${family.replaceAll(
         " ",
         "+"
-      )}:wght@${weight}&display=swap`,
+      )}:wght@${weight}&display=block`,
     },
   ];
 }

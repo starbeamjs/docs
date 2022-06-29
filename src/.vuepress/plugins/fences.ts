@@ -2,6 +2,10 @@ import { hash } from "@vuepress/utils";
 import type { PluginSimple } from "markdown-it";
 import MarkdownIt from "markdown-it";
 import type { default as Token } from "markdown-it/lib/token";
+import { signature } from "./fences/signature";
+
+const dir = __dirname;
+// const dir = dirname(fileURLToPath(import.meta.url));
 
 const npmRender = (
   md: MarkdownIt,
@@ -105,4 +109,5 @@ export const stackblitz: PluginSimple = (md) => {
 export const fences = (md: MarkdownIt) => {
   md.use(npm);
   md.use(stackblitz);
+  md.use(signature);
 };

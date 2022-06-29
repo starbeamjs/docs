@@ -1,6 +1,6 @@
 import { Reactive } from "@starbeam/core";
 import { Cell } from "@starbeam/core";
-import { TIMELINE } from "@starbeam/core";
+import { Renderer } from "@starbeam/core";
 
 class VanillaComponent {}
 

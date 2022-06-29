@@ -1,9 +1,23 @@
+---
+index: false
+dir:
+  title: API Docs
+title: API Docs
+---
+
 # API Docs
 
-::: warning
+::: warning This section is under active development
 
-This section has not yet been written.
+At the moment, only the [@starbeam/timeline] docs are complete.
 
-It is a high priority and should be ready soon.
+Completing the remaining docs is a high priority and should be done soon.
 
 :::
+
+[@starbeam/timeline]: ./timeline.md
+
+- [@starbeam/timeline]: The core infrastructure of Starbeam, including the rendering process and the
+  lifetime linking machinery used by [resources].
+
+[resources]: ../guides/2-fundamentals/4-resources.md

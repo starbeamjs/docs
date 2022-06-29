@@ -23,8 +23,16 @@ export const algorithm: PluginSimple = (md) =>
     closeRender: () => "</div>\n",
   });
 
+export const api: PluginSimple = (md) =>
+  container(md, {
+    name: "api",
+    openRender: () => "<div class='api'>\n",
+    closeRender: () => "</div>\n",
+  });
+
 export const containers: PluginSimple = (md) => {
   md.use(blockEmphasis);
   md.use(lightBulb);
   md.use(algorithm);
+  md.use(api);
 };
