@@ -58,5 +58,10 @@
     "@starbeam/js": "link:../starbeam/packages/js",
     "@starbeam/peer": "link:../starbeam/packages/peer",
     "@starbeam/use-resource": "link:../starbeam/framework/react/use-resource"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowAny": ["typescript"]
+    }
   }
 }
