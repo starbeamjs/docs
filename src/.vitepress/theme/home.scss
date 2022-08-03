@@ -1,0 +1,22 @@
+@use "sass:color";
+@use "sass:list";
+@use "./config.scss";
+
+.VPHome {
+  .VPHero {
+    font-family: var(--starbeam-font-family-fancy);
+  }
+
+  .VPFeatures > .container > .items {
+    display: grid;
+    grid-template: "a b c" auto "d d d" auto / 1fr 1fr 1fr;
+
+    > .item {
+      width: initial;
+
+      :nth-child(4) {
+        grid-column: 1 / span 3;
+      }
+    }
+  }
+}

@@ -12,16 +12,12 @@ export class People {
 
   byLocation(location: string) {
     // #highlight:next
-    return this.#people.filter(
-      (person) => person.location === location
-    );
+    return this.#people.filter((person) => person.location === location);
   }
 
   update(name: string, location: string) {
     // #highlight:next
-    const index = this.#people.findIndex(
-      (person) => person.name === name
-    );
+    const index = this.#people.findIndex((person) => person.name === name);
 
     if (index !== -1) {
       // #highlight:next

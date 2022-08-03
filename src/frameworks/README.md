@@ -1,6 +1,0 @@
----
-dir:
-  title: Frameworks
----
-
-# Frameworks

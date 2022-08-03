@@ -1,6 +1,0 @@
----
-dir:
-  title: Demos
----
-
-# Demos

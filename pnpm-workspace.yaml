@@ -1,5 +1,3 @@
-packages:
-  - .
-  - ./starbeam/packages/*
-  - ./starbeam/framework/*/*
-  - ./src/frameworks/*
+- .
+- ./types/@types/*
+- ./src/frameworks/react

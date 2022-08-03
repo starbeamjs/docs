@@ -1,0 +1,293 @@
+@use "./reset.scss";
+@use "./flowcharts.scss";
+@use "./code.scss";
+@use "./containers.scss";
+@use "./home.scss";
+
+:root {
+  --vp-font-family-base: "Readex Pro", sans-serif;
+  --vp-font-family-base-mono: "Azeret Mono", monospace;
+  --starbeam-font-family-fancy: "Comfortaa", sans-serif;
+
+  --vp-c-brand: hsl(
+    var(--starbeam-color-hue),
+    var(--starbeam-color-saturation),
+    var(--starbeam-color-lightness-normal)
+  );
+  --vp-c-brand-light: hsl(
+    var(--starbeam-color-hue),
+    var(--starbeam-color-saturation),
+    var(--starbeam-color-lightness-light)
+  );
+
+  --theme-color: var(--vp-c-brand);
+
+  --starbeam-color-hue: 190;
+  --starbeam-color-saturation: 50%;
+  --starbeam-color-lightness-normal: 50%;
+  --starbeam-color-lightness-light: 70%;
+  --starbeam-color-lightness-dark: 30%;
+
+  // this value is hardcoded in the default theme
+  --starbeam-radius: 8px;
+  --starbeam-radius-sm: 4px;
+}
+
+// light mode
+@media (prefers-color-scheme: light) {
+  :root {
+    --invalid-color-bg: hsl(0, 100%, 70%);
+    --invalid-color-fg: hsl(0, 100%, 20%);
+    --inactive-color-bg: hsl(0, 0%, 90%);
+    --inactive-color-fg: hsl(0, 0%, 50%);
+  }
+}
+
+// dark mode
+@media (prefers-color-scheme: dark) {
+  :root {
+    --invalid-color-bg: hsl(0, 100%, 40%);
+    --invalid-color-fg: hsl(0, 100%, 70%);
+    --inactive-color-bg: hsl(0, 0%, 20%);
+    --inactive-color-fg: hsl(0, 0%, 70%);
+  }
+}
+
+div.custom-container.info {
+  display: grid;
+  padding-block: 1rem;
+  row-gap: 0.5rem;
+
+  p,
+  p.custom-container-title,
+  p.custom-container-title::before {
+    margin-block: 0;
+    color: var(--info-border-color);
+    fill: var(--info-border-color);
+  }
+
+  p.custom-container-title::before {
+    filter: invert(100%) hue-rotate(195deg) brightness(80%);
+  }
+
+  p code {
+    background-color: hsl(195, 100%, 90%);
+    padding-inline: 0.2em;
+    padding-block: 0.1em;
+    border-radius: 0.2em;
+  }
+}
+
+p.custom-container-title {
+  display: grid;
+  align-items: center;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: bold;
+}
+
+p {
+  hyphens: manual !important;
+}
+
+div.theme-hope-content {
+  font-size: 1.25rem;
+
+  p {
+    text-align: start !important;
+  }
+}
+
+blockquote.em {
+  display: grid;
+  padding: 0.5em;
+  font-weight: bold;
+  font-size: 1.3em;
+  border: 0;
+  background-color: var(--bg-color-back);
+  border-color: var(--grey12);
+  border-style: solid;
+  border-inline-start-width: 0.1em;
+  border-radius: 0.5em;
+}
+
+blockquote.em p {
+  line-height: 1.3em;
+}
+
+blockquote.em::before {
+  content: "Key Point";
+  font-family: "Baloo 2", sans-serif;
+  font-weight: bold;
+  color: var(--theme-color);
+  font-size: 0.5em;
+  margin-block-end: 0.5em;
+}
+
+section.both-lang div[class*="language-"]::before {
+  content: "js";
+}
+
+g.invalidated {
+  rect {
+    fill: var(--invalid-color-bg) !important;
+  }
+
+  span {
+    color: var(--invalid-color-fg) !important;
+  }
+}
+
+g.inactive {
+  rect {
+    fill: var(--inactive-color-bg) !important;
+  }
+
+  span {
+    color: var(--inactive-color-fg) !important;
+  }
+}
+
+div.lightbulb {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
+  align-items: baseline;
+  border-bottom: 2px solid var(--grey12);
+  border-right: 2px solid var(--grey12);
+  border-radius: 0.5em;
+  padding-block-end: 0.4em;
+
+  &::before {
+    content: "💡";
+  }
+
+  p {
+    grid-column: 2;
+    margin: 0;
+  }
+}
+
+summary::marker {
+  color: var(--theme-color);
+  // font-size: 1.5em;
+  padding-inline-end: 2em;
+}
+
+@mixin marker {
+  font-family: var(--starbeam-font-family-fancy);
+  color: var(--vp-button-alt-text);
+  background-color: var(--vp-button-alt-bg);
+  font-size: 0.75em;
+  border-radius: 0.75em;
+  border: 1px solid var(--vp-button-alt-border);
+  padding-inline: 0.5em;
+  padding-block: 0.3em;
+}
+
+strong.marker {
+  @include marker;
+}
+
+div.ext-error {
+  background-color: var(--invalid-color-fg);
+
+  pre {
+    margin-inline-start: 0;
+  }
+
+  pre code {
+    color: var(--invalid-color-bg);
+    white-space: pre-line;
+    overflow-wrap: break-word;
+  }
+
+  div.line-numbers {
+    display: none;
+  }
+}
+
+.algorithm {
+  display: grid;
+  border: 1px solid var(--info-border-color);
+  padding: 0.5rem;
+  color: var(--info-border-color);
+  max-width: 40ch;
+
+  p {
+    font-size: 0.7em;
+    font-style: italic;
+  }
+
+  code {
+    background-color: var(--info-bg-color);
+  }
+
+  ul,
+  ol {
+    line-height: 1.5;
+  }
+
+  & > ol {
+    font-size: 0.8em;
+  }
+
+  &::before {
+    @include marker;
+    content: "Steps";
+    width: max-content;
+    margin-block-end: 0.5em;
+    background-color: var(--info-bg-color);
+    border-color: var(--info-border-color);
+  }
+
+  & > ol {
+    margin: 0;
+  }
+}
+
+dl {
+  dt {
+    font-family: "Baloo 2", sans-serif;
+    font-style: italic;
+
+    code {
+      font-style: normal;
+    }
+  }
+
+  &.properties {
+    dt code {
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+
+  dd {
+    display: grid;
+
+    span {
+      font-family: "Baloo 2", sans-serif;
+    }
+  }
+}
+
+div.api {
+  padding-inline: 1rem;
+  padding-block-start: 0.5rem;
+  border: 1px solid var(--info-border-color);
+  background-color: var(--info-bg-color);
+  border-radius: 0.5rem;
+
+  & + div.api {
+    margin-block-start: 1rem;
+  }
+}
+
+h2 + h3 {
+  margin-block-start: 1.5rem;
+}
+
+h3 + h4 {
+  margin-block-start: 1rem;
+}

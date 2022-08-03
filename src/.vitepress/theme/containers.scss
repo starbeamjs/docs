@@ -1,0 +1,13 @@
+.custom-block {
+  &.info {
+    > .custom-block-title {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: 0.2rem;
+
+      &::before {
+        content: "💁";
+      }
+    }
+  }
+}
