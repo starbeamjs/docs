@@ -1,0 +1,1 @@
+import{_ as e,o as s,c as a,a as t}from"./app.74eca79f.js";const v=JSON.parse('{"title":"Reactive Collections","description":"","frontmatter":{},"headers":[],"relativePath":"guides/collections.md"}'),n={name:"guides/collections.md"},l=t("",7),o=[l];function c(i,p,r,y,d,h){return s(),a("div",null,o)}var D=e(n,[["render",c]]);export{v as __pageData,D as default};
