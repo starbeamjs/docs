@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@starbeam/react": "^0.5.8",
+    "@starbeam/debug": "^0.5.8"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6"
+  }
+}

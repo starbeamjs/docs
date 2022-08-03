@@ -1,0 +1,19 @@
+.vp-doc .custom-block div[class*="language-"] code {
+  background: transparent;
+}
+
+.vp-doc [class*="language-"] > span.copy {
+  top: initial;
+  bottom: 8px;
+}
+
+.vp-doc p.toggler {
+  margin: 0;
+}
+
+.vp-doc .custom-block :not(pre) > code {
+  padding: 0;
+  font-family: var(--vp-font-family-base-mono);
+  color: var(--vp-custom-block-tip-text);
+  font-weight: 500;
+}

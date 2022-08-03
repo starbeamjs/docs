@@ -1,0 +1,55 @@
+{
+  "name": "starbeam-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docs:dev": "vitepress dev src",
+    "docs:build": "vitepress build src",
+    "docs:serve": "vitepress serve src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@starbeam/core": "^0.5.8",
+    "@starbeam/debug": "^0.5.8",
+    "@starbeam/js": "^0.5.8",
+    "@starbeam/react": "^0.5.8",
+    "@types/hash-sum": "^1.0.0",
+    "@types/jsdoc-api": "workspace:*",
+    "@types/markdown-it": "^12.2.3",
+    "@types/mermaid": "^8.2.9",
+    "@vue/runtime-dom": "^3.2.37",
+    "@vueuse/core": "^9.0.2",
+    "docs-snippet": "^1.0.1",
+    "hash-sum": "^2.0.0",
+    "jsdoc-api": "^7.1.1",
+    "markdown-it": "^13.0.1",
+    "mermaid": "^9.1.3",
+    "sass": "^1.54.0",
+    "typescript": "next",
+    "vite": "^2",
+    "vitepress": "1.0.0-alpha.4",
+    "vitest": "^0.20.2",
+    "vue": "^3.2.37",
+    "vue-client-only": "^2.1.0",
+    "vue-tsc": "^0.39.4",
+    "vuepress-plugin-md-enhance": "^2.0.0-beta.87"
+  },
+  "pnpm": {
+    "overrides": {},
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "18",
+        "react-dom": "18"
+      },
+      "ignoreMissing": [
+        "@types/react"
+      ]
+    }
+  },
+  "dependencies": {
+    "balloon-css": "^1.2.0"
+  }
+}

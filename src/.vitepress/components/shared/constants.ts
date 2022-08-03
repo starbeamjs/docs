@@ -1,0 +1,1 @@
+export const MARKDOWN_ENHANCE_DELAY = 500;
