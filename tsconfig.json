@@ -24,7 +24,8 @@
     "src/.vitepress/**/*.ts",
     "src/.vitepress/**/*.d.ts",
     "src/.vitepress/**/*.vue",
-    "src/vite.config.js"
+    "src/vite.config.js",
+    "test.mts"
   ],
   "references": [{ "path": "./src/frameworks/react/tsconfig.json" }]
 }

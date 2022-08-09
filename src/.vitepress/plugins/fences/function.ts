@@ -1,6 +1,7 @@
 import type { ExplainedFunction } from "jsdoc-api";
-import Token from "markdown-it/lib/token.js";
-import { RenderFence } from "./type";
+import type Token from "markdown-it/lib/token.js";
+import util from "node:util";
+import type { RenderFence } from "./type";
 
 export function FunctionSignature(
   signature: ExplainedFunction,
@@ -9,7 +10,7 @@ export function FunctionSignature(
   md: RenderFence
 ): string {
   const returnType = signature.returns
-    ? JSON.parse(signature.returns[0].type.names[0])
+    ? signature.returns[0].type.names[0]
     : "void";
 
   const body =

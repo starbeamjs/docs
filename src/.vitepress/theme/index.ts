@@ -12,7 +12,7 @@ import "./index.scss";
 
 export default {
   ...theme,
-  enhanceApp({ app }: { app: App }) {
+  async enhanceApp({ app }: { app: App }) {
     app.component("Code", Code);
     app.component("StackBlitz", StackBlitz);
     app.component("CodeDemo", CodeDemo);

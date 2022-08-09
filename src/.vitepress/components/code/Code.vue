@@ -26,7 +26,6 @@ class Lang {
     watch(
       () => this.store.value[LANG_KEY] as "ts" | "js" | undefined,
       (newValue) => {
-        console.log({ newValue });
         currentLang.value = newValue ?? DEFAULT_LANG;
       }
     );
@@ -54,13 +53,13 @@ onMounted(() => {
   const tsContainer = tsSection.querySelector("div[class^=language-]");
 
   addToggle(tsContainer, "typescript", () => {
-    STORAGE.lang = "ts";
+    STORAGE.lang = "js";
   });
 
   const jsContainer = jsSection.querySelector("div[class^=language-]");
 
   addToggle(jsContainer, "javascript", () => {
-    STORAGE.lang = "js";
+    STORAGE.lang = "ts";
   });
 });
 

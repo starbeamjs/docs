@@ -16,6 +16,7 @@
     "@starbeam/debug": "^0.5.8",
     "@starbeam/js": "^0.5.8",
     "@starbeam/react": "^0.5.8",
+    "@tuzig/toml": "3.0.0-browser",
     "@types/hash-sum": "^1.0.0",
     "@types/jsdoc-api": "workspace:*",
     "@types/markdown-it": "^12.2.3",
@@ -26,11 +27,15 @@
     "hash-sum": "^2.0.0",
     "jsdoc-api": "^7.1.1",
     "markdown-it": "^13.0.1",
+    "markdown-it-emoji": "^2.0.2",
+    "markdown-it-toc-done-right": "^4.2.0",
     "mermaid": "^9.1.3",
+    "prettier": "^2.7.1",
     "sass": "^1.54.0",
+    "shiki": "^0.10.1",
     "typescript": "next",
     "vite": "^2",
-    "vitepress": "1.0.0-alpha.4",
+    "vitepress": "^1.0.0-alpha.4",
     "vitest": "^0.20.2",
     "vue": "^3.2.37",
     "vue-client-only": "^2.1.0",
@@ -50,6 +55,7 @@
     }
   },
   "dependencies": {
-    "balloon-css": "^1.2.0"
+    "balloon-css": "^1.2.0",
+    "diacritics": "^1.3.0"
   }
 }

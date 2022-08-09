@@ -1,8 +1,7 @@
 import hash from "hash-sum";
+import type MarkdownIt from "markdown-it";
 import type { PluginSimple } from "markdown-it";
-import MarkdownIt from "markdown-it";
 import type { default as Token } from "markdown-it/lib/token";
-import { signature } from "./fences/signature";
 
 // declare const __dirname: string;
 const dir = __dirname;
@@ -100,5 +99,4 @@ export const stackblitz: PluginSimple = (md) => {
 export const fences = (md: MarkdownIt) => {
   md.use(npm);
   md.use(stackblitz);
-  md.use(signature);
 };

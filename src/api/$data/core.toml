@@ -1,0 +1,20 @@
+[[exports.Cell]]
+
+kind = "function"
+generics = ["T"]
+returns = ["Cell", "A cell with the given initial value"]
+params.value = ["T", "The initial value of the cell"]
+params.description = ["string?", "An optional description for the cell"]
+
+docs = """
+The `Cell` API is the fundamental storage building block of Starbeam.
+"""
+
+[exports.Cell.methods.update]
+
+kind = "function"
+params.updater = ["function", "The function to call to update the cell"]
+
+docs = """
+Update the value of the cell.
+"""
