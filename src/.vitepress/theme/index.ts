@@ -9,9 +9,11 @@ import StackBlitz from "../components/StackBlitz.vue";
 import CodeTabs from "../components/Tabs/CodeTabs.vue";
 import Tabs from "../components/Tabs/Tabs.vue";
 import "./index.scss";
+import Layout from "./Layout.vue";
 
 export default {
   ...theme,
+  Layout,
   async enhanceApp({ app }: { app: App }) {
     app.component("Code", Code);
     app.component("StackBlitz", StackBlitz);
