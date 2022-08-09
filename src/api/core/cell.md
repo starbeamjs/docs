@@ -1,4 +1,5 @@
 ---
+layout: doc
 Cell:
   kind: constructor-fn
   generics: ["T"]
@@ -9,26 +10,20 @@ Cell:
   docs:
     The `Cell` API is the fundamental storage building block of Starbeam.
   properties:
-    current:
-      kind: "rw"
-      type: "T"
+    current: ["T", "The current value of the cell"]
   methods:
     update:
-      kind: method
       params:
         updater: ["(prev: T) => T", "A function that takes the previous value of the cell and returns the new value"]
       returns: ["boolean", "true if the value changed, false otherwise"]
     set:
-      kind: method
       params:
         value: ["T", "The new value of the cell"]
       returns: ["boolean", "true if the value changed, false otherwise"]
+    freeze:
+      tag: "optimization"
+      docs:
+        The `freeze` method prevents the cell from updating. This allows for Starbeam's internals to avoid checking if the cell has changed when it's used in a formula.
 ---
-
-# @starbeam/core
-
-<script setup>
-  import Api from './$components/Api.vue';
-</script>
 
 <Api />

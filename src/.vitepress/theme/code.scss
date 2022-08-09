@@ -32,9 +32,16 @@
   --sb-hl-lightness: 75%;
 }
 
-.vp-doc {
+.VPDoc {
   .custom-block div[class*="language-"] code {
     background: transparent;
+  }
+
+  section.head-notes {
+    h1 {
+      border-block-start: 1px solid var(--vp-c-divider-light);
+      padding-top: 1rem;
+    }
   }
 
   [class*="language-"] > span.copy {
@@ -53,9 +60,28 @@
     font-weight: 500;
   }
 
+  section > section {
+    margin-block-start: 1rem;
+  }
+
   dl {
     code {
       background-color: var(--vp-code-block-bg);
+    }
+  }
+
+  :is(h2, h3, h4, h5, h6) {
+    span.starbeam-tag {
+      margin-inline-start: 1ch;
+      font-weight: 100;
+
+      &:before {
+        content: "(";
+      }
+
+      &:after {
+        content: ")";
+      }
     }
   }
 

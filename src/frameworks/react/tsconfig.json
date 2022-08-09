@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "composite": true,
+    "outDir": "dist",
     "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "jsx": "react-jsx" /* Specify what JSX code is generated. */,
     "module": "NodeNext" /* Specify what module code is generated. */,
     "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "resolveJsonModule": true /* Enable importing .json files. */,
-    "noEmit": true /* Disable emitting files from a compilation. */,
     "importsNotUsedAsValues": "error" /* Specify emit/checking behavior for imports that are only used for types. */,
     "isolatedModules": true /* Ensure that each file can be safely transpiled without relying on other imports. */,
     "allowSyntheticDefaultImports": true /* Allow 'import x from y' when a module doesn't have a default export. */,

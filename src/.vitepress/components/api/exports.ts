@@ -1,7 +1,11 @@
-import type {
+import {
+  NormalizedPropertyType,
+  normalizeProperty,
+  PropertyModifier,
   YamlConstructorFnExport,
   YamlExports,
   YamlFnExport,
+  YamlInterface,
   YamlMethod,
   YamlTypeWithDocs,
   YamlUtilFnExport,
@@ -22,6 +26,7 @@ export class Exports {
       groups.set(e.kind, group);
     }
     for (const [kind, group] of groups) {
+      console.log([kind, group]);
       yield [kind, group];
     }
   }
@@ -35,12 +40,15 @@ export class Exports {
         case "util-fn":
           yield new UtilFnExport(name, e);
           break;
+        case "interface":
+          yield new InterfaceExport(name, e);
+          break;
       }
     }
   }
 }
 
-export type Export = UtilFnExport | ConstructorFnExport;
+export type Export = UtilFnExport | ConstructorFnExport | InterfaceExport;
 
 export abstract class AbstractExport {
   constructor(readonly kind: string, readonly name: string) {}
@@ -65,7 +73,19 @@ export abstract class Fn extends AbstractExport {
     this.#fn = fn;
   }
 
+  get docs(): string | undefined {
+    return this.#fn.docs;
+  }
+
+  get notes(): string | undefined {
+    return this.#fn.notes;
+  }
+
   get params(): Param[] {
+    if (this.#fn.params === undefined) {
+      return [];
+    }
+
     const entries = Object.entries(this.#fn.params);
     const last = entries[entries.length - 1];
     const params = [];
@@ -85,6 +105,10 @@ export abstract class Fn extends AbstractExport {
 
     return new Type(["void"]);
   }
+
+  get tag(): "optimization" | void {
+    return this.#fn.tag;
+  }
 }
 
 export class UtilFnExport extends Fn {
@@ -99,6 +123,38 @@ export class UtilFnExport extends Fn {
   }
 }
 
+export class InterfaceExport extends AbstractExport {
+  declare readonly kind = "interface";
+
+  #export: YamlInterface;
+
+  constructor(name: string, e: YamlInterface) {
+    super("interface", name);
+    this.#export = e;
+  }
+
+  get hasMethods() {
+    return !!this.#export.methods;
+  }
+
+  get methods(): Method[] {
+    return Object.entries(this.#export.methods ?? {}).map(
+      ([name, e]) => new Method(name, e)
+    );
+  }
+
+  get hasProperties(): boolean {
+    return !!this.#export.properties;
+  }
+
+  get properties(): Property[] {
+    const entries = Object.entries(this.#export.properties ?? {});
+    return entries.map(
+      ([name, prop]) => new Property(this, name, normalizeProperty(prop))
+    );
+  }
+}
+
 export class ConstructorFnExport extends Fn {
   declare readonly kind = "constructor-fn";
   readonly prefix = "function ";
@@ -110,10 +166,59 @@ export class ConstructorFnExport extends Fn {
     this.#export = e;
   }
 
+  get hasMethods() {
+    return !!this.#export.methods;
+  }
+
   get methods(): Method[] {
     return Object.entries(this.#export.methods ?? {}).map(
       ([name, e]) => new Method(name, e)
     );
+  }
+
+  get hasProperties(): boolean {
+    return !!this.#export.properties;
+  }
+
+  get properties(): Property[] {
+    const entries = Object.entries(this.#export.properties ?? {});
+    return entries.map(
+      ([name, prop]) => new Property(this, name, normalizeProperty(prop))
+    );
+  }
+}
+
+export class Property {
+  #parent: ConstructorFnExport | InterfaceExport;
+  #property: NormalizedPropertyType;
+
+  constructor(
+    parent: ConstructorFnExport | InterfaceExport,
+    readonly name: string,
+    property: NormalizedPropertyType
+  ) {
+    this.#parent = parent;
+    this.#property = property;
+  }
+
+  get type() {
+    return new PropertyType(this.#property);
+  }
+
+  get docs() {
+    return this.#property.docs ? formatDocs(this.#property.docs) : undefined;
+  }
+
+  get slug() {
+    return `${this.#parent.slug}-${this.name}`;
+  }
+
+  get modifiers(): PropertyModifier[] | void {
+    return this.#property.modifiers;
+  }
+
+  get prefix(): string {
+    return this.#property.modifiers ? "readonly " : "";
   }
 }
 
@@ -168,6 +273,19 @@ export class Type {
       name,
       optional: isOptional,
     };
+  }
+}
+
+export class PropertyType extends Type {
+  #type: NormalizedPropertyType;
+
+  constructor(type: NormalizedPropertyType) {
+    super([type.name, type.docs]);
+    this.#type = type;
+  }
+
+  get modifiers(): PropertyModifier[] | undefined {
+    return this.#type.modifiers;
   }
 }
 

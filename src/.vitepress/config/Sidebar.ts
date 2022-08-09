@@ -29,9 +29,11 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
     ]),
   ],
   "/api/": [
-    group([
-      item("@starbeam/timeline", "/api/timeline.md"),
-      item("@starbeam/core", "/api/core.md"),
+    group("@starbeam/timeline", [item("index", "/api/timeline.md")]),
+    group("@starbeam/core", [
+      item("Cell", "/api/core/cell.md"),
+      item("Formula", "/api/core/formula.md"),
+      item("Resource", "/api/core/resource.md"),
     ]),
   ],
   "/frameworks/react/": [

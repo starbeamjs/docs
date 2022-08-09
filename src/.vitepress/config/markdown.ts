@@ -3,7 +3,7 @@ import {
   mark,
   mermaid,
   normalDemo,
-  tabs,
+  tabs
 } from "vuepress-plugin-md-enhance/lib/node/index.js";
 import { containers } from "../plugins/containers.js";
 import { fences } from "../plugins/fences.js";
@@ -26,6 +26,6 @@ export const MARKDOWN: Config["markdown"] = {
     md.use(headingPlugin);
   },
   toc: {
-    level: 4,
+    level: [2,3,4],
   },
 };
