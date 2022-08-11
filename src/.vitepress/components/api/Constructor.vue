@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ConstructorFnExport } from "./exports.js";
 import Function from "./Function.vue";
+import Icon from "./Icon.vue";
 import { md } from "./md.js";
 import Property from "./Property.vue";
 import Section from "./Section.vue";
@@ -20,15 +21,18 @@ const props = defineProps<{
 <template>
   <Function :fn="props.fn" />
 
-  <div v-if="props.fn.notes" class="notes" v-html="md(props.fn.notes)" />
+  <section v-if="props.fn.notes" class="card">
+    <div class="notes" v-html="md(props.fn.notes)" />
+  </section>
 
   <Section
     v-if="props.fn.hasProperties"
-    class="properties"
+    kind="properties"
+    class="group"
     :level="3"
     :for="{ slug: props.fn.slug }"
   >
-    <template #head>Properties</template>
+    <template #head><Icon icon="feed" />Properties</template>
     <template #contents>
       <template v-for="property in props.fn.properties">
         <Property :property="property" />
@@ -37,11 +41,12 @@ const props = defineProps<{
   </Section>
   <Section
     v-if="props.fn.hasMethods"
-    class="methods"
+    kind="methods"
+    class="group"
     :level="3"
     :for="{ slug: props.fn.slug }"
   >
-    <template #head>Methods</template>
+    <template #head><Icon icon="bolt" />Methods</template>
     <template #contents>
       <template v-for="method in props.fn.methods">
         <Function :fn="method" />

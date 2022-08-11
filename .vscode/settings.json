@@ -53,8 +53,15 @@
   "scssLint.languages": ["scss"],
   "scssLint.showHighlights": true,
 
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
   "volar.takeOverMode.enabled": "auto",
   "volar.autoWrapParentheses": true,
   "volar.vueserver.useSecondServer": true,
-  "volar.updateImportsOnFileMove.enabled": true
+  "volar.updateImportsOnFileMove.enabled": true,
+  "volar.codeLens.scriptSetupTools": true,
+  "volar.codeLens.references": true,
+  "vite.autoStart": false
 }

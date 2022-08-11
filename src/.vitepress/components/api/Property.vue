@@ -16,7 +16,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <Section :level="4" :for="props.property">
+  <Section class="card" :level="4" :for="props.property">
     <template #head>
       <code>{{ props.property.name }}</code>
     </template>

@@ -9,6 +9,7 @@ export type YamlExport =
 
 export interface YamlValue {
   tag?: "optimization";
+  generics?: { [key: string]: string };
   notes?: string;
 }
 
@@ -20,6 +21,7 @@ export interface YamlInterface extends YamlValue {
 
 export interface YamlFn extends YamlValue {
   params?: YamlParams;
+  options?: YamlOptions;
   returns?: YamlTypeWithDocs;
   docs?: string;
 }
@@ -106,8 +108,39 @@ export interface YamlMethod extends YamlFn {
   placement: "static" | "instance";
 }
 
-export interface YamlParams {
+export interface YamlOptions {
   [name: string]: YamlTypeWithDocs;
 }
 
+export interface YamlParams {
+  [name: string]: YamlParamType;
+}
+
 export type YamlTypeWithDocs = [name: string, docs?: string];
+export type YamlParamType = YamlTypeWithDocs | YamlOptionsType;
+export type YamlOptionsType =
+  | [type: "@options" | "@options?", options: YamlOptions]
+  | [type: "@options" | "@options?", name: string, options: YamlOptions];
+
+export function isOptionsType(type: YamlParamType): type is YamlOptionsType {
+  return type[0] === "@options" || type[0] === "@options?";
+}
+
+export function getOptions(type: YamlOptionsType): {
+  name: string;
+  options: YamlOptions;
+} {
+  if (type.length === 3) {
+    const [, name, options] = type;
+    return {
+      name,
+      options,
+    };
+  } else {
+    const [, options] = type;
+    return {
+      name: "options",
+      options,
+    };
+  }
+}

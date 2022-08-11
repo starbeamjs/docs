@@ -39,7 +39,7 @@ const getInitialIndex = (): number => {
 const activeIndex = ref(getInitialIndex());
 
 // refs of the tab buttons
-const tabRefs = ref<HTMLUListElement[]>([]);
+const tabRefs = ref([] as HTMLUListElement[]);
 
 // update store
 const updateStore = (): void => {

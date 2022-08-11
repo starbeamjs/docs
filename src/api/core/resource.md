@@ -1,13 +1,23 @@
 ---
 Resource:
   kind: constructor-fn
-  generics: ["T"]
-  returns: ["Resource"]
+  generics:
+    T: The type of value that the resource represents.
+  returns: ["ResourceBlueprint"]
   params:
     blueprint: ["(create: ResourceBuilder) => () => T", "A function that sets up a resource and returns a  function that computes the current value of the resource"]
     description: ["string?", "A description of the resource"]
+  docs: |
+    The `Resource` function returns a `ResourceBlueprint`, which is an **unlinked** resource. You call `create()` on the blueprint with an owner to instantiate the resource and link its lifetime to the specified owner object.
   properties:
     current: [T, "The current value of the resource", readonly]
+ResourceBlueprint:
+  kind: interface
+  methods:
+    create:
+      params:
+        "options": ["{ owner: object }", the owner to link the resource to]
+      returns: ["Resource", "A resource that computes the given value"]
 ResourceBuilder:
   kind: interface
   methods:
@@ -35,37 +45,13 @@ subscription, and returns a function that computes the current value of the reso
 As the resource modifies its internal cells, the value of the resource is always up to date with the
 result of the computation.
 
-```ts
-const Stopwatch = Resource((resource) => {
-  const start = Cell(new Date());
-
-  resource.on.setup(() => {
-    const interval = setInterval(() => {
-      start.set(new Date());
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  });
-
-  return () => start.current;
-});
-```
+;;; ./$snippets/resource.tsx#resource
 
 Resources are defined in terms of Starbeam APIs, and then wired into applications through renderers.
 
 For example, you could use the stopwatch in the above example in React by using the `useResource`
 hook from `@starbeam/react`.
 
-```tsx
-import { useResource } from "@starbeam/react";
-
-function TickingClock() {
-  const now = useResource(Stopwatch);
-
-  return <p>{now.toLocaleTimeString()}</p>;
-}
-```
+;;; ./$snippets/resource.tsx#react
 
 </Api>

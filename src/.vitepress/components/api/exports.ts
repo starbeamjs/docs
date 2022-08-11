@@ -1,4 +1,6 @@
 import {
+  getOptions,
+  isOptionsType,
   NormalizedPropertyType,
   normalizeProperty,
   PropertyModifier,
@@ -7,6 +9,8 @@ import {
   YamlFnExport,
   YamlInterface,
   YamlMethod,
+  YamlOptionsType,
+  YamlParamType,
   YamlTypeWithDocs,
   YamlUtilFnExport,
 } from "./interface.js";
@@ -54,7 +58,13 @@ export abstract class AbstractExport {
   constructor(readonly kind: string, readonly name: string) {}
 
   get slug() {
-    return `${this.kind}-${this.name}`;
+    return formatSlug(`${this.kind}-${this.name}`);
+  }
+
+  isInterface(): this is InterfaceExport | ConstructorFnExport {
+    return (
+      this instanceof InterfaceExport || this instanceof ConstructorFnExport
+    );
   }
 }
 
@@ -73,6 +83,20 @@ export abstract class Fn extends AbstractExport {
     this.#fn = fn;
   }
 
+  hasGenerics(): this is { generics: Generic[] } {
+    return this.#fn.generics !== undefined;
+  }
+
+  get generics(): Generic[] | undefined {
+    if (this.#fn.generics === undefined) {
+      return undefined;
+    }
+
+    return Object.entries(this.#fn.generics).map(
+      ([name, docs]) => new Generic(name, docs)
+    );
+  }
+
   get docs(): string | undefined {
     return this.#fn.docs;
   }
@@ -81,7 +105,7 @@ export abstract class Fn extends AbstractExport {
     return this.#fn.notes;
   }
 
-  get params(): Param[] {
+  get params(): Parameter[] {
     if (this.#fn.params === undefined) {
       return [];
     }
@@ -92,10 +116,23 @@ export abstract class Fn extends AbstractExport {
 
     for (const entry of entries) {
       const [name, type] = entry;
-      params.push(new Param(name, new Type(type), entry === last));
+
+      if (isOptionsType(type)) {
+        params.push(
+          new Parameter(name, new OptionsType(type), entry === last, undefined)
+        );
+      } else {
+        params.push(
+          new Parameter(name, new Type(type), entry === last, undefined)
+        );
+      }
     }
 
     return params;
+  }
+
+  hasOptions(): boolean {
+    return !!this.#fn.options;
   }
 
   get ret() {
@@ -139,7 +176,7 @@ export class InterfaceExport extends AbstractExport {
 
   get methods(): Method[] {
     return Object.entries(this.#export.methods ?? {}).map(
-      ([name, e]) => new Method(name, e)
+      ([name, e]) => new Method(this, name, e)
     );
   }
 
@@ -172,7 +209,7 @@ export class ConstructorFnExport extends Fn {
 
   get methods(): Method[] {
     return Object.entries(this.#export.methods ?? {}).map(
-      ([name, e]) => new Method(name, e)
+      ([name, e]) => new Method(this, name, e)
     );
   }
 
@@ -202,7 +239,7 @@ export class Property {
   }
 
   get type() {
-    return new PropertyType(this.#property);
+    return new PropertyType(this.#property, undefined);
   }
 
   get docs() {
@@ -210,7 +247,7 @@ export class Property {
   }
 
   get slug() {
-    return `${this.#parent.slug}-${this.name}`;
+    return `${this.#parent.slug}-${formatSlug(this.name)}`;
   }
 
   get modifiers(): PropertyModifier[] | void {
@@ -222,14 +259,22 @@ export class Property {
   }
 }
 
+type ParentExport = InterfaceExport | ConstructorFnExport;
+
 export class Method extends Fn {
   declare readonly kind = "method";
 
+  #parent: ParentExport;
   #method: YamlMethod;
 
-  constructor(name: string, e: YamlMethod) {
+  constructor(parent: ParentExport, name: string, e: YamlMethod) {
     super("method", name, e);
+    this.#parent = parent;
     this.#method = e;
+  }
+
+  get slug() {
+    return `${this.#parent.slug}-${super.slug}`;
   }
 
   get prefix() {
@@ -237,27 +282,93 @@ export class Method extends Fn {
   }
 }
 
-export class Param {
+export class Parameter<T extends Type | OptionsType = Type | OptionsType> {
+  #parent: Parameter | undefined;
+
   constructor(
     readonly name: string,
-    readonly type: Type,
-    readonly isLast: boolean
-  ) {}
+    readonly type: T,
+    readonly isLast: boolean,
+    parent: Parameter | undefined
+  ) {
+    this.#parent = parent;
+  }
+
+  get fullName(): string {
+    return this.#parent ? `${this.#parent.fullName}.${this.name}` : this.name;
+  }
+
+  hasOptions(): this is Parameter<OptionsType> {
+    return OptionsType.is(this.type);
+  }
+
+  hasBareType(): this is Parameter<Type> {
+    return !this.hasOptions();
+  }
+
+  *options(): IterableIterator<Parameter<Type>> {
+    if (this.hasOptions()) {
+      yield* this.type.options(this);
+    }
+  }
 }
 
-export class Type {
-  #type: YamlTypeWithDocs;
+export abstract class AbstractType {
+  #type: YamlParamType;
+  abstract readonly docs: string | void;
+  abstract readonly name: string;
 
-  constructor(type: YamlTypeWithDocs) {
+  constructor(type: YamlParamType) {
     this.#type = type;
   }
 
   get isOptional() {
     return this.#type[0].endsWith("?");
   }
+}
+
+export class Generic extends AbstractType {
+  #name: string;
+  #docs: string;
+
+  constructor(name: string, docs: string) {
+    super([name, docs]);
+    this.#name = name;
+    this.#docs = docs;
+  }
+
+  get name(): string {
+    const [name] = this.#name.split(" extends ");
+    return name;
+  }
+
+  get docs() {
+    return this.#docs;
+  }
+
+  get extends(): string | void {
+    const [, extendsType] = this.#name.split(" extends ");
+    return extendsType;
+  }
+}
+
+export class Type extends AbstractType {
+  #type: YamlTypeWithDocs;
+
+  constructor(type: YamlTypeWithDocs) {
+    super(type);
+    if (typeof type === "string") {
+      debugger;
+    }
+    this.#type = type;
+  }
+
+  isOptions(): this is OptionsType {
+    return isOptionsType(this.#type);
+  }
 
   get name() {
-    return this.#type[0].replace(/\?$/, "");
+    return formatTypeName(this.#type[0]);
   }
 
   get docs(): string | void {
@@ -276,10 +387,33 @@ export class Type {
   }
 }
 
+export class OptionsType extends AbstractType {
+  static is(value: AbstractType): value is OptionsType {
+    return value instanceof OptionsType;
+  }
+
+  #type: YamlOptionsType;
+  readonly docs = undefined;
+  readonly name = "object";
+
+  constructor(type: YamlOptionsType) {
+    super(type);
+    this.#type = type;
+  }
+
+  *options(parent: Parameter): IterableIterator<Parameter<Type>> {
+    const { options } = getOptions(this.#type);
+
+    for (const [name, type] of Object.entries(options)) {
+      yield new Parameter(name, new Type(type), false, parent);
+    }
+  }
+}
+
 export class PropertyType extends Type {
   #type: NormalizedPropertyType;
 
-  constructor(type: NormalizedPropertyType) {
+  constructor(type: NormalizedPropertyType, parent: Parameter | undefined) {
     super([type.name, type.docs]);
     this.#type = type;
   }
@@ -287,6 +421,14 @@ export class PropertyType extends Type {
   get modifiers(): PropertyModifier[] | undefined {
     return this.#type.modifiers;
   }
+}
+
+function formatSlug(name: string) {
+  return name.replace(/[^a-zA-Z0-9-]/g, "--");
+}
+
+function formatTypeName(name: string) {
+  return name.replace(/\?$/, "");
 }
 
 function formatDocs(docs: string): string {

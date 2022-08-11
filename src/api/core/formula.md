@@ -23,7 +23,7 @@ PolledFormulaFn:
     A `PolledFormulaFn` has an identical API signature to [FormulaFn](#constructor-fn-FormulaFn). However, when a `PolledFormulaFn`'s value is requested, it **always** recomputes the value. This is designed for situations where you are mixing Starbeam reactivity with other forms of reactivity.
   notes: |
     <details>
-      <summary>Details: Using <code>PolledFormulaFn</code> in Renderers</summary>
+      <summary><p>Details: Using <code>PolledFormulaFn</code> in Renderers</p></summary>
 
       This allows a renderer to listen for changes to the formula's reactive dependencies, but still choose to recompute the formula's value when it has its own reason to believe that the formula is out of date. Most renderers use `PolledFormulaFn` as the primary mechanism for gluing Starbeam reactivity with their framework's rendering.
 

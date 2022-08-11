@@ -1,8 +1,18 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { Fn } from "./exports.js";
-import { md } from "./md.js";
+
+import Def from "./Def.vue";
+import Defs from "./Defs.vue";
+import type { Fn, Generic } from "./exports.js";
+import Icon from "./Icon.vue";
+import Param from "./Param.vue";
 import Section from "./Section.vue";
+import Docs from "./signature/Docs.vue";
+import Manual from "./signature/Manual.vue";
+import Tag from "./signature/Tag.vue";
+import { tokens } from "./signature/tokens.js";
+import Type from "./signature/Type.vue";
+
 export type TypeDoc = [type: string, docs: string];
 
 export interface FormattedType {
@@ -17,82 +27,85 @@ const props = defineProps<{
 
 const ret = computed(() => props.fn.ret);
 
-console.log(props.fn.docs);
+const signature = tokens()
+  .add("kind", props.fn.prefix)
+  .add("name", props.fn.name)
+  .add("(")
+  .map(props.fn.params, ({ name, type, isLast }, t) =>
+    t.add("param", name).if(type.isOptional, "?").if(!isLast, ", ")
+  )
+  .add("): ")
+  .add("type", props.fn.ret.name)
+  .add(";");
 </script>
 
 <template>
-  <Section :for="props.fn" :level="props.fn.kind === 'method' ? 4 : 2">
-    <template #head
-      ><code>{{ props.fn.name }}</code></template
-    >
-    <template #contents>
-      <div class="language-ts">
-        <pre class="manual">
-      <code>
-        <span class="starbeam-kind">{{props.fn.prefix}} </span>
-        <span class="starbeam-name">{{ props.fn.name }}</span>
-        <span class="starbeam-punct">(</span>
-        <template
-          :key="(p) => p.name"
-          v-for="{name, type, isLast} in props.fn.params"
-        >
-          <span class="starbeam-param">{{ name }}</span>
-          <span v-if="type.isOptional" class="starbeam-punct">?</span>
-          <span class="starbeam-punct" v-if="!isLast">, </span>
-        </template>
-        <span class="starbeam-punct">)</span>
-        <span class="starbeam-punct">: </span>
-        <span class="starbeam-type">{{ props.fn.ret.name }}</span>
-        <span class="starbeam-punct">;</span>
-      </code>
-    </pre>
-      </div>
-
-      <div v-if="props.fn.docs" class="docs" v-html="md(props.fn.docs)" />
-
-      <dl class="docs">
-        <template
-          :key="(p) => p.name"
-          v-for="{ name, type } in props.fn.params"
-        >
-          <dt :class="{ optional: type.isOptional }">
-            <code class="starbeam-inline starbeam-bg-dark">
-              <span class="starbeam-param">{{ name }}</span>
-              <span v-if="type.isOptional" class="starbeam-punct">?</span>
-            </code>
-            <span>&nbsp; </span>
-            <code class="starbeam-inline starbeam-bg-light">
-              <span class="starbeam-type">{{ type.name }}</span>
-            </code>
-          </dt>
-          <dd>
-            <template v-if="type.docs">
-              <p>
-                {{ type.docs }}
-                <code
-                  class="starbeam-inline starbeam-bg-light starbeam-optional"
-                >
-                  <span v-if="type.isOptional" class="starbeam-type"
-                    >&nbsp;optional</span
-                  >
-                </code>
-              </p>
+  <template v-if="props.fn.kind === 'constructor-fn'">
+    <Section class="signature card" :for="props.fn" :level="2">
+      <template #head>
+        <code>{{ props.fn.name }}</code>
+      </template>
+      <template #contents>
+        <div class="generics" v-if="props.fn.hasGenerics()">
+          <Defs class="docs generics" :defs="props.fn.generics">
+            <template #entry="{ item }: { item: Generic }">
+              <Type>{{ item.name }}</Type>
+              <Type v-if="item.extends">
+                &nbsp;
+                {{ item.extends }}
+              </Type>
             </template>
-          </dd>
-        </template>
-        <dt v-if="ret.name !== 'void'">
-          <code class="starbeam-inline starbeam-bg-alt">
-            <span class="starbeam-docs">returns</span>
-          </code>
-          <span>&nbsp; </span>
-          <code class="starbeam-inline starbeam-bg-light">
-            <span class="starbeam-type">{{ ret.name }}</span>
-          </code>
-        </dt>
-        <dd v-if="ret.docs">
-          <div v-html="md(ret.docs)"></div>
-        </dd>
-      </dl>
+            <template #definition="{ item }: { item: Generic }">
+              <Docs line>{{ item.docs }}</Docs>
+            </template>
+          </Defs>
+        </div>
+      </template>
+    </Section>
+  </template>
+
+  <Section
+    kind="group constructor-fn"
+    :level="3"
+    :for="{ slug: props.fn.slug }"
+  >
+    <template #head>
+      <template v-if="props.fn.kind === 'constructor-fn'">
+        <Icon icon="build_circle" />Constructor Function
+      </template>
+      <template v-if="props.fn.kind === 'method'">
+        <code>{{ props.fn.name }}</code>
+      </template>
+    </template>
+    <template #contents>
+      <section class="card">
+        <Manual :tokens="signature" />
+
+        <Docs>{{ props.fn.docs }}</Docs>
+
+        <dl class="docs">
+          <template :key="(p) => p.name" v-for="param in props.fn.params">
+            <Param
+              v-if="param.hasOptions()"
+              v-for="option in param.options()"
+              :param="option"
+            />
+            <Param v-else-if="param.hasBareType()" :param="param" />
+          </template>
+
+          <Def v-if="ret.name !== 'void'">
+            <template #entry>
+              <Tag>returns</Tag>
+              &nbsp;
+              <Type>{{ ret.name }}</Type>
+            </template>
+            <template #definition>
+              <Docs>{{ ret.docs }}</Docs>
+            </template>
+          </Def>
+        </dl>
+        <slot />
+      </section>
     </template>
   </Section>
 </template>

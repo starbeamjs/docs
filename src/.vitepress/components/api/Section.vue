@@ -9,12 +9,13 @@ export interface For<T extends string> {
 const props = defineProps<{
   for: For<any>;
   level: 2 | 3 | 4 | 5 | 6;
+  kind?: string;
   class?: string;
 }>();
 
 const slug = computed(() => {
-  if (props.class) {
-    return props.for.slug + "--" + props.class;
+  if (props.kind) {
+    return props.for.slug + "--" + props.kind;
   } else {
     return props.for.slug;
   }
@@ -22,8 +23,8 @@ const slug = computed(() => {
 </script>
 
 <template>
-  <section :class="props.class">
-    <component :is="`h${props.level}`" :id="slug">
+  <section :class="[props.kind, props.class]">
+    <component class="section-head" :is="`h${props.level}`" :id="slug">
       <slot name="head" />
       <span class="starbeam-tag" v-if="props.for.tag">{{ props.for.tag }}</span>
       <a class="header-anchor" aria-hidden="true" :href="`#${slug}`"> # </a>

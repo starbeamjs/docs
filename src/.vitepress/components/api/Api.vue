@@ -4,37 +4,46 @@ import { computed, useSlots } from "vue";
 import Constructor from "./Constructor.vue";
 import { Exports } from "./exports.js";
 import Function from "./Function.vue";
+import Icon from "./Icon.vue";
 import type { YamlExports } from "./interface.js";
 import Interface from "./Interface.vue";
 const data = useData();
-// const headers = data.headers;
-// console.log({headers: [...data.headers]});
 
 const exports = computed(() => new Exports(data.page.value.frontmatter as YamlExports));
 const slots = useSlots();
 </script>
 
 <template>
-  <nav>
+  <nav class="api-toc">
+    <h2>API</h2>
     <ul>
-      <template v-for="[, group] in exports.grouped()">
+      <template v-for="[kind, group] in exports.grouped()">
         <li v-for="item in group">
-          <a :href="`#${item.slug}`">{{item.name}}</a>
-          <template v-if="item.kind === 'constructor-fn'">
+          <a :href="`#${item.slug}`" :data-kind="item.kind">
+            <Icon v-if="item.kind === 'interface'" icon="folder" />
+            <Icon v-else-if="item.kind === 'constructor-fn'" icon="topic" />
+
+            {{item.name}}
+          </a>
+          <template v-if="item.isInterface()">
             <template v-if="item.hasProperties">
-              <ul class="properties">
-                <li>Properties
+              <ul class="api-group properties">
+                <li>
                   <ul>
-                    <li v-for="property in item.properties"><a :href="`#${property.slug}`">{{property.name}}</a></li>
+                    <li v-for="property in item.properties">
+                      <a :href="`#${property.slug}`" data-kind="property">
+                        {{property.name}}
+                      </a>
+                    </li>
                   </ul>
                 </li>
               </ul>
             </template>
             <template v-if="item.hasMethods">
-              <ul class="methods">
-                <li>Methods
+              <ul class="api-group methods">
+                <li>
                   <ul>
-                    <li v-for="method in item.methods"><a :href="`#${method.slug}`">{{method.name}}</a></li>
+                    <li v-for="method in item.methods"><a :href="`#${method.slug}`" data-kind="method">{{method.name}}</a></li>
                   </ul>
                 </li>
               </ul>

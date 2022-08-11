@@ -7,6 +7,13 @@ export const HEAD: Config["head"] = [
   font("Expletus Sans", { weight: "400..700" }),
   font("Azeret Mono", { weight: "100..900" }),
   font("Comfortaa", { weight: "400..700" }),
+  [
+    "link",
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
+    },
+  ],
 ];
 
 function font(family: string, { weight }: { weight: string }): HeadConfig {
