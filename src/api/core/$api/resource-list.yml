@@ -1,0 +1,38 @@
+exports:
+  ResourceList:
+    kind: constructor-fn
+    generics:
+      T: input values
+      U: output values
+    returns: ["ResourceListBlueprint"]
+    params:
+      items: ["Iterable<T>", "An iterable of input values"]
+      options:
+        - "@options"
+        - key:
+            [
+              "(item: T) => any",
+              "A function that returns a unique key for each item",
+            ]
+          create:
+            [
+              "(item: T) => ResourceBlueprint<U>",
+              "A function that creates a resource for each item",
+            ]
+      description: ["string?", "A description of the resource"]
+    properties:
+      current:
+        [
+          "U[]",
+          "A list of the current values of the resources in the list",
+          readonly,
+        ]
+  ResourceListBlueprint:
+    kind: interface
+    methods:
+      create:
+        params:
+          "options":
+            - "@options"
+            - owner: [object]
+        returns: [ResourceList]

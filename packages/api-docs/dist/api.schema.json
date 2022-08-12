@@ -1,0 +1,589 @@
+{
+  "$ref": "#/definitions/Apis",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Apis": {
+      "additionalProperties": false,
+      "properties": {
+        "exports": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "additionalProperties": false,
+                "description": "A constructor function.",
+                "properties": {
+                  "docs": {
+                    "type": "string"
+                  },
+                  "generics": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "kind": {
+                    "const": "constructor-fn",
+                    "description": "The kind of export.",
+                    "type": "string"
+                  },
+                  "methods": {
+                    "additionalProperties": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "docs": {
+                          "type": "string"
+                        },
+                        "generics": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object"
+                        },
+                        "params": {
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "anyOf": [
+                                  {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "maxItems": 2,
+                                    "minItems": 2,
+                                    "type": "array"
+                                  },
+                                  {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "type": "array"
+                                  }
+                                ],
+                                "description": "A type with optional documentation.",
+                                "examples": [
+                                  [
+                                    "string"
+                                  ],
+                                  [
+                                    "string",
+                                    "a JavaScript string"
+                                  ]
+                                ],
+                                "markdownDescription": "A type with optional documentation."
+                              },
+                              {
+                                "description": "An options argument to a function.",
+                                "items": [
+                                  {
+                                    "enum": [
+                                      "@options",
+                                      "@options?"
+                                    ],
+                                    "type": "string"
+                                  },
+                                  {
+                                    "$ref": "#/definitions/interface-src_api.d.ts-1286-1534-src_api.d.ts-0-32392100692397"
+                                  }
+                                ],
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "type": "array"
+                              }
+                            ],
+                            "description": "A parameter to a function. If the parameter is an options argument, the type is an array of `[\"@options\", Params]`."
+                          },
+                          "description": "The function's parameters",
+                          "markdownDescription": "The function's parameters. If the parameter is an options argument, the type is an\narray of `[\"@options\", Params]`.",
+                          "type": "object"
+                        },
+                        "returns": {
+                          "anyOf": [
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 2,
+                              "minItems": 2,
+                              "type": "array"
+                            },
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 1,
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          ],
+                          "description": "A type with optional documentation.",
+                          "examples": [
+                            [
+                              "string"
+                            ],
+                            [
+                              "string",
+                              "a JavaScript string"
+                            ]
+                          ],
+                          "markdownDescription": "A type with optional documentation."
+                        },
+                        "tag": {
+                          "description": "A special category of API.",
+                          "enum": [
+                            "optimization",
+                            "renderer"
+                          ],
+                          "markdownDescription": "A special category of API.\n\n- \"optimization\" means that the API is useful for optimizing, but is otherwise not necessary.\n- \"renderer\" means that the API is intended to be used when implementing renderers.",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "object"
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "params": {
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "anyOf": [
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 2,
+                              "minItems": 2,
+                              "type": "array"
+                            },
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 1,
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          ],
+                          "description": "A type with optional documentation.",
+                          "examples": [
+                            [
+                              "string"
+                            ],
+                            [
+                              "string",
+                              "a JavaScript string"
+                            ]
+                          ],
+                          "markdownDescription": "A type with optional documentation."
+                        },
+                        {
+                          "description": "An options argument to a function.",
+                          "items": [
+                            {
+                              "enum": [
+                                "@options",
+                                "@options?"
+                              ],
+                              "type": "string"
+                            },
+                            {
+                              "$ref": "#/definitions/interface-src_api.d.ts-1286-1534-src_api.d.ts-0-32392100692397"
+                            }
+                          ],
+                          "maxItems": 2,
+                          "minItems": 2,
+                          "type": "array"
+                        }
+                      ],
+                      "description": "A parameter to a function. If the parameter is an options argument, the type is an array of `[\"@options\", Params]`."
+                    },
+                    "description": "The function's parameters",
+                    "markdownDescription": "The function's parameters. If the parameter is an options argument, the type is an\narray of `[\"@options\", Params]`.",
+                    "type": "object"
+                  },
+                  "properties": {
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "description": "A property, defined without a type.\n\n`[\"title\"]`",
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "minItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "description": "A property with its type.\n\n`[\"title\", \"string\"]`",
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 2,
+                          "minItems": 2,
+                          "type": "array"
+                        },
+                        {
+                          "description": "A property with its type and property modifier.\n\n`[\"title\", \"string\", \"readonly\"]`",
+                          "items": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "const": "readonly",
+                              "type": "string"
+                            }
+                          ],
+                          "maxItems": 3,
+                          "minItems": 3,
+                          "type": "array"
+                        }
+                      ],
+                      "description": "A property of an object."
+                    },
+                    "description": "The properties of an object.",
+                    "examples": [
+                      [
+                        "title"
+                      ],
+                      [
+                        "title",
+                        "string"
+                      ],
+                      [
+                        "title",
+                        "string",
+                        "readonly"
+                      ]
+                    ],
+                    "markdownDescription": "The properties of an object.\n\n- With a name only: [\"title\"]\n- With a name and a type: [\"title\", \"string\"]\n- With a name, type and property modifier: [\"title\", \"string\", \"readonly\"]",
+                    "type": "object"
+                  },
+                  "returns": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "type": "string"
+                        },
+                        "maxItems": 2,
+                        "minItems": 2,
+                        "type": "array"
+                      },
+                      {
+                        "items": {
+                          "type": "string"
+                        },
+                        "maxItems": 1,
+                        "minItems": 1,
+                        "type": "array"
+                      }
+                    ],
+                    "description": "A type with optional documentation.",
+                    "examples": [
+                      [
+                        "string"
+                      ],
+                      [
+                        "string",
+                        "a JavaScript string"
+                      ]
+                    ],
+                    "markdownDescription": "A type with optional documentation."
+                  },
+                  "tag": {
+                    "description": "A special category of API.",
+                    "enum": [
+                      "optimization",
+                      "renderer"
+                    ],
+                    "markdownDescription": "A special category of API.\n\n- \"optimization\" means that the API is useful for optimizing, but is otherwise not necessary.\n- \"renderer\" means that the API is intended to be used when implementing renderers.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "kind"
+                ],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "description": "An interface.",
+                "properties": {
+                  "docs": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "const": "interface",
+                    "description": "The kind of export.",
+                    "type": "string"
+                  },
+                  "methods": {
+                    "additionalProperties": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "docs": {
+                          "type": "string"
+                        },
+                        "generics": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object"
+                        },
+                        "params": {
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "anyOf": [
+                                  {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "maxItems": 2,
+                                    "minItems": 2,
+                                    "type": "array"
+                                  },
+                                  {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "type": "array"
+                                  }
+                                ],
+                                "description": "A type with optional documentation.",
+                                "examples": [
+                                  [
+                                    "string"
+                                  ],
+                                  [
+                                    "string",
+                                    "a JavaScript string"
+                                  ]
+                                ],
+                                "markdownDescription": "A type with optional documentation."
+                              },
+                              {
+                                "description": "An options argument to a function.",
+                                "items": [
+                                  {
+                                    "enum": [
+                                      "@options",
+                                      "@options?"
+                                    ],
+                                    "type": "string"
+                                  },
+                                  {
+                                    "$ref": "#/definitions/interface-src_api.d.ts-1286-1534-src_api.d.ts-0-32392100692397"
+                                  }
+                                ],
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "type": "array"
+                              }
+                            ],
+                            "description": "A parameter to a function. If the parameter is an options argument, the type is an array of `[\"@options\", Params]`."
+                          },
+                          "description": "The function's parameters",
+                          "markdownDescription": "The function's parameters. If the parameter is an options argument, the type is an\narray of `[\"@options\", Params]`.",
+                          "type": "object"
+                        },
+                        "returns": {
+                          "anyOf": [
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 2,
+                              "minItems": 2,
+                              "type": "array"
+                            },
+                            {
+                              "items": {
+                                "type": "string"
+                              },
+                              "maxItems": 1,
+                              "minItems": 1,
+                              "type": "array"
+                            }
+                          ],
+                          "description": "A type with optional documentation.",
+                          "examples": [
+                            [
+                              "string"
+                            ],
+                            [
+                              "string",
+                              "a JavaScript string"
+                            ]
+                          ],
+                          "markdownDescription": "A type with optional documentation."
+                        },
+                        "tag": {
+                          "description": "A special category of API.",
+                          "enum": [
+                            "optimization",
+                            "renderer"
+                          ],
+                          "markdownDescription": "A special category of API.\n\n- \"optimization\" means that the API is useful for optimizing, but is otherwise not necessary.\n- \"renderer\" means that the API is intended to be used when implementing renderers.",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "object"
+                  },
+                  "notes": {
+                    "type": "string"
+                  },
+                  "properties": {
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "description": "A property, defined without a type.\n\n`[\"title\"]`",
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 1,
+                          "minItems": 1,
+                          "type": "array"
+                        },
+                        {
+                          "description": "A property with its type.\n\n`[\"title\", \"string\"]`",
+                          "items": {
+                            "type": "string"
+                          },
+                          "maxItems": 2,
+                          "minItems": 2,
+                          "type": "array"
+                        },
+                        {
+                          "description": "A property with its type and property modifier.\n\n`[\"title\", \"string\", \"readonly\"]`",
+                          "items": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "const": "readonly",
+                              "type": "string"
+                            }
+                          ],
+                          "maxItems": 3,
+                          "minItems": 3,
+                          "type": "array"
+                        }
+                      ],
+                      "description": "A property of an object."
+                    },
+                    "description": "The properties of an object.",
+                    "examples": [
+                      [
+                        "title"
+                      ],
+                      [
+                        "title",
+                        "string"
+                      ],
+                      [
+                        "title",
+                        "string",
+                        "readonly"
+                      ]
+                    ],
+                    "markdownDescription": "The properties of an object.\n\n- With a name only: [\"title\"]\n- With a name and a type: [\"title\", \"string\"]\n- With a name, type and property modifier: [\"title\", \"string\", \"readonly\"]",
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "kind"
+                ],
+                "type": "object"
+              }
+            ],
+            "description": "A documented public API.",
+            "markdownDescription": "A documented public API.\n\n- Constructor functions (`kind: \"constructor-fn\"`)\n- Interfaces (`kind: \"interface\"`)"
+          },
+          "description": "The public APIs documented here.",
+          "type": "object"
+        },
+        "page": {
+          "description": "The main API documentation for the entire page.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "exports"
+      ],
+      "type": "object"
+    },
+    "interface-src_api.d.ts-1286-1534-src_api.d.ts-0-32392100692397": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 1,
+                "minItems": 1,
+                "type": "array"
+              }
+            ],
+            "description": "A type with optional documentation.",
+            "examples": [
+              [
+                "string"
+              ],
+              [
+                "string",
+                "a JavaScript string"
+              ]
+            ],
+            "markdownDescription": "A type with optional documentation."
+          },
+          {
+            "description": "An options argument to a function.",
+            "items": [
+              {
+                "enum": [
+                  "@options",
+                  "@options?"
+                ],
+                "type": "string"
+              },
+              {
+                "$ref": "#/definitions/interface-src_api.d.ts-1286-1534-src_api.d.ts-0-32392100692397"
+              }
+            ],
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        ],
+        "description": "A parameter to a function. If the parameter is an options argument, the type is an array of `[\"@options\", Params]`."
+      },
+      "description": "The function's parameters",
+      "markdownDescription": "The function's parameters. If the parameter is an options argument, the type is an\narray of `[\"@options\", Params]`.",
+      "type": "object"
+    }
+  }
+}

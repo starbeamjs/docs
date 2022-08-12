@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+import Icon from "../Icon.vue";
 import Def from "./Def.vue";
 import Defs from "./Defs.vue";
 import type { Fn, Generic } from "./exports.js";
-import Icon from "./Icon.vue";
 import Param from "./Param.vue";
 import Section from "./Section.vue";
 import Docs from "./signature/Docs.vue";
@@ -51,7 +51,6 @@ const signature = tokens()
             <template #entry="{ item }: { item: Generic }">
               <Type>{{ item.name }}</Type>
               <Type v-if="item.extends">
-                &nbsp;
                 {{ item.extends }}
               </Type>
             </template>
@@ -65,7 +64,8 @@ const signature = tokens()
   </template>
 
   <Section
-    kind="group constructor-fn"
+    kind="constructor-fn"
+    class="card-container"
     :level="3"
     :for="{ slug: props.fn.slug }"
   >
@@ -96,7 +96,6 @@ const signature = tokens()
           <Def v-if="ret.name !== 'void'">
             <template #entry>
               <Tag>returns</Tag>
-              &nbsp;
               <Type>{{ ret.name }}</Type>
             </template>
             <template #definition>

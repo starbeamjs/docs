@@ -1,5 +1,6 @@
-export interface YamlExports {
-  [name: string]: YamlExport;
+export interface YamlApi {
+  exports: Record<string, YamlExport>;
+  page?: string;
 }
 
 export type YamlExport =

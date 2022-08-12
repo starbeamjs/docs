@@ -4,8 +4,8 @@ import {
   NormalizedPropertyType,
   normalizeProperty,
   PropertyModifier,
+  YamlApi,
   YamlConstructorFnExport,
-  YamlExports,
   YamlFnExport,
   YamlInterface,
   YamlMethod,
@@ -15,11 +15,15 @@ import {
   YamlUtilFnExport,
 } from "./interface.js";
 
-export class Exports {
-  #exports: YamlExports;
+export class PublicApi {
+  #api: YamlApi;
 
-  constructor(exports: YamlExports) {
-    this.#exports = exports;
+  constructor(exports: YamlApi) {
+    this.#api = exports;
+  }
+
+  get page(): string | undefined {
+    return this.#api.page;
   }
 
   *grouped(): IterableIterator<[Export["kind"], Export[]]> {
@@ -36,7 +40,7 @@ export class Exports {
   }
 
   *[Symbol.iterator](): IterableIterator<Export> {
-    for (const [name, e] of Object.entries(this.#exports)) {
+    for (const [name, e] of Object.entries(this.#api.exports)) {
       switch (e.kind) {
         case "constructor-fn":
           yield new ConstructorFnExport(name, e);

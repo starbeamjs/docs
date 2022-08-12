@@ -17,23 +17,5 @@
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "src/.vitepress/**/*.ts",
-    "src/.vitepress/**/*.d.ts",
-    "src/.vitepress/**/*.vue",
-    "src/vite.config.js",
-    "test.mts",
-    "packages/*/src/**/*.ts",
-    "packages/*/src/**/*.d.ts"
-  ],
-  "references": [
-    { "path": "./src/frameworks/react/tsconfig.json" },
-    {
-      "path": "./tsconfig.react.json"
-    },
-    { "path": "./scripts/tsconfig.json" }
-  ]
+  "include": ["*.js"]
 }

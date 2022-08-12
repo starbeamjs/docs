@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { useData } from "vitepress";
 import { computed, useSlots } from "vue";
+import Icon from "../Icon.vue";
 import Constructor from "./Constructor.vue";
-import { Exports } from "./exports.js";
+import { PublicApi } from "./exports.js";
 import Function from "./Function.vue";
-import Icon from "./Icon.vue";
-import type { YamlExports } from "./interface.js";
+import type { YamlApi } from "./interface.js";
 import Interface from "./Interface.vue";
 const data = useData();
 
-const exports = computed(() => new Exports(data.page.value.frontmatter as YamlExports));
+const api = computed(() => new PublicApi(data.page.value.frontmatter as YamlApi));
+console.log(api.value)
 const slots = useSlots();
 </script>
 
@@ -17,7 +18,7 @@ const slots = useSlots();
   <nav class="api-toc">
     <h2>API</h2>
     <ul>
-      <template v-for="[kind, group] in exports.grouped()">
+      <template v-for="[kind, group] in api.grouped()">
         <li v-for="item in group">
           <a :href="`#${item.slug}`" :data-kind="item.kind">
             <Icon v-if="item.kind === 'interface'" icon="folder" />
@@ -58,7 +59,7 @@ const slots = useSlots();
     <slot></slot>
   </section>
 
-  <template v-for="[kind, group] in exports.grouped()">
+  <template v-for="[kind, group] in api.grouped()">
     <template v-for="e in group">
       <template v-if="e.kind === 'constructor-fn'">
         <Constructor :fn="e" />
@@ -71,4 +72,5 @@ const slots = useSlots();
       </template>
     </template>
   </template>
+
 </template>

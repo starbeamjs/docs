@@ -1,34 +1,9 @@
 ---
-Resource:
-  kind: constructor-fn
-  generics:
-    T: The type of value that the resource represents.
-  returns: ["ResourceBlueprint"]
-  params:
-    blueprint: ["(create: ResourceBuilder) => () => T", "A function that sets up a resource and returns a  function that computes the current value of the resource"]
-    description: ["string?", "A description of the resource"]
-  docs: |
-    The `Resource` function returns a `ResourceBlueprint`, which is an **unlinked** resource. You call `create()` on the blueprint with an owner to instantiate the resource and link its lifetime to the specified owner object.
-  properties:
-    current: [T, "The current value of the resource", readonly]
-ResourceBlueprint:
-  kind: interface
-  methods:
-    create:
-      params:
-        "options": ["{ owner: object }", the owner to link the resource to]
-      returns: ["Resource", "A resource that computes the given value"]
-ResourceBuilder:
-  kind: interface
-  methods:
-    on.setup:
-      params:
-        setup: ["() => () => void", "A reactive setup function"]
-        description: ["string?", "A description of the setup logic"]
-      returns: ["Unsubscribe", "An unsubscribe function that can be used to stop the setup function from being called again"]
-
+layout: doc
+<!-- @include: ./$api/resource.yml -->
 ---
 
+<!-- generated file -->
 <Api>
 
 # Resources
@@ -53,5 +28,6 @@ For example, you could use the stopwatch in the above example in React by using 
 hook from `@starbeam/react`.
 
 ;;; ./$snippets/resource.tsx#react
+
 
 </Api>

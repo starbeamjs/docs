@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import Icon from "../Icon.vue";
 import type { ConstructorFnExport } from "./exports.js";
 import Function from "./Function.vue";
-import Icon from "./Icon.vue";
 import { md } from "./md.js";
 import Property from "./Property.vue";
 import Section from "./Section.vue";

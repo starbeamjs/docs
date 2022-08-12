@@ -6,7 +6,9 @@
   "scripts": {
     "docs:dev": "vitepress dev src",
     "docs:build": "vitepress build src",
-    "docs:serve": "vitepress serve src"
+    "docs:serve": "vitepress serve src",
+    "schema:build": "pnpm --filter @starbeam/api-docs schema:build",
+    "api:build": "node ./scripts/generate-api.js"
   },
   "keywords": [],
   "author": "",

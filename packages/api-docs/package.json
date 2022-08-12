@@ -1,0 +1,17 @@
+{
+  "name": "@starbeam/api-docs",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/api.d.ts"
+    },
+    "./schema.json": "./dist/api.schema.json"
+  },
+  "scripts": {
+    "schema:build": "ts-json-schema-generator -p $PWD/src/api.d.ts -o $PWD/dist/api.schema.json --strict-tuples -t Apis --validation-keywords markdownDescription"
+  },
+  "dependencies": {
+    "ts-json-schema-generator": "next"
+  }
+}
