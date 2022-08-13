@@ -46,14 +46,5 @@
     dd > div.docs > p {
       color: var(--vp-c-indigo-soft);
     }
-
-    div.docs.line {
-      display: contents;
-
-      > p {
-        display: contents;
-        color: var(--vp-c-indigo-soft);
-      }
-    }
   }
 }

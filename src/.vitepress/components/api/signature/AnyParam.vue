@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Parameter } from "./exports.js";
+import type { Parameter } from "../exports.js";
 import Param from "./Param.vue";
 
 defineProps<{ param: Parameter }>();

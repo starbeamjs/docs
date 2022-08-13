@@ -8,6 +8,7 @@ importers:
   .:
     specifiers:
       '@iconify/json': ^2.1.88
+      '@starbeam/api-docs': workspace:*
       '@starbeam/core': ^0.5.8
       '@starbeam/debug': ^0.5.8
       '@starbeam/js': ^0.5.8
@@ -43,6 +44,7 @@ importers:
       diacritics: 1.3.0
     devDependencies:
       '@iconify/json': 2.1.88
+      '@starbeam/api-docs': link:packages/api-docs
       '@starbeam/core': 0.5.8
       '@starbeam/debug': 0.5.8
       '@starbeam/js': 0.5.8
@@ -65,7 +67,7 @@ importers:
       prettier: 2.7.1
       sass: 1.54.0
       shiki: 0.10.1
-      typescript: 4.9.0-dev.20220811
+      typescript: 4.9.0-dev.20220812
       vite: 2.9.14_sass@1.54.0
       vitepress: 1.0.0-alpha.4_7t7nv3jnefj74w37k32kvcuity
       vitest: 0.21.1_sass@1.54.0
@@ -3461,8 +3463,8 @@ packages:
     hasBin: true
     dev: false
 
-  /typescript/4.9.0-dev.20220811:
-    resolution: {integrity: sha512-lkZioCre43Re1dP8vyGO1T/opJ6F28pGHb3L96NOuziyPDhcHkSluRc7YQ17qrSHPaL0eyEyXXgvYJ+lNoO7yQ==}
+  /typescript/4.9.0-dev.20220812:
+    resolution: {integrity: sha512-Rx+XQMKra4nR6w4+EiFoips3VCOWAlVKiWUbTpaFOAGb74h1pxWbxXmqpDOe/g3KSKMdYmN4dr7umrglumNAdw==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

@@ -1,9 +1,19 @@
-interface Fn {
+export interface Tagged {
+  tag?: Tag;
+  tags?: Tag[];
+}
+
+export interface Fn extends Tagged {
   generics?: Generics;
   returns?: TypeWithDocs;
   params?: Params;
   docs?: string;
-  tag?: Tag;
+}
+
+export type FnExport = Fn & Export;
+
+export interface Method extends Fn {
+  placement?: "static" | "instance";
 }
 
 /**
@@ -13,12 +23,11 @@ interface Fn {
  *
  * - "optimization" means that the API is useful for optimizing, but is otherwise not necessary.
  * - "renderer" means that the API is intended to be used when implementing renderers.
+ * - "debug" means that the API is only available in debug mode.
  */
-type Tag = "optimization" | "renderer";
+export type Tag = "optimization" | "renderer" | "debug";
 
-type ExportKind = "constructor-fn" | "interface";
-
-interface Export {
+export interface Export {
   /**
    * The kind of export.
    *
@@ -29,25 +38,59 @@ interface Export {
   notes?: string;
 }
 
-interface HasInterface extends Export {
+export interface InterfaceMembers extends Export {
   properties?: Properties;
   methods?: Methods;
 }
 
+export interface Variants extends Export {
+  kind: "variants";
+  variants: Record<string, Variant>;
+}
+
+export type VariantFields = Properties | "empty";
+export type Variant = VariantFields | VariantWithDocs;
+
+/**
+ * An individual variant with documentation.
+ * @markdownDescription
+ * An individual variant with documentation.
+ *
+ * ```json
+ * [
+ *   "a color",
+ *   { red: ["string"], green: ["string"], blue: ["string"] },
+ * ]
+ * ```
+ */
+export type VariantWithDocs = [string, VariantFields];
+
 /**
  * A constructor function.
  */
-interface ConstructorFn extends Fn, HasInterface {
+export interface ConstructorFn extends Fn, InterfaceMembers {
   kind: "constructor-fn";
   properties?: Properties;
   methods?: Methods;
+  events?: Events;
+}
+
+/**
+ * A utility function.
+ */
+export interface UtilFn extends Fn {
+  kind: "util-fn";
 }
 
 /**
  * An interface.
  */
-interface Interface extends HasInterface {
+export interface Interface extends InterfaceMembers {
   kind: "interface";
+}
+
+export interface Const extends InterfaceMembers {
+  kind: "const";
 }
 
 /**
@@ -58,9 +101,9 @@ interface Interface extends HasInterface {
  *
  * @examples [["string"], ["string", "a JavaScript string"]]
  */
-type TypeWithDocs = [string, string] | [string];
+export type TypeWithDocs = [string, string] | [string];
 
-interface Generics {
+export interface Generics {
   [key: string]: string;
 }
 
@@ -72,7 +115,7 @@ interface Generics {
  * The function's parameters. If the parameter is an options argument, the type is an
  * array of `["@options", Params]`.
  */
-interface Params {
+export interface Params {
   [key: string]: Param;
 }
 
@@ -89,51 +132,54 @@ interface Params {
  *
  * @examples [["title"], ["title", "string"], ["title", "string", "readonly"]]
  */
-interface Properties {
+export interface Properties {
   [key: string]: Property;
 }
 
-type PropertyModifier = "readonly";
+export type PropertyModifier = "readonly";
 
-/**
- * A property, defined without a type.
- *
- * `["title"]`
- */
-type PropertyName = [string];
-/**
- * A property with its type.
- *
- * `["title", "string"]`
- */
-type PropertyNameAndType = [string, string];
+export type PropertyDetail = PropertyModifier | ["tag", Tag];
 
 /**
  * A property with its type and property modifier.
  *
  * `["title", "string", "readonly"]`
  */
-type PropertyNameAndTypeAndModifier = [string, string, PropertyModifier];
+export type PropertyWithModifier = [
+  string,
+  string,
+  PropertyModifier,
+  ...PropertyModifier[]
+];
+
+export type LonghandProperty = [
+  string,
+  Tagged & {
+    modifiers?: PropertyModifier[];
+    docs?: string;
+  }
+];
 
 /**
  * A property of an object.
  */
-type Property =
-  | PropertyName
-  | PropertyNameAndType
-  | PropertyNameAndTypeAndModifier;
+export type Property = TypeWithDocs | PropertyWithModifier | LonghandProperty;
 
 /**
  * An options argument to a function.
  */
-type Options = ["@options" | "@options?", Params];
+export type Options = ["@options" | "@options?", Params];
 /**
  * A parameter to a function. If the parameter is an options argument, the
  * type is an array of `["@options", Params]`.
  */
-type Param = TypeWithDocs | Options;
+export type Param = TypeWithDocs | Options;
 
-interface Methods {
+export interface Methods {
+  [key: string]: Method;
+}
+
+export interface Events {
   [key: string]: Fn;
 }
 
@@ -145,9 +191,16 @@ interface Methods {
  * - Constructor functions (`kind: "constructor-fn"`)
  * - Interfaces (`kind: "interface"`)
  */
-type Api = ConstructorFn | Interface;
+export type Api = ConstructorFn | UtilFn | Interface | Variants | Const;
 
-export interface Apis {
+export type ExportKind =
+  | "constructor-fn"
+  | "util-fn"
+  | "interface"
+  | "variants"
+  | "const";
+
+export default interface Apis {
   /**
    * The public APIs documented here.
    */
@@ -156,6 +209,8 @@ export interface Apis {
    * The main API documentation for the entire page.
    */
   page?: string;
+
+  links?: Record<string, string>;
 }
 
-export default Apis;
+export { Apis };

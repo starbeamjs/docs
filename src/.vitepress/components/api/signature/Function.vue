@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import Icon from "../Icon.vue";
-import Def from "./Def.vue";
-import Defs from "./Defs.vue";
-import type { Fn, Generic } from "./exports.js";
+import Codicon from "../../Codicon.vue";
+import Def from "../Def.vue";
+import type { Fn } from "../exports.js";
+import Section from "../Section.vue";
+import { tokens } from "../signature/tokens.js";
+import Docs from "./Docs.vue";
+import EntryTag from "./EntryTag.vue";
+import Generics from "./fragments/Generics.vue";
+import Tags from "./fragments/Tags.vue";
+import Manual from "./Manual.vue";
 import Param from "./Param.vue";
-import Section from "./Section.vue";
-import Docs from "./signature/Docs.vue";
-import Manual from "./signature/Manual.vue";
-import Tag from "./signature/Tag.vue";
-import { tokens } from "./signature/tokens.js";
-import Type from "./signature/Type.vue";
+import Type from "./Type.vue";
 
 export type TypeDoc = [type: string, docs: string];
 
@@ -44,40 +45,35 @@ const signature = tokens()
     <Section class="signature card" :for="props.fn" :level="2">
       <template #head>
         <code>{{ props.fn.name }}</code>
+        <Tags v-if="props.fn.tags" :tags="props.fn.tags" />
       </template>
       <template #contents>
-        <div class="generics" v-if="props.fn.hasGenerics()">
-          <Defs class="docs generics" :defs="props.fn.generics">
-            <template #entry="{ item }: { item: Generic }">
-              <Type>{{ item.name }}</Type>
-              <Type v-if="item.extends">
-                {{ item.extends }}
-              </Type>
-            </template>
-            <template #definition="{ item }: { item: Generic }">
-              <Docs line>{{ item.docs }}</Docs>
-            </template>
-          </Defs>
-        </div>
+        <Generics v-if="props.fn.hasGenerics()" :generics="props.fn.generics" />
       </template>
     </Section>
   </template>
 
   <Section
-    kind="constructor-fn"
+    :kind="props.fn.kind"
     class="card-container"
     :level="3"
     :for="{ slug: props.fn.slug }"
   >
     <template #head>
       <template v-if="props.fn.kind === 'constructor-fn'">
-        <Icon icon="build_circle" />Constructor Function
+        <Codicon icon="symbol-constructor" />
+        Constructor Function
       </template>
       <template v-if="props.fn.kind === 'method'">
         <code>{{ props.fn.name }}</code>
+        <Tags v-if="props.fn.tags" :tags="props.fn.tags" />
       </template>
     </template>
     <template #contents>
+      <Generics
+        v-if="props.fn.kind !== 'constructor-fn' && props.fn.hasGenerics()"
+        :generics="props.fn.generics"
+      />
       <section class="card">
         <Manual :tokens="signature" />
 
@@ -95,7 +91,7 @@ const signature = tokens()
 
           <Def v-if="ret.name !== 'void'">
             <template #entry>
-              <Tag>returns</Tag>
+              <EntryTag>returns</EntryTag>
               <Type>{{ ret.name }}</Type>
             </template>
             <template #definition>

@@ -1,69 +1,28 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import type { TokensBuilder } from "./tokens.js";
 
-export type PunctuationChar =
-  | "("
-  | ")"
-  | "["
-  | "]"
-  | "{"
-  | "}"
-  | ","
-  | ";"
-  | ":"
-  | "."
-  | "?"
-  | " ";
-export type Punctuation =
-  | `${PunctuationChar}`
-  | `${PunctuationChar}${PunctuationChar}`
-  | `${PunctuationChar}${PunctuationChar}${PunctuationChar}`;
-export type Shorthand = `${string}:${string}` | Punctuation;
-export type TokenTuple = [kind: string, text: string, condition?: boolean];
-export type Token =
-  | Shorthand
-  | [shorthand: Shorthand, condition: boolean]
-  | Punctuation;
+const props = defineProps<{ tokens: TokensBuilder }>();
 
-export interface ParsedToken {
-  kind: string;
-  text: string;
-  condition?: boolean;
-}
+const body = computed(() => {
+  const out: string[] = [];
 
-const PUNCT = /^[()\[\]{},;:.? ]+$/;
-
-function normalize(token: Token): ParsedToken {
-  if (typeof token === "string") {
-    if (PUNCT.test(token)) {
-      return { kind: "punct", text: token };
-    } else {
-      const [kind, text] = token.split(":");
-      return { kind, text };
+  for (const token of props.tokens.done()) {
+    if (token.condition === undefined || token.condition === true) {
+      const classes = [`starbeam-${token.kind}`];
+      if (token.class) {
+        classes.push(token.class);
+      }
+      out.push(`<span class="${classes.join(" ")}">${token.text}</span>`);
     }
-  } else {
-    return {
-      ...normalize(token[0]),
-      condition: token[1],
-    };
   }
-  // return text.replace(/\s+/g, ' ').trim();
-}
 
-defineProps<{ tokens: TokensBuilder }>();
+  return out.join("");
+});
 </script>
 
 <template>
   <div class="language-ts">
-    <pre class="manual">
-      <code>
-        <template v-for="token in tokens.done()">
-          <span
-            v-if="token.condition === undefined || token.condition === true"
-            :class="`starbeam-${token.kind}`"
-          >{{ token.text }}</span>
-        </template>
-      </code>
-    </pre>
+    <pre class="manual"><code v-html="body" /></pre>
   </div>
 </template>

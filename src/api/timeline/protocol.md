@@ -1,6 +1,6 @@
 ---
 layout: doc
-<!-- @include: ./$api/lifetime.yml -->
+<!-- @include: ./$api/protocol.yml -->
 ---
 
 <!-- generated file -->

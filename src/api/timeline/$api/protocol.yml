@@ -1,0 +1,26 @@
+exports:
+  ReactiveProtocol:
+    kind: interface
+    docs: |
+      `ReactiveProtocol` provides introspection tools for values implementing `ReactiveProtocol`.
+    methods:
+      debug:
+        placement: static
+        docs: |
+          Return a pretty-printed list of the reactive value's dependencies.
+        params:
+          reactive:
+            [ReactiveProtocol, An object that implements ReactiveProtocol]
+          options:
+            - "@options?"
+            - implementation:
+                - boolean
+                - |
+                  Whether to include dependencies from internal implementations. If false,
+                  implementation details will be grouped into higher-level APIs.
+
+              source:
+                - boolean
+                - |
+                  Whether to include the source location where each dependency was created. The
+                  source location is always included for anonymous dependencies.

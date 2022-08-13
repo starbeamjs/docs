@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import type { Property } from "./exports.js";
-import { md } from "./md.js";
-import Section from "./Section.vue";
-import Manual from "./signature/Manual.vue";
-import { tokens } from "./signature/tokens.js";
+import type { Property } from "../exports.js";
+import { md } from "../md.js";
+import Section from "../Section.vue";
+import Tag from "./fragments/Tag.vue";
+import Manual from "./Manual.vue";
+import { tokens } from "./tokens.js";
 export type TypeDoc = [type: string, docs: string];
 
 export interface FormattedType {
@@ -33,6 +34,7 @@ const signature = tokens()
   >
     <template #head>
       <code>{{ props.property.name }}</code>
+      <Tag v-for="tag in props.property.tags" :tag="tag" />
     </template>
     <template #contents>
       <section class="card">

@@ -35,6 +35,14 @@
       "problemMatcher": [],
       "label": "npm: api:build",
       "detail": "node ./scripts/generate-api.js"
+    },
+    {
+      "type": "npm",
+      "script": "schema:build",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "npm: schema:build",
+      "detail": "pnpm --filter @starbeam/api-docs schema:build"
     }
   ]
 }

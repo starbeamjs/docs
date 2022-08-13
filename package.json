@@ -42,7 +42,8 @@
     "vitepress": "^1.0.0-alpha.4",
     "vitest": "^0.21.1",
     "vue": "^3.2.37",
-    "vuepress-plugin-md-enhance": "^2.0.0-beta.87"
+    "vuepress-plugin-md-enhance": "^2.0.0-beta.87",
+    "@starbeam/api-docs": "workspace:*"
   },
   "pnpm": {
     "overrides": {

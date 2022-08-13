@@ -1,10 +1,12 @@
 @use "./api/section.scss";
 @use "./vars.scss";
 @use "./api/toc.scss";
+@use "./api/docs.scss";
 @use "./api/prose.scss";
 @use "./api/syntax.scss";
 @use "./api/details.scss";
 @use "./api/dl.scss";
+@use "./api/generics.scss";
 
 .VPDoc {
   .custom-block div[class*="language-"] code {

@@ -76,6 +76,7 @@
   "volar.updateImportsOnFileMove.enabled": true,
   "volar.codeLens.scriptSetupTools": true,
   "volar.codeLens.references": true,
+  "volar.completion.autoImportComponent": true,
   "vite.autoStart": false,
 
   "yaml.schemaStore.enable": true,

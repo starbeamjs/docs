@@ -37,7 +37,11 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
     ]),
   ],
   "/api/": [
-    group("@starbeam/timeline", [item("index", "/api/timeline.md")]),
+    group("@starbeam/timeline", [
+      item("LIFETIME", "/api/timeline/lifetime.md"),
+      item("TIMELINE", "/api/timeline/timeline.md"),
+      item("ReactiveProtocol", "/api/timeline/protocol.md"),
+    ]),
     group("@starbeam/core", [
       item("Cell", "/api/core/cell.md"),
       item("Formula", "/api/core/formula.md"),

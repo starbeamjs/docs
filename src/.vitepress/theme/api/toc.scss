@@ -31,7 +31,7 @@
           align-items: center;
           column-gap: var(--sb-gap);
 
-          > span.material-symbols-outlined {
+          > :is(span.material-symbols-outlined) {
             font-size: 1em;
           }
         }

@@ -6,6 +6,7 @@
 
   code {
     span {
+      display: inline-block;
       font-size: 1rem;
       color: hsl(
         var(--sb-hl-hue),
@@ -53,7 +54,6 @@
         font-style: italic;
       }
     }
-
     span.starbeam-kind {
       --sb-hl-hue: var(--sb-hl-kind-ch);
     }
@@ -73,14 +73,28 @@
       --sb-hl-hue: var(--sb-hl-docs-ch);
       --sb-hl-saturation: 25%;
     }
+    span.starbeam-key {
+      --sb-hl-hue: var(--sb-hl-key-ch);
+    }
+    span.starbeam-string {
+      --sb-hl-hue: var(--sb-hl-string-ch);
+    }
+    span.starbeam-newline {
+      white-space: pre;
+    }
+    span.dim {
+      --sb-hl-lightness: 50%;
+      --sb-hl-saturation: 0%;
+    }
   }
 
   div[class*="language-"] pre.manual {
-    white-space: normal;
-    font-size: 0;
+    white-space: pre;
 
     code {
-      white-space: normal;
+      span {
+        display: inline;
+      }
 
       span.starbeam-name {
         --sb-hl-saturation: 100%;

@@ -1,24 +1,16 @@
+import type * as api from "@starbeam/api-docs";
 import {
-  getOptions,
+  hasNotes,
   isOptionsType,
-  NormalizedPropertyType,
   normalizeProperty,
-  PropertyModifier,
-  YamlApi,
-  YamlConstructorFnExport,
-  YamlFnExport,
-  YamlInterface,
-  YamlMethod,
-  YamlOptionsType,
-  YamlParamType,
-  YamlTypeWithDocs,
-  YamlUtilFnExport,
-} from "./interface.js";
+  tagList,
+  type NormalizedPropertyType,
+} from "./utils.js";
 
 export class PublicApi {
-  #api: YamlApi;
+  #api: api.Apis;
 
-  constructor(exports: YamlApi) {
+  constructor(exports: api.Apis) {
     this.#api = exports;
   }
 
@@ -34,7 +26,6 @@ export class PublicApi {
       groups.set(e.kind, group);
     }
     for (const [kind, group] of groups) {
-      console.log([kind, group]);
       yield [kind, group];
     }
   }
@@ -51,12 +42,25 @@ export class PublicApi {
         case "interface":
           yield new InterfaceExport(name, e);
           break;
+        case "const":
+          yield new ConstExport(name, e);
+          break;
+        case "variants":
+          yield new VariantsExport(name, e);
+          break;
+        default:
+          assertNever(e);
       }
     }
   }
 }
 
-export type Export = UtilFnExport | ConstructorFnExport | InterfaceExport;
+export type Export =
+  | UtilFnExport
+  | ConstructorFnExport
+  | InterfaceExport
+  | ConstExport
+  | VariantsExport;
 
 export abstract class AbstractExport {
   constructor(readonly kind: string, readonly name: string) {}
@@ -65,9 +69,11 @@ export abstract class AbstractExport {
     return formatSlug(`${this.kind}-${this.name}`);
   }
 
-  isInterface(): this is InterfaceExport | ConstructorFnExport {
+  isInterface(): this is InterfaceExport | ConstExport | ConstructorFnExport {
     return (
-      this instanceof InterfaceExport || this instanceof ConstructorFnExport
+      this instanceof InterfaceExport ||
+      this instanceof ConstructorFnExport ||
+      this instanceof ConstExport
     );
   }
 }
@@ -75,13 +81,13 @@ export abstract class AbstractExport {
 export type FunctionKind = "util-fn" | "constructor-fn" | "method";
 
 export abstract class Fn extends AbstractExport {
-  #fn: YamlFnExport | YamlMethod;
+  #fn: api.Fn;
   abstract readonly prefix: string;
 
   constructor(
     readonly kind: FunctionKind,
     name: string,
-    fn: YamlFnExport | YamlMethod
+    fn: api.FnExport | api.Method
   ) {
     super(kind, name);
     this.#fn = fn;
@@ -106,7 +112,7 @@ export abstract class Fn extends AbstractExport {
   }
 
   get notes(): string | undefined {
-    return this.#fn.notes;
+    return hasNotes(this.#fn) ? this.#fn.notes : undefined;
   }
 
   get params(): Parameter[] {
@@ -114,29 +120,7 @@ export abstract class Fn extends AbstractExport {
       return [];
     }
 
-    const entries = Object.entries(this.#fn.params);
-    const last = entries[entries.length - 1];
-    const params = [];
-
-    for (const entry of entries) {
-      const [name, type] = entry;
-
-      if (isOptionsType(type)) {
-        params.push(
-          new Parameter(name, new OptionsType(type), entry === last, undefined)
-        );
-      } else {
-        params.push(
-          new Parameter(name, new Type(type), entry === last, undefined)
-        );
-      }
-    }
-
-    return params;
-  }
-
-  hasOptions(): boolean {
-    return !!this.#fn.options;
+    return [...params(this.#fn.params, undefined)];
   }
 
   get ret() {
@@ -147,8 +131,31 @@ export abstract class Fn extends AbstractExport {
     return new Type(["void"]);
   }
 
-  get tag(): "optimization" | void {
-    return this.#fn.tag;
+  get tags(): api.Tag[] | void {
+    return tagList(this.#fn);
+  }
+}
+
+function* params<T extends Type | OptionsType = Type | OptionsType>(
+  apiParams: api.Params,
+  parent: Parameter | undefined
+): IterableIterator<Parameter<T>> {
+  const entries = Object.entries(apiParams);
+  const last = entries[entries.length - 1];
+
+  for (const entry of entries) {
+    const [name, type] = entry;
+
+    if (isOptionsType(type)) {
+      yield new Parameter<T>(
+        name,
+        new OptionsType(type) as T,
+        entry === last,
+        parent
+      );
+    } else {
+      yield new Parameter<T>(name, new Type(type) as T, entry === last, parent);
+    }
   }
 }
 
@@ -156,21 +163,30 @@ export class UtilFnExport extends Fn {
   declare readonly kind = "util-fn";
   readonly prefix = "function ";
 
-  #export: YamlUtilFnExport;
+  #export: api.UtilFn;
 
-  constructor(name: string, e: YamlUtilFnExport) {
+  constructor(name: string, e: api.UtilFn) {
     super("util-fn", name, e);
     this.#export = e;
   }
 }
 
-export class InterfaceExport extends AbstractExport {
-  declare readonly kind = "interface";
+export interface AbstractInterfaceMembers {
+  readonly hasMethods: boolean;
+  readonly methods: Method[];
+  readonly hasProperties: boolean;
+  readonly properties: Property[];
+  readonly slug: string;
+}
 
-  #export: YamlInterface;
+export class InterfaceMembers
+  extends AbstractExport
+  implements AbstractInterfaceMembers
+{
+  #export: api.InterfaceMembers;
 
-  constructor(name: string, e: YamlInterface) {
-    super("interface", name);
+  constructor(kind: string, name: string, e: api.InterfaceMembers) {
+    super(kind, name);
     this.#export = e;
   }
 
@@ -196,13 +212,32 @@ export class InterfaceExport extends AbstractExport {
   }
 }
 
-export class ConstructorFnExport extends Fn {
+export class ConstExport extends InterfaceMembers {
+  declare readonly kind: "const";
+
+  constructor(name: string, e: api.Const) {
+    super("const", name, e);
+  }
+}
+
+export class InterfaceExport extends InterfaceMembers {
+  declare readonly kind: "interface";
+
+  constructor(name: string, e: api.Interface) {
+    super("interface", name, e);
+  }
+}
+
+export class ConstructorFnExport
+  extends Fn
+  implements AbstractInterfaceMembers
+{
   declare readonly kind = "constructor-fn";
   readonly prefix = "function ";
 
-  #export: YamlConstructorFnExport;
+  #export: api.ConstructorFn;
 
-  constructor(name: string, e: YamlConstructorFnExport) {
+  constructor(name: string, e: api.ConstructorFn) {
     super("constructor-fn", name, e);
     this.#export = e;
   }
@@ -230,11 +265,11 @@ export class ConstructorFnExport extends Fn {
 }
 
 export class Property {
-  #parent: ConstructorFnExport | InterfaceExport;
+  #parent: ConstructorFnExport | InterfaceMembers | Variant;
   #property: NormalizedPropertyType;
 
   constructor(
-    parent: ConstructorFnExport | InterfaceExport,
+    parent: ConstructorFnExport | InterfaceMembers | Variant,
     readonly name: string,
     property: NormalizedPropertyType
   ) {
@@ -242,36 +277,42 @@ export class Property {
     this.#property = property;
   }
 
-  get type() {
-    return new PropertyType(this.#property, undefined);
+  get type(): PropertyType {
+    return new PropertyType(this.#property);
   }
 
-  get docs() {
+  get docs(): string | undefined {
     return this.#property.docs ? formatDocs(this.#property.docs) : undefined;
   }
 
-  get slug() {
+  get tags(): api.Tag[] | undefined {
+    return this.#property.tags;
+  }
+
+  get slug(): string {
     return `${this.#parent.slug}-${formatSlug(this.name)}`;
   }
 
-  get modifiers(): PropertyModifier[] | void {
+  get modifiers(): api.PropertyModifier[] | void {
     return this.#property.modifiers;
   }
 
   get prefix(): string {
-    return this.#property.modifiers ? "readonly " : "";
+    return this.#property.modifiers
+      ? `${this.#property.modifiers.join(" ")} `
+      : "";
   }
 }
 
-type ParentExport = InterfaceExport | ConstructorFnExport;
+type ParentExport = InterfaceMembers | ConstructorFnExport;
 
 export class Method extends Fn {
-  declare readonly kind = "method";
+  declare readonly kind: "method";
 
   #parent: ParentExport;
-  #method: YamlMethod;
+  #method: api.Method;
 
-  constructor(parent: ParentExport, name: string, e: YamlMethod) {
+  constructor(parent: ParentExport, name: string, e: api.Method) {
     super("method", name, e);
     this.#parent = parent;
     this.#method = e;
@@ -317,12 +358,82 @@ export class Parameter<T extends Type | OptionsType = Type | OptionsType> {
   }
 }
 
+export class VariantsExport extends AbstractExport {
+  declare readonly kind: "variants";
+  #export: api.Variants;
+
+  constructor(name: string, e: api.Variants) {
+    super("variants", name);
+    this.#export = e;
+  }
+
+  get variants(): Variant[] {
+    return Object.entries(this.#export.variants ?? {}).map(
+      ([name, e]) => new Variant(this, name, e)
+    );
+  }
+}
+
+export class Variant {
+  #parent: VariantsExport;
+  #name: string;
+  #variant: api.Variant;
+
+  constructor(parent: VariantsExport, name: string, variant: api.Variant) {
+    this.#parent = parent;
+    this.#name = name;
+    this.#variant = variant;
+  }
+
+  get name(): string {
+    return this.#name;
+  }
+
+  get docs(): string | undefined {
+    if (Array.isArray(this.#variant)) {
+      return this.#variant[0];
+    }
+  }
+
+  get #fields(): api.Properties | undefined {
+    if (this.#variant === "empty") {
+      return;
+    } else if (Array.isArray(this.#variant)) {
+      if (this.#variant[1] === "empty") {
+        return;
+      } else {
+        return this.#variant[1];
+      }
+    } else {
+      return this.#variant;
+    }
+  }
+
+  get slug(): string {
+    return `${this.#parent.slug}-${formatSlug(this.name)}`;
+  }
+
+  get properties(): Record<string, Property> | undefined {
+    const fields = this.#fields;
+    if (fields === undefined) {
+      return;
+    }
+
+    return Object.fromEntries(
+      Object.entries(fields).map(([name, prop]) => [
+        name,
+        new Property(this, name, normalizeProperty(prop)),
+      ])
+    );
+  }
+}
+
 export abstract class AbstractType {
-  #type: YamlParamType;
+  #type: api.Param;
   abstract readonly docs: string | void;
   abstract readonly name: string;
 
-  constructor(type: YamlParamType) {
+  constructor(type: api.Param) {
     this.#type = type;
   }
 
@@ -357,9 +468,9 @@ export class Generic extends AbstractType {
 }
 
 export class Type extends AbstractType {
-  #type: YamlTypeWithDocs;
+  #type: api.TypeWithDocs;
 
-  constructor(type: YamlTypeWithDocs) {
+  constructor(type: api.TypeWithDocs) {
     super(type);
     if (typeof type === "string") {
       debugger;
@@ -396,33 +507,31 @@ export class OptionsType extends AbstractType {
     return value instanceof OptionsType;
   }
 
-  #type: YamlOptionsType;
+  #type: api.Options;
   readonly docs = undefined;
   readonly name = "object";
 
-  constructor(type: YamlOptionsType) {
+  constructor(type: api.Options) {
     super(type);
     this.#type = type;
   }
 
   *options(parent: Parameter): IterableIterator<Parameter<Type>> {
-    const { options } = getOptions(this.#type);
+    const options = this.#type[1];
 
-    for (const [name, type] of Object.entries(options)) {
-      yield new Parameter(name, new Type(type), false, parent);
-    }
+    yield* params<Type>(options, parent);
   }
 }
 
 export class PropertyType extends Type {
   #type: NormalizedPropertyType;
 
-  constructor(type: NormalizedPropertyType, parent: Parameter | undefined) {
-    super([type.name, type.docs]);
+  constructor(type: NormalizedPropertyType) {
+    super(type.docs ? [type.name, type.docs] : [type.name]);
     this.#type = type;
   }
 
-  get modifiers(): PropertyModifier[] | undefined {
+  get modifiers(): api.PropertyModifier[] | undefined {
     return this.#type.modifiers;
   }
 }
@@ -442,5 +551,11 @@ function formatDocs(docs: string): string {
     string = string.slice(0, -1);
   }
 
-  return docs.replace(/\n/g, "<br>") + ".";
+  return string.replaceAll("\n\n", "<br>") + ".";
+}
+
+function assertNever(_e: never): never {
+  throw new Error(
+    "Expected type to be never (this should have resulted in a type error)."
+  );
 }
