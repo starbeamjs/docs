@@ -15,18 +15,18 @@ const npmRender = (md: MarkdownIt, tokens: Token[], idx: number): string => {
 
   const body = [
     "::: code-tabs#npm",
-    "@tab pnpm\n",
+    "@tab pnpm",
     "```shell",
     `pnpm install ${content}`,
-    "```\n",
-    "@tab npm\n",
+    "```",
+    "@tab npm",
     "```shell",
     `npm install ${content}`,
-    "```\n",
+    "```",
     "@tab yarn",
     "```shell",
     `yarn add ${content}`,
-    "```\n",
+    "```",
     ":::",
   ].join("\n");
 

@@ -9,6 +9,10 @@
 @use "./api/generics.scss";
 
 .VPDoc {
+  div[class*="language-"] > pre > code > span.line:last-child:empty {
+    display: none;
+  }
+
   .custom-block div[class*="language-"] code {
     background: transparent;
   }
