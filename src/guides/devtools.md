@@ -10,4 +10,4 @@ At the moment, there are two reflection APIs that are fleshed out and ready to u
    stack frame in which it was created and any user-specified information.
 2. `ReactiveProtocol.debug`, which returns a pretty-printed list of the reactive value's dependencies.
 
-[@starbeam/timeline]: ../api/timeline.md#export-const-reactiveprotocol
+[@starbeam/timeline]: ../api/timeline/protocol.md#interface-ReactiveProtocol

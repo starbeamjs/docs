@@ -11,7 +11,6 @@ import Toc from "./Toc.vue";
 const data = useData();
 
 const api = computed(() => new PublicApi(data.page.value.frontmatter as Apis));
-console.log(api.value);
 const slots = useSlots();
 </script>
 

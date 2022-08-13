@@ -47,8 +47,6 @@ const signature = computed(() =>
     })
     .add("}")
 );
-
-console.log({ variant: props.variant });
 </script>
 <template>
   <Section :for="variant" class="card" :level="4">

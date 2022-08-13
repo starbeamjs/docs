@@ -1,1 +1,0 @@
-import{_ as s,o as a,c as n,a as l}from"./app.74eca79f.js";const i=JSON.parse('{"title":"Equivalence","description":"","frontmatter":{},"headers":[],"relativePath":"guides/advanced/equivalence.md"}'),o={name:"guides/advanced/equivalence.md"},p=l("",8),e=[p];function t(c,r,D,y,F,A){return a(),n("div",null,e)}var d=s(o,[["render",t]]);export{i as __pageData,d as default};
