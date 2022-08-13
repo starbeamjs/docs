@@ -15,14 +15,14 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
       item("Validation", "/guides/fundamentals/validation.md"),
       item("Resources", "/guides/fundamentals/resources.md"),
     ]),
-    group("Universal Building Blocks", [
-      item("Introduction", "/guides/universal/index.md"),
-      item("Reactives", "/guides/universal/reactive.md"),
-      item("Resources", "/guides/universal/resources.md"),
-      item("DOM Resources", "/guides/universal/dom-resources.md"),
-      item("Modifiers", "/guides/universal/modifiers.md"),
-      item("Services", "/guides/universal/services.md"),
-    ]),
+    // group("Universal Building Blocks", [
+    //   item("Introduction", "/guides/universal/index.md"),
+    //   item("Reactives", "/guides/universal/reactive.md"),
+    //   item("Resources", "/guides/universal/resources.md"),
+    //   item("DOM Resources", "/guides/universal/dom-resources.md"),
+    //   item("Modifiers", "/guides/universal/modifiers.md"),
+    //   item("Services", "/guides/universal/services.md"),
+    // ]),
     group(
       "Digging Deeper",
       [
