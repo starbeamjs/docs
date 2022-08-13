@@ -15,6 +15,7 @@
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "strict": true /* Enable all strict type-checking options. */,
+    "noImplicitAny": true,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": [
@@ -24,7 +25,16 @@
     "src/.vitepress/**/*.ts",
     "src/.vitepress/**/*.d.ts",
     "src/.vitepress/**/*.vue",
-    "src/vite.config.js"
+    "src/vite.config.js",
+    "test.mts",
+    "packages/*/src/**/*.ts",
+    "packages/*/src/**/*.d.ts"
   ],
-  "references": [{ "path": "./src/frameworks/react/tsconfig.json" }]
+  "references": [
+    { "path": "./src/frameworks/react/tsconfig.json" },
+    {
+      "path": "./tsconfig.react.json"
+    },
+    { "path": "./scripts/tsconfig.json" }
+  ]
 }

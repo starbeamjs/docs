@@ -15,6 +15,14 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
       item("Validation", "/guides/fundamentals/validation.md"),
       item("Resources", "/guides/fundamentals/resources.md"),
     ]),
+    // group("Universal Building Blocks", [
+    //   item("Introduction", "/guides/universal/index.md"),
+    //   item("Reactives", "/guides/universal/reactive.md"),
+    //   item("Resources", "/guides/universal/resources.md"),
+    //   item("DOM Resources", "/guides/universal/dom-resources.md"),
+    //   item("Modifiers", "/guides/universal/modifiers.md"),
+    //   item("Services", "/guides/universal/services.md"),
+    // ]),
     group(
       "Digging Deeper",
       [
@@ -29,9 +37,16 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
     ]),
   ],
   "/api/": [
-    group([
-      item("@starbeam/timeline", "/api/timeline.md"),
-      item("@starbeam/core", "/api/core.md"),
+    group("@starbeam/timeline", [
+      item("LIFETIME", "/api/timeline/lifetime.md"),
+      item("TIMELINE", "/api/timeline/timeline.md"),
+      item("ReactiveProtocol", "/api/timeline/protocol.md"),
+    ]),
+    group("@starbeam/core", [
+      item("Cell", "/api/core/cell.md"),
+      item("Formula", "/api/core/formula.md"),
+      item("Resource", "/api/core/resource.md"),
+      item("ResourceList", "/api/core/resource-list.md"),
     ]),
   ],
   "/frameworks/react/": [

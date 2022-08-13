@@ -1,0 +1,3 @@
+[schema]
+enabled = true
+path = "./packages/api-docs/dist/api.schema.json"

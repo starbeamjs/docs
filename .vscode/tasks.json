@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "docs:dev",
+      "problemMatcher": [],
+      "label": "npm: docs:dev",
+      "detail": "vitepress dev src",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "script": "api:build",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": [],
+      "label": "npm: api:build",
+      "detail": "node ./scripts/generate-api.js"
+    },
+    {
+      "type": "npm",
+      "script": "schema:build",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "npm: schema:build",
+      "detail": "pnpm --filter @starbeam/api-docs schema:build"
+    }
+  ]
+}

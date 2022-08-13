@@ -1,0 +1,10 @@
+.VPDoc {
+  div.docs.line {
+    display: contents;
+
+    > p {
+      display: contents;
+      color: var(--vp-c-indigo-soft);
+    }
+  }
+}

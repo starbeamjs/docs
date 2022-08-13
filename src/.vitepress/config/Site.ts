@@ -1,4 +1,4 @@
-import { ThemeConfig } from "./types.js";
+import type { ThemeConfig } from "./types.js";
 
 export const SITE: Partial<ThemeConfig> = {
   siteTitle: "Starbeam",

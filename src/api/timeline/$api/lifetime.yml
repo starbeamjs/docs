@@ -1,0 +1,39 @@
+exports:
+  LIFETIME:
+    kind: const
+    docs: |
+      `LIFETIME` provides a mechanism for _structured cleanup_ of objects.
+
+      ::: info
+
+      _Structured cleanup_ means linking the cleanup of an object to the lifetime of its _owner_, and the
+      ability to register cleanup handlers for objects.
+
+      :::
+    methods:
+      on.cleanup:
+        docs: |
+          Register a cleanup handler for an object. This function is called when the object is
+          finalized.
+        params:
+          handler:
+            - "() => void"
+            - The function that should run when this object is cleaned up
+        returns:
+          - Unsubscribe
+          - A function that can be used to unregister the cleanup handler
+      link:
+        docs: |
+          Link an object to its owner. When an object's owner is [finalized], it will be [finalized].
+        params:
+          parent: [object, The object to link the child to]
+          child: [object, The object to link to the parent]
+        returns:
+          - Unsubscribe
+          - A function that can be used to unlink the child from the parent, which will prevent it from being cleaned up when the parent is cleaned up.
+      finalize:
+        docs: |
+          Finalize an object. The object's cleanup handlers will be called, and all linked objects
+          will be finalized.
+        params:
+          object: [object, The object to finalize]

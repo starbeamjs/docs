@@ -1,0 +1,120 @@
+exports:
+  TIMELINE:
+    kind: const
+    properties:
+      now:
+        - Timestamp
+        - modifiers: [readonly]
+          docs: The current timestamp.
+          tags: [debug]
+    methods:
+      bump:
+        docs: |
+          Indicate that a particular cell has been updated, and return a new timestamp for that
+          update.
+        params:
+          cell: [MutableInternals, The internals for cell that was updated]
+        returns: [Timestamp, The new timestamp]
+      update:
+        docs: |
+          When a reactive's dependencies might have changed, any renderables that depend on this reactive
+          need to refresh their dependencies. If there are no renderers for this reactive value,
+          does nothing.
+
+          Otherwise, each relevant renderable will unsubscribe from any stale dependencies and subscribe
+          to any new dependencies.
+
+          For example, Formulas call this method after recomputing their value, which results in a
+          possible change to their dependencies.
+        params:
+          reactive:
+            - ReactiveProtocol
+            - The reactive whose dependencies might have changed.
+      "on.change":
+        tag: renderer
+        docs: |
+          Register a callback that will be called when the given reactive value changes.
+
+          **Important**: Do not interact with reactive values inside the ready function. Instead,
+          use your framework's scheduling mechanism to schedule the component that registered the
+          change handler for rerender.
+        params:
+          input:
+            - ReactiveProtocol
+            - The reactive value whose changes will be monitored.
+          ready:
+            - "() => void"
+            - "The callback to call when the reactive value changes."
+      attach:
+        docs: |
+          Attach a listener to the timeline.
+        params:
+          notify: [() => void, The function to call when the timeline changes]
+          options:
+            - "@options?"
+            - filter:
+                - DebugFilter
+                - A filter that determines which events trigger the notification function.
+        returns: [DebugListener]
+      mutation:
+        generics:
+          T: The return value of the mutation function
+        docs: |
+          Mutate multiple cells in the context of a named abstraction.
+        params:
+          description: ["string", "A description of the mutation"]
+          callback: ["() => T", A function that mutates multiple cells]
+        returns: [T, The return value of the mutation function]
+      untrackedReadBarrier:
+        docs: |
+          In debug mode, register a barrier for untracked reads. This allows you to throw an error
+          if an untracked read occurred in a context (such as a render function) that a renderer
+          knows will produce rendered content.
+        params:
+          assertion:
+            - "(reactive: ReactiveProtocol, caller: Stack) => void"
+            - A function that will be called in debug mode for each untracked read.,
+        tags: [debug, renderer]
+  DebugFilter:
+    kind: variants
+    variants:
+      by-reactive:
+        - Filter notifications by whether the entry is related to a particular reactive value.
+        - reactive:
+            [ReactiveProtocol, An object that implements ReactiveProtocol]
+      all:
+        - Notify the notifier for all entries.
+        - empty
+      none:
+        - Don't notify the notifier for any reason.
+        - empty
+  DebugListener:
+    kind: interface
+    methods:
+      update:
+        params:
+          filter:
+            - DebugFilter
+            - A new filter for this listener
+      flush:
+        docs: |
+          Flush the listener's buffer.
+        returns: ["DebugOperation[]"]
+  DebugOperation:
+    kind: variants
+    variants:
+      "cell:consume":
+        - A cell was consumed.
+        - for:
+            - MutableInternals
+            - The internals for the cell that was consumed.
+      "frame:consume":
+        - A frame was consumed.
+        - for:
+            - CompositeInternals
+            - The internals for the frame that was consumed.
+      "cell:update":
+        - A cell was updated.
+        - entry:
+            - DebugEntry
+            - The entry to delete from the timeline.

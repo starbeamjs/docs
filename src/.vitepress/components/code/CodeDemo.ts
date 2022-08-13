@@ -9,7 +9,7 @@ import "balloon-css/balloon.css";
 import { MARKDOWN_ENHANCE_DELAY } from "../shared/constants.js";
 import "./code-demo.scss";
 import { injectCSS, injectScript } from "./demo/inject.js";
-import { CodeDemoOptions } from "./demo/types.js";
+import type { CodeDemoOptions } from "./demo/types.js";
 
 export default defineComponent({
   name: "CodeDemo",

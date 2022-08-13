@@ -6,9 +6,20 @@
     "**/CVS": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
-    "node_modules": true
+    "node_modules": true,
+    "docs": true
   },
-
+  "[markdown]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
+    "editor.defaultFormatter": "Vue.volar"
+  },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.ts": "${capture}.js, ${capture}.ts.js",
@@ -43,8 +54,42 @@
   "scssLint.languages": ["scss"],
   "scssLint.showHighlights": true,
 
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.insertSpaces": true,
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.tabSize": 2,
+    "editor.autoIndent": "keep",
+    "gitlens.codeLens.scopes": ["document"],
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    }
+  },
+
   "volar.takeOverMode.enabled": "auto",
   "volar.autoWrapParentheses": true,
   "volar.vueserver.useSecondServer": true,
-  "volar.updateImportsOnFileMove.enabled": true
+  "volar.updateImportsOnFileMove.enabled": true,
+  "volar.codeLens.scriptSetupTools": true,
+  "volar.codeLens.references": true,
+  "volar.completion.autoImportComponent": true,
+  "vite.autoStart": false,
+
+  "yaml.schemaStore.enable": true,
+  "yaml.schemas": {
+    "./packages/api-docs/dist/api.schema.json": "/src/api/**/*.yml",
+    "file:///workspaces/docs/packages/api-docs/dist/api.schema.json": "file:///workspaces/docs/src/api/core/%24api/cell.yml"
+  },
+  "yaml.trace.server": "messages",
+
+  "json.schemas": [
+    {
+      "fileMatch": ["src/api/**/$api/*.json", "src/api/**/$api/*.jsonc"],
+      "url": "./packages/api-docs/dist/api.schema.json"
+    }
+  ]
 }

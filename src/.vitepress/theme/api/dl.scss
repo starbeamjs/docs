@@ -1,0 +1,50 @@
+.VPDoc {
+  dl {
+    &.generics {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      align-items: baseline;
+      column-gap: 1ch;
+    }
+
+    &.docs {
+      margin: 1em 0 0 1em;
+
+      > dt {
+        display: grid;
+        grid-template-columns: max-content max-content;
+      }
+
+      > dd {
+        margin-inline-start: 0;
+      }
+
+      p {
+        margin-block-start: 0;
+      }
+    }
+
+    code {
+      background-color: var(--vp-code-block-bg);
+    }
+
+    dt {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      column-gap: var(--sb-gap);
+    }
+
+    dd + dt {
+      margin-block-start: 1ch;
+    }
+
+    dd:empty {
+      content: "&nbsp;";
+      height: 1rem;
+    }
+
+    dd > div.docs > p {
+      color: var(--vp-c-indigo-soft);
+    }
+  }
+}

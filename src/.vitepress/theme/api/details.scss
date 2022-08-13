@@ -1,0 +1,22 @@
+.VPDoc {
+  details[open] summary::before {
+    content: "expand_less";
+  }
+  summary {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+
+    &::before {
+      font-size: 1.5em;
+
+      font-family: var(--icons);
+      content: "expand_more";
+    }
+  }
+
+  details:not([open]) summary {
+    margin: 0;
+    cursor: pointer;
+  }
+}

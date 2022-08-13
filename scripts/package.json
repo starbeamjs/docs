@@ -1,0 +1,16 @@
+{
+  "name": "@starbeam/doc-scripts",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "shelljs": "^0.8.5",
+    "shell-escape-tag": "^2.0.2",
+    "fast-glob": "^3.2.11",
+    "yaml": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.1",
+    "@types/shelljs": "^0.8.11",
+    "@types/shell-escape-tag": "workspace:*"
+  }
+}
