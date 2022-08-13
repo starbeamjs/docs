@@ -28,7 +28,10 @@ defineProps<{ api: PublicApi }>();
                 <li>
                   <ul>
                     <li v-for="property in item.properties">
-                      <a :href="`#${property.slug}`" data-kind="property">
+                      <a
+                        :href="`#${property.slug}--property`"
+                        data-kind="property"
+                      >
                         {{ property.name }}
                       </a>
                     </li>
@@ -41,7 +44,7 @@ defineProps<{ api: PublicApi }>();
                 <li>
                   <ul>
                     <li v-for="method in item.methods">
-                      <a :href="`#${method.slug}`" data-kind="method">{{
+                      <a :href="`#${method.slug}--method`" data-kind="method">{{
                         method.name
                       }}</a>
                     </li>
