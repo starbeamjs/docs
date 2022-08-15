@@ -1,3 +1,4 @@
+import type { DefaultTheme, UserConfig } from "vitepress";
 import type { ThemeConfig } from "./types.js";
 
 export const SITE: Partial<ThemeConfig> = {
@@ -7,4 +8,9 @@ export const SITE: Partial<ThemeConfig> = {
     copyright:
       "Copyright © 2022-present (Yehuda Katz and Starbeam contributors)",
   },
+};
+
+export const CONFIG: Partial<UserConfig<DefaultTheme.Config>> = {
+  title: "Starbeam",
+  titleTemplate: "Simple and Fun Reactivity",
 };
