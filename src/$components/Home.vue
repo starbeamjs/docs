@@ -6,7 +6,7 @@ const config = {
   name: "Starbeam",
   text: "Reactivity Made Simple and Fun ✨",
   tagline:
-    "Starbeam is a new kind of reactive library. It make reactive programming simple and fun, and it works with your existing JavaScript framework.",
+    "Starbeam is a new kind of reactive library. It makes reactive programming simple and fun, and it works with your existing JavaScript framework.",
 };
 
 const features = [
