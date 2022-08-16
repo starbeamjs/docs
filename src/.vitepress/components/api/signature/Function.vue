@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+import type { ConstructorFn, Method, UtilFn } from "@starbeam/api-docs";
 import Codicon from "../../Codicon.vue";
 import Def from "../Def.vue";
-import type { Fn } from "../exports.js";
 import Section from "../Section.vue";
 import { tokens } from "../signature/tokens.js";
 import Docs from "./Docs.vue";
@@ -23,32 +23,60 @@ export interface FormattedType {
 }
 
 const props = defineProps<{
-  fn: Fn;
+  fn: ConstructorFn | UtilFn | Method;
 }>();
 
-const ret = computed(() => props.fn.ret);
+const ret = computed(() => props.fn.fn.ret);
 
 const signature = tokens()
-  .add("kind", props.fn.prefix)
+  .add((t) => {})
+  .add((t) => {
+    switch (props.fn.kind) {
+      case "fn:constructor":
+      case "fn:util":
+        t.add("kind", "function");
+        t.add(" ");
+        break;
+    }
+  })
   .add("name", props.fn.name)
   .add("(")
-  .map(props.fn.params, ({ name, type, isLast }, t) =>
-    t.add("param", name).if(type.isOptional, "?").if(!isLast, ", ")
-  )
+  .add((t) => {
+    const params = props.fn.fn.params;
+
+    if (params) {
+      const last = params.length - 1;
+
+      params.forEach((param, i) => {
+        t.add("param", param.name);
+
+        if (param.type.optional) {
+          t.add("?");
+        }
+
+        if (i < last) {
+          t.add(", ");
+        }
+      });
+    }
+  })
   .add("): ")
-  .add("type", props.fn.ret.name)
+  .add("type", props.fn.fn.ret.name)
   .add(";");
 </script>
 
 <template>
-  <template v-if="props.fn.kind === 'constructor-fn'">
+  <template v-if="props.fn.kind === 'fn:constructor'">
     <Section class="signature card" :for="props.fn" :level="2">
       <template #head>
         <code>{{ props.fn.name }}</code>
-        <Tags v-if="props.fn.tags" :tags="props.fn.tags" />
+        <Tags v-if="props.fn.export.tags" :tags="props.fn.export.tags" />
       </template>
       <template #contents>
-        <Generics v-if="props.fn.hasGenerics()" :generics="props.fn.generics" />
+        <Generics
+          v-if="props.fn.fn.generics"
+          :generics="props.fn.fn.generics"
+        />
       </template>
     </Section>
   </template>
@@ -60,19 +88,19 @@ const signature = tokens()
     :for="{ slug: props.fn.slug }"
   >
     <template #head>
-      <template v-if="props.fn.kind === 'constructor-fn'">
+      <template v-if="props.fn.kind === 'fn:constructor'">
         <Codicon icon="symbol-constructor" />
         Constructor Function
       </template>
       <template v-if="props.fn.kind === 'method'">
         <code>{{ props.fn.name }}</code>
-        <Tags v-if="props.fn.tags" :tags="props.fn.tags" />
+        <Tags v-if="props.fn.fn.tags" :tags="props.fn.fn.tags" />
       </template>
     </template>
     <template #contents>
       <Generics
-        v-if="props.fn.kind !== 'constructor-fn' && props.fn.hasGenerics()"
-        :generics="props.fn.generics"
+        v-if="props.fn.kind !== 'fn:constructor' && props.fn.fn.generics"
+        :generics="props.fn.fn.generics"
       />
       <section class="card">
         <Manual :tokens="signature" />
@@ -80,13 +108,13 @@ const signature = tokens()
         <Docs>{{ props.fn.docs }}</Docs>
 
         <dl class="docs">
-          <template :key="(p) => p.name" v-for="param in props.fn.params">
+          <template :key="(p) => p.name" v-for="param in props.fn.fn.params">
             <Param
-              v-if="param.hasOptions()"
+              v-if="param.hasOptions"
               v-for="option in param.options()"
               :param="option"
             />
-            <Param v-else-if="param.hasBareType()" :param="param" />
+            <Param v-else :param="param" />
           </template>
 
           <Def v-if="ret.name !== 'void'">

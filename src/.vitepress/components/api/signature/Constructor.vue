@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ConstructorFnExport } from "../exports.js";
+import type { ConstructorFn } from "@starbeam/api-docs";
 import { md } from "../md.js";
 import Section from "../Section.vue";
 import Function from "./Function.vue";
@@ -13,16 +13,16 @@ export interface FormattedType {
 }
 
 const props = defineProps<{
-  fn: ConstructorFnExport;
+  fn: ConstructorFn;
 }>();
 </script>
 
 <template>
   <Function :fn="props.fn" />
 
-  <section v-if="props.fn.notes" class="card">
-    <div class="notes" v-html="md(props.fn.notes)" />
+  <section v-if="props.fn.export.notes" class="card">
+    <div class="notes" v-html="md(props.fn.export.notes)" />
   </section>
 
-  <InterfaceMembers :type="props.fn" />
+  <InterfaceMembers :type="props.fn.members" />
 </template>

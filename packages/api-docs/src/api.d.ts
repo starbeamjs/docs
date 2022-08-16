@@ -27,11 +27,11 @@ export interface Method extends Fn {
  */
 export type Tag = "optimization" | "renderer" | "debug";
 
-export interface Export {
+export interface Export extends Tagged {
   /**
    * The kind of export.
    *
-   * @examples ["constructor-fn", "interface"]
+   * @examples ["fn:constructor", "interface"]
    */
   kind: ExportKind;
   docs?: string;
@@ -68,8 +68,8 @@ export type VariantWithDocs = [string, VariantFields];
 /**
  * A constructor function.
  */
-export interface ConstructorFn extends Fn, InterfaceMembers {
-  kind: "constructor-fn";
+export interface ConstructorFn extends Fn, InterfaceMembers, Export {
+  kind: "fn:constructor";
   properties?: Properties;
   methods?: Methods;
   events?: Events;
@@ -78,8 +78,8 @@ export interface ConstructorFn extends Fn, InterfaceMembers {
 /**
  * A utility function.
  */
-export interface UtilFn extends Fn {
-  kind: "util-fn";
+export interface UtilFn extends Fn, Export {
+  kind: "fn:util";
 }
 
 /**
@@ -116,7 +116,7 @@ export interface Generics {
  * array of `["@options", Params]`.
  */
 export interface Params {
-  [key: string]: Param;
+  [key: string]: Type;
 }
 
 /**
@@ -173,7 +173,7 @@ export type Options = ["@options" | "@options?", Params];
  * A parameter to a function. If the parameter is an options argument, the
  * type is an array of `["@options", Params]`.
  */
-export type Param = TypeWithDocs | Options;
+export type Type = TypeWithDocs | Options;
 
 export interface Methods {
   [key: string]: Method;
@@ -183,19 +183,21 @@ export interface Events {
   [key: string]: Fn;
 }
 
+export type HasInterfaceMembers = ConstructorFn | Interface | Const;
+
 /**
  * A documented public API.
  * @markdownDescription
  * A documented public API.
  *
- * - Constructor functions (`kind: "constructor-fn"`)
+ * - Constructor functions (`kind: "fn:constructor"`)
  * - Interfaces (`kind: "interface"`)
  */
-export type Api = ConstructorFn | UtilFn | Interface | Variants | Const;
+export type Api = HasInterfaceMembers | UtilFn | Variants;
 
 export type ExportKind =
-  | "constructor-fn"
-  | "util-fn"
+  | "fn:constructor"
+  | "fn:util"
   | "interface"
   | "variants"
   | "const";

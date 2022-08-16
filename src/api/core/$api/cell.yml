@@ -1,32 +1,32 @@
 exports:
   Cell:
-    kind: constructor-fn
+    kind: fn:constructor
     generics:
-      T: The type of value contained in the cell.
+      Value: The type of value contained in the cell.
     returns: [Cell, "A cell with the given initial value"]
     params:
-      value: [T, "The initial value of the cell"]
+      value: [Value, "The initial value of the cell"]
       options:
         - "@options?"
         - description: ["string?", "A description of the cell"]
           equals:
             [
-              "(a: T, b: T) => boolean?",
+              "(a: Value, b: Value) => boolean?",
               "A function that returns true if the values are equal",
             ]
     docs: The `Cell` API is the fundamental storage building block of Starbeam.
     properties:
-      current: ["T", "The current value of the cell"]
+      current: ["Value", "The current value of the cell"]
     methods:
       update:
         params:
           updater:
-            - "(prev: T) => T"
+            - "(prev: Value) => Value"
             - "A function that takes the previous value of the cell and returns the new value"
         returns: ["boolean", "`true` if the value changed, `false` otherwise"]
       set:
         params:
-          value: ["T", "The new value of the cell"]
+          value: ["Value", "The new value of the cell"]
         returns: ["boolean", "`true` if the value changed, `false` otherwise"]
       freeze:
         tag: "optimization"

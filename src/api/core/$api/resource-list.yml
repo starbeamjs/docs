@@ -1,6 +1,6 @@
 exports:
   ResourceList:
-    kind: constructor-fn
+    kind: fn:constructor
     generics:
       T: input values
       U: output values

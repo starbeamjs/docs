@@ -1,6 +1,6 @@
 exports:
   Resource:
-    kind: constructor-fn
+    kind: fn:constructor
     generics:
       T: The type of value that the resource represents.
     returns: ["ResourceBlueprint"]

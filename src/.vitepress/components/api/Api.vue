@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { Apis } from "@starbeam/api-docs";
+import { api as docs, Exports } from "@starbeam/api-docs";
 import { useData } from "vitepress";
 import { computed, useSlots } from "vue";
-import { PublicApi } from "./exports.js";
 import Constructor from "./signature/Constructor.vue";
 import Function from "./signature/Function.vue";
 import Interface from "./signature/Interface.vue";
@@ -10,7 +9,17 @@ import Variants from "./signature/Variants.vue";
 import Toc from "./Toc.vue";
 const data = useData();
 
-const api = computed(() => new PublicApi(data.page.value.frontmatter as Apis));
+const api = computed(() => {
+  const frontmatter = data.frontmatter.value as docs.Apis;
+  return Exports.from({
+  apis: frontmatter,
+  package: "todo",
+  title: "todo",
+  url: "todo"
+});
+
+});
+
 const slots = useSlots();
 </script>
 
@@ -23,14 +32,14 @@ const slots = useSlots();
 
   <template v-for="[, group] in api.grouped()">
     <template v-for="e in group">
-      <template v-if="e.kind === 'constructor-fn'">
-      <Constructor :fn="e" />
+      <template v-if="e.kind === 'fn:constructor'">
+        <Constructor :fn="e" />
       </template>
-      <template v-else-if="e.kind === 'util-fn'">
+      <template v-else-if="e.kind === 'fn:util'">
         <Function :fn="e" />
       </template>
       <template v-else-if="e.kind === 'interface' || e.kind === 'const'">
-        <Interface :type="e" />
+        <Interface :name="e.name" :type="e.members" />
       </template>
       <template v-else-if="e.kind === 'variants'">
         <Variants :type="e" />

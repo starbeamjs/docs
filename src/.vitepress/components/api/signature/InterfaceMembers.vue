@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { InterfaceMembers } from "@starbeam/api-docs";
 import Codicon from "../../Codicon.vue";
 import Icon from "../../Icon.vue";
-import type { AbstractInterfaceMembers } from "../exports.js";
 import Section from "../Section.vue";
 import Function from "./Function.vue";
 import Property from "./Property.vue";
@@ -14,7 +14,7 @@ export interface FormattedType {
 }
 
 const props = defineProps<{
-  type: AbstractInterfaceMembers;
+  type: InterfaceMembers;
 }>();
 </script>
 

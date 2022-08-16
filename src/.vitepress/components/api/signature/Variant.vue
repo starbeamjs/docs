@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import type { Property, Variant } from "@starbeam/api-docs";
 import { computed } from "vue";
-import type { Property, Variant } from "../exports.js";
 import Section from "../Section.vue";
 import Docs from "./Docs.vue";
 import Manual from "./Manual.vue";
@@ -10,14 +10,14 @@ const props = defineProps<{ variant: Variant }>();
 
 function properties(
   tokens: TokensBuilder,
-  properties: Record<string, Property>
+  properties: Property[]
 ): TokensBuilder {
   return tokens.indent((t) => {
-    for (const [name, property] of Object.entries(properties)) {
+    for (const property of properties) {
       tokens
         .dim((t) => t.add(", "))
         .add("\n")
-        .add("key", name)
+        .add("key", property.name)
         .add(": ")
         .add("type", property.type.name);
       // tokens.add(name, property.type, property.docs);

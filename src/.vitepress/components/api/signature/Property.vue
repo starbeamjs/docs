@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Property } from "../exports.js";
+import type { Property } from "@starbeam/api-docs";
 import { md } from "../md.js";
 import Section from "../Section.vue";
 import Tag from "./fragments/Tag.vue";
@@ -18,7 +18,14 @@ const props = defineProps<{
 }>();
 
 const signature = tokens()
-  .add("kind", props.property.prefix)
+  .add((t) => {
+    if (props.property.modifiers) {
+      for (const modifier of props.property.modifiers) {
+        t.add("kind", modifier);
+        t.add(" ");
+      }
+    }
+  })
   .add("name", props.property.name)
   .add(": ")
   .add("type", props.property.type.name)

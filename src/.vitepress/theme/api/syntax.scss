@@ -76,6 +76,7 @@
     }
     span.starbeam-type {
       --sb-hl-hue: var(--sb-hl-type-ch);
+      font-style: italic;
     }
     span.starbeam-docs {
       --sb-hl-hue: var(--sb-hl-docs-ch);

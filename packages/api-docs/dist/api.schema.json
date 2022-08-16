@@ -5,23 +5,17 @@
     "Api": {
       "anyOf": [
         {
-          "$ref": "#/definitions/ConstructorFn"
+          "$ref": "#/definitions/HasInterfaceMembers"
         },
         {
           "$ref": "#/definitions/UtilFn"
         },
         {
-          "$ref": "#/definitions/Interface"
-        },
-        {
           "$ref": "#/definitions/Variants"
-        },
-        {
-          "$ref": "#/definitions/Const"
         }
       ],
       "description": "A documented public API.",
-      "markdownDescription": "A documented public API.\n\n- Constructor functions (`kind: \"constructor-fn\"`)\n- Interfaces (`kind: \"interface\"`)"
+      "markdownDescription": "A documented public API.\n\n- Constructor functions (`kind: \"fn:constructor\"`)\n- Interfaces (`kind: \"interface\"`)"
     },
     "Apis": {
       "additionalProperties": false,
@@ -44,9 +38,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "exports"
-      ],
+      "required": ["exports"],
       "type": "object"
     },
     "Const": {
@@ -68,11 +60,18 @@
         },
         "properties": {
           "$ref": "#/definitions/Properties"
+        },
+        "tag": {
+          "$ref": "#/definitions/Tag"
+        },
+        "tags": {
+          "items": {
+            "$ref": "#/definitions/Tag"
+          },
+          "type": "array"
         }
       },
-      "required": [
-        "kind"
-      ],
+      "required": ["kind"],
       "type": "object"
     },
     "ConstructorFn": {
@@ -89,7 +88,7 @@
           "$ref": "#/definitions/Generics"
         },
         "kind": {
-          "const": "constructor-fn",
+          "const": "fn:constructor",
           "description": "The kind of export.",
           "type": "string"
         },
@@ -118,9 +117,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "kind"
-      ],
+      "required": ["kind"],
       "type": "object"
     },
     "Events": {
@@ -162,6 +159,19 @@
       },
       "type": "object"
     },
+    "HasInterfaceMembers": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/ConstructorFn"
+        },
+        {
+          "$ref": "#/definitions/Interface"
+        },
+        {
+          "$ref": "#/definitions/Const"
+        }
+      ]
+    },
     "Interface": {
       "additionalProperties": false,
       "description": "An interface.",
@@ -182,11 +192,18 @@
         },
         "properties": {
           "$ref": "#/definitions/Properties"
+        },
+        "tag": {
+          "$ref": "#/definitions/Tag"
+        },
+        "tags": {
+          "items": {
+            "$ref": "#/definitions/Tag"
+          },
+          "type": "array"
         }
       },
-      "required": [
-        "kind"
-      ],
+      "required": ["kind"],
       "type": "object"
     },
     "LonghandProperty": {
@@ -236,10 +253,7 @@
           "$ref": "#/definitions/Params"
         },
         "placement": {
-          "enum": [
-            "static",
-            "instance"
-          ],
+          "enum": ["static", "instance"],
           "type": "string"
         },
         "returns": {
@@ -267,10 +281,7 @@
       "description": "An options argument to a function.",
       "items": [
         {
-          "enum": [
-            "@options",
-            "@options?"
-          ],
+          "enum": ["@options", "@options?"],
           "type": "string"
         },
         {
@@ -281,20 +292,9 @@
       "minItems": 2,
       "type": "array"
     },
-    "Param": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/TypeWithDocs"
-        },
-        {
-          "$ref": "#/definitions/Options"
-        }
-      ],
-      "description": "A parameter to a function. If the parameter is an options argument, the type is an array of `[\"@options\", Params]`."
-    },
     "Params": {
       "additionalProperties": {
-        "$ref": "#/definitions/Param"
+        "$ref": "#/definitions/Type"
       },
       "description": "The function's parameters",
       "markdownDescription": "The function's parameters. If the parameter is an options argument, the type is an\narray of `[\"@options\", Params]`.",
@@ -306,18 +306,9 @@
       },
       "description": "The properties of an object.",
       "examples": [
-        [
-          "title"
-        ],
-        [
-          "title",
-          "string"
-        ],
-        [
-          "title",
-          "string",
-          "readonly"
-        ]
+        ["title"],
+        ["title", "string"],
+        ["title", "string", "readonly"]
       ],
       "markdownDescription": "The properties of an object.\n\n- With a name only: [\"title\"]\n- With a name and a type: [\"title\", \"string\"]\n- With a name, type and property modifier: [\"title\", \"string\", \"readonly\"]",
       "type": "object"
@@ -361,13 +352,20 @@
     },
     "Tag": {
       "description": "A special category of API.",
-      "enum": [
-        "optimization",
-        "renderer",
-        "debug"
-      ],
+      "enum": ["optimization", "renderer", "debug"],
       "markdownDescription": "A special category of API.\n\n- \"optimization\" means that the API is useful for optimizing, but is otherwise not necessary.\n- \"renderer\" means that the API is intended to be used when implementing renderers.\n- \"debug\" means that the API is only available in debug mode.",
       "type": "string"
+    },
+    "Type": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/TypeWithDocs"
+        },
+        {
+          "$ref": "#/definitions/Options"
+        }
+      ],
+      "description": "A parameter to a function. If the parameter is an options argument, the type is an array of `[\"@options\", Params]`."
     },
     "TypeWithDocs": {
       "anyOf": [
@@ -389,15 +387,7 @@
         }
       ],
       "description": "A type with optional documentation.",
-      "examples": [
-        [
-          "string"
-        ],
-        [
-          "string",
-          "a JavaScript string"
-        ]
-      ],
+      "examples": [["string"], ["string", "a JavaScript string"]],
       "markdownDescription": "A type with optional documentation."
     },
     "UtilFn": {
@@ -411,7 +401,11 @@
           "$ref": "#/definitions/Generics"
         },
         "kind": {
-          "const": "util-fn",
+          "const": "fn:util",
+          "description": "The kind of export.",
+          "type": "string"
+        },
+        "notes": {
           "type": "string"
         },
         "params": {
@@ -430,9 +424,7 @@
           "type": "array"
         }
       },
-      "required": [
-        "kind"
-      ],
+      "required": ["kind"],
       "type": "object"
     },
     "Variant": {
@@ -485,6 +477,15 @@
         "notes": {
           "type": "string"
         },
+        "tag": {
+          "$ref": "#/definitions/Tag"
+        },
+        "tags": {
+          "items": {
+            "$ref": "#/definitions/Tag"
+          },
+          "type": "array"
+        },
         "variants": {
           "additionalProperties": {
             "$ref": "#/definitions/Variant"
@@ -492,10 +493,7 @@
           "type": "object"
         }
       },
-      "required": [
-        "kind",
-        "variants"
-      ],
+      "required": ["kind", "variants"],
       "type": "object"
     }
   }

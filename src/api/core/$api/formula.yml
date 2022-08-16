@@ -1,26 +1,26 @@
 exports:
   FormulaFn:
-    kind: constructor-fn
+    kind: fn:constructor
     tag: optimization
     generics:
-      T: The value computed by the formula.
+      Value: The value computed by the formula.
     returns:
       ["FormulaFn", "A formula that returns the result of the given function"]
     params:
       fn:
         [
-          "() => T",
+          "() => Value",
           "A function that computes a value from other reactive values",
         ]
       description: ["string?", "A description of the formula"]
     docs: A `FormulaFn` is a function that automatically caches the result of its computation until any of its reactive dependencies change.
     properties:
-      current: [T, "The current value of the formula", readonly]
+      current: [Value, "The current value of the formula", readonly]
   PolledFormulaFn:
-    kind: constructor-fn
+    kind: fn:constructor
     tag: renderer
     generics:
-      T: The value computed by the formula.
+      Value: The value computed by the formula.
     returns:
       [
         "PolledFormulaFn",
@@ -29,12 +29,12 @@ exports:
     params:
       fn:
         [
-          "() => T",
+          "() => Value",
           "A function that computes a value from other reactive values",
         ]
       description: ["string?", "A description of the formula"]
     docs: |
-      A `PolledFormulaFn` has an identical API signature to [FormulaFn](#constructor-fn-FormulaFn). However, when a `PolledFormulaFn`'s value is requested, it **always** recomputes the value. This is designed for situations where you are mixing Starbeam reactivity with other forms of reactivity.
+      A `PolledFormulaFn` has an identical API signature to [FormulaFn](#fn--constructor-FormulaFn). However, when a `PolledFormulaFn`'s value is requested, it **always** recomputes the value. This is designed for situations where you are mixing Starbeam reactivity with other forms of reactivity.
     notes: |
       <details>
         <summary><p>Details: Using <code>PolledFormulaFn</code> in Renderers</p></summary>
@@ -43,4 +43,4 @@ exports:
 
       </details>
     properties:
-      current: [T, "The current value of the formula", readonly]
+      current: [Value, "The current value of the formula", readonly]

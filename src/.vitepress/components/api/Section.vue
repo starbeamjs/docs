@@ -14,13 +14,7 @@ const props = defineProps<{
   class?: string;
 }>();
 
-const slug = computed(() => {
-  if (props.kind) {
-    return props.for.slug + "--" + props.kind;
-  } else {
-    return props.for.slug;
-  }
-});
+const slug = computed(() => props.for.slug);
 </script>
 
 <template>

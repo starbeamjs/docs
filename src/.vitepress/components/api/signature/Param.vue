@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import type { Parameter } from "@starbeam/api-docs";
 import Def from "../Def.vue";
-import type { Parameter } from "../exports.js";
 import Docs from "./Docs.vue";
 import MiniTag from "./fragments/MiniTag.vue";
 import Name from "./fragments/Name.vue";
@@ -12,13 +12,13 @@ defineProps<{ param: Parameter }>();
 <template>
   <Def>
     <template #entry>
-      <Name :optional="param.type.isOptional">{{ param.fullName }}</Name>
+      <Name :optional="param.type.optional">{{ param.fullName }}</Name>
       <Type>{{ param.type.name }}</Type>
     </template>
     <template #definition v-if="param.type.docs">
       <p v-if="param.type.docs">
         <Docs line>{{ param.type.docs }}</Docs>
-        <MiniTag v-if="param.type.isOptional"> optional</MiniTag>
+        <MiniTag v-if="param.type.optional"> optional</MiniTag>
       </p>
     </template>
   </Def>
