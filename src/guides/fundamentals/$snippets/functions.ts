@@ -23,6 +23,7 @@ description(); // "John Doe lives in Los Angeles"
 
 // #ignore:next
 {
+  // #region cells-as-arguments
   function description(name: Cell<string>): string {
     return `${name.current} lives in ${location.current}`;
   }
