@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 overrides:
-  vite: ^2
+  vite: ^3
 
 importers:
 
@@ -9,16 +9,15 @@ importers:
     specifiers:
       '@iconify/json': ^2.1.88
       '@starbeam/api-docs': workspace:*
-      '@starbeam/core': ^0.5.8
-      '@starbeam/debug': ^0.5.8
-      '@starbeam/js': ^0.5.8
-      '@starbeam/react': ^0.5.8
+      '@starbeam/core': ^0.6.0
+      '@starbeam/debug': ^0.6.0
+      '@starbeam/js': ^0.6.0
+      '@starbeam/react': ^0.6.0
       '@tuzig/toml': 3.0.0-browser
       '@types/hash-sum': ^1.0.0
       '@types/jsdoc-api': workspace:*
       '@types/markdown-it': ^12.2.3
       '@types/mermaid': ^8.2.9
-      '@vitejs/plugin-vue': ^2.3.3
       '@vue/runtime-dom': ^3.2.37
       '@vueuse/core': ^9.0.2
       balloon-css: ^1.2.0
@@ -34,8 +33,8 @@ importers:
       sass: ^1.54.0
       shiki: ^0.10.1
       typescript: next
-      vite: ^2
-      vitepress: ^1.0.0-alpha.4
+      vite: ^3
+      vitepress: ^1.0.0-alpha.10
       vitest: ^0.21.1
       vue: ^3.2.37
       vuepress-plugin-md-enhance: ^2.0.0-beta.87
@@ -45,16 +44,15 @@ importers:
     devDependencies:
       '@iconify/json': 2.1.88
       '@starbeam/api-docs': link:packages/api-docs
-      '@starbeam/core': 0.5.8
-      '@starbeam/debug': 0.5.8
-      '@starbeam/js': 0.5.8
-      '@starbeam/react': 0.5.8_biqbaboplfbrettd7655fr4n2y
+      '@starbeam/core': 0.6.0
+      '@starbeam/debug': 0.6.0
+      '@starbeam/js': 0.6.0
+      '@starbeam/react': 0.6.0_biqbaboplfbrettd7655fr4n2y
       '@tuzig/toml': 3.0.0-browser
       '@types/hash-sum': 1.0.0
       '@types/jsdoc-api': link:types/@types/jsdoc-api
       '@types/markdown-it': 12.2.3
       '@types/mermaid': 8.2.9
-      '@vitejs/plugin-vue': 2.3.3_vite@2.9.14+vue@3.2.37
       '@vue/runtime-dom': 3.2.37
       '@vueuse/core': 9.0.2_vue@3.2.37
       docs-snippet: 1.0.1
@@ -67,9 +65,9 @@ importers:
       prettier: 2.7.1
       sass: 1.54.0
       shiki: 0.10.1
-      typescript: 4.9.0-dev.20220812
-      vite: 2.9.14_sass@1.54.0
-      vitepress: 1.0.0-alpha.4_7t7nv3jnefj74w37k32kvcuity
+      typescript: 4.9.0-dev.20220825
+      vite: 3.0.9_sass@1.54.0
+      vitepress: 1.0.0-alpha.10_7t7nv3jnefj74w37k32kvcuity
       vitest: 0.21.1_sass@1.54.0
       vue: 3.2.37
       vuepress-plugin-md-enhance: 2.0.0-beta.87
@@ -531,14 +529,14 @@ packages:
     resolution: {integrity: sha512-mgmE7XBYY/21erpzhexk4Cj1cyTQ9LzvnTxtzM17BJ7ERMNE6W72mQRo0I1Ud8eFJ+RVVIcBNhLFZ3GX4XFz5w==}
     dev: true
 
-  /@docsearch/css/3.1.1:
-    resolution: {integrity: sha512-utLgg7E1agqQeqCJn05DWC7XXMk4tMUUnL7MZupcknRu2OzGN13qwey2qA/0NAKkVBGugiWtON0+rlU0QIPojg==}
+  /@docsearch/css/3.2.1:
+    resolution: {integrity: sha512-gaP6TxxwQC+K8D6TRx5WULUWKrcbzECOPA2KCVMuI+6C7dNiGUk5yXXzVhc5sld79XKYLnO9DRTI4mjXDYkh+g==}
     dev: true
 
-  /@docsearch/js/3.1.1_ftygaz6e6e5e4cecsqmsnm4myu:
-    resolution: {integrity: sha512-bt7l2aKRoSnLUuX+s4LVQ1a7AF2c9myiZNv5uvQCePG5tpvVGpwrnMwqVXOUJn9q6FwVVhOrQMO/t+QmnnAEUw==}
+  /@docsearch/js/3.2.1_ftygaz6e6e5e4cecsqmsnm4myu:
+    resolution: {integrity: sha512-H1PekEtSeS0msetR2YGGey2w7jQ2wAKfGODJvQTygSwMgUZ+2DHpzUgeDyEBIXRIfaBcoQneqrzsljM62pm6Xg==}
     dependencies:
-      '@docsearch/react': 3.1.1_ftygaz6e6e5e4cecsqmsnm4myu
+      '@docsearch/react': 3.2.1_ftygaz6e6e5e4cecsqmsnm4myu
       preact: 10.10.0
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -547,8 +545,8 @@ packages:
       - react-dom
     dev: true
 
-  /@docsearch/react/3.1.1_ftygaz6e6e5e4cecsqmsnm4myu:
-    resolution: {integrity: sha512-cfoql4qvtsVRqBMYxhlGNpvyy/KlCoPqjIsJSZYqYf9AplZncKjLBTcwBu6RXFMVCe30cIFljniI4OjqAU67pQ==}
+  /@docsearch/react/3.2.1_ftygaz6e6e5e4cecsqmsnm4myu:
+    resolution: {integrity: sha512-EzTQ/y82s14IQC5XVestiK/kFFMe2aagoYFuTAIfIb/e+4FU7kSMKonRtLwsCiLQHmjvNQq+HO+33giJ5YVtaQ==}
     peerDependencies:
       '@types/react': '>= 16.8.0 < 19.0.0'
       react: '>= 16.8.0 < 19.0.0 || 18'
@@ -556,10 +554,14 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
     dependencies:
       '@algolia/autocomplete-core': 1.7.1
       '@algolia/autocomplete-preset-algolia': 1.7.1_qs6lk5nhygj2o3hj4sf6xnr724
-      '@docsearch/css': 3.1.1
+      '@docsearch/css': 3.2.1
       algoliasearch: 4.14.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -701,6 +703,13 @@ packages:
     resolution: {integrity: sha512-AtnnHSmdlfk1/chGwmGyqwh9eMKfC2pAVlK9g/guaXpZ3tB1eCtuwhFC9+QaL21W0vbOpNPa5EoVEoB6HMRtdA==}
     dependencies:
       '@starbeam/peer': 1.0.8
+    dev: false
+
+  /@starbeam/core-utils/0.6.0:
+    resolution: {integrity: sha512-Yq4VxcjGwsfs2GhbYDbagI5QTz58cYu/Ex+WEG6eShlDszk7+O9uqotgLT9g45JUViKUH/7V16Zu02u3SszD0g==}
+    dependencies:
+      '@starbeam/peer': 1.1.0
+    dev: true
 
   /@starbeam/core/0.5.8:
     resolution: {integrity: sha512-z6AZWkl6KFX1ooZZPfKVKmDHAAUZozTu75GEblkrELxFndb7bFNCiztyLGalgBYRdo+KSHCRUjsh/0N+xWUzsA==}
@@ -710,6 +719,17 @@ packages:
       '@starbeam/peer': 1.0.8
       '@starbeam/timeline': 0.5.8
       '@starbeam/verify': 0.5.8
+    dev: false
+
+  /@starbeam/core/0.6.0:
+    resolution: {integrity: sha512-m8j2Rwv+d5eGa7Bydz7LUvWYcMu3/tLSrt2lO4gNhZrhb7z63jXpz7sLFVHQDelo7G77hbA24+Lx1C+EI474+g==}
+    dependencies:
+      '@starbeam/core-utils': 0.6.0
+      '@starbeam/debug': 0.6.0
+      '@starbeam/peer': 1.1.0
+      '@starbeam/timeline': 0.6.0
+      '@starbeam/verify': 0.6.0
+    dev: true
 
   /@starbeam/debug/0.5.8:
     resolution: {integrity: sha512-+6oyii78NALOnE3Jn/U2Wuaf5f5YgnEntqqKcmlz/fszVKcaaopi1sFiDD31L7NjJIupWEyrMmjvgfiiD+72sw==}
@@ -717,6 +737,15 @@ packages:
       '@starbeam/peer': 1.0.8
       '@starbeam/verify': 0.5.8
       stacktracey: 2.1.8
+    dev: false
+
+  /@starbeam/debug/0.6.0:
+    resolution: {integrity: sha512-QH06FDKcuZMQZktXNAV8uf7EoJbSTHUWV5DEXtxUvzgjWWoSo/NfpAI4iOOCOOjXHqceMXdhk8zS+d7wgCrdWA==}
+    dependencies:
+      '@starbeam/peer': 1.1.0
+      '@starbeam/verify': 0.6.0
+      stacktracey: 2.1.8
+    dev: true
 
   /@starbeam/js/0.5.8:
     resolution: {integrity: sha512-9pfMrJuDUakBr1EYS3LjUBLUESjsZwL5WV5apCG/rY57YpqX5d8t3EKRU22nHjdV2JZx6mEmIzMKTgiB1L416A==}
@@ -726,6 +755,17 @@ packages:
       '@starbeam/debug': 0.5.8
       '@starbeam/timeline': 0.5.8
       '@starbeam/verify': 0.5.8
+    dev: false
+
+  /@starbeam/js/0.6.0:
+    resolution: {integrity: sha512-YhPk/Wjn1/vv9l3wtdGxcQm66C4JzsuQyqPlF5FbET6kq7Ft4DXQyLkGMBFuRitYgH/NGRJDMu4LKk4NQsQmzw==}
+    dependencies:
+      '@starbeam/core': 0.6.0
+      '@starbeam/core-utils': 0.6.0
+      '@starbeam/debug': 0.6.0
+      '@starbeam/timeline': 0.6.0
+      '@starbeam/verify': 0.6.0
+    dev: true
 
   /@starbeam/modifier/0.5.8:
     resolution: {integrity: sha512-BUQixLfNvXbxz80IWRVLKq3H9KkwDfuK0V9Zbx/6238Lo+anUtUD0Smq2X6XCcUf8Vh2fZVc3G1N1QlxMpJxDw==}
@@ -734,9 +774,24 @@ packages:
       '@starbeam/debug': 0.5.8
       '@starbeam/peer': 1.0.8
       '@starbeam/verify': 0.5.8
+    dev: false
+
+  /@starbeam/modifier/0.6.0:
+    resolution: {integrity: sha512-lqnYrdZfMI33jBZmdoo/9l0q4D2k0f6YcJy/EUPkgiapc1jIkbZf6QO8UJqX/G0l7CbBI5AZhzrvzFYpIASh4g==}
+    dependencies:
+      '@starbeam/core': 0.6.0
+      '@starbeam/debug': 0.6.0
+      '@starbeam/peer': 1.1.0
+      '@starbeam/verify': 0.6.0
+    dev: true
 
   /@starbeam/peer/1.0.8:
     resolution: {integrity: sha512-KdS/6zyr/tDr+YYQMoi6R8u9pDxjnC64beyb0S/yR1kBcMgb0ICtMAI6zhZRDMVixvX+xL3CdwYWVzRtR1Q3UQ==}
+    dev: false
+
+  /@starbeam/peer/1.1.0:
+    resolution: {integrity: sha512-5Td2XbKriw4hPbnez00jycPqeZJhLfLEwxuYVzFkAOdgZVxCbCNFYfQuDyR06z5pJph0XvA6pFUbYx3HfEM1Gw==}
+    dev: true
 
   /@starbeam/react/0.5.8_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-go5wI0IfinT0q3SsDLb2B+z/cbYj4DCxPJMiAO5yDZGbodPaTvHn7ACYw5HWVpvcRAo3azPSR+9EydABH3KqGg==}
@@ -755,6 +810,26 @@ packages:
       '@starbeam/verify': 0.5.8
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@starbeam/react/0.6.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-bqeckZLm6mWhKINz9JLhtNCbBMfVHXOGlodtPuIwhTKRno/xwgs0t/eJHQFlpQI9gJAlGk61bFxmD7uXQJWPxg==}
+    peerDependencies:
+      react: ^18.2.0 || 18
+      react-dom: ^18.2.0 || 18
+    dependencies:
+      '@starbeam/core': 0.6.0
+      '@starbeam/core-utils': 0.6.0
+      '@starbeam/debug': 0.6.0
+      '@starbeam/js': 0.6.0
+      '@starbeam/modifier': 0.6.0
+      '@starbeam/peer': 1.1.0
+      '@starbeam/timeline': 0.6.0
+      '@starbeam/use-strict-lifecycle': 0.6.0_biqbaboplfbrettd7655fr4n2y
+      '@starbeam/verify': 0.6.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: true
 
   /@starbeam/timeline/0.5.8:
     resolution: {integrity: sha512-Boyq9EN0+EsuG1J7JEQ4QkStipqt+jVZVKUkZYmJ1liEVX4tI90D3WP7Qo3vLmEAI2mzq5CFVAwW+JRqHm42Ag==}
@@ -762,6 +837,15 @@ packages:
       '@starbeam/debug': 0.5.8
       '@starbeam/peer': 1.0.8
       '@starbeam/verify': 0.5.8
+    dev: false
+
+  /@starbeam/timeline/0.6.0:
+    resolution: {integrity: sha512-OFgu9RqWCTC+/RVB70v0Vc4VCoBDVR4hY89MxOwkPXkTCqcGwoOPlfxOCt4V/bfA8tiPQO2T7JCme/9Y6RjANg==}
+    dependencies:
+      '@starbeam/debug': 0.6.0
+      '@starbeam/peer': 1.1.0
+      '@starbeam/verify': 0.6.0
+    dev: true
 
   /@starbeam/use-strict-lifecycle/0.5.8_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-aYJ0F/z4Qqw45Q8oXbA9CWpZzLsFpFlBH0hJMAKQ0ynF/51+hjsN2/I4JydMPAnBATo1/uKp8A4PHkje9k1Kew==}
@@ -771,9 +855,25 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@starbeam/use-strict-lifecycle/0.6.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-iWB+QR9N/TUgjuzxNTPWAoijNplC7ajIP2rdIt2xgx50dXZphB/szcmfwEcSvCB4Kfv0Kc/fOerqYxZ4ppO1uQ==}
+    peerDependencies:
+      react: ^18.2.0 || 18
+      react-dom: ^18.2.0 || 18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: true
 
   /@starbeam/verify/0.5.8:
     resolution: {integrity: sha512-U3/7/KHGgp3U78qM4I9qq+ni19nE1Fx8r2rcn5VknVOQT4Dt5BFutJw2I16kkSwhb2GpmObL741W3wqJcahcnw==}
+    dev: false
+
+  /@starbeam/verify/0.6.0:
+    resolution: {integrity: sha512-YQ1L2XiNuHUnmF+MiSdWB1XLJeDQf+biT50l5clJFIaTg1IFiLZotp0DgQZ2c902bAK9LQjXkErc4rHSfNlAgQ==}
+    dev: true
 
   /@swc/core-android-arm-eabi/1.2.222:
     resolution: {integrity: sha512-20/gPOmvdtmHFm4lZnJ0ZxVf1xth+CISsf6sgk0oYVXkHnylCfWkB2CTwm0ZNd1W2anOYED9on5wPK1aCO6Q7Q==}
@@ -1060,14 +1160,14 @@ packages:
     resolution: {integrity: sha512-w7hEHXnPMEZ+4nGKl/KDRVpxkwYxYExuHOYXyzIzCDzEZ9ZCGMAewulr9IqJu2LR4N37fcnb1XVeuZ09qgOxhA==}
     dev: true
 
-  /@vitejs/plugin-vue/2.3.3_vite@2.9.14+vue@3.2.37:
-    resolution: {integrity: sha512-SmQLDyhz+6lGJhPELsBdzXGc+AcaT8stgkbiTFGpXPe8Tl1tJaBw1A6pxDqDuRsVkD8uscrkx3hA7QDOoKYtyw==}
-    engines: {node: '>=12.0.0'}
+  /@vitejs/plugin-vue/3.0.3_vite@3.0.9+vue@3.2.37:
+    resolution: {integrity: sha512-U4zNBlz9mg+TA+i+5QPc3N5lQvdUXENZLO2h0Wdzp56gI1MWhqJOv+6R+d4kOzoaSSq6TnGPBdZAXKOe4lXy6g==}
+    engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
-      vite: ^2.5.10
+      vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 2.9.14_sass@1.54.0
+      vite: 3.0.9_sass@1.54.0
       vue: 3.2.37
     dev: true
 
@@ -1279,12 +1379,28 @@ packages:
       - vue
     dev: true
 
+  /@vueuse/core/9.1.1_vue@3.2.37:
+    resolution: {integrity: sha512-QfuaNWRDMQcCUwXylCyYhPC3ScS9Tiiz4J0chdwr3vOemBwRToSywq8MP+ZegKYFnbETzRY8G/5zC+ca30wrRQ==}
+    dependencies:
+      '@types/web-bluetooth': 0.0.15
+      '@vueuse/metadata': 9.1.1
+      '@vueuse/shared': 9.1.1_vue@3.2.37
+      vue-demi: 0.13.6_vue@3.2.37
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: true
+
   /@vueuse/metadata/8.9.4:
     resolution: {integrity: sha512-IwSfzH80bnJMzqhaapqJl9JRIiyQU0zsRGEgnxN6jhq7992cPUJIRfV+JHRIZXjYqbwt07E1gTEp0R0zPJ1aqw==}
     dev: true
 
   /@vueuse/metadata/9.0.2:
     resolution: {integrity: sha512-TRh+TNUYXiodatSAxd0xZc7sh4RfktVVgNFIN7TCQXKyancbCAcWfHvKfgdlX8LcqSBxKoHVa90n0XdUbboTkw==}
+    dev: true
+
+  /@vueuse/metadata/9.1.1:
+    resolution: {integrity: sha512-XZ2KtSW+85LLHB/IdGILPAtbIVHasPsAW7aqz3BRMzJdAQWRiM/FGa1OKBwLbXtUw/AmjKYFlZJo7eOFIBXRog==}
     dev: true
 
   /@vueuse/shared/8.9.4_vue@3.2.37:
@@ -1304,6 +1420,15 @@ packages:
 
   /@vueuse/shared/9.0.2_vue@3.2.37:
     resolution: {integrity: sha512-KwBDefK2ljLESpt0ffe2w8EGUCb3IaMfTzeytB/uHHjHOGOEIHLHHyn8W2C48uGQEvoe5iwaW4Bfp8cRUM6IFA==}
+    dependencies:
+      vue-demi: 0.13.6_vue@3.2.37
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: true
+
+  /@vueuse/shared/9.1.1_vue@3.2.37:
+    resolution: {integrity: sha512-c+IfcOYmHiHqoEa3ED1Tbpue5GHmoUmTp8PtO4YbczthtY155Rt6DmWhjxMLXBF1Bcidagxljmp/7xtAzEHXLw==}
     dependencies:
       vue-demi: 0.13.6_vue@3.2.37
     transitivePeerDependencies:
@@ -3311,6 +3436,14 @@ packages:
       vscode-textmate: 5.2.0
     dev: true
 
+  /shiki/0.11.1:
+    resolution: {integrity: sha512-EugY9VASFuDqOexOgXR18ZV+TbFrQHeCpEYaXamO+SZlsnT/2LxuLBX25GGtIrwaEVFXUAbUQ601SWE2rMwWHA==}
+    dependencies:
+      jsonc-parser: 3.1.0
+      vscode-oniguruma: 1.6.2
+      vscode-textmate: 6.0.0
+    dev: true
+
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
@@ -3463,8 +3596,8 @@ packages:
     hasBin: true
     dev: false
 
-  /typescript/4.9.0-dev.20220812:
-    resolution: {integrity: sha512-Rx+XQMKra4nR6w4+EiFoips3VCOWAlVKiWUbTpaFOAGb74h1pxWbxXmqpDOe/g3KSKMdYmN4dr7umrglumNAdw==}
+  /typescript/4.9.0-dev.20220825:
+    resolution: {integrity: sha512-X6bFdJycFPfp4CC8RqOZkCQauNIayamosrtovm6UlCjez9AKMQ1TQJiwReDybks9TGHR3LegEIvLIMWj+uiHYg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
@@ -3506,20 +3639,23 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
-  /vite/2.9.14_sass@1.54.0:
-    resolution: {integrity: sha512-P/UCjSpSMcE54r4mPak55hWAZPlyfS369svib/gpmz8/01L822lMPOJ/RYW6tLCe1RPvMvOsJ17erf55bKp4Hw==}
-    engines: {node: '>=12.2.0'}
+  /vite/3.0.9_sass@1.54.0:
+    resolution: {integrity: sha512-waYABTM+G6DBTCpYAxvevpG50UOlZuynR0ckTK5PawNVt7ebX6X7wNXHaGIO6wYYFXSM7/WcuFuO2QzhBB6aMw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
       less: '*'
       sass: '*'
       stylus: '*'
+      terser: ^5.4.0
     peerDependenciesMeta:
       less:
         optional: true
       sass:
         optional: true
       stylus:
+        optional: true
+      terser:
         optional: true
     dependencies:
       esbuild: 0.14.51
@@ -3531,19 +3667,18 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/1.0.0-alpha.4_7t7nv3jnefj74w37k32kvcuity:
-    resolution: {integrity: sha512-bOAA4KW6vYGlkbcrPLZLTKWTgXVroObU+o9xj9EENyEl6yg26WWvfN7DGA4BftjdM5O8nR93Z5khPQ3W/tFE7Q==}
-    engines: {node: '>=14.6.0'}
+  /vitepress/1.0.0-alpha.10_7t7nv3jnefj74w37k32kvcuity:
+    resolution: {integrity: sha512-RGPU+YApj2jaYplAIJUe+2qlDks9FzPX1QGK+7NdGByeCCVZg6z9eYWjjvfvA/sgCtG3yeJE/4/jCwlv4Y8bVw==}
     hasBin: true
     dependencies:
-      '@docsearch/css': 3.1.1
-      '@docsearch/js': 3.1.1_ftygaz6e6e5e4cecsqmsnm4myu
-      '@vitejs/plugin-vue': 2.3.3_vite@2.9.14+vue@3.2.37
+      '@docsearch/css': 3.2.1
+      '@docsearch/js': 3.2.1_ftygaz6e6e5e4cecsqmsnm4myu
+      '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.37
       '@vue/devtools-api': 6.2.1
-      '@vueuse/core': 8.9.4_vue@3.2.37
+      '@vueuse/core': 9.1.1_vue@3.2.37
       body-scroll-lock: 4.0.0-beta.0
-      shiki: 0.10.1
-      vite: 2.9.14_sass@1.54.0
+      shiki: 0.11.1
+      vite: 3.0.9_sass@1.54.0
       vue: 3.2.37
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -3554,6 +3689,7 @@ packages:
       - react-dom
       - sass
       - stylus
+      - terser
     dev: true
 
   /vitest/0.21.1_sass@1.54.0:
@@ -3589,12 +3725,13 @@ packages:
       local-pkg: 0.4.2
       tinypool: 0.2.4
       tinyspy: 1.0.0
-      vite: 2.9.14_sass@1.54.0
+      vite: 3.0.9_sass@1.54.0
     transitivePeerDependencies:
       - less
       - sass
       - stylus
       - supports-color
+      - terser
     dev: true
 
   /vscode-oniguruma/1.6.2:
@@ -3603,6 +3740,10 @@ packages:
 
   /vscode-textmate/5.2.0:
     resolution: {integrity: sha512-Uw5ooOQxRASHgu6C7GVvUxisKXfSgW4oFlO+aa+PAkgmH89O3CXxEEzNRNtHSqtXFTl0nAC1uYj0GMSH27uwtQ==}
+    dev: true
+
+  /vscode-textmate/6.0.0:
+    resolution: {integrity: sha512-gu73tuZfJgu+mvCSy4UZwd2JXykjK9zAZsfmDeut5dx/1a7FeTk0XwJsSuqQn+cuMCGVbIBfl+s53X4T19DnzQ==}
     dev: true
 
   /vue-demi/0.13.6_vue@3.2.37:

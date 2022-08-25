@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DefaultTheme } from "vitepress";
-import VPButton from "vitepress/client/theme-default/components/VPButton.vue";
-import VPImage from "vitepress/client/theme-default/components/VPImage.vue";
+import VPButton from "./VPButton.vue";
+import VPImage from "./VPImage.vue";
 export interface HeroAction {
   theme?: "brand" | "alt";
   text: string;

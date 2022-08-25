@@ -15,16 +15,15 @@
   "license": "ISC",
   "devDependencies": {
     "@iconify/json": "^2.1.88",
-    "@starbeam/core": "^0.5.8",
-    "@starbeam/debug": "^0.5.8",
-    "@starbeam/js": "^0.5.8",
-    "@starbeam/react": "^0.5.8",
+    "@starbeam/core": "^0.6.0",
+    "@starbeam/debug": "^0.6.0",
+    "@starbeam/js": "^0.6.0",
+    "@starbeam/react": "^0.6.0",
     "@tuzig/toml": "3.0.0-browser",
     "@types/hash-sum": "^1.0.0",
     "@types/jsdoc-api": "workspace:*",
     "@types/markdown-it": "^12.2.3",
     "@types/mermaid": "^8.2.9",
-    "@vitejs/plugin-vue": "^2.3.3",
     "@vue/runtime-dom": "^3.2.37",
     "@vueuse/core": "^9.0.2",
     "docs-snippet": "^1.0.1",
@@ -38,8 +37,8 @@
     "sass": "^1.54.0",
     "shiki": "^0.10.1",
     "typescript": "next",
-    "vite": "^2",
-    "vitepress": "^1.0.0-alpha.4",
+    "vite": "^3",
+    "vitepress": "^1.0.0-alpha.10",
     "vitest": "^0.21.1",
     "vue": "^3.2.37",
     "vuepress-plugin-md-enhance": "^2.0.0-beta.87",
@@ -47,7 +46,7 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": "^2"
+      "vite": "^3"
     },
     "peerDependencyRules": {
       "allowedVersions": {

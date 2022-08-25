@@ -115,6 +115,14 @@ function current() {
   font-size: 0.75rem;
 }
 
+.vp-doc [class*="language-"] > p.toggler + button.copy {
+  top: 3rem;
+}
+
+.vp-doc [class*="language-"]:not(:hover) button.copy.copied {
+  opacity: 0;
+}
+
 .lang-switcher p.toggler {
   border: 3px solid var(--vp-button-brand-border);
   background-color: var(--vp-button-alt-bg);
