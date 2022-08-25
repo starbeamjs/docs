@@ -107,17 +107,23 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
           return error(`Invalid region name: ${regionName} in ${src}`);
         }
 
+        token.info = "tsx";
         token.content = region.ts.code;
-        token.info = fenceInfo.highlights(region.ts.highlights);
+        token.attrs = fenceInfo.asAttr(region.ts.highlights);
 
         if (region.ts.code === region.js.code) {
+          console.log("both", token);
+
           return `<section class="both-lang">${fence(...args)}</section>`;
         }
 
         const tsFenced = fence(...args);
 
+        token.info = "tsx";
         token.content = region.js.code;
-        token.info = fenceInfo.highlights(region.js.highlights);
+        token.attrs = fenceInfo.asAttr(region.js.highlights);
+        console.log("js", token);
+
         const jsFenced = fence(...args);
 
         return `<Code><template #ts>${tsFenced}</template><template #js>${jsFenced}</template></Code>`;
@@ -131,11 +137,9 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
       }
 
       token.content = snippet.ts.code;
-
       const tsFenced = fence(...args);
 
       token.content = snippet.js.code;
-      token.info = `ts${token.info.slice(3)}`;
       const jsFenced = fence(...args);
 
       return `<Code><template #ts>${tsFenced}</template><template #js>${jsFenced}</template></Code>`;
@@ -174,15 +178,19 @@ class FenceInfo {
     this.#original = original;
   }
 
-  highlights(highlights: Highlight[]) {
-    if (highlights.length === 0) {
-      return `ts`;
-    } else {
-      return `ts{${highlights
-        .map((h) => h.lines)
-        .join(",")}}${this.#original.slice(3)}`;
-    }
+  asAttr(highlights: Highlight[]): [string, string][] {
+    return [[highlights.map((h) => h.lines).join(","), ""]];
   }
+
+  // highlights(highlights: Highlight[]) {
+  //   if (highlights.length === 0) {
+  //     return `ts`;
+  //   } else {
+  //     return `ts{${highlights
+  //       .map((h) => h.lines)
+  //       .join(",")}}${this.#original.slice(3)}`;
+  //   }
+  // }
 }
 
 function error(message: string) {

@@ -123,6 +123,10 @@ function current() {
   opacity: 0;
 }
 
+.vp-doc [class*="language-"] > p.toggler ~ span.lang {
+  display: none;
+}
+
 .lang-switcher p.toggler {
   border: 3px solid var(--vp-button-brand-border);
   background-color: var(--vp-button-alt-bg);
