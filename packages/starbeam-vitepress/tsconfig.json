@@ -5,10 +5,9 @@
     "checkJs": true,
     "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "jsx": "preserve" /* Specify what JSX code is generated. */,
-    "module": "NodeNext" /* Specify what module code is generated. */,
-    "moduleResolution": "NodeNext" /* Specify how TypeScript looks up a file from a given module specifier. */,
+    "module": "esnext" /* Specify what module code is generated. */,
+    "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "resolveJsonModule": true /* Enable importing .json files. */,
-    "noEmit": true /* Disable emitting files from a compilation. */,
     "importsNotUsedAsValues": "error" /* Specify emit/checking behavior for imports that are only used for types. */,
     "isolatedModules": true /* Ensure that each file can be safely transpiled without relying on other imports. */,
     "allowSyntheticDefaultImports": true /* Allow 'import x from y' when a module doesn't have a default export. */,
@@ -18,24 +17,5 @@
     "noImplicitAny": true,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "src/.vitepress/**/*.ts",
-    "src/.vitepress/**/*.d.ts",
-    "src/.vitepress/**/*.vue",
-    "src/vite.config.js",
-    "test.mts",
-    "packages/*/index.ts",
-    "packages/*/src/**/*.ts",
-    "packages/*/src/**/*.d.ts"
-  ],
-  "references": [
-    { "path": "./src/frameworks/react/tsconfig.json" },
-    {
-      "path": "./tsconfig.react.json"
-    },
-    { "path": "./scripts/tsconfig.json" }
-  ]
+  "include": ["index.ts", "src/**/*.ts"]
 }

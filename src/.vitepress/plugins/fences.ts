@@ -1,7 +1,7 @@
 import hash from "hash-sum";
 import type MarkdownIt from "markdown-it";
 import type { PluginSimple } from "markdown-it";
-import type { default as Token } from "markdown-it/lib/token";
+import type { default as Token } from "../../../node_modules/@types/markdown-it/lib/token.js";
 
 // declare const __dirname: string;
 const dir = __dirname;

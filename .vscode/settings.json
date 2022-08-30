@@ -91,5 +91,6 @@
       "fileMatch": ["src/api/**/$api/*.json", "src/api/**/$api/*.jsonc"],
       "url": "./packages/api-docs/dist/api.schema.json"
     }
-  ]
+  ],
+  "files.trimTrailingWhitespace": false
 }

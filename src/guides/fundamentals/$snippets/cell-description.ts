@@ -3,6 +3,8 @@ import { Cell } from "@starbeam/core";
 
 // #highlight:next
 const person = Cell({ name: "John", age: 30 }, "person");
+
+const x: number = 1;
 // #endregion describe-string
 
 {

@@ -1,3 +1,4 @@
+// #region dts
 declare module "@starbeam/react" {
   function useReactiveSetup<T>(
     callback: (setup: import("@starbeam/react").ReactiveElement) => () => T,
@@ -10,6 +11,7 @@ declare module "@starbeam/react" {
     description?: string | import("@starbeam/debug").Description
   ): T;
 }
+// #endregion
 
 // #region app
 import { Cell } from "@starbeam/core";
@@ -23,13 +25,7 @@ export function Counter() {
 
     return () => (
       <div>
-        <button
-          // #highlight:next
-          onClick={() => counter.update((c) => c + 1)}
-        >
-          ++
-        </button>
-        // #highlight:next
+        <button onClick={() => counter.update((c) => c + 1)}>++</button>
         <p>{counter.current}</p>
       </div>
     );

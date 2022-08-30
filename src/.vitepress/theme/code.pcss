@@ -1,12 +1,12 @@
-@use "./api/section.scss";
-@use "./vars.scss";
-@use "./api/toc.scss";
-@use "./api/docs.scss";
-@use "./api/prose.scss";
-@use "./api/syntax.scss";
-@use "./api/details.scss";
-@use "./api/dl.scss";
-@use "./api/generics.scss";
+@import "./vars.pcss";
+@import "./api/section.pcss";
+@import "./api/toc.pcss";
+@import "./api/docs.pcss";
+@import "./api/prose.pcss";
+@import "./api/syntax.pcss";
+@import "./api/details.pcss";
+@import "./api/dl.pcss";
+@import "./api/generics.pcss";
 
 .VPDoc {
   div[class*="language-"] > pre > code > span.line:last-child:empty {
@@ -21,9 +21,10 @@
     margin: 0;
   }
 
-  .custom-block :not(pre) > code {
-    padding: 0;
-    font-family: var(--vp-font-family-base-mono);
+  .custom-block :not(pre) > code,
+  .custom-block :not(.code-container) > code {
+    /* padding: 0; */
+    font-family: var(--vp-font-family-mono);
     color: var(--vp-custom-block-tip-text);
     font-weight: 500;
   }

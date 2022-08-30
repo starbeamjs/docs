@@ -19,7 +19,7 @@ sure that when your component is _unmounted_, its associated resources are clean
 Let's illustrate the idea of a resource by creating a stopwatch that uses a `setInterval` to tick.
 By using a Starbeam resource, we can ensure that the stopwatch is stopped when the owner is cleaned up.
 
-;;; ./$snippets/resources.ts#stopwatch
+<!-- ;;; ./$snippets/resources.ts#stopwatch -->
 
 ::: 💡
 A resource's return value is a function that computes the value of the resource whenever its

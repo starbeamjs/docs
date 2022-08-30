@@ -1,9 +1,14 @@
-import {
-  Cell,
-  Reactive,
-  Resource,
-  type ResourceBlueprint,
-} from "@starbeam/core";
+import { Cell, Reactive, Resource } from "@starbeam/core";
+
+// #region dts
+import type { ResourceBlueprint } from "@starbeam/core";
+declare class Channel {
+  static subscribe(name: string): Channel;
+
+  onMessage(handler: (message: string) => void): void;
+  unsubscribe(): void;
+}
+// #endregion
 
 // #region define-resource
 function ChannelResource(
@@ -33,10 +38,4 @@ function ChannelResource(
   });
 }
 
-declare class Channel {
-  static subscribe(name: string): Channel;
-
-  onMessage(handler: (message: string) => void): void;
-  unsubscribe(): void;
-}
 // #endregion

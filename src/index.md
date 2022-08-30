@@ -10,6 +10,12 @@ layout: page
 <Home>
 <template #content>
 
+```tsx twoslash
+// @filename: foo.ts
+export const foo = "foo";
+//           ^?
+```
+
 ::: warning
 
 This documentation is a work in progress. We are making quick progress (and would love your help!).

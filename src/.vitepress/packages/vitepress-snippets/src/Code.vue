@@ -132,12 +132,14 @@ function current() {
   display: block;
 }
 
-.lang-switcher.ts p.toggler button.ts {
-  background-color: var(--vp-button-brand-bg);
+.lang-switcher p.toggler button {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
+.lang-switcher.ts p.toggler button.ts,
 .lang-switcher.js p.toggler button.js {
   background-color: var(--vp-button-brand-bg);
+  color: var(--vp-button-brand-text);
 }
 
 .lang-switcher p.toggler {
@@ -166,21 +168,15 @@ function current() {
 }
 
 .lang-switcher p.toggler {
-  border: 0 solid var(--vp-button-brand-border);
+  border: 0.05rem solid var(--vp-button-brand-border);
   background-color: var(--vp-button-alt-bg);
-  border-end-start-radius: var(--starbeam-radius);
+  border-end-start-radius: var(--starbeam-radius-sm);
 
-  > span,
   > button {
     font-family: "Readex Pro", sans-serif;
     font-size: 0.75rem;
-    padding-block: 0.25em;
+    padding-block: 0;
     padding-inline: 0.75em;
-  }
-
-  span {
-    background-color: var(--vp-button-brand-bg);
-    color: var(--vp-button-brand-text);
   }
 
   button {
@@ -190,20 +186,19 @@ function current() {
 
   button:hover {
     background-color: var(--vp-button-brand-hover-bg);
-    transition: background-color var(--color-transition, 0.3s ease),
-      color var(--color-transition, 0.3s ease);
+    color: var(--vp-button-brand-hover-text);
   }
 }
 
 .lang-switcher p.toggler button {
   font-family: "Readex Pro", sans-serif;
-  color: var(--tab-nav-text-color);
+  color: var(--vp-button-alt-text);
   background-color: var(--vp-button-alt-bg);
   border: 0;
 }
 
 .lang-switcher p.toggler button:first-child {
-  border-end-start-radius: var(--starbeam-radius-sm);
+  border-end-start-radius: var(--starbeam-radius-xsm);
 }
 
 .lang-switcher div[class*="language-"]::before {

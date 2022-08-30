@@ -1,35 +1,29 @@
-@use "./flowcharts.scss";
-@use "./code.scss";
-@use "./containers.scss";
-@use "./home.scss";
+@import "./flowcharts.pcss";
+@import "./code.pcss";
+@import "./containers.pcss";
+@import "./twoslash.pcss";
+@import "./home.pcss";
+@import "./colors.pcss";
+@import "./sizes.pcss";
+
+/* @value fg-hue, fg-saturation, fg-lightness-bright, fg-lightness-normal from "./colors.pcss"; */
 
 :root {
   --vp-font-family-base: "Readex Pro", sans-serif;
-  --vp-font-family-base-mono: "Azeret Mono", monospace;
+  --vp-font-family-mono: "Azeret Mono", monospace;
   --starbeam-font-family-fancy: "Comfortaa", sans-serif;
 
-  --vp-c-brand: hsl(
-    var(--starbeam-color-hue),
-    var(--starbeam-color-saturation),
-    var(--starbeam-color-lightness-normal)
-  );
-  --vp-c-brand-light: hsl(
-    var(--starbeam-color-hue),
-    var(--starbeam-color-saturation),
-    var(--starbeam-color-lightness-light)
-  );
+  --vp-c-brand: hsl(fg-hue, fg-saturation, fg-lightness-normal);
+  --vp-c-brand-light: hsl(fg-hue, fg-saturation, fg-lightness-bright);
+  --vp-c-brand-lighter: hsl(fg-hue, fg-saturation, fg-lightness-brighter);
+  --vp-c-brand-dark: hsl(fg-hue, fg-saturation, fg-lightness-dim);
+  --vp-c-brand-darker: hsl(fg-hue, fg-saturation, fg-lightness-dimmer);
 
   --theme-color: var(--vp-c-brand);
-
-  --starbeam-color-hue: 190;
-  --starbeam-color-saturation: 50%;
-  --starbeam-color-lightness-normal: 50%;
-  --starbeam-color-lightness-light: 70%;
-  --starbeam-color-lightness-dark: 30%;
-
-  // this value is hardcoded in the default theme
-  --starbeam-radius: 8px;
-  --starbeam-radius-sm: 4px;
+  --theme-color-bright: var(--vp-c-brand-light);
+  --theme-color-brighter: var(--vp-c-brand-lighter);
+  --theme-color-dim: var(--vp-c-brand-dark);
+  --theme-color-dimmer: var(--vp-c-brand-darker);
 }
 
 // light mode
@@ -39,6 +33,14 @@
     --invalid-color-fg: hsl(0, 100%, 20%);
     --inactive-color-bg: hsl(0, 0%, 90%);
     --inactive-color-fg: hsl(0, 0%, 50%);
+
+    --starbeam-lightness-normal-fg: 50%;
+    --starbeam-lightness-dim-fg: 70%;
+    --starbeam-lightness-bright-fg: 30%;
+
+    --starbeam-lightness-normal-bg: 50%;
+    --starbeam-lightness-dim-bg: 30%;
+    --starbeam-lightness-bright-bg: 70%;
   }
 }
 
@@ -49,6 +51,34 @@
     --invalid-color-fg: hsl(0, 100%, 70%);
     --inactive-color-bg: hsl(0, 0%, 20%);
     --inactive-color-fg: hsl(0, 0%, 70%);
+
+    --starbeam-lightness-normal-fg: 50%;
+    --starbeam-lightness-dim-fg: 30%;
+    --starbeam-lightness-bright-fg: 70%;
+
+    --starbeam-lightness-normal-bg: 50%;
+    --starbeam-lightness-dim-bg: 70%;
+    --starbeam-lightness-bright-bg: 30%;
+  }
+}
+
+html:not(.dark) {
+  pre.shiki.github-dark {
+    display: none;
+  }
+
+  pre.shiki.github-light {
+    display: block;
+  }
+}
+
+html.dark {
+  pre.shiki.github-dark {
+    display: block;
+  }
+
+  pre.shiki.github-light {
+    display: none;
   }
 }
 
