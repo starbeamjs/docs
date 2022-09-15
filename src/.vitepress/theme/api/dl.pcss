@@ -35,16 +35,16 @@
     }
 
     dd + dt {
-      margin-block-start: 1ch;
+      margin-block-start: 1rem;
+    }
+
+    dt + dd {
+      margin-block-start: 0.5ch;
     }
 
     dd:empty {
       content: "&nbsp;";
       height: 1rem;
-    }
-
-    dd > div.docs > p {
-      color: var(--vp-c-indigo-soft);
     }
   }
 }

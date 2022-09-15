@@ -1,0 +1,64 @@
+@import "./vars.pcss";
+@import "./api/section.pcss";
+@import "./api/toc.pcss";
+@import "./api/docs.pcss";
+@import "./api/prose.pcss";
+@import "./api/syntax.pcss";
+@import "./api/details.pcss";
+@import "./api/dl.pcss";
+@import "./api/generics.pcss";
+
+.VPDoc {
+  div[class*="language-"] > pre > code > span.line:last-child:empty {
+    display: none;
+  }
+
+  .custom-block > p > code {
+    color: hsl(
+      var(--starbeam-fg-hue),
+      var(--starbeam-fg-saturation),
+      var(--starbeam-fg-lightness-brightest)
+    );
+    background-color: hsl(
+      var(--starbeam-bg-hue),
+      var(--starbeam-bg-saturation),
+      var(--starbeam-bg-lightness-brightest)
+    );
+  }
+
+  .custom-block div[class*="language-"] code {
+    background: transparent;
+  }
+
+  p.toggler {
+    margin: 0;
+  }
+
+  .custom-block :not(pre) > code,
+  .custom-block :not(.code-container) > code {
+    /* padding: 0; */
+    font-family: var(--vp-font-family-mono);
+    font-weight: 500;
+  }
+
+  div.notes:not(:first-child) {
+    margin-block-start: 1rem;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid var(--vp-c-divider-light);
+  }
+
+  :is(h2, h3, h4, h5, h6) {
+    span.starbeam-tag {
+      margin-inline-start: 1ch;
+      font-weight: 100;
+
+      &:before {
+        content: "(";
+      }
+
+      &:after {
+        content: ")";
+      }
+    }
+  }
+}

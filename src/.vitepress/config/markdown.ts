@@ -1,20 +1,29 @@
+import { markdownItShikiTwoslashSetup } from "markdown-it-shiki-twoslash";
 import {
   codeTabs,
   mark,
   mermaid,
   normalDemo,
-  tabs
+  tabs,
 } from "vuepress-plugin-md-enhance/lib/node/index.js";
+import { snippets } from "../packages/vitepress-snippets/build.js";
 import { containers } from "../plugins/containers.js";
 import { fences } from "../plugins/fences.js";
 import { flowchart } from "../plugins/flowchart.js";
-import { headingPlugin } from "../plugins/markdown/headings.js";
-import { snippetPlugin } from "../plugins/snippets.js";
 import type { Config } from "./types.js";
+
+const shiki = await markdownItShikiTwoslashSetup({
+  themes: ["github-dark", "github-light"],
+  wrapFragments: true,
+  includeJSDocInHover: true,
+});
 
 export const MARKDOWN: Config["markdown"] = {
   config: (md) => {
-    md.use(snippetPlugin);
+    md.use(snippets);
+    md.use(shiki, {
+      themes: ["github-dark", "github-light"],
+    });
     md.use(containers);
     md.use(mermaid);
     md.use(flowchart);
@@ -23,9 +32,8 @@ export const MARKDOWN: Config["markdown"] = {
     md.use(tabs);
     md.use(codeTabs);
     md.use(fences);
-    md.use(headingPlugin);
   },
   toc: {
-    level: [2,3,4],
+    level: [2, 3, 4],
   },
 };

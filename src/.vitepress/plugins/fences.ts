@@ -1,7 +1,7 @@
 import hash from "hash-sum";
 import type MarkdownIt from "markdown-it";
 import type { PluginSimple } from "markdown-it";
-import type { default as Token } from "markdown-it/lib/token";
+import type { default as Token } from "../../../node_modules/@types/markdown-it/lib/token.js";
 
 // declare const __dirname: string;
 const dir = __dirname;
@@ -17,15 +17,15 @@ const npmRender = (md: MarkdownIt, tokens: Token[], idx: number): string => {
     "::: code-tabs#npm",
     "@tab pnpm",
     "```shell",
-    `pnpm install ${content}`,
+    `$ pnpm install ${content}`,
     "```",
     "@tab npm",
     "```shell",
-    `npm install ${content}`,
+    `$ npm install ${content}`,
     "```",
     "@tab yarn",
     "```shell",
-    `yarn add ${content}`,
+    `$ yarn add ${content}`,
     "```",
     ":::",
   ].join("\n");

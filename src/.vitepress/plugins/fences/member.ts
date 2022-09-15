@@ -1,6 +1,6 @@
 import type { ExplainedMember } from "jsdoc-api";
-import Token from "markdown-it/lib/token.js";
-import { RenderFence } from "./type";
+import type Token from "markdown-it/lib/token.js";
+import type { RenderFence } from "./type.js";
 
 export function MemberSignature(
   signature: ExplainedMember,

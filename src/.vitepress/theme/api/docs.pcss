@@ -1,0 +1,19 @@
+.VPDoc {
+  div.docs.line,
+  dl dd > div.docs {
+    display: contents;
+
+    > p {
+      display: contents;
+      color: hsl(
+        var(--starbeam-fg-accent-hue),
+        var(--starbeam-fg-accent-saturation),
+        var(--starbeam-fg-lightness-normal)
+      );
+    }
+  }
+
+  dl.docs > dd > p {
+    margin-inline-start: 1em;
+  }
+}

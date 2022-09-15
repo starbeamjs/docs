@@ -2,6 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "dist",
+    "rootDir": ".",
     "target": "esnext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "jsx": "react-jsx" /* Specify what JSX code is generated. */,
     "module": "NodeNext" /* Specify what module code is generated. */,

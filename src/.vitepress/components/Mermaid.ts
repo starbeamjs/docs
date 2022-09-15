@@ -1,3 +1,5 @@
+import type mermaidAPI from "mermaid/mermaidAPI.js";
+import type { VNode } from "vue";
 import {
   defineComponent,
   h,
@@ -7,66 +9,9 @@ import {
   ref,
   watch,
 } from "vue";
-import { LoadingIcon } from "./shared/icons";
-
-import type { VNode } from "vue";
-
 import "./mermaid.scss";
 import { MARKDOWN_ENHANCE_DELAY } from "./shared/constants.js";
-
-const getThemeVariables = (isDarkMode: boolean): Record<string, unknown> => {
-  return {
-    dark: isDarkMode,
-    background: isDarkMode ? "#1e1e1e" : "#fff",
-
-    primaryColor: isDarkMode ? "#389d70" : "#4abf8a",
-    primaryBorderColor: isDarkMode ? "#389d70" : "#4abf8a",
-    primaryTextColor: "#fff",
-
-    secondaryColor: "#ffb500",
-    secondaryBorderColor: isDarkMode ? "#fff" : "#000",
-    secondaryTextColor: isDarkMode ? "#ddd" : "#333",
-
-    tertiaryColor: isDarkMode ? "#282828" : "#efeef4",
-    tertiaryBorderColor: isDarkMode ? "#bbb" : "#242424",
-    tertiaryTextColor: isDarkMode ? "#ddd" : "#333",
-
-    // note
-    noteBkgColor: isDarkMode ? "#f6d365" : "#fff5ad",
-    noteTextColor: "#242424",
-    noteBorderColor: isDarkMode ? "#f6d365" : "#333",
-
-    lineColor: isDarkMode ? "#d3d3d3" : "#333",
-    textColor: isDarkMode ? "#fff" : "#242424",
-
-    mainBkg: isDarkMode ? "#389d70" : "#4abf8a",
-    errorBkgColor: "#eb4d5d",
-    errorTextColor: "#fff",
-
-    // flowchart
-    nodeBorder: isDarkMode ? "#389d70" : "#4abf8a",
-    nodeTextColor: isDarkMode ? "#fff" : "#242424",
-
-    // sequence
-    signalTextColor: isDarkMode ? "#9e9e9e" : "#242424",
-
-    // class
-    classText: "#fff",
-
-    // state
-    labelColor: "#fff",
-
-    // colors
-    fillType0: isDarkMode ? "#cf1322" : "#f1636e",
-    fillType1: "#f39c12",
-    fillType2: "#2ecc71",
-    fillType3: "#fa541c",
-    fillType4: "#25a55b",
-    fillType5: "#13c2c2",
-    fillType6: "#096dd9",
-    fillType7: "#aa6fe9",
-  };
-};
+import { LoadingIcon } from "./shared/icons.js";
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -95,7 +40,9 @@ export default defineComponent({
       isDarkmode.value = getDarkmodeStatus();
 
       void Promise.all([
-        import(/* webpackChunkName: "mermaid" */ "mermaid"),
+        import(/* webpackChunkName: "mermaid" */ "mermaid") as unknown as {
+          default: mermaid.Mermaid;
+        },
         new Promise((resolve) => setTimeout(resolve, MARKDOWN_ENHANCE_DELAY)),
       ]).then(([mermaid]) => {
         const { initialize, render } = mermaid.default;
@@ -113,10 +60,7 @@ export default defineComponent({
           };
 
           initialize({
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            theme: "base",
-            themeVariables: getThemeVariables(isDarkmode.value),
+            theme: "neutral" as mermaidAPI.default.Theme,
             flowchart: { useMaxWidth: false },
             sequence: { useMaxWidth: false },
             journey: { useMaxWidth: false },

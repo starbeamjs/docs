@@ -94,14 +94,52 @@ function current() {
 
 <template>
   <section :class="current()">
+    <p class="toggler">
+      <button
+        type="button"
+        class="toggler-button js"
+        @click="STORAGE.lang = 'js'"
+      >
+        js
+      </button>
+      <button
+        type="button"
+        class="toggler-button ts"
+        @click="STORAGE.lang = 'ts'"
+      >
+        ts
+      </button>
+    </p>
+
     <div class="js" ref="js"><slot name="js"></slot></div>
-    <div class="types" ref="ts">
+    <div class="ts" ref="ts">
       <slot name="ts"></slot>
     </div>
   </section>
 </template>
 
 <style lang="scss">
+.lang-switcher {
+  position: relative;
+}
+
+.lang-switcher > div:is(.ts, .js) {
+  display: none;
+}
+
+.lang-switcher.ts > div.ts,
+.lang-switcher.js > div.js {
+  display: block;
+}
+
+.lang-switcher.ts p.toggler button.ts {
+  background-color: var(--vp-button-brand-bg);
+}
+
+.lang-switcher.js p.toggler button.js {
+  background-color: var(--vp-button-brand-bg);
+}
+
 .lang-switcher p.toggler {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -115,10 +153,22 @@ function current() {
   font-size: 0.75rem;
 }
 
+.vp-doc [class*="language-"] > p.toggler + button.copy {
+  top: 3rem;
+}
+
+.vp-doc [class*="language-"]:not(:hover) button.copy.copied {
+  opacity: 0;
+}
+
+.vp-doc [class*="language-"] > p.toggler ~ span.lang {
+  display: none;
+}
+
 .lang-switcher p.toggler {
-  border: 3px solid var(--vp-button-brand-border);
+  border: 0 solid var(--vp-button-brand-border);
   background-color: var(--vp-button-alt-bg);
-  border-radius: var(--starbeam-radius);
+  border-end-start-radius: var(--starbeam-radius);
 
   > span,
   > button {
@@ -139,23 +189,21 @@ function current() {
   }
 
   button:hover {
-    background-color: var(--vp-button-brand-hover-bg);
+    background-color: var(--sb-hover-bg);
     transition: background-color var(--color-transition, 0.3s ease),
       color var(--color-transition, 0.3s ease);
   }
-}
-
-.lang-switcher p.toggler span {
-  background-color: var(--vp-button-brand-bg);
-  border-radius: var(--starbeam-radius-sm);
 }
 
 .lang-switcher p.toggler button {
   font-family: "Readex Pro", sans-serif;
   color: var(--tab-nav-text-color);
   background-color: var(--vp-button-alt-bg);
-  border-radius: var(--starbeam-radius-sm);
   border: 0;
+}
+
+.lang-switcher p.toggler button:first-child {
+  border-end-start-radius: var(--starbeam-radius-sm);
 }
 
 .lang-switcher div[class*="language-"]::before {

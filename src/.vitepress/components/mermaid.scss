@@ -1,3 +1,7 @@
+svg[id^="mermaid-"] {
+  font-size: 10px;
+}
+
 .md-enhance-mermaid {
   overflow-x: auto;
   padding: 0.6em 0.4em;
@@ -7,6 +11,11 @@
   @media (max-width: 760px) {
     margin: 0 -1.5rem;
     padding: 0.6em 0;
+  }
+
+  .content {
+    display: grid;
+    justify-content: center;
   }
 
   &.loading {

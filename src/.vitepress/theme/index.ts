@@ -3,13 +3,13 @@
 import theme from "vitepress/theme";
 import type { App } from "vue";
 import Api from "../components/api/Api.vue";
-import Code from "../components/code/Code.vue";
 import CodeDemo from "../components/code/CodeDemo.js";
 import Mermaid from "../components/Mermaid.js";
 import StackBlitz from "../components/StackBlitz.vue";
 import CodeTabs from "../components/Tabs/CodeTabs.vue";
 import Tabs from "../components/Tabs/Tabs.vue";
-import "./index.scss";
+import { Code } from "../packages/vitepress-snippets/browser.js";
+import "./index.pcss";
 import Layout from "./Layout.vue";
 
 export default {
