@@ -13,6 +13,19 @@
     display: none;
   }
 
+  .custom-block > p > code {
+    color: hsl(
+      var(--starbeam-fg-hue),
+      var(--starbeam-fg-saturation),
+      var(--starbeam-fg-lightness-brightest)
+    );
+    background-color: hsl(
+      var(--starbeam-bg-hue),
+      var(--starbeam-bg-saturation),
+      var(--starbeam-bg-lightness-brightest)
+    );
+  }
+
   .custom-block div[class*="language-"] code {
     background: transparent;
   }
@@ -25,7 +38,6 @@
   .custom-block :not(.code-container) > code {
     /* padding: 0; */
     font-family: var(--vp-font-family-mono);
-    color: var(--vp-custom-block-tip-text);
     font-weight: 500;
   }
 

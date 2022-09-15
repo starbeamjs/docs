@@ -189,7 +189,7 @@ function current() {
   }
 
   button:hover {
-    background-color: var(--vp-button-brand-hover-bg);
+    background-color: var(--sb-hover-bg);
     transition: background-color var(--color-transition, 0.3s ease),
       color var(--color-transition, 0.3s ease);
   }

@@ -1,4 +1,7 @@
-:root {
+html,
+html *::before,
+html *::after,
+html *:hover {
   --icons: "Material Symbols Outlined";
   --sb-gap: 0.5ch;
 
@@ -43,4 +46,32 @@
   --sb-hl-hue: var(--sb-hl-kind-ch);
   --sb-hl-saturation: 50%;
   --sb-hl-lightness: 75%;
+
+  --sb-hl-saturated: 90%;
+
+  --sb-hover-bg: hsl(
+    var(--starbeam-bg-hue),
+    var(--sb-hl-saturation),
+    var(--starbeam-bg-lightness-dim)
+  );
+
+  --sb-hover-bg-overlay: hsl(
+    var(--starbeam-bg-hue),
+    var(--sb-hl-saturation),
+    var(--starbeam-bg-lightness-bright)
+  );
+
+  --sb-mark-bg-hue: 60;
+  --sb-mark-bg: hsl(
+    var(--sb-mark-bg-hue),
+    var(--sb-hl-saturated),
+    var(--starbeam-bg-lightness-bright)
+  );
+
+  --sb-border-thin-width: 0.05rem;
+  --sb-border-normal-width: 0.1rem;
+  --sb-border-thick-width: 0.2rem;
+}
+
+html *::before {
 }

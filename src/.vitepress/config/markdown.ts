@@ -12,10 +12,10 @@ import { fences } from "../plugins/fences.js";
 import { flowchart } from "../plugins/flowchart.js";
 import type { Config } from "./types.js";
 
-// const { default: shikiTwoslash } = await import("markdown-it-shiki-twoslash");
 const shiki = await markdownItShikiTwoslashSetup({
   themes: ["github-dark", "github-light"],
   wrapFragments: true,
+  includeJSDocInHover: true,
 });
 
 export const MARKDOWN: Config["markdown"] = {

@@ -1,9 +1,4 @@
-import Snippet, {
-  type Highlight,
-  type LanguageRegion,
-  type Region,
-  type Source,
-} from "docs-snippet";
+import Snippet, { type Highlight, type Region } from "docs-snippet";
 import fs from "fs";
 import type MarkdownIt from "markdown-it";
 import path from "path";
@@ -221,16 +216,6 @@ function highlight(md: MarkdownIt, region: Snippets) {
   return `<Code><template #ts>${tsFenced}</template><template #js>${jsFenced}</template></Code>`;
 }
 
-function prefix(region: LanguageRegion, complete: Source): string {
-  const lines = complete.code.split("\n");
-  return lines.slice(0, region.offsets.start).join("\n");
-}
-
-function postfix(region: LanguageRegion, complete: Source): string {
-  const lines = complete.code.split("\n");
-  return lines.slice(region.offsets.end + 1).join("\n");
-}
-
 function highlightLang(
   md: MarkdownIt,
   {
@@ -264,17 +249,9 @@ function highlightLang(
 
   const source = output.join("\n").trimEnd();
 
-  console.group("code");
-  console.log(source);
-  console.groupEnd();
-
   return (
-    md.options.highlight?.(
-      source,
-      "tsx twoslash",
-      attr
-      // region.highlights ? this.#shikiAttr(region.highlights) : ""
-    ) ?? `<pre><code class="language-ts">${code}</code></pre>`
+    md.options.highlight?.(source, "tsx twoslash", attr) ??
+    `<pre><code class="language-ts">${code}</code></pre>`
   );
 }
 
@@ -310,14 +287,11 @@ class FenceInfo {
   }
 
   #highlightLang(region: { code: string; highlights?: Highlight[] }): string {
-    console.log({ attr: this.#shikiAttr(region.highlights) });
-
     return (
       this.#md.options.highlight?.(
         region.code,
         "ts",
         this.#shikiAttr(region.highlights)
-        // region.highlights ? this.#shikiAttr(region.highlights) : ""
       ) ?? `<pre><code class="language-ts">${region.code}</code></pre>`
     );
   }

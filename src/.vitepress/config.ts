@@ -22,9 +22,6 @@ export default defineConfig({
     ...SITE,
   },
   vite: VITE,
-  buildEnd: async (config) => {
-    console.log(config.configDeps);
-  },
   vue: {
     template: {
       compilerOptions: {

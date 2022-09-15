@@ -11,8 +11,6 @@ Code blocks structurally look like:
   </pre>
 */
 
-@value colors: "./colors.pcss";
-
 :root {
   --highlight-hue: var(--starbeam-fg-hue);
   --highlight-saturation: var(--starbeam-fg-saturation);
@@ -46,7 +44,7 @@ Code blocks structurally look like:
   --twoslash-log-saturation: 0%;
 
   --accent-fg: var(--vp-button-brand-hover-text);
-  --accent-bg: var(--vp-button-brand-hover-bg);
+  --accent-bg: var(--sb-hover-bg);
   --accent-border: var(--vp-button-brand-hover-border);
 }
 
@@ -96,11 +94,15 @@ pre {
   padding-block: 0.5rem;
 
   /* All code samples get a grey border, twoslash ones get a different color */
-  border-right: 1px solid var(--vp-button-alt-border);
-  border-bottom: 0.1rem solid var(--vp-button-alt-border);
+  border-color: var(--vp-button-alt-border);
+  border-style: solid;
+  border-inline-start-width: 0;
+  border-inline-end-width: 0.1rem;
+  border-block-start-width: 0;
+  border-block-end-width: 0.1rem;
   border-radius: 0.4rem;
 
-  margin-bottom: 3rem;
+  margin-block-end: 3rem;
 
   /* Important to allow the code to move horizontally; */
   overflow-x: auto;
@@ -148,7 +150,7 @@ pre.twoslash data-lsp {
   cursor: pointer;
 
   &:hover {
-    background-color: var(--accent-bg);
+    background-color: var(--sb-hover-bg-overlay);
     transition: all 0.2s ease-in-out;
   }
 }
@@ -159,6 +161,7 @@ pre.twoslash data-lsp:active::before {
   content: attr(lsp);
   position: absolute;
   transform: translate(0, 1.5rem);
+  margin-inline-end: 1rem;
   background-color: var(--dim-bg);
   color: var(--dim-fg);
   border-color: var(--dim-fg);
@@ -208,11 +211,12 @@ pre .code-container:hover a {
   opacity: 1;
 }
 
-pre code {
+pre code,
+.vp-doc [class*="language-"] pre code {
   font-size: 15px;
   --font-family: "Azeret Mono";
   /* font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace; */
-  white-space: pre;
+  white-space: pre-wrap;
   -webkit-overflow-scrolling: touch;
 }
 pre code a {

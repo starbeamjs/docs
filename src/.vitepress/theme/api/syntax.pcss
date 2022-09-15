@@ -1,3 +1,19 @@
+html:not(.dark) {
+  --sb-fg-lightness: 50%;
+  --sb-fg-saturation: 50%;
+
+  --sb-fg-lightness-dim: 40%;
+  --sb-fg-saturation-dim: 40%;
+}
+
+html.dark {
+  --sb-fg-lightness: 70%;
+  --sb-fg-saturation: 30%;
+
+  --sb-fg-lightness-dim: 60%;
+  --sb-fg-saturation-dim: 20%;
+}
+
 .VPDoc {
   --vp-code-font-size: 0.8rem;
   --vp-code-line-height: 1.7;
@@ -19,7 +35,6 @@
   code {
     span {
       display: inline-block;
-      // font-size: 1rem;
       color: hsl(
         var(--sb-hl-hue),
         var(--sb-hl-saturation),
@@ -36,16 +51,20 @@
     }
 
     &.starbeam-inline.starbeam-bg-alt {
-      --sb-hl-lightness: 50%;
-      --sb-hl-saturation: 50%;
+      --sb-hl-lightness: var(--sb-fg-lightness);
+      --sb-hl-saturation: var(--sb-fg-saturation);
       background-color: var(--sb-inline-light-bg-c);
-      border-color: hsl(var(--hl-kind-ch), 50%, 50%);
+      border-color: hsl(
+        var(--sb-hl-kind-ch),
+        var(--sb-fg-saturation),
+        var(--sb-fg-lightness)
+      );
       border-style: solid;
       border-width: 1px;
     }
 
     &.starbeam-inline.starbeam-bg-light {
-      --sb-hl-lightness: 35%;
+      --sb-hl-lightness: var(--sb-fg-lightness-dim);
       --sb-hl-saturation: 100%;
       background-color: var(--sb-inline-light-bg-c);
     }

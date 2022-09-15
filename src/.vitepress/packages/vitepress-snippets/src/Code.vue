@@ -168,7 +168,7 @@ function current() {
 }
 
 .lang-switcher p.toggler {
-  border: 0.05rem solid var(--vp-button-brand-border);
+  border: var(--sb-border-thin-width) solid var(--vp-button-brand-border);
   background-color: var(--vp-button-alt-bg);
   border-end-start-radius: var(--starbeam-radius-sm);
 
