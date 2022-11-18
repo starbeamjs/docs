@@ -1,5 +1,5 @@
 // #region indirect-consumption
-import reactive from "@starbeam/js";
+import { reactive } from "@starbeam/js";
 
 interface Person {
   name: string;
@@ -27,7 +27,7 @@ const people = new People();
 // #endregion
 
 // #region rendering-indirect-consumption
-import { DEBUG_RENDERER } from "@starbeam/core";
+import { DEBUG_RENDERER } from "@starbeam/universal";
 
 DEBUG_RENDERER.render({
   // #highlight:next

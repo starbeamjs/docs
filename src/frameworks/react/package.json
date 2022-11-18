@@ -4,12 +4,12 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@starbeam/core": "^0.6.0",
-    "@starbeam/react": "^0.6.0",
-    "@starbeam/debug": "^0.6.0"
+    "@starbeam/universal": "^0.8.0",
+    "@starbeam/react": "^0.8.0",
+    "@starbeam/debug": "^0.8.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6"
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9"
   }
 }

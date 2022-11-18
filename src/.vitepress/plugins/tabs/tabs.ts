@@ -3,7 +3,7 @@ import type { RuleBlock } from "markdown-it/lib/parser_block.js";
 import type { default as Renderer } from "markdown-it/lib/renderer.js";
 import type { default as Token } from "markdown-it/lib/token.js";
 
-export interface BaseTabData {
+interface BaseTabData {
   title: string;
   value?: string;
 }
@@ -66,8 +66,8 @@ export const tabs: PluginWithOptions<TabOptions> = (
 
     // Search for the end of the block
     while (
-      // unclosed block should be autoclosed by end of document.
-      // also block seems to be autoclosed by end of parent
+      // unclosed block should be auto closed by end of document.
+      // also block seems to be auto closed by end of parent
       nextLine < endLine
     ) {
       nextLine += 1;
@@ -168,8 +168,8 @@ export const tabs: PluginWithOptions<TabOptions> = (
 
     // Search for the end of the block
     while (
-      // unclosed block should be autoclosed by end of document.
-      // also block seems to be autoclosed by end of parent
+      // unclosed block should be auto closed by end of document.
+      // also block seems to be auto closed by end of parent
       nextLine < endLine
     ) {
       nextLine += 1;
@@ -268,7 +268,7 @@ export const tabs: PluginWithOptions<TabOptions> = (
     const basicData: BaseTabData[] = [];
     const customData = getter(tokens, index, options, env, self);
     let activeIndex = -1;
-    let isTabstart = false;
+    let isTabStart = false;
 
     for (let i = index; i < tokens.length; i++) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -288,7 +288,7 @@ export const tabs: PluginWithOptions<TabOptions> = (
             "{ title, value, isActive }",
           ]);
 
-          isTabstart = true;
+          isTabStart = true;
           basicData.push({
             title: info,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -300,18 +300,21 @@ export const tabs: PluginWithOptions<TabOptions> = (
 
         if (type === "tab_close") continue;
 
-        if (!isTabstart) {
+        if (!isTabStart) {
           tokens[i].type = `${name}_tabs_empty`;
           tokens[i].hidden = true;
         }
       }
     }
 
-    return `<${component} :data='${
+    const data = basicData.map((item, index) => ({
+      ...item,
+      ...customData[index],
+    }));
+
+    return `<${component} id="${index}" :data='${
       // single quote will break @vue/compiler-sfc
-      JSON.stringify(
-        basicData.map((item, index) => ({ ...item, ...customData[index] }))
-      ).replace(/'/g, "&#39")
+      JSON.stringify(data).replace(/'/g, "&#39")
     }'${activeIndex !== -1 ? ` :active="${activeIndex}"` : ""}${
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       meta.id ? ` tab-id="${meta.id as string}"` : ""

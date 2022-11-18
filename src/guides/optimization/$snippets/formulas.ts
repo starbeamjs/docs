@@ -1,7 +1,7 @@
 import { expect } from "vitest";
 
 // #region create-formula
-import { Cell, FormulaFn } from "@starbeam/core";
+import { Cell, FormulaFn } from "@starbeam/universal";
 
 const name = Cell("John");
 const location = Cell("New York");

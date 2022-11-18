@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SingleToken } from './Manual.vue.js';
+import type { SingleToken } from './Manual.vue';
 
 defineProps<{ token: SingleToken }>();
 </script>

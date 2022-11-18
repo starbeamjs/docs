@@ -1,15 +1,12 @@
 import { markdownItShikiTwoslashSetup } from "markdown-it-shiki-twoslash";
-import {
-  codeTabs,
-  mark,
-  mermaid,
-  normalDemo,
-  tabs,
-} from "vuepress-plugin-md-enhance/lib/node/index.js";
 import { snippets } from "../packages/vitepress-snippets/build.js";
-import { containers } from "../plugins/containers.js";
+import { codeTabs } from "../plugins/code-tabs/code-tabs.js";
+import { containers } from "../plugins/containers/containers.js";
 import { fences } from "../plugins/fences.js";
-import { flowchart } from "../plugins/flowchart.js";
+import { mark } from "../plugins/mark/mark.js";
+import { deps } from "../plugins/mermaid/flowchart.js";
+import { mermaid } from "../plugins/mermaid/mermaid.js";
+import { tabs } from "../plugins/tabs/tabs.js";
 import type { Config } from "./types.js";
 
 const shiki = await markdownItShikiTwoslashSetup({
@@ -26,9 +23,8 @@ export const MARKDOWN: Config["markdown"] = {
     });
     md.use(containers);
     md.use(mermaid);
-    md.use(flowchart);
+    md.use(deps);
     md.use(mark);
-    md.use(normalDemo);
     md.use(tabs);
     md.use(codeTabs);
     md.use(fences);

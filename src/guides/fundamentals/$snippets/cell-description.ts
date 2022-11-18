@@ -1,5 +1,5 @@
 // #region describe-string
-import { Cell } from "@starbeam/core";
+import { Cell } from "@starbeam/universal";
 
 // #highlight:next
 const person = Cell({ name: "John", age: 30 }, "person");

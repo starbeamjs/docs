@@ -1,5 +1,5 @@
 // #region simple-function
-import { Cell } from "@starbeam/core";
+import { Cell } from "@starbeam/universal";
 
 const name = Cell("John");
 const location = Cell("New York");

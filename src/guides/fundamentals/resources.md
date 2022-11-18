@@ -4,6 +4,10 @@ order: 4
 
 # Resources
 
+<script setup lang="ts">
+  import * as resources from "./demos/resources/config.js";
+</script>
+
 A resource is a reactive computation that needs to be cleaned up when it is no longer used.
 
 Resources are created with an owner, and whenever the owner is cleaned up, the resource is also
@@ -12,14 +16,10 @@ cleaned up. This is called _ownership linking_.
 Typically, a component in your framework will own your resources. The framework renderer will make
 sure that when your component is _unmounted_, its associated resources are cleaned up.
 
-[validated on demand]: ./3-validation.md
-
 ## Example: Ticking Stopwatch
 
 Let's illustrate the idea of a resource by creating a stopwatch that uses a `setInterval` to tick.
 By using a Starbeam resource, we can ensure that the stopwatch is stopped when the owner is cleaned up.
-
-<!-- ;;; ./$snippets/resources.ts#stopwatch -->
 
 ::: 💡
 A resource's return value is a function that computes the value of the resource whenever its
@@ -28,75 +28,7 @@ dependencies change.
 
 ### <strong class="marker">demo</strong> rendering the stopwatch
 
-::: normal-demo
-
-```html
-<p id="output"></p>
-<button id="finalize">Finalize the Stopwatch</button>
-```
-
-```js
-const button = document.querySelector("#finalize");
-const output = document.querySelector("#output");
-
-async function main() {
-  const { Cell, Resource, TIMELINE, LIFETIME } = await import(
-    "https://assets.codepen.io/1630871/starbeam.js"
-  );
-
-  const Stopwatch = Resource((r) => {
-    const time = Cell(new Date());
-
-    const interval = setInterval(() => {
-      time.set(new Date());
-    }, 1000);
-
-    r.on.cleanup(() => clearInterval(interval));
-
-    return () => {
-      const now = time.current;
-
-      return new Intl.DateTimeFormat("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-        hour12: false,
-      }).format(now);
-    };
-  });
-
-  // Instantiate the Stopwatch with an owner. We will
-  // later finalize the owner to clean up the resource.
-  // In this case, that will clear the interval and
-  // stop the watch from ticking.
-  const owner = {};
-  const stopwatch = Stopwatch.create({
-    owner,
-  });
-
-  // Render the stopwatch into the DOM. The `render`
-  // callback will be called whenever the stopwatch's
-  // value changes.
-  //
-  // In this case, that will happen whenever the `time`
-  // cell in the resource is set.
-  TIMELINE.render(stopwatch, () => {
-    output.innerHTML = `The current time is: ${stopwatch.current}`;
-  });
-
-  button.addEventListener(
-    "click",
-    () => {
-      LIFETIME.finalize(owner);
-    },
-    3000
-  );
-}
-
-main();
-```
-
-::::
+<Demo :config="resources" />
 
 ## Lifecycle
 

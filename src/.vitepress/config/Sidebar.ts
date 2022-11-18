@@ -42,7 +42,7 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
       item("TIMELINE", "/api/timeline/timeline.md"),
       item("ReactiveProtocol", "/api/timeline/protocol.md"),
     ]),
-    group("@starbeam/core", [
+    group("@starbeam/universal", [
       item("Cell", "/api/core/cell.md"),
       item("Formula", "/api/core/formula.md"),
       item("Resource", "/api/core/resource.md"),

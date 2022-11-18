@@ -1,29 +1,27 @@
 // #region resource
-import { Cell, Resource } from "@starbeam/core";
+import { Cell, Resource } from "@starbeam/universal";
 
-const Stopwatch = Resource((resource) => {
+const Stopwatch = Resource(({ on }) => {
   const start = Cell(new Date());
 
-  resource.on.setup(() => {
-    const interval = setInterval(() => {
-      start.set(new Date());
-    }, 1000);
+  const interval = setInterval(() => {
+    start.set(new Date());
+  }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+  on.cleanup(() => {
+    clearInterval(interval);
   });
 
-  return () => start.current;
-});
+  return start;
+}).initial(() => new Date());
 // #endregion
 
 // #region react
-import { useResource } from "@starbeam/react";
+import { useReactive, useResource } from "@starbeam/react";
 
 function TickingClock() {
-  const now = useResource(() => Stopwatch);
+  const now = useResource(() => Stopwatch, []);
 
-  return <p>{now.toLocaleTimeString()}</p>;
+  return useReactive(() => <p>{now.current.toLocaleTimeString()}</p>);
 }
 // #endregion

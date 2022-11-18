@@ -1,7 +1,7 @@
 import "@typescript/lib-dom";
 
 // #region stopwatch
-import { Cell, Resource } from "@starbeam/core";
+import { Cell, Resource } from "@starbeam/universal";
 
 const Stopwatch = Resource((r) => {
   const time = Cell(new Date());
