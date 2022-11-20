@@ -13,6 +13,7 @@ const shiki = await markdownItShikiTwoslashSetup({
   themes: ["github-dark", "github-light"],
   wrapFragments: true,
   includeJSDocInHover: true,
+  disableImplicitReactImport: true,
 });
 
 export const MARKDOWN: Config["markdown"] = {

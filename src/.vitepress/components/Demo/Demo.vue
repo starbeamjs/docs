@@ -29,7 +29,7 @@ const deps = computed(() => {
     if (dep in versions) {
       return [dep, version === "package.json" ? versions[dep] : version]
     } else {
-      throw Error(`Dependency ${dep} (used in ${info.page.value.relativePath}) not found in versions`);
+      throw Error(`Dependency ${dep} (used in ${info.page.value.relativePath}) not found in versions: ${JSON.stringify(versions)}`);
     }
   }));
 })

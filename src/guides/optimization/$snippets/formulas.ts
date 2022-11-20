@@ -1,12 +1,12 @@
 import { expect } from "vitest";
 
 // #region create-formula
-import { Cell, FormulaFn } from "@starbeam/universal";
+import { Cell, Formula } from "@starbeam/universal";
 
 const name = Cell("John");
 const location = Cell("New York");
 
-const description = FormulaFn((): string => {
+const description = Formula((): string => {
   return `${name.current} lives in ${location.current}`;
 });
 // #endregion create-formula

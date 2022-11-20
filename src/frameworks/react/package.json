@@ -2,11 +2,10 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@starbeam/universal": "^0.8.4",
-    "@starbeam/react": "^0.8.4",
-    "@starbeam/debug": "^0.8.4"
+    "@starbeam/react": "0.8.5",
+    "@starbeam/universal": "0.8.5",
+    "react": "*",
+    "react-dom": "*"
   },
   "devDependencies": {
     "@types/react": "^18.0.25",

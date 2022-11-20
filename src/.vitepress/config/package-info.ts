@@ -25,7 +25,8 @@ export interface Dependency {
 }
 
 async function dep(filter: string, { cwd }: { cwd: string }) {
-  const { stdout } = await exec(`pnpm list ${filter} --json`, {
+  // -DP ensures that we get both dev and prod dependencies regardless of the value of NODE_ENV
+  const { stdout } = await exec(`pnpm list -DP --json ${filter}`, {
     cwd,
   });
 
@@ -35,7 +36,7 @@ async function dep(filter: string, { cwd }: { cwd: string }) {
 }
 
 async function getWorkspaceRoot({ cwd }: { cwd: string }) {
-  const [root] = (await dep("-w --depth=-1", { cwd })) as [Deps];
+  const [root] = (await dep("--depth=-1", { cwd })) as [Deps];
 
   return root.path;
 }
@@ -43,7 +44,7 @@ async function getWorkspaceRoot({ cwd }: { cwd: string }) {
 export async function getStarbeamVersions(): Promise<
   Record<string, Dependency>
 > {
-  const [deps] = await dep(`"@starbeam/*"`, { cwd: ROOT });
+  const [deps] = await dep(`@starbeam/*`, { cwd: ROOT });
 
   return {
     ...deps.dependencies,

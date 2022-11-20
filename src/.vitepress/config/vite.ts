@@ -10,7 +10,7 @@ import type { CSSOptions, UserConfig } from "vite";
 import { color } from "./css-functions/color.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(__dirname, "../../..");
+export const root = path.resolve(__dirname, "../../..");
 
 export const CSS: CSSOptions = {
   postcss: {
