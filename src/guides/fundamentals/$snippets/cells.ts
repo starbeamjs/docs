@@ -1,7 +1,7 @@
 import { expect } from "vitest";
 
 // #region creating
-import { Cell } from "@starbeam/core";
+import { Cell } from "@starbeam/universal";
 
 const cell = Cell(0);
 expect(cell.current).toBe(0);

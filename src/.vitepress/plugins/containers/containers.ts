@@ -1,5 +1,5 @@
-import { container } from "vuepress-plugin-md-enhance/lib/node/index.js";
 import type { PluginSimple } from "markdown-it";
+import { container } from "./container.js";
 
 export const blockEmphasis: PluginSimple = (md) =>
   container(md, {

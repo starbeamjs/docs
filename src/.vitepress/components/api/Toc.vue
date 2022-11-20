@@ -13,10 +13,7 @@ defineProps<{ api: PublicApi }>();
         <li v-for="item in group">
           <a :href="`#${item.slug}`" :data-kind="item.kind">
             <Codicon v-if="item.kind === 'interface'" icon="symbol-interface" />
-            <Codicon
-              v-else-if="item.kind === 'constructor-fn'"
-              icon="symbol-class"
-            />
+            <Codicon v-else-if="item.kind === 'constructor-fn'" icon="symbol-class" />
             <Codicon v-else-if="item.kind === 'const'" icon="symbol-constant" />
             <Codicon v-else-if="item.kind === 'variants'" icon="symbol-enum" />
 
@@ -28,10 +25,7 @@ defineProps<{ api: PublicApi }>();
                 <li>
                   <ul>
                     <li v-for="property in item.properties">
-                      <a
-                        :href="`#${property.slug}--property`"
-                        data-kind="property"
-                      >
+                      <a :href="`#${property.slug}--property`" data-kind="property">
                         {{ property.name }}
                       </a>
                     </li>
@@ -45,7 +39,7 @@ defineProps<{ api: PublicApi }>();
                   <ul>
                     <li v-for="method in item.methods">
                       <a :href="`#${method.slug}--method`" data-kind="method">{{
-                        method.name
+    method.name
                       }}</a>
                     </li>
                   </ul>

@@ -1,15 +1,15 @@
 import type MarkdownIt from "markdown-it";
 import type { PluginSimple } from "markdown-it";
-import type mermaidAPI from "mermaid/mermaidAPI.js";
+import type { MermaidConfig } from "mermaid";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const styles = readFileSync(path.resolve(dirname, "./mermaid.css"), "utf-8");
+const styles = readFileSync(path.resolve(dirname, "../mermaid.css"), "utf-8");
 
-const theme: mermaidAPI.default.Config = {
-  theme: "neutral" as mermaidAPI.default.Theme,
+const theme: MermaidConfig = {
+  theme: "neutral",
   themeVariables: {
     fontFamily: "Azeret Mono",
     fontSize: "12px",
@@ -22,7 +22,6 @@ const theme: mermaidAPI.default.Config = {
 };
 
 export const deps: PluginSimple = (md) => {
-  // Handle ```flow and ```flowchart blocks
   const fence = md.renderer.rules.fence;
 
   md.renderer.rules.fence = (...args): string => {

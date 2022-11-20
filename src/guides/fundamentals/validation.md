@@ -1,5 +1,9 @@
 # Consumption and Validation
 
+<script setup lang="ts">
+  import * as validation from "./demos/validation/config.js";
+</script>
+
 All of Starbeam's reactivity is based on around two concepts: consumption and validation.
 
 When you render a computation, the rendered function _consumes_ all of the cells that were used in the computation.
@@ -23,6 +27,8 @@ If you later set a value, delete an entry or clear the map, the iteration cell i
 invalidates your rendered function.
 
 :::
+
+## Example: Reactive People List
 
 To demonstrate this point, let's create an object that uses a reactive array under the hood, but
 exposes a normal JavaScript API.
@@ -52,64 +58,9 @@ This invalidated the array's **iteration**, which invalidated the rendered funct
 
 Finally, since invalidation simply schedules revalidation, our renderer only ran once.
 
-::: normal-demo
+### <strong class="marker">demo</strong> Rendering With the Debug Renderer
 
-```html
-<ul id="output"></ul>
-<button id="add-people">Add some people</button>
-```
-
-```js
-const button = document.querySelector("#add-people");
-const output = document.querySelector("#output");
-
-async function main() {
-  const { reactive, DEBUG_RENDERER } = await import(
-    "https://assets.codepen.io/1630871/starbeam.js"
-  );
-
-  class People {
-    #people = reactive.array([]);
-
-    push(person) {
-      this.#people.push(person);
-    }
-
-    [Symbol.iterator]() {
-      return this.#people[Symbol.iterator]();
-    }
-
-    byLocation(location) {
-      return this.#people.filter((person) => person.location === location);
-    }
-  }
-
-  const people = new People();
-
-  DEBUG_RENDERER.render({
-    render: () => people.byLocation("New York"),
-    debug: (people) => {
-      output.innerHTML += `<li>${JSON.stringify(
-        people.map((person) => person.name)
-      )}</li>`;
-    },
-  });
-
-  button.addEventListener(
-    "click",
-    () => {
-      people.push({ name: "John", location: "New York" });
-      people.push({ name: "Jane", location: "New York" });
-      people.push({ name: "Joe", location: "London" });
-    },
-    3000
-  );
-}
-
-main();
-```
-
-::::
+<Demo :config="validation" />
 
 There's no need to do any kind of additional batching, debouncing or scheduling, since no values are
 pushed through the system that need to be intercepted and massaged.

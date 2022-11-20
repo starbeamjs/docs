@@ -4,6 +4,9 @@
   "type": "module",
   "main": "./src/index.ts",
   "exports": {
+    ".": {
+      "types": "./src/api.d.ts"
+    },
     "./schema.json": "./dist/api.schema.json"
   },
   "scripts": {

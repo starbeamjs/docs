@@ -1,4 +1,5 @@
 import type { DefaultTheme, UserConfig } from "vitepress";
+import { getStarbeamVersions } from "./package-info.js";
 import type { ThemeConfig } from "./types.js";
 
 export const SITE: Partial<ThemeConfig> = {
@@ -13,4 +14,17 @@ export const SITE: Partial<ThemeConfig> = {
 export const CONFIG: Partial<UserConfig<DefaultTheme.Config>> = {
   title: "Starbeam",
   titleTemplate: "Simple and Fun Reactivity",
+};
+
+export const BUILD_HOOKS: Partial<UserConfig<DefaultTheme.Config>> = {
+  transformPageData: async (page) => {
+    const versions = await getStarbeamVersions();
+    page.frontmatter["@starbeam:versions"] = Object.fromEntries(
+      Object.values(versions).map((dep) => [dep.from, dep.version])
+    );
+
+    if ("STARBEAM_REGISTRY" in process.env) {
+      page.frontmatter["@starbeam:registry"] = process.env.STARBEAM_REGISTRY;
+    }
+  },
 };

@@ -1,7 +1,11 @@
-import { Cell, Reactive, Resource } from "@starbeam/core";
+import {
+  Cell,
+  Formula,
+  Reactive,
+  Resource,
+  ResourceBlueprint,
+} from "@starbeam/universal";
 
-// #region dts
-import type { ResourceBlueprint } from "@starbeam/core";
 declare class Channel {
   static subscribe(name: string): Channel;
 
@@ -14,28 +18,27 @@ declare class Channel {
 function ChannelResource(
   channelName: Reactive<string>
 ): ResourceBlueprint<string> {
-  return Resource((resource) => {
+  return Resource(({ on }) => {
     const lastMessage = Cell(null as string | null);
 
-    resource.on.setup(() => {
-      const channel = Channel.subscribe(channelName.read());
+    const channel = Channel.subscribe(channelName.read());
 
-      channel.onMessage((message) => {
-        lastMessage.set(message);
-      });
-
-      return () => channel.unsubscribe();
+    channel.onMessage((message) => {
+      lastMessage.set(message);
     });
 
-    return () => {
+    on.cleanup(() => {
+      channel.unsubscribe();
+    });
+
+    return Formula(() => {
       const prefix = `[${channelName.read()}] `;
       if (lastMessage.current === null) {
         return `${prefix} No messages received yet`;
       } else {
         return `${prefix} ${lastMessage.current}`;
       }
-    };
+    });
   });
 }
-
 // #endregion

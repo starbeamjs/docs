@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <dt>
     <slot name="entry" />

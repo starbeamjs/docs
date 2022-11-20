@@ -18,7 +18,7 @@
       "strings": "on",
       "other": "on"
     },
-    "editor.defaultFormatter": "Vue.volar"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
@@ -39,9 +39,6 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.tsserver.experimental.enableProjectDiagnostics": false,
-  "typescript.disableAutomaticTypeAcquisition": true,
 
   "scss.lint.float": "warning",
   "scss.lint.ieHack": "error",
@@ -54,9 +51,10 @@
   "scssLint.languages": ["scss"],
   "scssLint.showHighlights": true,
 
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[vue][scss]": {
+    "editor.defaultFormatter": "Vue.volar"
   },
+
   "[yaml]": {
     "editor.insertSpaces": true,
     "editor.defaultFormatter": "redhat.vscode-yaml",
@@ -72,17 +70,16 @@
 
   "volar.takeOverMode.enabled": "auto",
   "volar.autoWrapParentheses": true,
-  "volar.vueserver.useSecondServer": true,
   "volar.updateImportsOnFileMove.enabled": true,
-  "volar.codeLens.scriptSetupTools": true,
-  "volar.codeLens.references": true,
-  "volar.completion.autoImportComponent": true,
-  "vite.autoStart": false,
+  "volar.doctor.statusBarItem": true,
+  "volar.vueserver.vitePress.processMdFile": true,
+  "volar.autoCompleteRefs": true,
+  "volar.completion.normalizeComponentAutoImportName": true,
+  "volar.vueserver.textDocumentSync": "incremental",
 
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
-    "./packages/api-docs/dist/api.schema.json": "/src/api/**/*.yml",
-    "file:///workspaces/docs/packages/api-docs/dist/api.schema.json": "file:///workspaces/docs/src/api/core/%24api/cell.yml"
+    "./packages/api-docs/dist/api.schema.json": "/src/api/**/*.yml"
   },
   "yaml.trace.server": "messages",
 

@@ -5,6 +5,7 @@
 @import "./colors.pcss";
 @import "./sizes.pcss";
 @import "./vars.pcss";
+@import "./sp-demo.pcss";
 
 :root {
   --vp-font-family-base: "Readex Pro", sans-serif;
@@ -249,10 +250,13 @@ div.lightbulb {
   row-gap: 0.5rem;
   column-gap: 0.5rem;
   align-items: baseline;
-  border-bottom: 2px solid var(--grey12);
-  border-right: 2px solid var(--grey12);
+  border-bottom: 2px solid var(--vp-badge-tip-border);
+  border-right: 2px solid var(--vp-badge-tip-border);
   border-radius: 0.5em;
-  padding-block-end: 0.4em;
+  padding: 0.4em;
+  background-color: var(--vp-badge-tip-bg);
+  color: var(--vp-badge-tip-text);
+  border-color: var(--vp-badge-tip-border);
 
   &::before {
     content: "💡";

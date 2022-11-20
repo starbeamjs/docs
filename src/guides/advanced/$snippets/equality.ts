@@ -1,7 +1,7 @@
 import { expect } from "vitest";
 
 // #region equality
-import { Cell } from "@starbeam/core";
+import { Cell } from "@starbeam/universal";
 
 const person = { name: "John", age: 30 };
 

@@ -24,7 +24,7 @@ const slots = useSlots();
   <template v-for="[, group] in api.grouped()">
     <template v-for="e in group">
       <template v-if="e.kind === 'constructor-fn'">
-      <Constructor :fn="e" />
+        <Constructor :fn="e" />
       </template>
       <template v-else-if="e.kind === 'util-fn'">
         <Function :fn="e" />

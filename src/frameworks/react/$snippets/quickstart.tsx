@@ -7,15 +7,15 @@ declare module "@starbeam/react" {
   function useReactiveSetup<T>(
     callback: (
       setup: import("@starbeam/react").ReactiveElement
-    ) => import("@starbeam/core").Reactive<T>,
+    ) => import("@starbeam/universal").Reactive<T>,
     description?: string | import("@starbeam/debug").Description
   ): T;
 }
 // #endregion
 
 // #region app
-import { Cell } from "@starbeam/core";
 import { useReactive, useSetup } from "@starbeam/react";
+import { Cell } from "@starbeam/universal";
 import { createRoot } from "react-dom/client";
 
 export function Counter() {

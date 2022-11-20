@@ -3,7 +3,7 @@
 Start by installing the React renderer into your app.
 
 ```npm
-@starbeam/react @starbeam/core @starbeam/js
+@starbeam/react @starbeam/universal @starbeam/js
 ```
 
 ## Using Starbeam

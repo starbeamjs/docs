@@ -9,10 +9,7 @@
   --starbeam-fg-accent-saturation: 50%;
 }
 
-html:not(.dark),
-html:not(.dark) *::before,
-html:not(.dark) *::after,
-html:not(.dark) *:hover {
+:root:not(.dark) {
   --starbeam-fg-lightness-normal: 50%;
   --starbeam-fg-lightness-bright: 30%;
   --starbeam-fg-lightness-brighter: 20%;
@@ -28,10 +25,7 @@ html:not(.dark) *:hover {
   --starbeam-bg-lightness-dimmer: 10%;
 }
 
-html.dark,
-html.dark *::before,
-html.dark *::after,
-html.dark *:hover {
+:root.dark {
   --starbeam-fg-lightness-normal: 50%;
   --starbeam-fg-lightness-bright: 70%;
   --starbeam-fg-lightness-brighter: 80%;
