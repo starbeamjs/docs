@@ -52,6 +52,9 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
   "/frameworks/react/": [
     group("React", [item("Getting Started", "/frameworks/react/index.md")]),
   ],
+  "/frameworks/preact/": [
+    group("Preact", [item("Getting Started", "/frameworks/preact/index.md")]),
+  ],
   "/demos/": [],
 };
 

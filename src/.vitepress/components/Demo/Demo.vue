@@ -15,6 +15,7 @@ const { config } = defineProps<{
   config: {
     files: DemoFiles;
     dependencies: DemoDeps;
+    
   };
 }>();
 

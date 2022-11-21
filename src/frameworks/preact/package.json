@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@starbeam/preact": "*",
+    "@starbeam/universal": "*",
+    "preact": "*"
+  }
+}

@@ -2,8 +2,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@starbeam/react": "0.8.5",
-    "@starbeam/universal": "0.8.5",
+    "@starbeam/react": "*",
+    "@starbeam/universal": "*",
     "react": "*",
     "react-dom": "*"
   },

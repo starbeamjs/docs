@@ -16,6 +16,10 @@ export const NAV: ThemeConfig["nav"] = [
         text: "React",
         link: "/frameworks/react/",
       },
+      {
+        text: "Preact",
+        link: "/frameworks/preact/",
+      },
     ],
   },
 ];

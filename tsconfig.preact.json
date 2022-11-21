@@ -6,6 +6,7 @@
     "checkJs": true,
     "target": "esnext",
     "jsx": "preserve",
+    "jsxImportSource": "preact",
     "module": "esnext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
@@ -17,7 +18,6 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/$snippets/*.tsx"],
   "references": [
     {
       "path": "./src/frameworks/preact/tsconfig.json"
