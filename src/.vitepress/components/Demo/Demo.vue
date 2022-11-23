@@ -1,13 +1,19 @@
 <script setup lang="ts">
-import { SandpackInternalOptions, SandpackProvider, SandpackSetup } from "codesandbox-sandpack-vue3";
+import {
+  SandpackFiles,
+  SandpackInternalOptions,
+  SandpackProvider,
+  SandpackSetup,
+} from "codesandbox-sandpack-vue3";
 import { useData } from "vitepress";
 import { computed, Ref } from "vue";
-
 
 import type { StarbeamFrontmatter } from "../../config/site-data.js";
 import {
   DemoDeps,
-  toSandpackDeps, toSandpackFiles, type DemoFiles
+  toSandpackDeps,
+  toSandpackFiles,
+  type DemoFiles,
 } from "./demo.js";
 import DemoBody from "./DemoBody.vue";
 
@@ -15,7 +21,8 @@ const { config } = defineProps<{
   config: {
     files: DemoFiles;
     dependencies: DemoDeps;
-    
+    jsx?: string;
+    main?: string;
   };
 }>();
 
@@ -26,22 +33,89 @@ const deps = computed(() => {
   const versions = data.value["@starbeam:versions"];
   const deps = toSandpackDeps(config.dependencies) ?? {};
 
-  return Object.fromEntries(Object.entries(deps).map(([dep, version]) => {
-    if (dep in versions) {
-      return [dep, version === "package.json" ? versions[dep] : version]
-    } else {
-      throw Error(`Dependency ${dep} (used in ${info.page.value.relativePath}) not found in versions: ${JSON.stringify(versions)}`);
+  return Object.fromEntries(
+    Object.entries(deps).map(([dep, version]) => {
+      if (dep in versions) {
+        return [dep, version === "package.json" ? versions[dep] : version];
+      } else {
+        throw Error(
+          `Dependency ${dep} (used in ${
+            info.page.value.relativePath
+          }) not found in versions: ${JSON.stringify(versions)}`
+        );
+      }
+    })
+  );
+});
+
+const BABEL_JSX = config.jsx
+  ? [
+      "transform-react-jsx",
+      {
+        runtime: "automatic",
+        importSource: config.jsx,
+      },
+    ]
+  : ["transform-react-jsx"];
+
+const TSCONFIG_JSX = config.jsx
+  ? {
+      jsx: "preserve",
+      jsxImportSource: config.jsx,
     }
-  }));
-})
+  : { jsx: "preserve" };
 
-
-const files = {
-  ...toSandpackFiles(config.files)
+const files: SandpackFiles = {
+  ...toSandpackFiles(config.files),
+  ".babelrc": {
+    hidden: true,
+    code: JSON.stringify(
+      {
+        presets: ["env"],
+        plugins: ["transform-runtime", BABEL_JSX],
+        parserOpts: {
+          plugins: ["dynamicImport"],
+        },
+      },
+      null,
+      2
+    ),
+  },
+  "package.json": JSON.stringify(
+    {
+      main: config.main ?? "/src/index.ts",
+      type: "module",
+      dependencies: deps.value,
+      devDependencies: {
+        typescript: "^4.0.0",
+      },
+    },
+    null,
+    2
+  ),
+  "tsconfig.json": JSON.stringify(
+    {
+      compilerOptions: {
+        strict: true,
+        module: "commonjs",
+        target: "esnext",
+        ...TSCONFIG_JSX,
+        esModuleInterop: true,
+        sourceMap: true,
+        allowJs: true,
+        lib: ["es6", "dom"],
+        rootDir: "src",
+        moduleResolution: "node16",
+      },
+    },
+    null,
+    2
+  ),
 };
 
 const options: SandpackInternalOptions = {
   recompileMode: "delayed",
+  // bundlerURL: "https://db2aecf9.sandpack-bundler.pages.dev",
 };
 
 const registryURL = import.meta.env.STARBEAM_REGISTRY_URL;
@@ -50,23 +124,31 @@ const customSetup = computed((): SandpackSetup => {
   if (registryURL) {
     return {
       dependencies: deps.value,
-      npmRegistries: [{
-        enabledScopes: ["@starbeam"],
-        registryUrl: registryURL,
-        limitToScopes: true,
-      }],
+      entry: config.main ?? "/src/index.ts",
+      npmRegistries: [
+        {
+          enabledScopes: ["@starbeam"],
+          registryUrl: registryURL,
+          limitToScopes: true,
+        },
+      ],
     };
   } else {
     return {
       dependencies: deps.value,
-    }
+    };
   }
-})
+});
 </script>
 
 <template>
   <div class="demo">
-    <SandpackProvider :files="files" :options="options" :custom-setup="customSetup" template="vanilla-ts">
+    <SandpackProvider
+      :files="files"
+      :options="options"
+      :custom-setup="customSetup"
+      template="vanilla-ts"
+    >
       <DemoBody />
     </SandpackProvider>
   </div>
@@ -108,7 +190,7 @@ div.demo {
   padding: 0;
   border: none;
 
-  &+h2 {
+  & + h2 {
     border-block-start: 1rem;
     margin-block-start: 0;
   }
@@ -133,14 +215,14 @@ button.toggle-button {
     color: var(--sp-colors-clickable);
   }
 
-  >span.count {
+  > span.count {
     display: none;
   }
 
   &:not([data-count="0"]) {
     padding-inline-end: 0.75rem;
 
-    >span.count {
+    > span.count {
       display: grid;
       font-size: 0.75em;
       width: 2em;

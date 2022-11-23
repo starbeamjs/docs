@@ -23,8 +23,8 @@
     "@starbeam/debug": "*",
     "@starbeam/interfaces": "*",
     "@starbeam/js": "*",
-    "@starbeam/react": "*",
     "@starbeam/preact": "*",
+    "@starbeam/react": "0.8.6",
     "@starbeam/timeline": "*",
     "@starbeam/universal": "*",
     "@starbeam/vitepress": "workspace:1.0.0",
@@ -70,6 +70,7 @@
     "postcss-property-lookup": "^3.0.0",
     "postcss-scss": "^4.0.5",
     "preact": "^10.11.3",
+    "preact-render-to-string": "^5.2.6",
     "prettier": "^2.7.1",
     "sass": "^1.56.1",
     "shiki": "^0.11.1",
@@ -98,7 +99,7 @@
       "@starbeam/timeline": "0.8.6",
       "@starbeam/universal": "0.8.6",
       "@starbeam/interfaces": "0.8.6",
-      "@starbeam/preact": "0.8.6"
+      "@starbeam/preact": "0.8.7"
     },
     "peerDependencyRules": {
       "allowedVersions": {

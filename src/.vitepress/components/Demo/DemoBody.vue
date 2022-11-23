@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { SandpackCodeEditor, SandpackFileExplorer, SandpackPreview, useSandpackConsole } from "codesandbox-sandpack-vue3";
+import {
+  SandpackCodeEditor,
+  SandpackFileExplorer,
+  SandpackPreview,
+  useSandpackConsole,
+} from "codesandbox-sandpack-vue3";
 import { ref } from "vue";
 import Buttons from "./Buttons.vue";
 import DemoConsole from "./DemoConsole.vue";
@@ -9,7 +14,9 @@ const isConsoleVisible = ref(false);
 
 const toggleConsoleVisibility = () => {
   isConsoleVisible.value = !isConsoleVisible.value;
-  toggleConsoleText.value = isConsoleVisible.value ? "Hide Console" : "Show Console";
+  toggleConsoleText.value = isConsoleVisible.value
+    ? "Hide Console"
+    : "Show Console";
 };
 
 const toggleText = ref("Show Code");
@@ -26,16 +33,24 @@ const consoleData = useSandpackConsole();
 <template>
   <SandpackPreview>
     <template #actionsChildren>
-      <Buttons :consoleData="consoleData" :source="{ toggle: toggleSource, text: toggleText }" :console="{
-        toggle:
-          toggleConsoleVisibility, text: toggleConsoleText
-      }" />
+      <Buttons
+        :consoleData="consoleData"
+        :source="{ toggle: toggleSource, text: toggleText }"
+        :console="{
+          toggle: toggleConsoleVisibility,
+          text: toggleConsoleText,
+        }"
+      />
     </template>
   </SandpackPreview>
   <DemoConsole :console-data="consoleData" :is-visible="isConsoleVisible" />
   <div class="code-editor" v-show="isCodeVisible">
-    <SandpackFileExplorer />
-    <SandpackCodeEditor :show-tabs="false" :show-inline-errors="true" :wrap-content="false" />
+    <SandpackFileExplorer :auto-hidden-files="true" />
+    <SandpackCodeEditor
+      :show-tabs="false"
+      :show-inline-errors="true"
+      :wrap-content="false"
+    />
   </div>
 </template>
 
@@ -46,7 +61,7 @@ div.code-editor {
   border: 2px solid var(--sp-colors-surface3);
   border-radius: var(--starbeam-radius);
 
-  >div.sp-file-explorer {
+  > div.sp-file-explorer {
     background-color: var(--sp-colors-surface3);
 
     button {
@@ -60,7 +75,7 @@ div.code-editor {
     }
   }
 
-  >div.sp-editor {
+  > div.sp-editor {
     background-color: transparent;
 
     .cm-editor {

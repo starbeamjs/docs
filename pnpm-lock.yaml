@@ -13,7 +13,7 @@ overrides:
   '@starbeam/timeline': 0.8.6
   '@starbeam/universal': 0.8.6
   '@starbeam/interfaces': 0.8.6
-  '@starbeam/preact': 0.8.6
+  '@starbeam/preact': 0.8.7
 
 importers:
 
@@ -27,7 +27,7 @@ importers:
       '@starbeam/debug': 0.8.6
       '@starbeam/interfaces': 0.8.6
       '@starbeam/js': 0.8.6
-      '@starbeam/preact': 0.8.6
+      '@starbeam/preact': 0.8.7
       '@starbeam/react': 0.8.6
       '@starbeam/timeline': 0.8.6
       '@starbeam/universal': 0.8.6
@@ -76,6 +76,7 @@ importers:
       postcss-property-lookup: ^3.0.0
       postcss-scss: ^4.0.5
       preact: ^10.11.3
+      preact-render-to-string: ^5.2.6
       prettier: ^2.7.1
       sass: ^1.56.1
       shiki: ^0.11.1
@@ -100,7 +101,7 @@ importers:
       '@starbeam/debug': 0.8.6
       '@starbeam/interfaces': 0.8.6
       '@starbeam/js': 0.8.6
-      '@starbeam/preact': 0.8.6_preact@10.11.3
+      '@starbeam/preact': 0.8.7_preact@10.11.3
       '@starbeam/react': 0.8.6_biqbaboplfbrettd7655fr4n2y
       '@starbeam/timeline': 0.8.6
       '@starbeam/universal': 0.8.6
@@ -147,6 +148,7 @@ importers:
       postcss-property-lookup: 3.0.0_postcss@8.4.19
       postcss-scss: 4.0.5_postcss@8.4.19
       preact: 10.11.3
+      preact-render-to-string: 5.2.6_preact@10.11.3
       prettier: 2.7.1
       sass: 1.56.1
       shiki: 0.11.1
@@ -191,11 +193,11 @@ importers:
 
   src/frameworks/preact:
     specifiers:
-      '@starbeam/preact': 0.8.6
+      '@starbeam/preact': 0.8.7
       '@starbeam/universal': 0.8.6
       preact: '*'
     dependencies:
-      '@starbeam/preact': 0.8.6_preact@10.11.3
+      '@starbeam/preact': 0.8.7_preact@10.11.3
       '@starbeam/universal': 0.8.6
       preact: 10.11.3
 
@@ -1150,15 +1152,15 @@ packages:
       '@starbeam/verify': 0.8.6
 
   /@starbeam/preact-utils/0.8.6_preact@10.11.3:
-    resolution: {integrity: sha512-5GU79ex6Sys1we7ld5s6S30vFxUxxiptPyHd2r5xsuynqwxGyNqbeZckOPExm+w68wu3ZhIAJy6FlLsqEmDtpA==}
+    resolution: {integrity: sha512-YxcZkXRKEhdE73+G96ioF4fbNbt6D3Tmom6++r3Vv3zWEAmIQe9wM1DezfYxfmtZOPLSzNVP90BuHXicTy2+Xw==}
     peerDependencies:
       preact: '>=10'
     dependencies:
       '@starbeam/core-utils': 0.8.6
       preact: 10.11.3
 
-  /@starbeam/preact/0.8.6_preact@10.11.3:
-    resolution: {integrity: sha512-JtnRDPIAMl5xy52ayGzF8LRioRiRk7AYzPIbbjR1XcShI4Id2FF8kDYRRG69UuVg77f1CKx29QrezsDOYjDcSA==}
+  /@starbeam/preact/0.8.7_preact@10.11.3:
+    resolution: {integrity: sha512-Vx25xfrmk0B6stKkpMj8sgf291uRNd6OG9nxwSOnrnO7Pnj9ZyAXlo+DBNLUx5zzCwwCbtk6YwupDbyMCmS27Q==}
     peerDependencies:
       preact: ^10.11.2
     dependencies:
@@ -1171,7 +1173,7 @@ packages:
       preact: 10.11.3
 
   /@starbeam/react/0.8.6_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-f0miIdrvPzfCha13PidtyLkalv4V6ggV7PtlWEuFQMS32O51Gwool7uNHtE/ntvhCUkvvykpMtD4sPIMKB1ieA==}
+    resolution: {integrity: sha512-59HDG9OehBujDw/OmvaYMHWGBhC6oLb+RSLhv4IO0/ZcxvoLo2eRh6ofy+x10yg5DHccNf4eJQFIliWpREWDJw==}
     peerDependencies:
       react: ^18.2.0 || 18
       react-dom: ^18.2.0 || 18
@@ -3427,6 +3429,15 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
+  /preact-render-to-string/5.2.6_preact@10.11.3:
+    resolution: {integrity: sha512-JyhErpYOvBV1hEPwIxc/fHWXPfnEGdRKxc8gFdAZ7XV4tlzyzG847XAyEZqoDnynP88akM4eaHcSOzNcLWFguw==}
+    peerDependencies:
+      preact: '>=10'
+    dependencies:
+      preact: 10.11.3
+      pretty-format: 3.8.0
+    dev: true
+
   /preact/10.11.3:
     resolution: {integrity: sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==}
 
@@ -3434,6 +3445,10 @@ packages:
     resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+    dev: true
+
+  /pretty-format/3.8.0:
+    resolution: {integrity: sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==}
     dev: true
 
   /printable-characters/1.0.42:
