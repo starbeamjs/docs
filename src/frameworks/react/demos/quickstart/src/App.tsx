@@ -1,4 +1,3 @@
-// #region app
 import { useReactive, useSetup } from "@starbeam/react";
 import { Cell } from "@starbeam/universal";
 import { createRoot } from "react-dom/client";
@@ -15,4 +14,3 @@ export function Counter() {
 }
 
 createRoot(document.querySelector("#root")!).render(<Counter />);
-// #endregion

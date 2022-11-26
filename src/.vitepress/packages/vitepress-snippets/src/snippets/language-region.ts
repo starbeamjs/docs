@@ -75,7 +75,7 @@ export class RenderLanguageRegion {
 
     return (
       md.options.highlight?.(source, "tsx twoslash", attr) ??
-      `<pre><code class="language-ts">${code}</code></pre>`
+      `<pre><code class="language-ts">// @jsxImportSource: preact\n${code}</code></pre>`
     );
   }
 

@@ -3,8 +3,8 @@ import type {
   SandpackFile,
   SandpackFiles,
   SandpackSetup,
-  useSandpackConsole,
-} from "codesandbox-sandpack-vue3";
+  useSandpackConsole
+} from "sandpack-vue3";
 import type { ConsoleItem } from "vue-console-feed";
 
 export type DemoDeps = string[];

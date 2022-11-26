@@ -4,7 +4,7 @@ import {
   SandpackInternalOptions,
   SandpackProvider,
   SandpackSetup,
-} from "codesandbox-sandpack-vue3";
+} from "sandpack-vue3";
 import { useData } from "vitepress";
 import { computed, Ref } from "vue";
 

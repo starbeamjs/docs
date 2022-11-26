@@ -15,6 +15,13 @@ export const lightBulb: PluginSimple = (md) =>
     closeRender: () => "</div>\n",
   });
 
+export const construction: PluginSimple = (md) =>
+  container(md, {
+    name: "🚧",
+    openRender: () => "<div class='construction'>\n",
+    closeRender: () => "</div>\n",
+  });
+
 export const algorithm: PluginSimple = (md) =>
   container(md, {
     name: "algorithm",
@@ -32,6 +39,7 @@ export const api: PluginSimple = (md) =>
 export const containers: PluginSimple = (md) => {
   md.use(blockEmphasis);
   md.use(lightBulb);
+  md.use(construction);
   md.use(algorithm);
   md.use(api);
 };

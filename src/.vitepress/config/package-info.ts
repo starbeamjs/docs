@@ -1,5 +1,5 @@
 import { exec as rawExec } from "node:child_process";
-import { dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
@@ -30,8 +30,6 @@ async function dep(filter: string, { cwd }: { cwd: string }) {
     cwd,
   });
 
-  console.log(stdout);
-
   const deps: Deps[] = JSON.parse(String(stdout));
 
   return deps;
@@ -46,7 +44,7 @@ async function getWorkspaceRoot({ cwd }: { cwd: string }) {
 export async function getStarbeamVersions(): Promise<
   Record<string, Dependency>
 > {
-  const [deps] = await dep(``, { cwd: ROOT });
+  const [deps] = await dep(``, { cwd: resolve(ROOT, "packages/twoslash") });
 
   return {
     ...deps.dependencies,

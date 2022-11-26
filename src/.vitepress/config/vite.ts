@@ -6,6 +6,7 @@ import values from "postcss-modules-values";
 import nested from "postcss-nested";
 import property from "postcss-property-lookup";
 import * as sass from "postcss-scss";
+import { visualizer } from "rollup-plugin-visualizer";
 import type { CSSOptions, UserConfig } from "vite";
 import { color } from "./css-functions/color.js";
 
@@ -27,4 +28,14 @@ export const VITE: UserConfig = {
   ssr: {},
   envDir: resolve(root, ".config", ".env"),
   envPrefix: "STARBEAM_",
+  build: {
+    rollupOptions: {
+      plugins: [
+        visualizer({
+          emitFile: true,
+          filename: "stats.html",
+        }),
+      ],
+    },
+  },
 };

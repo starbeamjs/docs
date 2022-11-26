@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 import { HEAD } from "./config/head.js";
 import { MARKDOWN } from "./config/markdown.js";
-import { NAV } from "./config/Nav.js";
+import { NAV, SOCIAL } from "./config/Nav.js";
 import { SIDEBAR } from "./config/Sidebar.js";
 import { BUILD_HOOKS, CONFIG, SITE } from "./config/Site.js";
 
@@ -21,6 +21,11 @@ export default defineConfig({
   themeConfig: {
     nav: NAV,
     sidebar: SIDEBAR,
+    socialLinks: SOCIAL,
+    editLink: {
+      pattern: "https://github.com/starbeamjs/docs/edit/main/src/:path",
+      text: "Edit this page on GitHub",
+    },
     ...SITE,
   },
   vite: VITE,

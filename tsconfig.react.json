@@ -20,7 +20,7 @@
   "include": ["src/**/$snippets/*.tsx"],
   "references": [
     {
-      "path": "./src/frameworks/preact/tsconfig.json"
+      "path": "./src/frameworks/react/tsconfig.json"
     }
   ]
 }

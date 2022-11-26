@@ -4,7 +4,7 @@ import {
   SandpackFileExplorer,
   SandpackPreview,
   useSandpackConsole,
-} from "codesandbox-sandpack-vue3";
+} from "sandpack-vue3";
 import { ref } from "vue";
 import Buttons from "./Buttons.vue";
 import DemoConsole from "./DemoConsole.vue";

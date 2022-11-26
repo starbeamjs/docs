@@ -1,0 +1,20 @@
+{
+  "name": "@starbeam/docs-twoslash",
+  "private": true,
+  "devDependencies": {
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "typescript": "*",
+    "@starbeam/debug": "*",
+    "@starbeam/universal": "*",
+    "@starbeam/js": "*",
+    "@starbeam/preact": "*",
+    "@starbeam/react": "*",
+    "@starbeam/timeline": "*",
+    "@starbeam/interfaces": "*",
+    "react": "*",
+    "react-dom": "*",
+    "preact": "*",
+    "preact-render-to-string": "*"
+  }
+}

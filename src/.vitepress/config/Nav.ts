@@ -23,3 +23,7 @@ export const NAV: ThemeConfig["nav"] = [
     ],
   },
 ];
+
+export const SOCIAL: ThemeConfig["socialLinks"] = [
+  { icon: "github", link: "https://github.com/starbeamjs/starbeam" },
+];

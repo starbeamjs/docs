@@ -4,6 +4,7 @@
   "dependencies": {
     "@starbeam/preact": "*",
     "@starbeam/universal": "*",
-    "preact": "*"
+    "preact": "*",
+    "preact-render-to-string": "*"
   }
 }

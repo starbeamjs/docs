@@ -6,6 +6,7 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
     {
       items: [
         item("Getting Started", "/guides/index.md"),
+        item("Universal Reactivity", "/guides/universal-reactivity.md"),
         item("Our Guiding Principle", "/guides/principle.md"),
       ],
     },

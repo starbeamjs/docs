@@ -33,7 +33,6 @@
     "@types/hash-sum": "^1.0.0",
     "@types/jsdoc-api": "workspace:1.0.0",
     "@types/markdown-it": "^12.2.3",
-    "@types/mermaid": "^9.1.0",
     "@types/postcss-advanced-variables": "workspace:1.0.0",
     "@types/postcss-env-function": "workspace:1.0.0",
     "@types/postcss-functions": "workspace:1.0.0",
@@ -46,7 +45,6 @@
     "@vue/runtime-core": "^3.2.45",
     "@vue/runtime-dom": "^3.2.45",
     "@vueuse/core": "^9.5.0",
-    "codesandbox-sandpack-vue3": "^1.2.10",
     "docs-snippet": "^1.0.4",
     "fenceparser": "^2.2.0",
     "fflate": "^0.7.4",
@@ -69,9 +67,9 @@
     "postcss-nesting": "^10.2.0",
     "postcss-property-lookup": "^3.0.0",
     "postcss-scss": "^4.0.5",
-    "preact": "^10.11.3",
-    "preact-render-to-string": "^5.2.6",
     "prettier": "^2.7.1",
+    "rollup-plugin-visualizer": "^5.8.3",
+    "sandpack-vue3": "^2.0.0",
     "sass": "^1.56.1",
     "shiki": "^0.11.1",
     "shiki-twoslash": "^3.1.0",
@@ -99,7 +97,8 @@
       "@starbeam/timeline": "0.8.6",
       "@starbeam/universal": "0.8.6",
       "@starbeam/interfaces": "0.8.6",
-      "@starbeam/preact": "0.8.7"
+      "@starbeam/preact": "0.8.6",
+      "preact-render-to-string": "5.2.6"
     },
     "peerDependencyRules": {
       "allowedVersions": {
