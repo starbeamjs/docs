@@ -1,5 +1,5 @@
 import { exec as rawExec } from "node:child_process";
-import { dirname } from "node:path";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
@@ -25,8 +25,8 @@ export interface Dependency {
 }
 
 async function dep(filter: string, { cwd }: { cwd: string }) {
-  // -DP ensures that we get both dev and prod dependencies regardless of the value of NODE_ENV
-  const { stdout } = await exec(`pnpm list -DP --json ${filter}`, {
+  // -D ensures that we get dev dependencies regardless of the value of NODE_ENV
+  const { stdout } = await exec(`pnpm list -D --json ${filter}`, {
     cwd,
   });
 
@@ -44,7 +44,7 @@ async function getWorkspaceRoot({ cwd }: { cwd: string }) {
 export async function getStarbeamVersions(): Promise<
   Record<string, Dependency>
 > {
-  const [deps] = await dep(`@starbeam/*`, { cwd: ROOT });
+  const [deps] = await dep(``, { cwd: resolve(ROOT, "packages/twoslash") });
 
   return {
     ...deps.dependencies,

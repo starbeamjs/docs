@@ -29,9 +29,11 @@
   ],
   "exclude": ["./src/frameworks/**", "./src/**/*.tsx"],
   "references": [
-    { "path": "./src/frameworks/react/tsconfig.json" },
     {
       "path": "./tsconfig.react.json"
+    },
+    {
+      "path": "./tsconfig.preact.json"
     },
     { "path": "./scripts/tsconfig.json" }
   ]

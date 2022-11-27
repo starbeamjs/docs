@@ -1,4 +1,4 @@
-import { Code } from "./types.js";
+import type { Code } from "./types.js";
 
 export function injectCSS(shadowRoot: ShadowRoot, code: Code): void {
   if (

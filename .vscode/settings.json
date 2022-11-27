@@ -52,7 +52,7 @@
   "scssLint.showHighlights": true,
 
   "[vue][scss]": {
-    "editor.defaultFormatter": "Vue.volar"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
   "[yaml]": {
@@ -89,5 +89,6 @@
       "url": "./packages/api-docs/dist/api.schema.json"
     }
   ],
-  "files.trimTrailingWhitespace": false
+  "files.trimTrailingWhitespace": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

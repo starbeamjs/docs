@@ -1,4 +1,4 @@
-import { Code, CodeDemoOptions, CodeType, PreProcessorType } from "./types.js";
+import type { Code, CodeDemoOptions, CodeType, PreProcessorType } from "./types.js";
 
 export type ScriptLoadState = Record<string, Promise<void>>;
 

@@ -23,6 +23,10 @@ const PROPS = {
     type: Array as PropType<TabProps[]>,
     required: true,
   },
+  id: {
+    type: String,
+    required: true,
+  },
   tabId: {
     type: String,
     default: "",
@@ -109,37 +113,27 @@ watch(
 <template>
   <ClientOnly>
     <template v-if="props.data.length">
-      <div class="code-tabs-nav">
+      <div class="code-tabs-nav" role="tablist">
         <template v-for="({ title }, index) in props.data">
-          <button
-            :class="['code-tabs-nav-tab', { active: index === activeIndex }]"
-            :aria-pressed="index === activeIndex"
-            :aria-expanded="index === activeIndex"
-            :ref="(element) => {if (element) tabRefs[index] = element as
-          HTMLUListElement}"
-            @click="
-              () => {
-                activeIndex = index;
-                updateStore();
-              }
-            "
-            @keydown="(event: KeyboardEvent) => keyboardHandler(event, index)"
-          >
+          <button :class="['code-tabs-nav-tab', { active: index === activeIndex }]"
+            :aria-pressed="index === activeIndex" :aria-expanded="index === activeIndex" role="tab"
+            :aria-controls="`codetab-${props.id}-${index}`" :aria-selected="index === activeIndex" :ref="(element) => {
+              if (element) tabRefs[index] = element as
+                HTMLUListElement
+            }" @click="
+  () => {
+    activeIndex = index;
+    updateStore();
+  }
+" @keydown="(event: KeyboardEvent) => keyboardHandler(event, index)">
             {{ title }}
           </button>
         </template>
       </div>
       <template v-for="({ title, value = title }, index) in props.data">
-        <div
-          :class="['code-tab', { active: index === activeIndex }]"
-          :aria-selected="index === activeIndex"
-        >
-          <slot
-            :name="`tab${index}`"
-            :title="title"
-            :value="value"
-            :isActive="index === activeIndex"
-          />
+        <div :class="['code-tab', { active: index === activeIndex }]" :id="`codetab-${props.id}-${index}`"
+          role="tabpanel" :aria-selected="index === activeIndex" :aria-expanded="index === activeIndex">
+          <slot :name="`tab${index}`" :title="title" :value="value" :isActive="index === activeIndex" />
         </div>
       </template>
     </template>

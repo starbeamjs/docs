@@ -16,6 +16,14 @@ export const NAV: ThemeConfig["nav"] = [
         text: "React",
         link: "/frameworks/react/",
       },
+      {
+        text: "Preact",
+        link: "/frameworks/preact/",
+      },
     ],
   },
+];
+
+export const SOCIAL: ThemeConfig["socialLinks"] = [
+  { icon: "github", link: "https://github.com/starbeamjs/starbeam" },
 ];
