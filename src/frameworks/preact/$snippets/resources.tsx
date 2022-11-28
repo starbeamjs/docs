@@ -28,7 +28,7 @@ const Stopwatch = Resource(({ on }) => {
 // #endregion stopwatch
 
 // #region component
-import { use } from "@starbeam/react";
+import { use } from "@starbeam/preact";
 
 export const Clock = () => {
   // #highlight:next
