@@ -25,11 +25,15 @@ const features = [
     details:
       "You don't need to learn a new framework to take advantage of Starbeam's cutting edge reactivity system. You can render Starbeam data using renderers designed for your framework of choice, or even build your own renderer.",
   },
-
   {
     title: "TypeScript is first-class",
     details:
       "Every part of Starbeam's API was designed from the ground up using TypeScript types with careful attention to detail. If you develop in pure JS, you get inline suggestions, docs and tab completion in your editor.",
+  },
+  {
+    title: "Reactivity with Lifecycle",
+    details:
+      "Starbeam's universal reactivity goes beyond data. You can use Starbeam to write reactive code with setup and cleanup behavior that works in every framework with a Starbeam renderer.",
   },
 ] as const;
 </script>
