@@ -32,7 +32,7 @@ import { use } from "@starbeam/preact";
 
 export const Clock = () => {
   // #highlight:next
-  const time = use(() => Stopwatch, []);
+  const time = use(Stopwatch);
 
   return <div>{time ?? "now"}</div>;
 };
