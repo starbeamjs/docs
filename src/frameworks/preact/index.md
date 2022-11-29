@@ -6,7 +6,7 @@
 
 <Demo :config="resources" />
 
-Start by installing the React renderer into your app.
+Start by installing the Preact renderer into your app.
 
 ```npm
 @starbeam/preact @starbeam/universal @starbeam/js
@@ -20,12 +20,12 @@ This is the most basic way to use Starbeam in a Preact app.
 
 ## The `use` Hook
 
-The `@starbeam/react` renderer also includes a `use` hook, which allows you to attach
-Starbeam resources into a React app. Resources are instantiated when the component is mounted, and
+The `@starbeam/preact` renderer also includes a `use` hook, which allows you to attach
+Starbeam resources into a Preact app. Resources are instantiated when the component is mounted, and
 cleaned up when the component is unmounted.
 
 To get an idea for how it works, we'll integrate the Stopwatch resource from the [Guides](/guides/fundamentals/resources) section
-into React.
+into Preact.
 
 As a quick refresher, here's what the resource looks like:
 
