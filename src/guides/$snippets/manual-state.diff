@@ -1,0 +1,18 @@
+  const person = {
+    name: "John Doe",
+    location: "New York",
+    contact: [
+      { type: "home", number: "555-1234" },
+      { type: "work", number: "555-5678" },
+    ],
+  };
+
++ // 1. Our _output_ is the innerHTML of the body. Its _input_
++ //    is the person object.
+  document.body.innerHTML = display(person);
+
++ // 2. We are updating the person object
+  person.contact.push({ type: "sms", number: "555-9012" });
+
++ // 3. So now, we need to update the body's innerHTML
++ document.body.innerHTML = display(person);

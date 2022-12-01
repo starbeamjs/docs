@@ -2,16 +2,24 @@
 
 Once you have some cells, you can compute values based on those cells using normal functions.
 
-;;; ./$snippets/functions.ts#simple-function
+```snippet {#simple-function}
+<!--@include: ./$snippets/functions.ts-->
+```
 
 And then use the function as normal.
 
-;;; ./$snippets/functions.ts#use-as-normal
+```snippet {#use-as-normal}
+<!--@include: ./$snippets/functions.ts-->
+```
 
 You can also pass cells into functions as arguments.
 
-;;; ./$snippets/functions.ts#cells-as-arguments
+```snippet {#cells-as-arguments}
+<!--@include: ./$snippets/functions.ts-->
+```
 
 And then use the function as normal.
 
-;;; ./$snippets/functions.ts#use-cell-arguments-as-normal
+```snippet {#use-cell-arguments-as-normal}
+<!--@include: ./$snippets/functions.ts-->
+```

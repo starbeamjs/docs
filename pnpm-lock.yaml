@@ -24,6 +24,7 @@ importers:
       '@codesandbox/sandpack-client': ^1.12.1
       '@csstools/postcss-design-tokens': ^1.2.0
       '@iconify/json': ^2.1.140
+      '@mdit-vue/plugin-sfc': ^0.11.1
       '@starbeam/api-docs': workspace:^0.0.0
       '@starbeam/debug': 0.8.6
       '@starbeam/interfaces': 0.8.6
@@ -96,6 +97,7 @@ importers:
       '@codesandbox/sandpack-client': 1.12.1
       '@csstools/postcss-design-tokens': 1.2.0_postcss@8.4.19
       '@iconify/json': 2.1.142
+      '@mdit-vue/plugin-sfc': 0.11.1
       '@starbeam/api-docs': link:packages/api-docs
       '@starbeam/debug': 0.8.6
       '@starbeam/interfaces': 0.8.6
@@ -1119,6 +1121,18 @@ packages:
     resolution: {integrity: sha512-Xdb2nh+FoxR8ssEADGsroDtsnP+EDhiPpW9zhER3h+6cpGtZ2e9Oq/Rwn9nFQRiKCfMT+AQaqC3ZgAbhbnumyQ==}
     dependencies:
       '@lezer/lr': 0.15.8
+    dev: true
+
+  /@mdit-vue/plugin-sfc/0.11.1:
+    resolution: {integrity: sha512-3AjQXqExzT9FWGNOeTBqK1pbt1UA5anrZvjo7OO2PJ3lrfZd0rbjionFkmW/VW1912laHUraIP6n74mUNqPuWw==}
+    dependencies:
+      '@mdit-vue/types': 0.11.0
+      '@types/markdown-it': 12.2.3
+      markdown-it: 13.0.1
+    dev: true
+
+  /@mdit-vue/types/0.11.0:
+    resolution: {integrity: sha512-ygCGP7vFpqS02hpZwEe1uz8cfImWX06+zRs08J+tCZRKb6k+easIaIHFtY9ZSxt7j9L/gAPLDo/5RmOT6z0DPQ==}
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:

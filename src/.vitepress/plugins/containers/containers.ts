@@ -8,6 +8,13 @@ export const blockEmphasis: PluginSimple = (md) =>
     closeRender: () => "</blockquote>\n",
   });
 
+export const hack: PluginSimple = (md) =>
+  container(md, {
+    name: "hack",
+    openRender: () => "<div style='display:none'>\n",
+    closeRender: () => "</div>\n",
+  });
+
 export const lightBulb: PluginSimple = (md) =>
   container(md, {
     name: "💡",
@@ -37,6 +44,7 @@ export const api: PluginSimple = (md) =>
   });
 
 export const containers: PluginSimple = (md) => {
+  md.use(hack);
   md.use(blockEmphasis);
   md.use(lightBulb);
   md.use(construction);

@@ -36,7 +36,9 @@ values.==
 
 :::: details Example
 
-;;; ./$snippets/items.ts#reactive-class
+```snippet {#reactive-class}
+<!--@include: ./$snippets/items.ts-->
+```
 
 In this example, we built a `People` class that stores a list of people. We used a [private field]
 to store a reactive array.
