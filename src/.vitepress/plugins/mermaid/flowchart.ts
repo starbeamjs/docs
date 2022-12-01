@@ -48,8 +48,7 @@ export const lifecycle: PluginSimple = (md) => {
   md.renderer.rules.fence = (...args): string => {
     const [tokens, index] = args;
     const token = tokens[index]!;
-    const [realInfo, options] = token.info.split(" ", 2);
-    console.log({ realInfo, options });
+    const [realInfo] = token.info.split(" ", 2);
 
     if (realInfo === "lifecycle") {
       const attrs = Object.fromEntries(token.attrs ?? []);

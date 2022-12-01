@@ -351,13 +351,13 @@ in the navigation above.
 
 This is just a taste of what Starbeam reactivity can do. There's so much more to explore, including:
 
-- [Reactive Arrays](/reactivity/arrays), which let you use the same techniques to handle lists of
+- [Reactive Arrays](/guides/collections.md), which let you use the same techniques to handle lists of
   reactive values, and have the same API as normal JavaScript arrays. (`@starbeam/js` also includes
   reactive versions of `Map`, `Set`, `WeakMap` and `WeakSet`, all of which have the same API as their normal
   JavaScript counterparts.)
 - [Resources](./fundamentals/resources.md), which enhance reactive values with setup and cleanup
   logic, while still letting you use the simple input/output model on the data they produce.
-- [Formulas](./fundamentals/formulas.md), which let you optimize your program by caching the results
+- [Formulas](./optimization/formulas.md), which let you optimize your program by caching the results
   of expensive computations until the reactive values they depend on change.
 
 And even more!
