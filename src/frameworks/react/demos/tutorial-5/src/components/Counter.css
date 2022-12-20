@@ -1,0 +1,45 @@
+:root {
+  --button-fg: hsl(250, 50%, 50%);
+  --button-border: var(--button-fg);
+  --button-bg: transparent;
+}
+
+div.counters {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+div.counters h3 {
+  font-family: Nunito;
+  justify-self: end;
+}
+
+div.counters div.counter {
+  display: contents;
+}
+
+div.counters div.counter button {
+  display: grid;
+  width: max-content;
+  height: max-content;
+  padding-inline: 0.5rem;
+  padding-block: 0.2rem;
+
+  font-family: "Nunito";
+  font-weight: 700;
+
+  transition: all 0.2s ease;
+
+  background-color: var(--button-bg);
+  border-width: 1.5px;
+  color: var(--button-fg);
+  border-color: var(--button-border);
+}
+
+div.counters div.counter button:hover {
+  --button-fg: hsl(250, 20%, 95%);
+  --button-border: transparent;
+  --button-bg: hsl(250, 20%, 50%);
+}

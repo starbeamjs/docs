@@ -25,6 +25,10 @@ export const MARKDOWN: Config["markdown"] = {
     md.use(shiki, {
       themes: ["github-dark", "github-light"],
       vfsRoot: resolve(root, "packages/twoslash"),
+      defaultCompilerOptions: {
+        experimentalDecorators: true,
+        target: "esnext",
+      },
     });
     md.use(containers);
     md.use(mermaid);

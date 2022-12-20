@@ -33,10 +33,6 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         | string
         | undefined;
 
-      if (!rawPath) {
-        return false;
-      }
-
       if (silent) {
         return true;
       }
@@ -51,16 +47,10 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 
       const snippet = Snippet(content);
 
-      const [filename, regionName] = rawPath.split("#");
+      const [filename, regionName] = rawPath?.split("#") ?? [];
 
       const file = state.env.path;
       const dir = path.dirname(file);
-
-      if (rawPath.startsWith("@")) {
-        rawPath = rawPath.replace(/^@/, srcDir);
-      } else {
-        rawPath = path.resolve(dir, rawPath);
-      }
 
       const token = state.push("html_block", "", 0);
 

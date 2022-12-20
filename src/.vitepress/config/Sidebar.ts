@@ -52,6 +52,28 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
   ],
   "/frameworks/react/": [
     group("React", [item("Getting Started", "/frameworks/react/index.md")]),
+    group("Tutorial", [
+      item("Introduction", "/frameworks/react/tutorial/index.md"),
+      item(
+        "Getting Started",
+        "/frameworks/react/tutorial/1-getting-started.md"
+      ),
+      item("Computed Data", "/frameworks/react/tutorial/2-computed-data.md"),
+      item(
+        "Reactive Builtins",
+        "/frameworks/react/tutorial/3-reactive-builtins.md"
+      ),
+      item(
+        "Reactive Arrays",
+        "/frameworks/react/tutorial/4-reactive-arrays.md"
+      ),
+    ]),
+    group("Tutorial Bonus", [
+      item(
+        "More with Reactive Arrays",
+        "/frameworks/react/tutorial/5-reactive-arrays-bonus.md"
+      ),
+    ]),
   ],
   "/frameworks/preact/": [
     group("Preact", [item("Getting Started", "/frameworks/preact/index.md")]),

@@ -1,0 +1,72 @@
+form {
+  display: grid;
+  grid-auto-flow: row;
+  margin-block: 1rem;
+  grid-row-gap: 0.5rem;
+}
+
+form input[type="text"] {
+  width: 100%;
+}
+
+h2 {
+  font-family: Nunito;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  margin-block-start: 1rem;
+}
+
+pre {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-column-gap: 0.5rem;
+  justify-items: end;
+  justify-self: center;
+  width: 100%;
+  max-width: max-content;
+  /* width: 50%; */
+}
+
+pre span.operator {
+  grid-column: 1;
+}
+
+pre span.operand,
+pre span.total {
+  grid-column: 2;
+}
+
+pre span.label {
+  grid-column: 3;
+  justify-self: start;
+}
+
+pre span:nth-child(3n + 1),
+h3.count1 {
+  color: hsl(0, 70%, 50%);
+}
+
+pre span:nth-child(3n + 2),
+h3.count2 {
+  color: hsl(100, 50%, 40%);
+}
+
+pre span:nth-child(3n + 3) {
+  color: hsl(200, 70%, 50%);
+}
+
+pre hr {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  width: 100%;
+  border: 0;
+  border-block-end: 1px solid hsl(150, 20%, 50%);
+  text-decoration: wavy;
+}
+
+pre span.total {
+  color: hsl(150, 20%, 50%);
+  font-weight: bold;
+}

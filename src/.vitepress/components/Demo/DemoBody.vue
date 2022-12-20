@@ -2,6 +2,7 @@
 import {
   SandpackCodeEditor,
   SandpackFileExplorer,
+  SandpackLayout,
   SandpackPreview,
   useSandpackConsole,
 } from "sandpack-vue3";
@@ -31,18 +32,20 @@ const consoleData = useSandpackConsole();
 </script>
 
 <template>
-  <SandpackPreview>
-    <template #actionsChildren>
-      <Buttons
-        :consoleData="consoleData"
-        :source="{ toggle: toggleSource, text: toggleText }"
-        :console="{
-          toggle: toggleConsoleVisibility,
-          text: toggleConsoleText,
-        }"
-      />
-    </template>
-  </SandpackPreview>
+  <SandpackLayout>
+    <SandpackPreview>
+      <template #actionsChildren>
+        <Buttons
+          :consoleData="consoleData"
+          :source="{ toggle: toggleSource, text: toggleText }"
+          :console="{
+            toggle: toggleConsoleVisibility,
+            text: toggleConsoleText,
+          }"
+        />
+      </template>
+    </SandpackPreview>
+  </SandpackLayout>
   <DemoConsole :console-data="consoleData" :is-visible="isConsoleVisible" />
   <div class="code-editor" v-show="isCodeVisible">
     <SandpackFileExplorer :auto-hidden-files="true" />
@@ -54,7 +57,25 @@ const consoleData = useSandpackConsole();
   </div>
 </template>
 
+<style lang="scss">
+div.sp-preview-container {
+  display: grid;
+
+  > .sp-preview-actions {
+    position: static;
+    justify-self: end;
+    display: grid;
+    grid-auto-flow: column;
+    padding: var(--sp-space-3);
+  }
+}
+</style>
+
 <style lang="scss" scoped>
+div.demo .sp-layout > .sp-stack {
+  height: max-content;
+}
+
 div.code-editor {
   display: grid;
   width: 100%;

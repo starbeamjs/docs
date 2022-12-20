@@ -49,7 +49,6 @@ export const lifecycle: PluginSimple = (md) => {
     const [tokens, index] = args;
     const token = tokens[index]!;
     const [realInfo, options] = token.info.split(" ", 2);
-    console.log({ realInfo, options });
 
     if (realInfo === "lifecycle") {
       const attrs = Object.fromEntries(token.attrs ?? []);

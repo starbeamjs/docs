@@ -43,6 +43,13 @@ export const api: PluginSimple = (md) =>
     closeRender: () => "</div>\n",
   });
 
+export const docs: PluginSimple = (md) =>
+  container(md, {
+    name: "docs",
+    openRender: () => "<div class='vp-doc VPDoc'>\n",
+    closeRender: () => "</div>\n",
+  });
+
 export const containers: PluginSimple = (md) => {
   md.use(hack);
   md.use(blockEmphasis);
@@ -50,4 +57,5 @@ export const containers: PluginSimple = (md) => {
   md.use(construction);
   md.use(algorithm);
   md.use(api);
+  md.use(docs);
 };
