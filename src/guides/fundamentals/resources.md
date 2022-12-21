@@ -36,7 +36,9 @@ In this example, the channel name that we're subscribing to is dynamic, and we w
 from the channel whenever the channel name changes, but _not_ when we get a new message.
 :::
 
-;;; ./$snippets/resource-lifecycle.ts#define-resource
+```snippet {#define-resource}
+<!--@include: ./$snippets/resource-lifecycle.ts-->
+```
 
 `ChannelResource` is a JavaScript function that takes the channel name as a reactive input and
 returns a resource constructor.

@@ -20,14 +20,17 @@ subscription, and returns a function that computes the current value of the reso
 As the resource modifies its internal cells, the value of the resource is always up to date with the
 result of the computation.
 
-;;; ./$snippets/resource.tsx#resource
+```snippet {#resource}
+<!--@include: ./$snippets/resource.tsx-->
+```
 
 Resources are defined in terms of Starbeam APIs, and then wired into applications through renderers.
 
 For example, you could use the stopwatch in the above example in React by using the `useResource`
 hook from `@starbeam/react`.
 
-;;; ./$snippets/resource.tsx#react
-
+```snippet {#react}
+<!--@include: ./$snippets/resource.tsx-->
+```
 
 </Api>

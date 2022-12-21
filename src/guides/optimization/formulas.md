@@ -11,8 +11,12 @@ In practice, it's very uncommon for the overhead of formula functions to outweig
 
 To create a formula, pass a function to `Formula`.
 
-;;; ./$snippets/formulas.ts#create-formula
+```snippet {#create-formula}
+<!--@include: ./$snippets/formulas.ts-->
+```
 
 And you use the formula the same way as a function.
 
-;;; ./$snippets/formulas.ts#use-the-same-way
+```snippet {#use-the-same-way}
+<!--@include: ./$snippets/formulas.ts-->
+```

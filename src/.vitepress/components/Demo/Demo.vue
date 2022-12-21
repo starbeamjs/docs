@@ -23,6 +23,7 @@ const { config } = defineProps<{
     dependencies: DemoDeps;
     jsx?: string;
     main?: string;
+    activeFile?: string;
   };
 }>();
 
@@ -115,16 +116,21 @@ const files: SandpackFiles = {
 
 const options: SandpackInternalOptions = {
   recompileMode: "delayed",
+  activeFile: config.activeFile ?? mainFile(),
   // bundlerURL: "https://db2aecf9.sandpack-bundler.pages.dev",
 };
 
 const registryURL = import.meta.env.STARBEAM_REGISTRY_URL;
 
+function mainFile() {
+  return config.main ?? "/src/index.ts";
+}
+
 const customSetup = computed((): SandpackSetup => {
   if (registryURL) {
     return {
       dependencies: deps.value,
-      entry: config.main ?? "/src/index.ts",
+      entry: mainFile(),
       npmRegistries: [
         {
           enabledScopes: ["@starbeam"],

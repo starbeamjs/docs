@@ -48,14 +48,18 @@ export const lifecycle: PluginSimple = (md) => {
   md.renderer.rules.fence = (...args): string => {
     const [tokens, index] = args;
     const token = tokens[index]!;
-    const [realInfo, options] = token.info.split(":", 2);
+    const [realInfo, options] = token.info.split(" ", 2);
 
     if (realInfo === "lifecycle") {
+      const attrs = Object.fromEntries(token.attrs ?? []);
+      const direction = Object.keys(attrs)[0] ?? "TB";
       token.info = "mermaid";
 
-      token.content = `%%{init: ${JSON.stringify(theme)}}%%\nflowchart ${
-        options ? options : "TB"
-      }\n${indent(token.content)}`;
+      token.content = `%%{init: ${JSON.stringify(
+        theme
+      )}}%%\nflowchart ${direction}\n${indent(token.content)}`;
+
+      console.log(token.content);
     }
 
     return fence!(...args);

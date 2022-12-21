@@ -3,7 +3,7 @@ import type {
   SandpackFile,
   SandpackFiles,
   SandpackSetup,
-  useSandpackConsole
+  useSandpackConsole,
 } from "sandpack-vue3";
 import type { ConsoleItem } from "vue-console-feed";
 
@@ -79,12 +79,23 @@ export function toSandpackFile(
   return [
     `/${filename}`,
     {
-      code,
+      code: stripDirectives(code),
       hidden: modifiers.has("hidden"),
       readOnly: modifiers.has("readonly"),
       active: modifiers.has("active"),
     },
   ];
+}
+
+function stripDirectives(code: string): string {
+  return code
+    .split("\n")
+    .filter((line) => !isDirective(line))
+    .join("\n");
+}
+
+function isDirective(line: string): boolean {
+  return line.trim().startsWith("// #");
 }
 
 type LogEntry = InstanceType<typeof ConsoleItem>["$props"];

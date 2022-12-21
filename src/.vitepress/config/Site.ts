@@ -22,6 +22,7 @@ export const CONFIG: Partial<UserConfig<DefaultTheme.Config>> = {
 export const BUILD_HOOKS: Partial<UserConfig<DefaultTheme.Config>> = {
   transformPageData: async (page) => {
     const versions = await getStarbeamVersions();
+
     page.frontmatter["@starbeam:versions"] = Object.fromEntries(
       Object.values(versions).map((dep) => [dep.from, dep.version])
     );

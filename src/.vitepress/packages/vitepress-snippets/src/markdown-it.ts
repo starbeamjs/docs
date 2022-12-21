@@ -1,11 +1,13 @@
+import "@mdit-vue/plugin-sfc";
 import Snippet, { type Highlight, type Region } from "docs-snippet";
 import fs from "fs";
 import type MarkdownIt from "markdown-it";
-import path from "path";
+import path from "node:path";
 import type { RuleBlock } from "../../../../../node_modules/@types/markdown-it/lib/parser_block.js";
 import type { Snippets } from "../../../../../node_modules/docs-snippet/dist/types/src/snippets.js";
-import type { VitepressStateBlock } from "./env.js";
+import type { VitepressStateBlock } from "../../../plugins/markdown/env.js";
 import { RenderLanguageRegion } from "./snippets/language-region.js";
+import { MDState } from "./utils.js";
 
 export function snippetPlugin(md: MarkdownIt, srcDir: string) {
   const parser: RuleBlock = (
@@ -15,95 +17,75 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
     silent
   ): boolean => {
     const CH = ";".charCodeAt(0);
-    const pos = (state.bMarks[startLine] ?? 0) + (state.tShift[startLine] ?? 0);
-    const max = state.eMarks[startLine] ?? 0;
 
-    // if it's indented more than 3 spaces, it should be a code block
-    if ((state.sCount[startLine] ?? 0) - state.blkIndent >= 4) {
+    const mdState = new MDState(state);
+    const line = mdState.line(startLine);
+    const { pos, max } = line.position;
+
+    if (line.isCodeBlock) {
       return false;
     }
 
-    for (let i = 0; i < 3; ++i) {
-      const ch = state.src.charCodeAt(pos + i);
-      if (ch !== CH || pos + i >= max) return false;
-    }
+    if (line.startsWith("```snippet")) {
+      const fenceline = line.string();
 
-    if (silent) {
-      return true;
-    }
+      let rawPath = fenceline.match(/```snippet\s+\{(.*)\}/)?.[1] as
+        | string
+        | undefined;
 
-    const start = pos + 3;
-    const end = state.skipSpacesBack(max, pos);
-
-    const file = state.env.path;
-    const dir = path.dirname(file);
-
-    let rawPath = state.src.slice(start, end).trim();
-
-    if (rawPath.startsWith("@")) {
-      rawPath = rawPath.replace(/^@/, srcDir);
-    } else {
-      rawPath = path.resolve(dir, rawPath);
-    }
-
-    rawPath = rawPath.trim();
-
-    const [filename, regionName] = rawPath.split("#");
-
-    state.line = startLine + 1;
-
-    let content;
-
-    try {
-      content = fs.readFileSync(filename, "utf-8");
-    } catch (e: any) {
-      const token = state.push("html_block", "", 0);
-      token.content = error(e.message);
-      return true;
-    }
-
-    // TODO: Add the import file as a dependency.
-    // Waiting on https://github.com/vuejs/vitepress/issues/117
-
-    let snippet: Snippets;
-    try {
-      snippet = Snippet(content);
-    } catch (e: any) {
-      const token = state.push("html_block", "", 0);
-      token.content = error(e.message);
-      return true;
-    }
-
-    const token = state.push("html_block", "", 0);
-
-    if (regionName) {
-      const region = snippet.regions?.get(regionName);
-
-      if (region === undefined) {
-        token.content = error(
-          `Invalid region name: ${regionName} in ${filename}`
-        );
+      if (silent) {
         return true;
       }
 
-      token.content = highlightRegion(md, region, snippet);
-    } else {
-      token.content = highlight(md, snippet);
+      const content = line.next?.until(
+        (line) => line.slice()?.trim() === "```"
+      );
+
+      if (!content) {
+        return false;
+      }
+
+      const snippet = Snippet(content);
+
+      const [filename, regionName] = rawPath?.split("#") ?? [];
+
+      const file = state.env.path;
+      const dir = path.dirname(file);
+
+      const token = state.push("html_block", "", 0);
+
+      if (regionName) {
+        const region = snippet.regions?.get(regionName);
+
+        if (region === undefined) {
+          token.content = error(
+            `Invalid region name: ${regionName} in ${filename}`
+          );
+          return true;
+        }
+
+        token.content = highlightRegion(md, region, snippet);
+      } else {
+        token.content = highlight(md, snippet);
+      }
+
+      return true;
     }
 
-    return true;
+    return false;
   };
 
   const fence = md.renderer.rules.fence!;
 
   md.renderer.rules.fence = (...args) => {
     const [tokens, idx, options, env] = args;
+
     const token = tokens[idx]!;
     const fenceInfo = new FenceInfo(md, token.info);
 
-    // @ts-ignore
+    // @ts-expect-error
     const tokenSrc = token.src;
-    // @ts-ignore
+    // @ts-expect-error
     delete token.src;
     const [src, regionName] = tokenSrc ? tokenSrc.split("#") : [""];
 
@@ -115,9 +97,6 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
       } catch (e: any) {
         return error(e.message);
       }
-
-      const importedFiles = env.importedFiles || (env.importedFiles = []);
-      importedFiles.push(src);
 
       let snippet: Snippets;
       try {
@@ -144,25 +123,6 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
   };
 
   md.block.ruler.before("fence", "snippet", parser);
-}
-
-/**
- * Remove any line that is whitespace followed by the comment `// @ignore:next`, as well as the next line
- */
-function removeIgnores(data: string) {
-  const lines = data.split(/\r?\n/);
-  const result: string[] = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i] ?? "";
-    if (line.trim() === "// @ignore:next") {
-      i++;
-    } else {
-      result.push(line);
-    }
-  }
-
-  return result.join("\n");
 }
 
 function highlightRegion(
