@@ -1,6 +1,5 @@
 import type { ExplainedFunction } from "jsdoc-api";
 import type Token from "markdown-it/lib/token.js";
-import util from "node:util";
 import type { RenderFence } from "./type";
 
 export function FunctionSignature(
