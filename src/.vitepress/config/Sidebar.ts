@@ -67,6 +67,11 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
         "Reactive Arrays",
         "/frameworks/react/tutorial/4-reactive-arrays.md"
       ),
+      item(
+        "Custom Reactive Objects",
+        "/frameworks/react/tutorial/6-custom-reactive-objects.md"
+      ),
+      item("Resources", "/frameworks/react/tutorial/7-resources.md"),
     ]),
     group("Tutorial Bonus", [
       item(
