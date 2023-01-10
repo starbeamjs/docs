@@ -4,7 +4,14 @@ import { container } from "./container.js";
 export const blockEmphasis: PluginSimple = (md) =>
   container(md, {
     name: "emphasis",
-    openRender: () => "<blockquote class='em'>\n",
+    openRender: (tokens, idx) => {
+      const token = tokens[idx];
+      const info = token.info.trim().slice("emphasis".length).trim();
+
+      return `<blockquote class='em'><p class='title'>${
+        info || "Key Point"
+      }</p>\n`;
+    },
     closeRender: () => "</blockquote>\n",
   });
 
@@ -20,6 +27,20 @@ export const lightBulb: PluginSimple = (md) =>
     name: "💡",
     openRender: () => "<div class='lightbulb'>\n",
     closeRender: () => "</div>\n",
+  });
+
+export const typescript: PluginSimple = (md) =>
+  container(md, {
+    name: "typescript",
+    openRender: () => "<Language><template #ts>\n",
+    closeRender: () => "</template></Language>\n",
+  });
+
+export const javascript: PluginSimple = (md) =>
+  container(md, {
+    name: "javascript",
+    openRender: () => "<Language><template #js>\n",
+    closeRender: () => "</template></Language>\n",
   });
 
 export const construction: PluginSimple = (md) =>
@@ -52,6 +73,8 @@ export const docs: PluginSimple = (md) =>
 
 export const containers: PluginSimple = (md) => {
   md.use(hack);
+  md.use(typescript);
+  md.use(javascript);
   md.use(blockEmphasis);
   md.use(lightBulb);
   md.use(construction);

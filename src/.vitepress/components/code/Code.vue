@@ -175,7 +175,7 @@ function current() {
     font-family: "Readex Pro", sans-serif;
     font-size: 0.75rem;
     padding-block: 0.25em;
-    padding-inline: 0.75em;
+    padding-inline: calc(var(--starbeam-ui-padding-inline) * 0.75);
   }
 
   span {

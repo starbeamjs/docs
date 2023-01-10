@@ -10,11 +10,14 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
         item("Our Guiding Principle", "/guides/principle.md"),
       ],
     },
-    group("Fundamentals", [
+    group("Reactive Fundamentals", [
       item("Cells", "/guides/fundamentals/cells.md"),
       item("Functions", "/guides/fundamentals/functions.md"),
       item("Validation", "/guides/fundamentals/validation.md"),
       item("Resources", "/guides/fundamentals/resources.md"),
+    ]),
+    group("Universal Code", [
+      item("Blueprints and Instances", "/guides/fundamentals/instances.md"),
     ]),
     // group("Universal Building Blocks", [
     //   item("Introduction", "/guides/universal/index.md"),

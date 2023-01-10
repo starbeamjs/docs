@@ -14,11 +14,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "prettier": {
+    "proseWrap": "always"
+  },
   "devDependencies": {
     "@babel/plugin-syntax-import-assertions": "^7.20.0",
     "@codesandbox/sandpack-client": "^1.18.0",
     "@csstools/postcss-design-tokens": "^1.2.0",
-    "@iconify/json": "^2.1.155",
+    "@iconify/json": "^2.2.3",
     "@mdit-vue/plugin-sfc": "^0.11.1",
     "@stackblitz/sdk": "^1.8.1",
     "@starbeam/api-docs": "workspace:^0.0.0",
@@ -43,10 +46,11 @@
     "@types/postcss-scss": "workspace:1.0.0",
     "@types/react": "*",
     "@types/react-dom": "*",
+    "@typescript/twoslash": "^3.2.1",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/runtime-core": "^3.2.45",
     "@vue/runtime-dom": "^3.2.45",
-    "@vueuse/core": "^9.8.2",
+    "@vueuse/core": "^9.10.0",
     "docs-snippet": "^1.0.4",
     "fenceparser": "^2.2.0",
     "fflate": "^0.7.4",
@@ -57,12 +61,14 @@
     "markdown-it-shiki-twoslash": "^2.1.0",
     "markdown-it-toc-done-right": "^4.2.0",
     "mermaid": "^9.3.0",
-    "postcss": "^8.4.20",
+    "nanoid": "^4.0.0",
+    "postcss": "^8.4.21",
     "postcss-advanced-variables": "^3.0.1",
     "postcss-atroot": "^0.2.3",
     "postcss-current-selector": "^0.0.3",
     "postcss-env-function": "^4.0.6",
     "postcss-functions": "^4.0.2",
+    "postcss-html": "^1.5.0",
     "postcss-modules-values": "^4.0.0",
     "postcss-nested": "^6.0.0",
     "postcss-nested-ancestors": "^3.0.0",
@@ -70,16 +76,19 @@
     "postcss-property-lookup": "^3.0.0",
     "postcss-scss": "^4.0.6",
     "prettier": "^2.8.1",
-    "rollup-plugin-visualizer": "^5.8.3",
+    "remark-shiki-twoslash": "^3.1.0",
+    "rollup-plugin-visualizer": "^5.9.0",
     "sandpack-vue3": "^2.0.6",
     "sass": "^1.57.1",
     "shiki": "^0.12.1",
+    "shiki-processor": "^0.1.2",
     "shiki-twoslash": "^3.1.0",
+    "stylelint-config-recommended-vue": "^1.4.0",
     "typescript": "*",
-    "vite": "^4.0.0",
+    "vite": "*",
     "vite-plugin-babel": "^1.1.2",
-    "vitepress": "1.0.0-alpha.33",
-    "vitest": "^0.26.2",
+    "vitepress": "1.0.0-alpha.35",
+    "vitest": "^0.26.3",
     "vue": "^3.2.45"
   },
   "imports": {
@@ -87,11 +96,11 @@
   },
   "pnpm": {
     "overrides": {
-      "vite": "^4",
+      "vite": "^4.0.4",
       "typescript": "^4.9.4",
       "@typescript/twoslash": "^3.2.1",
       "@types/react": "^18.0.26",
-      "@types/react-dom": "^18.0.9",
+      "@types/react-dom": "^18.0.10",
       "tslib": "^2.4.1",
       "@starbeam/debug": "0.8.9",
       "@starbeam/js": "0.8.9",
@@ -100,7 +109,8 @@
       "@starbeam/universal": "0.8.9",
       "@starbeam/interfaces": "0.8.9",
       "@starbeam/preact": "0.8.9",
-      "preact-render-to-string": "5.2.6"
+      "preact-render-to-string": "5.2.6",
+      "shiki": "^0.12.1"
     },
     "peerDependencyRules": {
       "allowedVersions": {
@@ -120,5 +130,8 @@
   },
   "volta": {
     "node": "19.1.0"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-recommended-vue"
   }
 }

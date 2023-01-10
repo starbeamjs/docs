@@ -1,12 +1,12 @@
 import { defineConfig } from "vitepress";
 import { HEAD } from "./config/head.js";
-import { MARKDOWN } from "./config/markdown.js";
 import { NAV, SOCIAL } from "./config/Nav.js";
 import { SIDEBAR } from "./config/Sidebar.js";
 import { BUILD_HOOKS, CONFIG, SITE } from "./config/Site.js";
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { MARKDOWN } from "./config/markdown.js";
 import { VITE } from "./config/vite.js";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));

@@ -38,7 +38,7 @@ defineProps<{
 }
 .title {
   line-height: 24px;
-  font-size: 16px;
+  font-size: var(--starbeam-font-size);
   font-weight: 600;
 }
 .details {

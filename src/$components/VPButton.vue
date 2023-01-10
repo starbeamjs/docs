@@ -58,7 +58,7 @@ const component = computed(() => {
   border-radius: 24px;
   padding: 0 24px;
   line-height: 46px;
-  font-size: 16px;
+  font-size: var(--starbeam-font-size);
 }
 .VPButton.brand {
   border-color: var(--vp-button-brand-border);

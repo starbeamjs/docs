@@ -22,6 +22,7 @@
   "include": [
     "src/**/*",
     "src/**/*.vue",
+    "src/**/*.md",
     "src/.vitepress/**/*",
     "src/.vitepress/**/*.vue",
     "packages/*/index.ts",

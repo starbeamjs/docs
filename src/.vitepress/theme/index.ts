@@ -3,6 +3,7 @@
 import theme from "vitepress/theme";
 import type { App } from "vue";
 import Api from "../components/api/Api.vue";
+import Language from "../components/code/Language.vue";
 import Demo from "../components/Demo/Demo.vue";
 import Mermaid from "../components/Mermaid.js";
 // import Mermaid from "../components/Mermaid.js";
@@ -17,6 +18,7 @@ export default {
   Layout,
   async enhanceApp({ app }: { app: App }) {
     app.component("Code", Code);
+    app.component("Language", Language);
     app.component("StackBlitz", StackBlitz);
 
     app.component("Demo", Demo);

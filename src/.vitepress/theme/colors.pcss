@@ -1,37 +1,51 @@
-:root {
+:root,
+:before,
+:after {
   --starbeam-fg-hue: 190;
   --starbeam-fg-saturation: 50%;
 
   --starbeam-bg-hue: var(--starbeam-fg-hue);
   --starbeam-bg-saturation: 50%;
 
+  --typescript-hue: 210;
+  --typescript-saturation: 63%;
+  --javascript-hue: 52;
+  --javascript-saturation: 84%;
+
   --starbeam-fg-accent-hue: 190;
   --starbeam-fg-accent-saturation: 50%;
 }
 
-:root:not(.dark) {
+:root:not(.dark),
+:root:not(.dark) :before,
+:root:not(.dark) :after {
   --starbeam-fg-lightness-normal: 50%;
   --starbeam-fg-lightness-bright: 30%;
   --starbeam-fg-lightness-brighter: 20%;
   --starbeam-fg-lightness-brightest: 7%;
   --starbeam-fg-lightness-dim: 70%;
   --starbeam-fg-lightness-dimmer: 80%;
+  --starbeam-fg-lightness-dimmest: 90%;
 
   --starbeam-bg-lightness-normal: 50%;
   --starbeam-bg-lightness-bright: 70%;
   --starbeam-bg-lightness-brighter: 90%;
-  --starbeam-bg-lightness-brightest: 93%;
+  --starbeam-bg-lightness-brightest: 96%;
   --starbeam-bg-lightness-dim: 30%;
   --starbeam-bg-lightness-dimmer: 10%;
+  --starbeam-bg-lightness-dimmest: 5%;
 }
 
-:root.dark {
+:root.dark,
+:root.dark :before,
+:root.dark :after {
   --starbeam-fg-lightness-normal: 50%;
   --starbeam-fg-lightness-bright: 70%;
   --starbeam-fg-lightness-brighter: 80%;
   --starbeam-fg-lightness-brightest: 85%;
   --starbeam-fg-lightness-dim: 30%;
   --starbeam-fg-lightness-dimmer: 20%;
+  --starbeam-fg-lightness-dimmest: 20%;
 
   --starbeam-bg-lightness-normal: 50%;
   --starbeam-bg-lightness-bright: 30%;
@@ -39,6 +53,7 @@
   --starbeam-bg-lightness-brightest: 7%;
   --starbeam-bg-lightness-dim: 70%;
   --starbeam-bg-lightness-dimmer: 90%;
+  --starbeam-bg-lightness-dimmest: 90%;
 }
 
 @value fg-hue: var(--starbeam-fg-hue);

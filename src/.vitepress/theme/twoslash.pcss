@@ -23,6 +23,9 @@ Code blocks structurally look like:
   --twoslash-error-hue: 0;
   --twoslash-error-saturation: 100%;
 
+  --twoslash-add-hue: 153;
+  --twoslash-add-saturation: 65%;
+
   --twoslash-error-bg: hsl(
     var(--twoslash-error-hue),
     var(--twoslash-error-saturation),
@@ -52,14 +55,21 @@ Code blocks structurally look like:
   padding: 0;
 }
 
-pre.twoslash * {
+pre.twoslash,
+pre.shiki {
   --highlight-color: hsla(
     var(--highlight-hue),
     var(--highlight-saturation),
     var(--highlight-lightness),
     50%
   );
+}
 
+pre.shiki {
+  --vp-code-line-highlight-color: var(--highlight-color);
+}
+
+pre.twoslash * {
   --dim-bg: hsla(
     var(--highlight-hue),
     var(--highlight-saturation),
@@ -100,7 +110,7 @@ pre {
   border-inline-end-width: 0.1rem;
   border-block-start-width: 0;
   border-block-end-width: 0.1rem;
-  border-radius: 0.4rem;
+  border-radius: var(--sb-code-radius);
 
   margin-block-end: 3rem;
 
@@ -109,7 +119,30 @@ pre {
 }
 pre.shiki {
   overflow-x: auto;
+  --vp-code-line-diff-remove-color: hsla(
+    var(--twoslash-error-hue),
+    var(--twoslash-error-saturation),
+    var(--starbeam-bg-lightness-normal),
+    var(--starbeam-bg-lightness-dim)
+  );
+  --vp-code-line-diff-add-color: hsla(
+    var(--twoslash-add-hue),
+    var(--twoslash-add-saturation),
+    var(--starbeam-bg-lightness-normal),
+    var(--starbeam-bg-lightness-dim)
+  );
 }
+
+pre.shiki,
+pre.shiki :before,
+pre.shiki :after {
+  --vp-code-line-diff-remove-symbol-color: hsl(
+    var(--twoslash-error-hue),
+    var(--twoslash-error-saturation),
+    var(--starbeam-bg-lightness-normal)
+  );
+}
+
 pre.shiki:hover .dim {
   opacity: 1;
 }
@@ -117,7 +150,8 @@ pre.shiki div.dim {
   opacity: 0.5;
 }
 pre.shiki div.dim,
-pre.shiki div.highlight {
+pre.shiki div.highlight,
+pre.shiki {
   margin: 0;
   padding: 0;
 }
@@ -125,9 +159,17 @@ pre.shiki div.highlight {
   opacity: 1;
   background-color: var(--highlight-color);
 }
-pre.shiki div.line {
+pre.shiki > code > div.line {
   min-height: 1rem;
-  padding-inline: 0.5rem;
+  padding-inline: var(--sb-code-padding);
+
+  &.highlight,
+  &.diff {
+    position: relative;
+    left: calc(-1rem + var(--sb-code-padding-inline));
+    right: calc(-1rem + var(--sb-code-padding-inline));
+    width: calc(100% + 2rem - (var(--sb-code-padding-inline) * 2));
+  }
 }
 
 /** Don't show the language identifiers */
@@ -136,7 +178,8 @@ pre.shiki .language-id {
 }
 
 /* Visually differentiates twoslash code samples  */
-pre.twoslash {
+pre.twoslash,
+pre.shiki {
   border-color: var(--vp-c-brand-light);
   overflow: hidden;
 }

@@ -3,6 +3,7 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 
 import { RouterLink, RouterView } from "vue-router";
+import Language from "./.vitepress/components/code/Language.vue";
 import Demo from "./.vitepress/components/Demo/Demo.vue";
 
 declare module "@vue/runtime-core" {
@@ -10,5 +11,6 @@ declare module "@vue/runtime-core" {
     RouterLink: typeof RouterLink;
     RouterView: typeof RouterView;
     Demo: typeof Demo;
+    Language: typeof Language;
   }
 }

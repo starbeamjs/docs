@@ -1,6 +1,5 @@
 import "@mdit-vue/plugin-sfc";
 import Snippet, { type Highlight, type Region } from "docs-snippet";
-import fs from "fs";
 import type MarkdownIt from "markdown-it";
 import path from "node:path";
 import type { RuleBlock } from "../../../../../node_modules/@types/markdown-it/lib/parser_block.js";
@@ -45,8 +44,6 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         return false;
       }
 
-      const snippet = Snippet(content);
-
       const [filename, regionName] = rawPath?.split("#") ?? [];
 
       const file = state.env.path;
@@ -54,12 +51,23 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 
       const token = state.push("html_block", "", 0);
 
+      let snippet: Snippets;
+
+      try {
+        snippet = Snippet(content);
+      } catch (e) {
+        token.content = error(
+          `Invalid region name: ${regionName}\n\n${content}`
+        );
+        return true;
+      }
+
       if (regionName) {
         const region = snippet.regions?.get(regionName);
 
         if (region === undefined) {
           token.content = error(
-            `Invalid region name: ${regionName} in ${filename}`
+            `Invalid region name: ${regionName}\n\n${content}`
           );
           return true;
         }
@@ -73,53 +81,6 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
     }
 
     return false;
-  };
-
-  const fence = md.renderer.rules.fence!;
-
-  md.renderer.rules.fence = (...args) => {
-    const [tokens, idx, options, env] = args;
-
-    const token = tokens[idx]!;
-    const fenceInfo = new FenceInfo(md, token.info);
-
-    // @ts-expect-error
-    const tokenSrc = token.src;
-    // @ts-expect-error
-    delete token.src;
-    const [src, regionName] = tokenSrc ? tokenSrc.split("#") : [""];
-
-    if (src) {
-      let content;
-
-      try {
-        content = fs.readFileSync(src, "utf-8");
-      } catch (e: any) {
-        return error(e.message);
-      }
-
-      let snippet: Snippets;
-      try {
-        snippet = Snippet(content);
-      } catch (e: any) {
-        return error(e.message);
-      }
-
-      if (regionName) {
-        const region = snippet.regions?.get(regionName);
-
-        if (region === undefined) {
-          return error(`Invalid region name: ${regionName} in ${src}`);
-        }
-
-        return fenceInfo.highlight(region);
-      } else {
-        return fenceInfo.highlight(snippet);
-      }
-    }
-
-    // fallback to original renderer
-    return fence(...args);
   };
 
   md.block.ruler.before("fence", "snippet", parser);
@@ -258,9 +219,7 @@ class FenceInfo {
 }
 
 function error(message: string) {
-  return `<div class="language-error ext-error"><pre class="ext-error"><code>${normalize(
-    message
-  )}</code></pre></div>`;
+  return `<div class="language-error ext-error"><pre class="ext-error"><code>${message}</code></pre></div>`;
 }
 
 function normalize(data: string) {

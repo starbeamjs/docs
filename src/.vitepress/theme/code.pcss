@@ -9,8 +9,29 @@
 @import "./api/generics.pcss";
 
 .VPDoc {
-  div[class*="language-"] > pre > code > span.line:last-child:empty {
-    display: none;
+  pre > .code-container {
+    padding: var(--sb-code-padding);
+    /* margin-inline: 0;
+    margin-block: 0;
+    border-radius: var(--sb-code-radius);
+    overflow: hidden; */
+  }
+
+  div[class*="language-"] {
+    border-radius: var(--sb-code-radius);
+
+    & > pre.shiki {
+      padding-block: var(--sb-code-padding-block);
+      padding-inline: 0;
+    }
+
+    & > pre > code > span.line:last-child:empty {
+      display: none;
+    }
+
+    @media (min-width: 0) {
+      margin-inline: 0;
+    }
   }
 
   .custom-block > p > code {
@@ -34,9 +55,8 @@
     margin: 0;
   }
 
-  .custom-block :not(pre) > code,
-  .custom-block :not(.code-container) > code {
-    /* padding: 0; */
+  .custom-block :not(pre, .code-container) > code {
+    padding: var(--starbeam-nested-inline-code-padding);
     font-family: var(--vp-font-family-mono);
     font-weight: 500;
   }
@@ -60,5 +80,22 @@
         content: ")";
       }
     }
+  }
+
+  .lang-docs.custom-block p > code {
+    color: hsl(
+      var(--starbeam-fg-hue),
+      var(--starbeam-fg-saturation),
+      var(--starbeam-fg-lightness-bright)
+    );
+    background-color: hsl(
+      var(--starbeam-bg-hue),
+      var(--starbeam-bg-saturation),
+      var(--starbeam-bg-lightness-brightest)
+    );
+    padding: var(--starbeam-nested-inline-code-padding);
+    font-size: calc(var(--starbeam-font-size) * var(--starbeam-ratio-down1));
+    font-family: var(--vp-font-family-mono);
+    font-weight: 300;
   }
 }

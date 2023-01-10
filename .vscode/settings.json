@@ -39,17 +39,7 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-
-  "scss.lint.float": "warning",
-  "scss.lint.ieHack": "error",
-  "scss.lint.important": "warning",
-  "scss.lint.importStatement": "warning",
-  "scss.lint.universalSelector": "warning",
-  "scss.lint.unknownAtRules": "warning",
-  "scss.lint.unknownVendorSpecificProperties": "warning",
-  "scss.lint.zeroUnits": "error",
-  "scssLint.languages": ["scss"],
-  "scssLint.showHighlights": true,
+  "stylelint.enable": true,
 
   "[vue][scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

@@ -6,10 +6,10 @@
     "fast-glob": "^3.2.12",
     "shell-escape-tag": "^2.0.2",
     "shelljs": "^0.8.5",
-    "yaml": "^2.2.0"
+    "yaml": "^2.2.1"
   },
   "devDependencies": {
-    "@types/node": "^18.11.17",
+    "@types/node": "^18.11.18",
     "@types/shell-escape-tag": "workspace:1.0.0",
     "@types/shelljs": "^0.8.11"
   }
