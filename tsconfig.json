@@ -25,6 +25,7 @@
     "src/**/*.md",
     "src/.vitepress/**/*",
     "src/.vitepress/**/*.vue",
+    "src/.vitepress/**/*.json",
     "packages/*/index.ts",
     "packages/*/src/**/*"
   ],

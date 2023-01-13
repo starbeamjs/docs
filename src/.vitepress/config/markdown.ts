@@ -2,6 +2,7 @@ import type MarkdownIt from "markdown-it";
 
 import { resolve } from "node:path";
 import ts from "typescript";
+import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 import { snippets } from "../packages/vitepress-snippets/build.js";
 import { codeTabs } from "../plugins/code-tabs/code-tabs.js";
 import { containers } from "../plugins/containers/containers.js";
@@ -9,7 +10,7 @@ import { fences } from "../plugins/fences.js";
 import { mark } from "../plugins/mark/mark.js";
 import { flowchart } from "../plugins/mermaid/flowchart.js";
 import { mermaid } from "../plugins/mermaid/mermaid.js";
-// import { tabs } from "../plugins/tabs/tabs.js";
+import { highlight as createHighlight } from "./syntax-highlight/highlight.js";
 import { markdownItShikiTwoslashSetup } from "./syntax-highlight/setup.js";
 import type { Config } from "./types.js";
 import { root } from "./vite.js";
@@ -37,12 +38,17 @@ const shiki = (md: MarkdownIt) =>
     ignoreCodeblocksWithCodefenceMeta: ["no-shiki"],
   });
 
+const THEME = {
+  dark: "github-dark",
+  light: "github-light",
+};
+
+const highlight = await createHighlight(THEME, "typescript");
+
 export const MARKDOWN: Config["markdown"] = {
   lineNumbers: false,
-  theme: {
-    dark: "github-dark",
-    light: "github-light",
-  },
+  theme: THEME,
+  highlight,
   config: (md) => {
     md.use(shiki);
     md.use(fences);
@@ -51,7 +57,7 @@ export const MARKDOWN: Config["markdown"] = {
     md.use(mermaid);
     md.use(flowchart);
     md.use(mark);
-    //   // md.use(tabs);
+    md.use(tabsMarkdownPlugin);
     md.use(codeTabs);
   },
   toc: {

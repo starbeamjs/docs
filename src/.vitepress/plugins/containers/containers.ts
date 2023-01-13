@@ -29,6 +29,13 @@ export const lightBulb: PluginSimple = (md) =>
     closeRender: () => "</div>\n",
   });
 
+export const reactPreact: PluginSimple = (md) =>
+  container(md, {
+    name: "react-preact",
+    openRender: () => "<div class='react-preact'>\n",
+    closeRender: () => "</div>\n",
+  });
+
 export const typescript: PluginSimple = (md) =>
   container(md, {
     name: "typescript",
@@ -75,6 +82,7 @@ export const containers: PluginSimple = (md) => {
   md.use(hack);
   md.use(typescript);
   md.use(javascript);
+  md.use(reactPreact);
   md.use(blockEmphasis);
   md.use(lightBulb);
   md.use(construction);

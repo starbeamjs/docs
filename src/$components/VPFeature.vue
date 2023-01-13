@@ -38,14 +38,13 @@ defineProps<{
 }
 .title {
   line-height: 24px;
-  font-size: var(--starbeam-font-size);
-  font-weight: 600;
+  font-weight: var(--starbeam-font-weight-title);
 }
 .details {
   padding-top: 8px;
   line-height: 24px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: var(--starbeam-font-weight-body);
   color: var(--vp-c-text-2);
 }
 </style>

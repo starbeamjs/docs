@@ -21,21 +21,25 @@ Code blocks structurally look like:
   --twoslash-annotation-fg: var(--vp-custom-block-tip-text);
 
   --twoslash-error-hue: 0;
-  --twoslash-error-saturation: 100%;
+  --twoslash-error-saturation: 50%;
+  --twoslash-error-bg-lightness: var(--highlight-lightness);
+  --twoslash-error-fg-lightness: var(--dim-lightness-fg);
 
   --twoslash-add-hue: 153;
   --twoslash-add-saturation: 65%;
+  --twoslash-add-bg-lightness: var(--dim-lightness-bg);
+  --twoslash-add-fg-lightness: var(--dim-lightness-fg);
 
   --twoslash-error-bg: hsl(
     var(--twoslash-error-hue),
     var(--twoslash-error-saturation),
-    var(--dim-lightness-bg)
+    var(--twoslash-error-bg-lightness)
   );
 
   --twoslash-error-fg: hsl(
     var(--twoslash-error-hue),
     var(--twoslash-error-saturation),
-    var(--dim-lightness-fg)
+    var(--twoslash-error-fg-lightness)
   );
 
   --twoslash-error-border: var(--twoslash-error-fg);
@@ -117,20 +121,236 @@ pre {
   /* Important to allow the code to move horizontally; */
   overflow-x: auto;
 }
-pre.shiki {
+
+.vp-doc pre.shiki {
   overflow-x: auto;
   --vp-code-line-diff-remove-color: hsla(
     var(--twoslash-error-hue),
     var(--twoslash-error-saturation),
-    var(--starbeam-bg-lightness-normal),
-    var(--starbeam-bg-lightness-dim)
+    var(--twoslash-error-bg-lightness),
+    100%
   );
   --vp-code-line-diff-add-color: hsla(
     var(--twoslash-add-hue),
     var(--twoslash-add-saturation),
-    var(--starbeam-bg-lightness-normal),
-    var(--starbeam-bg-lightness-dim)
+    var(--twoslash-add-bg-lightness),
+    var(--starbeam-bg-lightness-normal)
   );
+
+  &.twoslash {
+    padding-block: var(--sb-code-padding-block);
+
+    .line {
+      padding-inline: var(--sb-code-padding-inline);
+    }
+  }
+
+  &.twoslash code {
+    .line::before {
+      contents: "";
+      display: none;
+    }
+  }
+
+  .line::before {
+    content: " ";
+    grid-column: 1;
+    display: grid;
+    width: 0;
+    margin-inline: var(--sb-code-padding-inline);
+
+    justify-content: end;
+    position: static;
+  }
+
+  &.has-starbeam-lines {
+    counter-reset: starbeam-lines;
+    .line::before {
+      width: calc(var(--vp-code-font-size) * var(--vp-code-line-height));
+      height: calc(var(--vp-code-font-size));
+    }
+  }
+
+  &.has-starbeam-lines,
+  &.has-diff {
+    .line::before {
+      width: calc(var(--vp-code-font-size) * var(--vp-code-line-height));
+    }
+  }
+
+  .line {
+    transition: filter 0.2s ease-in-out;
+
+    --saturation: 100%;
+
+    background-color: hsla(
+      var(--hue),
+      var(--saturation),
+      var(--bg-lightness),
+      var(--starbeam-bg-lightness-dim)
+    );
+  }
+
+  .line.starbeam {
+    &,
+    &::before {
+      --fg-lightness: var(--starbeam-fg-lightness-bright);
+      --bg-lightness: var(--starbeam-bg-lightness-bright);
+    }
+
+    &:not(.annotate)::before {
+      display: flex;
+      font-family: var(--icons);
+      align-items: center;
+
+      /**
+        * When --custom-logo exists, the `font-size` declaration will
+        * be intentionally invalid.
+        *
+        * When --icon exists, the `width` and `height` declarations
+        * will be intentionally invalid.
+        *
+        * TL;DR `--icon` and `--custom-logo` are mutually exclusive,
+        * and serve as a switch
+        */
+
+      font-size: var(
+        --custom-logo,
+        calc(var(--vp-code-font-size) * var(--vp-code-line-height))
+      );
+      content: var(--icon, "");
+      color: hsl(var(--hue), var(--saturation), var(--fg-lightness));
+
+      background: var(--custom-logo) right center/contain no-repeat;
+    }
+  }
+
+  .line.interface:not(.sfc) {
+    --hue: 211;
+    --bg-lightness: 80%;
+  }
+
+  &:not(:hover) .line.interface:not(.sfc) {
+    filter: blur(0) saturate(50%) opacity(70%);
+  }
+
+  :not(.line.interface) + .line.interface:not(.sfc)::before {
+    --custom-logo: url(./images/ts.svg);
+  }
+
+  .line.template,
+  .line.template::before {
+    --hue: 130;
+    --fg-lightness: var(--starbeam-fg-lightness-bright);
+    --bg-lightness: var(--starbeam-bg-lightness-bright);
+  }
+
+  .line.template.tag:first-child + .line.template.tag,
+  :not(.line.template.tag) + .line.template.tag + .line.template.tag {
+    &,
+    &::before {
+      /* --icon: "html"; */
+    }
+  }
+
+  .line.bare.template:first-child,
+  :not(.line.bare.template) + .line.bare.template {
+    &::before {
+      /* --icon: "html"; */
+    }
+  }
+
+  .line.script:first-child + .line.script,
+  :not(.line.script) + .line.script + .line.script {
+    &::before {
+      /* --icon: "javascript"; */
+    }
+  }
+
+  .line.annotate {
+    counter-increment: starbeam-lines;
+    &::before {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      content: counter(starbeam-lines, annotation);
+      color: var(--annotation-color);
+      font-size: 120%;
+    }
+  }
+
+  .line.script,
+  .line.script::before {
+    --hue: var(--javascript-hue);
+    --saturation: var(--javascript-saturation);
+  }
+
+  .line.react {
+    --hue: 193;
+    --bg-lightness: 50%;
+
+    &::before {
+      --custom-logo: url(./images/react.svg);
+    }
+  }
+
+  .line.preact {
+    --hue: 261;
+    --bg-lightness: 50%;
+
+    &::before {
+      --custom-logo: url(./images/preact.svg);
+    }
+  }
+
+  @supports (selector(:has(*))) {
+    .line.sfc.script:first-child,
+    :not(.line.sfc.script) + .line.sfc.script {
+      filter: opacity(50%);
+    }
+
+    .line.sfc.script:last-child,
+    .line.sfc.script:has(+ :not(.line.sfc.script)) {
+      filter: opacity(50%);
+    }
+
+    .line.sfc.template.tag:first-child,
+    :not(.line.sfc.template.tag) + .line.sfc.template.tag {
+      filter: opacity(50%);
+    }
+
+    .line.sfc.template.tag:last-child,
+    .line.sfc.template.tag:has(+ :not(.line.sfc.template.tag)) {
+      filter: opacity(50%);
+    }
+  }
+
+  code {
+    padding: 0;
+    display: grid;
+    line-height: var(--vp-code-line-height);
+    background-color: transparent;
+
+    .line {
+      display: flex;
+      min-height: 1rem;
+      align-items: center;
+
+      > span {
+        width: max-content;
+      }
+
+      &.diff {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        &.remove {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
 }
 
 pre.shiki,
@@ -159,16 +379,9 @@ pre.shiki div.highlight {
   opacity: 1;
   background-color: var(--highlight-color);
 }
-pre.shiki > code > div.line {
-  min-height: 1rem;
-  padding-inline: var(--sb-code-padding);
-
+pre.shiki > code > .line {
   &.highlight,
   &.diff {
-    position: relative;
-    left: calc(-1rem + var(--sb-code-padding-inline));
-    right: calc(-1rem + var(--sb-code-padding-inline));
-    width: calc(100% + 2rem - (var(--sb-code-padding-inline) * 2));
   }
 }
 

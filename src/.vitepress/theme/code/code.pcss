@@ -1,4 +1,4 @@
-@import "./vars.pcss";
+@import "../vars.pcss";
 @import "./api/section.pcss";
 @import "./api/toc.pcss";
 @import "./api/docs.pcss";
@@ -9,12 +9,12 @@
 @import "./api/generics.pcss";
 
 .VPDoc {
-  pre > .code-container {
-    padding: var(--sb-code-padding);
-    /* margin-inline: 0;
-    margin-block: 0;
-    border-radius: var(--sb-code-radius);
-    overflow: hidden; */
+  .vp-code-group > .tabs {
+    @media (min-width: 0) {
+      margin-inline: 0;
+      border-start-start-radius: 8px;
+      border-start-end-radius: 8px;
+    }
   }
 
   div[class*="language-"] {
@@ -34,31 +34,12 @@
     }
   }
 
-  .custom-block > p > code {
-    color: hsl(
-      var(--starbeam-fg-hue),
-      var(--starbeam-fg-saturation),
-      var(--starbeam-fg-lightness-brightest)
-    );
-    background-color: hsl(
-      var(--starbeam-bg-hue),
-      var(--starbeam-bg-saturation),
-      var(--starbeam-bg-lightness-brightest)
-    );
-  }
-
   .custom-block div[class*="language-"] code {
     background: transparent;
   }
 
   p.toggler {
     margin: 0;
-  }
-
-  .custom-block :not(pre, .code-container) > code {
-    padding: var(--starbeam-nested-inline-code-padding);
-    font-family: var(--vp-font-family-mono);
-    font-weight: 500;
   }
 
   div.notes:not(:first-child) {
@@ -70,7 +51,7 @@
   :is(h2, h3, h4, h5, h6) {
     span.starbeam-tag {
       margin-inline-start: 1ch;
-      font-weight: 100;
+      font-weight: var(--starbeam-font-weight-thin);
 
       &:before {
         content: "(";
@@ -96,6 +77,6 @@
     padding: var(--starbeam-nested-inline-code-padding);
     font-size: calc(var(--starbeam-font-size) * var(--starbeam-ratio-down1));
     font-family: var(--vp-font-family-mono);
-    font-weight: 300;
+    font-weight: var(--starbeam-font-weight-light);
   }
 }

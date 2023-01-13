@@ -9,6 +9,9 @@
     "node_modules": true,
     "docs": true
   },
+  "codeium.enableConfig": {
+    "*": true
+  },
   "[markdown]": {
     "editor.unicodeHighlight.ambiguousCharacters": false,
     "editor.unicodeHighlight.invisibleCharacters": false,

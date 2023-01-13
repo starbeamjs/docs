@@ -26,6 +26,9 @@ export const VITE: UserConfig = {
   logLevel: "info",
   plugins: [],
   ssr: {},
+  optimizeDeps: {
+    exclude: ["vitepress-plugin-tabs"],
+  },
   envDir: resolve(root, ".config", ".env"),
   envPrefix: "STARBEAM_",
   build: {

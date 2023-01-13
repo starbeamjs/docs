@@ -1,5 +1,9 @@
 # Blueprints and Instances
 
+<script setup lang="ts">
+  import ReactPreact from '../../$components/ReactPreact.vue';
+</script>
+
 Since Starbeam is a way to write universal reactive code, it
 needs a universal way to define constructors for reactive
 objects. This is where blueprints come in.
@@ -185,6 +189,168 @@ hook ensures that the `Counter` blueprint is only constructed
 once, when the component is mounted.
 
 :::
+
+## Native Parameters vs. Reactive Parameters
+
+### Native Parameters
+
+<!-- prettier-ignore-start -->
+
+:::code-group
+
+```tsx [react]
+function Component({ start }: Props) {
+  const counter = use(() => Counter(start), [start]);
+
+  return useFormula(() => <div>{counter.count}</div>); // [!code react]
+}
+
+interface Props { // [!code types:3]
+  start: number;
+}
+```
+
+```tsx [preact]
+function Component({ start }: Props) {
+  const counter = use(() => Counter(start), [start]);
+
+  return <div>{counter.count}</div>; // [!code preact]
+}
+
+interface Props { // [!code types:3]
+  start: number;
+}
+```
+
+```vue [vue]
+<script setup lang="ts"> // [!code script:9]
+const props = defineProps<{ start: number }>();
+
+const counter = computed(() => Counter(props.start));
+
+interface Props { // [!code types:3]
+  start: number;
+}
+</script>
+
+<template> // [!code template-tag:3]
+  <div>{counter.count}</div>
+</template>
+```
+
+```svelte [svelte]
+<script> // [!code script:5]
+export let start;
+
+$: counter = Counter(start);
+</script>
+
+<div>{counter.count}</div> // [!code template]
+```
+
+```glimmer [ember]
+export default class extends Component<Args> {
+  counter = use(() => Counter(this.args.start));
+
+  <template> // [!code template-tag:3]
+    <div>{{this.counter.count}}</div>
+  </template>
+}
+
+interface Args {
+  start: number;
+}
+```
+
+:::
+
+<!-- prettier-ignore-end -->
+
+<ReactPreact />
+
+### Reactive Parameters
+
+<!-- prettier-ignore-start -->
+
+:::code-group
+
+```tsx [react]
+function Component(props: Props) {
+  const start = useReactive(props.start);
+  const counter = use(() => Counter(start));
+
+  return useFormula(() => <div>{counter.count}</div>); // [!code react]
+}
+
+interface Props { // [!code types:3]
+  start: number;
+}
+```
+
+```tsx [preact]
+function Component(props: Props) {
+  const start = useReactive(props.start);
+  const counter = use(() => Counter(start));
+
+  return <div>{counter.count}</div>; // [!code preact]
+}
+
+interface Props { // [!code types:3]
+  start: number;
+}
+```
+
+```vue [vue]
+<script setup lang="ts"> // [!code script:9]
+const props = defineProps<{ start: number }>();
+
+const counter = Counter(useFormula(() => props.start))
+
+interface Props { // [!code types:3]
+  start: number;
+}
+</script>
+
+<template> // [!code template-tag:3]
+  <div>{counter.count}</div>
+</template>
+```
+
+```svelte [svelte]
+<script> // [!code script:5]
+import { toStore } from "@starbeam/svelte";
+
+export let start;
+
+// convert the prop into a store
+const store = writable(start);
+$: $store.set(start);
+
+const counter = Counter(start);
+</script>
+
+<div>{counter.count}</div> // [!code template]
+```
+
+```glimmer [ember]
+export default class extends Component<Args> {
+  counter = use(() => Counter(this.args.start));
+
+  <template> // [!code template-tag:3]
+    <div>{{this.counter.count}}</div>
+  </template>
+}
+
+interface Args {
+  start: number;
+}
+```
+
+:::
+
+<!-- prettier-ignore-end -->
+
+<ReactPreact />
 
 ## Classes as Blueprints
 

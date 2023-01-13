@@ -172,7 +172,7 @@ function current() {
 
   > span,
   > button {
-    font-family: "Readex Pro", sans-serif;
+    font-family: var(--vp-font-family-base), sans-serif;
     font-size: 0.75rem;
     padding-block: 0.25em;
     padding-inline: calc(var(--starbeam-ui-padding-inline) * 0.75);
@@ -196,7 +196,7 @@ function current() {
 }
 
 .lang-switcher p.toggler button {
-  font-family: "Readex Pro", sans-serif;
+  font-family: var(--vp-font-family-base), sans-serif;
   color: var(--tab-nav-text-color);
   background-color: var(--vp-button-alt-bg);
   border: 0;

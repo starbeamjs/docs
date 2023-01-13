@@ -173,7 +173,7 @@ function current() {
   border-end-start-radius: var(--starbeam-radius-sm);
 
   > button {
-    font-family: "Readex Pro", sans-serif;
+    font-family: var(--vp-font-family-base), sans-serif;
     font-size: 0.75rem;
     padding-block: 0;
     padding-inline: calc(var(--starbeam-ui-padding-inline) * 0.75);
@@ -191,7 +191,7 @@ function current() {
 }
 
 .lang-switcher p.toggler button {
-  font-family: "Readex Pro", sans-serif;
+  font-family: var(--vp-font-family-base), sans-serif;
   color: var(--vp-button-alt-text);
   background-color: var(--vp-button-alt-bg);
   border: 0;

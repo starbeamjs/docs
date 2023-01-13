@@ -62,6 +62,8 @@ importers:
       hash-sum: ^2.0.0
       jsdoc-api: ^8.0.0
       markdown-it: ^13.0.1
+      markdown-it-attrs: ^4.1.6
+      markdown-it-bracketed-spans: ^1.0.1
       markdown-it-emoji: ^2.0.2
       markdown-it-shiki-twoslash: ^2.1.0
       markdown-it-toc-done-right: ^4.2.0
@@ -93,6 +95,7 @@ importers:
       vite: ^4.0.4
       vite-plugin-babel: ^1.1.2
       vitepress: 1.0.0-alpha.35
+      vitepress-plugin-tabs: ^0.2.0
       vitest: ^0.26.3
       vue: ^3.2.45
       vue-console-feed: ^0.0.27
@@ -140,6 +143,8 @@ importers:
       hash-sum: 2.0.0
       jsdoc-api: 8.0.0
       markdown-it: 13.0.1
+      markdown-it-attrs: 4.1.6_markdown-it@13.0.1
+      markdown-it-bracketed-spans: 1.0.1
       markdown-it-emoji: 2.0.2
       markdown-it-shiki-twoslash: 2.1.0
       markdown-it-toc-done-right: 4.2.0
@@ -171,6 +176,7 @@ importers:
       vite: 4.0.4_sass@1.57.1
       vite-plugin-babel: 1.1.2_oua5zfx3jbltnbzb4blvjjwira
       vitepress: 1.0.0-alpha.35_b3xgtgfamhr4jiydlntqmtzdsm
+      vitepress-plugin-tabs: 0.2.0_jeax6xtapapepcvzv6hrsc6tvu
       vitest: 0.26.3_sass@1.57.1
       vue: 3.2.45
 
@@ -3349,6 +3355,19 @@ packages:
       markdown-it: 12.3.2
     dev: true
 
+  /markdown-it-attrs/4.1.6_markdown-it@13.0.1:
+    resolution: {integrity: sha512-O7PDKZlN8RFMyDX13JnctQompwrrILuz2y43pW2GagcwpIIElkAdfeek+erHfxUOlXWPsjFeWmZ8ch1xtRLWpA==}
+    engines: {node: '>=6'}
+    peerDependencies:
+      markdown-it: '>= 9.0.0'
+    dependencies:
+      markdown-it: 13.0.1
+    dev: true
+
+  /markdown-it-bracketed-spans/1.0.1:
+    resolution: {integrity: sha512-ffDHx7bdOEecvo/EPpsatFLNnLZBRdj+ZF/v6gGJh0ixU0oVWxUUeJn5daVnT0sn0MU73G9oPDTqBX82z99fnw==}
+    dev: true
+
   /markdown-it-emoji/2.0.2:
     resolution: {integrity: sha512-zLftSaNrKuYl0kR5zm4gxXjHaOI3FAOEaloKmRA5hijmJZvSjmxcokOLlzycb/HXlUFWzXqpIEoyEMCE4i9MvQ==}
     dev: true
@@ -4668,6 +4687,16 @@ packages:
       sass: 1.57.1
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
+
+  /vitepress-plugin-tabs/0.2.0_jeax6xtapapepcvzv6hrsc6tvu:
+    resolution: {integrity: sha512-jTdtz4Z5fHllzcDAJaJK/bxE/2PhJSqetFUFgiB7xzw23O4yI+ntJrN+D3oP8XH/0559QUbrYd0K3YLoRaHbAA==}
+    peerDependencies:
+      vitepress: ^1.0.0-alpha.29
+      vue: ^3.2.45
+    dependencies:
+      vitepress: 1.0.0-alpha.35_b3xgtgfamhr4jiydlntqmtzdsm
+      vue: 3.2.45
     dev: true
 
   /vitepress/1.0.0-alpha.35_b3xgtgfamhr4jiydlntqmtzdsm:
