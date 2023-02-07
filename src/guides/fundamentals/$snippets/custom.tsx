@@ -1,6 +1,7 @@
 // #region custom
 import { Cell, Formula } from "@starbeam/universal";
 
+// #highlight:start
 // The function passed to `Custom.define` is the reactive constructor.
 const FormattedDate = Reactive(() => {
   // #highlight:end
@@ -110,11 +111,13 @@ const FormattedDate = Reactive(() => {
 }
 
 // #region dts
-import type { Reactive } from "@starbeam/interfaces";
+import type { Reactive as IReactive } from "@starbeam/interfaces";
 
 declare function use<T>(blueprint: CustomBlueprint<T>): T;
 
 declare function reactive<T>(callback: () => T): T;
+
+declare type Reactive<T> = IReactive<T>;
 
 declare const Reactive: (<A>(
   this: void,

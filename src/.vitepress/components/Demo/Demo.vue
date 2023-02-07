@@ -117,7 +117,6 @@ const files: SandpackFiles = {
 const options: SandpackInternalOptions = {
   recompileMode: "delayed",
   activeFile: config.activeFile ?? mainFile(),
-  // bundlerURL: "https://db2aecf9.sandpack-bundler.pages.dev",
 };
 
 const registryURL = import.meta.env.STARBEAM_REGISTRY_URL;

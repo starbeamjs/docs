@@ -17,11 +17,11 @@ const Stopwatch = Resource(({ on }) => {
 // #endregion
 
 // #region react
-import { useReactive, useResource } from "@starbeam/react";
+import { use } from "@starbeam/react";
 
 function TickingClock() {
-  const now = useResource(() => Stopwatch, []);
+  const now = use(() => Stopwatch, []);
 
-  return useReactive(() => <p>{now.current.toLocaleTimeString()}</p>);
+  return <p>{now.toLocaleTimeString()}</p>;
 }
 // #endregion

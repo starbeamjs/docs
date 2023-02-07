@@ -128,13 +128,9 @@ function groupOptions(
 ): Pick<DefaultTheme.SidebarGroup, "collapsed" | "collapsible"> {
   switch (collapse) {
     case "expanded":
-      return {
-        collapsible: true,
-      };
     case "collapsed":
       return {
-        collapsible: true,
-        collapsed: true,
+        collapsed: collapse === "collapsed",
       };
     case undefined:
       return {};

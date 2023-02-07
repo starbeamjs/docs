@@ -9,6 +9,9 @@
     "node_modules": true,
     "docs": true
   },
+  "files.associations": {
+    "tsconfig.*.json": "jsonc"
+  },
   "codeium.enableConfig": {
     "*": true
   },

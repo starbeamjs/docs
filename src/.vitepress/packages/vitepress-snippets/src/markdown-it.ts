@@ -1,7 +1,6 @@
 import "@mdit-vue/plugin-sfc";
 import Snippet, { type Highlight, type Region } from "docs-snippet";
 import type MarkdownIt from "markdown-it";
-import path from "node:path";
 import type { RuleBlock } from "../../../../../node_modules/@types/markdown-it/lib/parser_block.js";
 import type { Snippets } from "../../../../../node_modules/docs-snippet/dist/types/src/snippets.js";
 import type { VitepressStateBlock } from "../../../plugins/markdown/env.js";
@@ -15,11 +14,8 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
     _endLine,
     silent
   ): boolean => {
-    const CH = ";".charCodeAt(0);
-
     const mdState = new MDState(state);
     const line = mdState.line(startLine);
-    const { pos, max } = line.position;
 
     if (line.isCodeBlock) {
       return false;
@@ -44,12 +40,16 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         return false;
       }
 
-      const [filename, regionName] = rawPath?.split("#") ?? [];
+      const token = state.push("html_block", "", 0);
+
+      if (!rawPath?.startsWith("#")) {
+        token.content = error(`Invalid region attribute "${rawPath}"`);
+        return true;
+      }
+
+      const regionName = rawPath.slice(1);
 
       const file = state.env.path;
-      const dir = path.dirname(file);
-
-      const token = state.push("html_block", "", 0);
 
       let snippet: Snippets;
 
@@ -57,7 +57,9 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         snippet = Snippet(content);
       } catch (e) {
         token.content = error(
-          `Invalid region name: ${regionName}\n\n${content}`
+          `Invalid source file: ${codeForError(
+            (e as Error).stack ?? "missing stack trace"
+          )}\n\nCode:\n\n${codeForError(content)}`
         );
         return true;
       }
@@ -67,7 +69,7 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 
         if (region === undefined) {
           token.content = error(
-            `Invalid region name: ${regionName}\n\n${content}`
+            `Invalid region name: ${regionName}\n\n${codeForError(content)}`
           );
           return true;
         }
@@ -106,13 +108,6 @@ function highlightRegion(
     complete,
     "js"
   ).highlight(md);
-
-  // const jsFenced = highlightLang(md, {
-  //   code: region.js.code,
-  //   highlights: region.js.highlights,
-  //   prefix: prefix(region.js, complete.js),
-  //   postfix: postfix(region.js, complete.js),
-  // });
 
   return `<Code><template #ts>${tsFenced}</template><template #js>${jsFenced}</template></Code>`;
 }
@@ -230,4 +225,9 @@ function normalize(data: string) {
 function breakable(data: string) {
   // add a wbr around `/`
   return data.replace(/\//g, "<wbr>/<wbr>");
+}
+
+function codeForError(code: string) {
+  // escape the code
+  return code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }

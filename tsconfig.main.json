@@ -20,15 +20,15 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "types": ["vite/client", "@vue/runtime-dom", "src/components.d.ts"]
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.react.json"
-    },
-    { "path": "./tsconfig.main.json" },
-    {
-      "path": "./tsconfig.preact.json"
-    },
-    { "path": "./scripts/tsconfig.json" }
-  ]
+  "include": [
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/*.md",
+    "src/.vitepress/**/*",
+    "src/.vitepress/**/*.vue",
+    "src/.vitepress/**/*.json",
+    "packages/*/index.ts",
+    "packages/*/src/**/*"
+  ],
+  "exclude": ["./src/frameworks/**", "./src/**/*.tsx"]
 }
