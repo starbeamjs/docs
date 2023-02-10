@@ -2,8 +2,12 @@ import { LIFETIME } from "@starbeam/timeline";
 import { DEBUG_RENDERER } from "@starbeam/universal";
 import { Stopwatch } from "./stopwatch";
 
-const button = document.querySelector("#finalize") as HTMLButtonElement;
-const output = document.querySelector("#output") as HTMLParagraphElement;
+const button = document.querySelector(
+  "#finalize"
+) as HTMLButtonElement;
+const output = document.querySelector(
+  "#output"
+) as HTMLParagraphElement;
 
 // Instantiate the Stopwatch with an owner. We will
 // later finalize the owner to clean up the resource.

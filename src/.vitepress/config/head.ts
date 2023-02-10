@@ -1,7 +1,7 @@
 import type { HeadConfig } from "vitepress";
-import type { Config } from "./types.js";
+import type { Head } from "./types.js";
 
-export const HEAD: Config["head"] = [
+export const HEAD: Head = [
   font("Readex Pro", { weight: "160..700" }),
   font("Baloo 2", { weight: "400..800" }),
   font("Sofia Sans", { weight: "100..900", italic: true }),

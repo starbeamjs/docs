@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@tutorial-lib/*": ["src/tutorial/$components/code/*"],
+      "@tutorial-vue/*": ["src/tutorial/$components/*"]
+    }
+  }
+}

@@ -1,6 +1,7 @@
 {
   "name": "@starbeam/docs-twoslash",
   "private": true,
+  "type": "module",
   "devDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",

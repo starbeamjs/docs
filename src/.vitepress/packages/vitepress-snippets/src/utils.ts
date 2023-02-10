@@ -1,4 +1,6 @@
+import type { SfcBlock } from "@mdit-vue/plugin-sfc";
 import type StateBlock from "markdown-it/lib/rules_block/state_block.js";
+import { dirname, relative, resolve } from "node:path";
 
 export class MDState {
   #state: StateBlock;
@@ -9,6 +11,48 @@ export class MDState {
 
   line(lineno: number): LineState {
     return new LineState(this.#state, lineno);
+  }
+
+  get env(): StateEnv {
+    return new StateEnv(this.#state.env);
+  }
+
+  error(message: string) {
+    return `<div class="language-error ext-error"><pre class="ext-error"><code>${message}</code></pre></div>`;
+  }
+}
+
+interface StateEnvInfo {
+  readonly path: string;
+  readonly relativePath: string;
+  readonly cleanUrls: boolean;
+  readonly sfcBlocks: SfcBlock;
+  readonly content: string;
+  readonly frontmatter: Record<string, string>;
+  readonly excerpt: string;
+}
+
+export class StateEnv {
+  readonly #env: StateEnvInfo;
+
+  constructor(env: StateEnvInfo) {
+    this.#env = env;
+  }
+
+  get path() {
+    return this.#env.relativePath;
+  }
+
+  resolve(relativeFile: string) {
+    return resolve(dirname(this.#env.path), relativeFile);
+  }
+
+  get vitepressRoot() {
+    return relative(this.#env.path, this.#env.relativePath);
+  }
+
+  get absolutePath() {
+    return this.#env.path;
   }
 }
 
@@ -24,6 +68,8 @@ export class LineState {
   get next(): LineState | undefined {
     if (this.#startLine < this.#state.lineMax) {
       return new LineState(this.#state, this.#startLine + 1);
+    } else {
+      return undefined;
     }
   }
 
@@ -130,10 +176,7 @@ export class LineState {
   }
 }
 
-export function position(
-  state: StateBlock,
-  startLine: number
-): { pos: number; max: number } {
+export function position(state: StateBlock, startLine: number): { pos: number; max: number } {
   const pos = (state.bMarks[startLine] ?? 0) + (state.tShift[startLine] ?? 0);
   const max = state.eMarks[startLine] ?? 0;
 

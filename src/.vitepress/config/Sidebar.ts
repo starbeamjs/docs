@@ -1,7 +1,7 @@
 import type { DefaultTheme } from "vitepress";
-import type { ThemeConfig } from "./types.js";
+import type { Sidebar } from "./types.js";
 
-export const SIDEBAR: ThemeConfig["sidebar"] = {
+export const SIDEBAR: Sidebar = {
   "/guides/": [
     {
       items: [
@@ -36,9 +36,7 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
       ],
       "expanded"
     ),
-    group("Optimization", [
-      item("Formulas", "/guides/optimization/formulas.md"),
-    ]),
+    group("Optimization", [item("Formulas", "/guides/optimization/formulas.md")]),
   ],
   "/api/": [
     group("@starbeam/timeline", [
@@ -57,25 +55,13 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
     group("React", [item("Getting Started", "/frameworks/react/index.md")]),
     group("Tutorial", [
       item("Introduction", "/frameworks/react/tutorial/index.md"),
-      item(
-        "Getting Started",
-        "/frameworks/react/tutorial/1-getting-started.md"
-      ),
+      item("Getting Started", "/frameworks/react/tutorial/1-getting-started.md"),
       item("Computed Data", "/frameworks/react/tutorial/2-computed-data.md"),
-      item(
-        "Reactive Builtins",
-        "/frameworks/react/tutorial/3-reactive-builtins.md"
-      ),
-      item(
-        "Reactive Arrays",
-        "/frameworks/react/tutorial/4-reactive-arrays.md"
-      ),
+      item("Reactive Builtins", "/frameworks/react/tutorial/3-reactive-builtins.md"),
+      item("Reactive Arrays", "/frameworks/react/tutorial/4-reactive-arrays.md"),
     ]),
     group("Tutorial Bonus", [
-      item(
-        "More with Reactive Arrays",
-        "/frameworks/react/tutorial/5-reactive-arrays-bonus.md"
-      ),
+      item("More with Reactive Arrays", "/frameworks/react/tutorial/5-reactive-arrays-bonus.md"),
     ]),
   ],
   "/frameworks/preact/": [
@@ -84,10 +70,7 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
   "/demos/": [],
 };
 
-type AnonymousGroupArgs = [
-  items: DefaultTheme.SidebarItem[],
-  collapse?: "expanded" | "collapsed"
-];
+type AnonymousGroupArgs = [items: DefaultTheme.SidebarItem[], collapse?: "expanded" | "collapsed"];
 
 type NamedGroupArgs = [
   text: string,
@@ -102,9 +85,7 @@ function item(text: string, link: string): DefaultTheme.SidebarItem {
   };
 }
 
-function group(
-  ...args: AnonymousGroupArgs | NamedGroupArgs
-): DefaultTheme.SidebarGroup {
+function group(...args: AnonymousGroupArgs | NamedGroupArgs): DefaultTheme.SidebarItem {
   if (Array.isArray(args[0])) {
     const [items, collapse] = args as AnonymousGroupArgs;
 
@@ -125,7 +106,7 @@ function group(
 
 function groupOptions(
   collapse: "expanded" | "collapsed" | undefined
-): Pick<DefaultTheme.SidebarGroup, "collapsed" | "collapsible"> {
+): Pick<DefaultTheme.SidebarItem, "collapsed"> {
   switch (collapse) {
     case "expanded":
     case "collapsed":

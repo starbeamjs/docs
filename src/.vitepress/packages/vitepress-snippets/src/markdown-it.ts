@@ -1,19 +1,16 @@
 import "@mdit-vue/plugin-sfc";
 import Snippet, { type Highlight, type Region } from "docs-snippet";
+import { existsSync, readFileSync } from "fs";
 import type MarkdownIt from "markdown-it";
+import stripAnsi from "strip-ansi";
 import type { RuleBlock } from "../../../../../node_modules/@types/markdown-it/lib/parser_block.js";
 import type { Snippets } from "../../../../../node_modules/docs-snippet/dist/types/src/snippets.js";
 import type { VitepressStateBlock } from "../../../plugins/markdown/env.js";
 import { RenderLanguageRegion } from "./snippets/language-region.js";
-import { MDState } from "./utils.js";
+import { MDState, StateEnv } from "./utils.js";
 
 export function snippetPlugin(md: MarkdownIt, srcDir: string) {
-  const parser: RuleBlock = (
-    state: VitepressStateBlock,
-    startLine,
-    _endLine,
-    silent
-  ): boolean => {
+  const parser: RuleBlock = (state: VitepressStateBlock, startLine, _endLine, silent): boolean => {
     const mdState = new MDState(state);
     const line = mdState.line(startLine);
 
@@ -24,19 +21,15 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
     if (line.startsWith("```snippet")) {
       const fenceline = line.string();
 
-      let rawPath = fenceline.match(/```snippet\s+\{(.*)\}/)?.[1] as
-        | string
-        | undefined;
+      let rawPath = fenceline.match(/```snippet\s+\{(.*)\}/)?.[1] as string | undefined;
 
       if (silent) {
         return true;
       }
 
-      const content = line.next?.until(
-        (line) => line.slice()?.trim() === "```"
-      );
+      const fenceContent = line.next?.until((line) => line.slice()?.trim() === "```");
 
-      if (!content) {
+      if (!fenceContent) {
         return false;
       }
 
@@ -49,7 +42,14 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 
       const regionName = rawPath.slice(1);
 
-      const file = state.env.path;
+      const filename = mdState.env.resolve(fenceContent.trim());
+
+      if (!existsSync(filename)) {
+        token.content = mdState.error(`File "${filename}" does not exist`);
+        return true;
+      }
+
+      const content = readFileSync(filename, "utf8");
 
       let snippet: Snippets;
 
@@ -69,14 +69,20 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 
         if (region === undefined) {
           token.content = error(
-            `Invalid region name: ${regionName}\n\n${codeForError(content)}`
+            `Invalid region name: ${regionName}\n\n${codeForError(fenceContent)}`
           );
           return true;
         }
 
-        token.content = highlightRegion(md, region, snippet);
+        token.content = highlightRegion({
+          md,
+          env: mdState.env,
+          filename,
+          region,
+          complete: snippet,
+        });
       } else {
-        token.content = highlight(md, snippet);
+        token.content = highlight(md, filename, snippet);
       }
 
       return true;
@@ -88,32 +94,45 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
   md.block.ruler.before("fence", "snippet", parser);
 }
 
-function highlightRegion(
-  md: MarkdownIt,
-  region: Region,
-  complete: Snippets
-): string {
-  const tsFenced = RenderLanguageRegion.create(
+function highlightRegion({
+  md,
+  env,
+  filename,
+  region,
+  complete,
+}: {
+  md: MarkdownIt;
+  env: StateEnv;
+  filename: string;
+  region: Region;
+  complete: Snippets;
+}): string {
+  const tsFenced = RenderLanguageRegion.create({
+    filename,
     region,
-    complete,
-    "ts"
-  ).highlight(md);
+    parsed: complete,
+    kind: "ts",
+    env,
+  }).highlight(md);
 
   if (region.ts.code === region.js.code) {
     return `<section class="both-lang">${tsFenced}</section>`;
   }
 
-  const jsFenced = RenderLanguageRegion.create(
+  const jsFenced = RenderLanguageRegion.create({
+    filename,
     region,
-    complete,
-    "js"
-  ).highlight(md);
+    parsed: complete,
+    kind: "js",
+    env,
+  }).highlight(md);
 
   return `<Code><template #ts>${tsFenced}</template><template #js>${jsFenced}</template></Code>`;
 }
 
-function highlight(md: MarkdownIt, region: Snippets) {
+function highlight(md: MarkdownIt, filename: string, region: Snippets) {
   const tsFenced = highlightLang(md, {
+    filename,
     code: region.ts.code,
     highlights: [],
     prefix: "",
@@ -124,6 +143,7 @@ function highlight(md: MarkdownIt, region: Snippets) {
   }
 
   const jsFenced = highlightLang(md, {
+    filename,
     code: region.js.code,
     highlights: [],
     prefix: "",
@@ -136,11 +156,13 @@ function highlightLang(
   md: MarkdownIt,
   {
     code,
+    filename,
     highlights,
     prefix,
     postfix,
   }: {
     code: string;
+    filename: string;
     highlights?: Highlight[];
     prefix?: string;
     postfix?: string;
@@ -148,7 +170,7 @@ function highlightLang(
 ): string {
   const attr =
     highlights && highlights.length > 0
-      ? `{${highlights.map((h) => h.lines).join(",")}}`
+      ? `{${highlights.map((h) => h.lines).join(",")}} {filename=${JSON.stringify(filename)}}`
       : "";
 
   const output = [];
@@ -171,48 +193,6 @@ function highlightLang(
   );
 }
 
-class FenceInfo {
-  #md: MarkdownIt;
-  #original: string;
-
-  constructor(md: MarkdownIt, original: string) {
-    this.#md = md;
-    this.#original = original;
-  }
-
-  // asAttr(highlights: Highlight[]): [string, string][] {
-  //   return [[highlights.map((h) => h.lines).join(","), ""]];
-  // }
-
-  #shikiAttr(highlights: Highlight[] | undefined): string {
-    return highlights && highlights.length > 0
-      ? `{${highlights.map((h) => h.lines).join(",")}}`
-      : "";
-  }
-
-  highlight(region: Region | Snippets) {
-    const tsFenced = this.#highlightLang(region.ts);
-
-    if (region.ts.code === region.js.code) {
-      return `<section class="both-lang">${tsFenced}</section>`;
-    }
-
-    const jsFenced = this.#highlightLang(region.js);
-
-    return `<Code><template #ts>${tsFenced}</template><template #js>${jsFenced}</template></Code>`;
-  }
-
-  #highlightLang(region: { code: string; highlights?: Highlight[] }): string {
-    return (
-      this.#md.options.highlight?.(
-        region.code,
-        "ts",
-        this.#shikiAttr(region.highlights)
-      ) ?? `<pre><code class="language-ts">${region.code}</code></pre>`
-    );
-  }
-}
-
 function error(message: string) {
   return `<div class="language-error ext-error"><pre class="ext-error"><code>${message}</code></pre></div>`;
 }
@@ -229,5 +209,5 @@ function breakable(data: string) {
 
 function codeForError(code: string) {
   // escape the code
-  return code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return stripAnsi(code).replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }

@@ -1,7 +1,7 @@
 # Blueprints and Instances
 
 <script setup lang="ts">
-  import ReactPreact from '../../$components/ReactPreact.vue';
+  import ReactPreact from '../src/$components/ReactPreact.vue';
 </script>
 
 Since Starbeam is a way to write universal reactive code, it

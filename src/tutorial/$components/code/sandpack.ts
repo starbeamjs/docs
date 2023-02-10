@@ -24,29 +24,42 @@ export function toSandpackOptions({
 }
 
 export function toSandpackDeps({
-  versions,
+  versions: packageJSON,
   dependencies,
   filename,
 }: {
   versions: Record<string, string>;
   dependencies: string[];
   filename: string;
-}) {
+}): Record<string, string> {
   const deps = depsRecord(dependencies) ?? {};
 
   return Object.fromEntries(
-    Object.entries(deps).map(([dep, version]) => {
-      if (dep in versions) {
-        return [dep, version === "package.json" ? versions[dep] : version];
-      } else {
-        throw Error(
-          `Dependency ${dep} (used in ${filename}) not found in versions: ${JSON.stringify(
-            versions
-          )}`
-        );
-      }
+    Object.entries(deps).map(([dep, depVersion]) => {
+      return [dep, getVersion(dep, depVersion, packageJSON, filename)];
     })
   );
+}
+
+function getVersion(
+  dep: string,
+  depVersion: string,
+  packageJSON: Record<string, string>,
+  filename: string
+): string {
+  if (depVersion === "package.json") {
+    const version = packageJSON[dep];
+
+    if (version === undefined) {
+      throw Error(
+        `Dependency ${dep} was specified in an example config (${filename}), but it was not found in package.json`
+      );
+    }
+
+    return version;
+  } else {
+    return depVersion;
+  }
 }
 
 export function babelJSX(jsx: string | undefined) {
@@ -89,7 +102,13 @@ export function toSandpackDep(dep: string): [name: string, version: string] {
     const [name, version = "package.json"] = dep.slice(1).split("@");
     return [`@${name}`, version];
   } else {
-    const [name, version = "package.json"] = dep.split("@");
+    // the previous branch checked for `@` as the first char, so we can be sure that
+    // dep.split("@") produces two parts.
+    const [name, version = "package.json"] = dep.split("@", 2) as [
+      string,
+      string
+    ];
+
     return [name, version];
   }
 }

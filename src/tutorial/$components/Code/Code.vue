@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { SandpackProvider } from "sandpack-vue3";
-import { useData } from "vitepress";
-import { reactive } from "vue";
 import {
   toSandpackDeps,
   toSandpackFiles,
   toSandpackOptions,
-} from "./code/sandpack.js";
-import type { ExampleConfig } from "./code/tree.js";
-import DemoBody from "./DemoBody.vue";
+} from "@tutorial-lib/sandpack.js";
+import type { ExampleConfig } from "@tutorial-lib/tree.js";
+import { SandpackProvider } from "sandpack-vue3";
+import { useData } from "vitepress";
+import { reactive } from "vue";
+import DemoBody from "./CodeExample.vue";
 const { config } = defineProps<{
   config: ExampleConfig;
 }>();
@@ -16,8 +16,6 @@ const { config } = defineProps<{
 const data = reactive(useData());
 const versions = data.frontmatter["@starbeam:versions"];
 const filename = data.page.relativePath;
-
-console.log({ config });
 
 const files = toSandpackFiles(config.files);
 const options = toSandpackOptions(config);
@@ -29,7 +27,7 @@ const dependencies = toSandpackDeps({
 </script>
 
 <template>
-  <div class="demo">
+  <div class="code">
     <SandpackProvider
       :files="files"
       :options="options"
@@ -40,3 +38,10 @@ const dependencies = toSandpackDeps({
     </SandpackProvider>
   </div>
 </template>
+
+<style scoped lang="scss">
+.code,
+:deep(.sp-wrapper) {
+  display: contents;
+}
+</style>

@@ -1,6 +1,6 @@
-import type { ThemeConfig } from "./types.js";
+import type { NavItem, SocialLink } from "./types.js";
 
-export const NAV: ThemeConfig["nav"] = [
+export const NAV: NavItem[] = [
   {
     text: "Guides",
     link: "/guides/",
@@ -24,6 +24,6 @@ export const NAV: ThemeConfig["nav"] = [
   },
 ];
 
-export const SOCIAL: ThemeConfig["socialLinks"] = [
+export const SOCIAL: SocialLink[] = [
   { icon: "github", link: "https://github.com/starbeamjs/starbeam" },
 ];

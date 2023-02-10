@@ -1,7 +1,6 @@
 import type MarkdownIt from "markdown-it";
-
 import { resolve } from "node:path";
-import ts from "typescript";
+import type { MarkdownOptions } from "vitepress";
 import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 import { snippets } from "../packages/vitepress-snippets/build.js";
 import { codeTabs } from "../plugins/code-tabs/code-tabs.js";
@@ -12,31 +11,21 @@ import { flowchart } from "../plugins/mermaid/flowchart.js";
 import { mermaid } from "../plugins/mermaid/mermaid.js";
 import { highlight as createHighlight } from "./syntax-highlight/highlight.js";
 import { markdownItShikiTwoslashSetup } from "./syntax-highlight/setup.js";
-import type { Config } from "./types.js";
 import { root } from "./vite.js";
 
 const Shiki = await markdownItShikiTwoslashSetup({
   themes: ["github-dark", "github-light"],
-  wrapFragments: true,
-  includeJSDocInHover: true,
-  disableImplicitReactImport: true,
-  vfsRoot: resolve(root, "packages/twoslash"),
-  ignoreCodeblocksWithCodefenceMeta: ["no-shiki"],
 });
 
-const OPTIONS: ts.CompilerOptions = {
-  experimentalDecorators: true,
-  target: ts.ScriptTarget.ESNext,
-};
+console.log({ root: resolve(root, "packages/twoslash") });
 
-const shiki = (md: MarkdownIt) =>
-  Shiki(md, {
-    themes: ["github-dark", "github-light"],
+const shiki = (md: MarkdownIt) => {
+  return Shiki(md, {
+    includeJSDocInHover: true,
 
-    vfsRoot: resolve(root, "packages/twoslash"),
-    defaultCompilerOptions: OPTIONS,
     ignoreCodeblocksWithCodefenceMeta: ["no-shiki"],
   });
+};
 
 const THEME = {
   dark: "github-dark",
@@ -45,7 +34,7 @@ const THEME = {
 
 const highlight = await createHighlight(THEME, "typescript");
 
-export const MARKDOWN: Config["markdown"] = {
+export const MARKDOWN: MarkdownOptions = {
   lineNumbers: false,
   theme: THEME,
   highlight,

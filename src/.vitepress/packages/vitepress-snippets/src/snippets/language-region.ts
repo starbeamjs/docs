@@ -1,47 +1,74 @@
-import type {
-  Highlight,
-  LanguageRegion,
-  Region,
-  Snippets,
-  Source,
-} from "docs-snippet";
+import type { Highlight, LanguageRegion, Region, Snippets, Source } from "docs-snippet";
 import type MarkdownIt from "markdown-it";
+import type { StateEnv } from "../utils.ts";
 
 export class RenderLanguageRegion {
-  static create(region: Region, parsed: Snippets, kind: "ts" | "js") {
+  static create({
+    filename,
+    region,
+    parsed,
+    kind,
+    env,
+  }: {
+    region: Region;
+    parsed: Snippets;
+    kind: "ts" | "js";
+    filename: string;
+    env: StateEnv;
+  }) {
     const lang = region[kind];
     const source = parsed[kind];
 
-    return new RenderLanguageRegion(kind, lang, parsed, source);
+    return new RenderLanguageRegion({ kind, region: lang, parsed, source, filename, env });
   }
 
-  #kind: "ts" | "js";
-  #region: LanguageRegion;
-  #parsed: Snippets;
-  #source: Source;
+  readonly #kind: "ts" | "js";
+  readonly #region: LanguageRegion;
+  readonly #parsed: Snippets;
+  readonly #source: Source;
+  readonly #filename: string;
+  readonly #env: StateEnv;
 
-  private constructor(
-    kind: "ts" | "js",
-    region: LanguageRegion,
-    parsed: Snippets,
-    source: Source
-  ) {
+  private constructor({
+    kind,
+    region,
+    parsed,
+    source,
+    filename,
+    env,
+  }: {
+    kind: "ts" | "js";
+    region: LanguageRegion;
+    parsed: Snippets;
+    source: Source;
+    filename: string;
+    env: StateEnv;
+  }) {
     this.#kind = kind;
     this.#region = region;
     this.#parsed = parsed;
     this.#source = source;
+    this.#filename = filename;
+    this.#env = env;
+  }
+
+  get #attr() {
+    const attrs: string[] = [];
+
+    const highlights = this.#highlights;
+    if (highlights && highlights.length > 0) {
+      attrs.push(`{${highlights.map((h) => h.lines).join(",")}}`);
+    }
+
+    attrs.push(`filename=${JSON.stringify(this.#filename)}`);
+
+    return attrs.join(" ");
   }
 
   highlight(md: MarkdownIt) {
-    const highlights = this.#highlights;
     const code = this.#region.code;
     const prefix = this.#prefix();
     const postfix = this.#postfix();
-
-    const attr =
-      highlights && highlights.length > 0
-        ? `{${highlights.map((h) => h.lines).join(",")}}`
-        : "";
 
     const output = [];
 
@@ -74,7 +101,7 @@ export class RenderLanguageRegion {
     const source = output.join("\n").trimEnd();
 
     return (
-      md.options.highlight?.(source, "tsx twoslash", attr) ??
+      md.options.highlight?.(source, "tsx twoslash", this.#attr) ??
       `<pre><code class="language-ts">// @jsxImportSource: preact\n${code}</code></pre>`
     );
   }

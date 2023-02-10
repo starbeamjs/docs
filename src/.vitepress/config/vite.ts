@@ -24,8 +24,7 @@ export const CSS: CSSOptions = {
 export const VITE: UserConfig = {
   css: CSS,
   logLevel: "info",
-  plugins: [],
-  ssr: {},
+
   optimizeDeps: {
     exclude: ["vitepress-plugin-tabs"],
   },

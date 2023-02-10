@@ -1,8 +1,9 @@
 import { customAlphabet } from "nanoid";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { HtmlRendererOptions, IThemeRegistration } from "shiki";
+import type { Highlighter, HtmlRendererOptions, IThemeRegistration, Lang } from "shiki";
 import {
+  LineOptions,
   addClass,
   createDiffProcessor,
   createFocusProcessor,
@@ -17,11 +18,11 @@ import handlebarsLang from "./handlebars.tmLanguage.json" assert { type: "json" 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-type ThemeOptions =
-  | IThemeRegistration
-  | { light: IThemeRegistration; dark: IThemeRegistration };
+type ThemeOptions = IThemeRegistration | { light: IThemeRegistration; dark: IThemeRegistration };
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz", 10);
+
+type HtmlOptions = NonNullable<Parameters<Highlighter["codeToHtml"]>[1]>;
 
 /**
  * 2 steps:
@@ -33,26 +34,28 @@ const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz", 10);
  */
 const attrsToLines = (attrs: string): HtmlRendererOptions["lineOptions"] => {
   attrs = attrs.replace(/^(?:\[.*?\])?.*?([\d,-]+).*/, "$1").trim();
-  const result: number[] = [];
+
   if (!attrs) {
     return [];
   }
-  attrs
+
+  return attrs
     .split(",")
-    .map((v) => v.split("-").map((v) => parseInt(v, 10)))
-    .forEach(([start, end]) => {
+    .flatMap((v) => {
+      const [start, end] = v.split("-").map((v) => parseInt(v, 10));
+
       if (start && end) {
-        result.push(
-          ...Array.from({ length: end - start + 1 }, (_, i) => start + i)
-        );
+        return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+      } else if (start) {
+        return [start];
       } else {
-        result.push(start);
+        return [];
       }
-    });
-  return result.map((v) => ({
-    line: v,
-    classes: ["highlighted"],
-  }));
+    })
+    .map((v) => ({
+      line: v,
+      classes: ["highlighted"],
+    }));
 };
 
 const errorLevelProcessor = defineProcessor({
@@ -88,7 +91,7 @@ const customProcessor = defineProcessor({
 export async function highlight(
   theme: ThemeOptions = "material-palenight",
   defaultLang: string = ""
-): Promise<(str: string, lang: string, attrs: string) => string> {
+): Promise<(str: string, specifiedLanguage: string, attrs: string) => string> {
   const hasSingleTheme = typeof theme === "string" || "name" in theme;
   const getThemeName = (themeValue: IThemeRegistration) =>
     typeof themeValue === "string" ? themeValue : themeValue.name;
@@ -122,11 +125,11 @@ export async function highlight(
   const lineNoRE = /:(no-)?line-numbers$/;
   const mustacheRE = /\{\{.*?\}\}/g;
 
-  return (str: string, lang: string, attrs: string) => {
-    const vPre = vueRE.test(lang) ? "" : "v-pre";
-    lang =
-      lang.replace(lineNoRE, "").replace(vueRE, "").toLowerCase() ||
-      defaultLang;
+  return (str: string, specifiedLanguage: string, attrs: string) => {
+    const vPre = vueRE.test(specifiedLanguage) ? "" : "v-pre";
+    const lang =
+      (specifiedLanguage.replace(lineNoRE, "").replace(vueRE, "").toLowerCase() as Lang) ||
+      (defaultLang as Lang);
 
     const lineOptions = attrsToLines(attrs);
     const cleanup = (str: string) =>
@@ -156,36 +159,35 @@ export async function highlight(
     };
 
     if (hasSingleTheme) {
-      return cleanup(
-        restoreMustache(
-          highlighter.codeToHtml(removeMustache(str), {
-            lang,
-            lineOptions,
-            theme: getThemeName(theme),
-          })
-        )
-      );
+      const options: HtmlOptions = {
+        lang,
+        theme: getThemeName(theme),
+      };
+
+      if (lineOptions) {
+        options.lineOptions = lineOptions;
+      }
+
+      // const options: HtmlOptions = { lang, lineOptions, theme: getThemeName(theme) };
+      return cleanup(restoreMustache(highlighter.codeToHtml(removeMustache(str), options)));
     }
 
     const dark = addClass(
-      cleanup(
-        highlighter.codeToHtml(str, {
-          lang,
-          lineOptions,
-          theme: getThemeName(theme.dark),
-        })
-      ),
+      cleanup(highlighter.codeToHtml(str, renderOptions({ lang, lineOptions, theme: theme.dark }))),
       "vp-code-dark",
       "pre"
     );
 
     const light = addClass(
       cleanup(
-        highlighter.codeToHtml(str, {
-          lang,
-          lineOptions,
-          theme: getThemeName(theme.light),
-        })
+        highlighter.codeToHtml(
+          str,
+          renderOptions({
+            lang,
+            lineOptions,
+            theme: theme.dark,
+          })
+        )
       ),
       "vp-code-light",
       "pre"
@@ -193,4 +195,29 @@ export async function highlight(
 
     return dark + light;
   };
+}
+
+function renderOptions({
+  lang,
+  lineOptions,
+  theme,
+}: {
+  lang: Lang;
+  lineOptions?: LineOptions | undefined;
+  theme: IThemeRegistration;
+}) {
+  const options: HtmlOptions = {
+    lang,
+    theme: getThemeName(theme),
+  };
+
+  if (lineOptions) {
+    options.lineOptions = lineOptions;
+  }
+
+  return options;
+}
+
+function getThemeName(themeValue: IThemeRegistration) {
+  return typeof themeValue === "string" ? themeValue : themeValue.name;
 }

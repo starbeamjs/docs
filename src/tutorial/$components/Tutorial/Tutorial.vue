@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import Content from "./Content.vue";
 import Header from "./Header.vue";
+
+const SMALL = "384px";
+const MEDIUM = "768px";
+const LARGE = "1024px";
 </script>
 
 <template>
@@ -10,9 +14,7 @@ import Header from "./Header.vue";
         <Header />
       </header>
       <main>
-        <Content>
-          <slot></slot>
-        </Content>
+        <Content><slot /></Content>
       </main>
     </section>
   </Suspense>
@@ -20,16 +22,28 @@ import Header from "./Header.vue";
 
 <style lang="scss" scoped>
 section.tutorial {
-  width: 100vw;
-  height: 100vh;
-
   display: grid;
 
   grid-template:
     "header" max-content
-    "." 1.5rem
+    "." var(--t-ui-gap-lg)
     "content" 1fr /
     1fr;
+}
+
+:deep(h2, h3, h4, h5, h6) {
+  > .header-anchor {
+    float: left;
+    opacity: 0;
+    margin-inline-start: -0.87em;
+    user-select: none;
+    transition: color 0.25s, opacity 0.25s;
+    font-weight: 500;
+  }
+
+  &:hover > .header-anchor {
+    opacity: 1;
+  }
 }
 
 header {
@@ -39,7 +53,7 @@ header {
   grid-area: header;
 
   text-transform: uppercase;
-  padding-block: 1rem;
+  padding-block: var(--t-ui-gap);
   justify-content: center;
   background-color: white;
   color: var(--vp-c-text);
@@ -50,13 +64,11 @@ header {
 }
 
 main {
-  display: grid;
   grid-area: content;
-
-  background-color: var(--vp-c-bg);
+  container-type: size;
 }
 </style>
 
-<style>
+<style lang="scss">
 @import "./styles.scss";
 </style>

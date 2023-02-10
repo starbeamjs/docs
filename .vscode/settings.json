@@ -9,6 +9,10 @@
     "node_modules": true,
     "docs": true
   },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "editor.wordWrap": "bounded",
   "files.associations": {
     "tsconfig.*.json": "jsonc"
   },
@@ -42,10 +46,29 @@
     "**/*.code-search": true,
     "docs": true
   },
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
+
   "stylelint.enable": true,
+
+  "[typescript]": {
+    "editor.rulers": [
+      {
+        "column": 80,
+        "color": "#e5e5e5"
+      },
+      {
+        "column": 100,
+        "color": "#e5b5b5"
+      }
+    ]
+  },
+  "[typescriptreact][markdown]": {
+    "editor.rulers": [
+      {
+        "column": 65,
+        "color": "#e5b5b5"
+      }
+    ]
+  },
 
   "[vue][scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -64,14 +87,16 @@
     }
   },
 
-  "volar.takeOverMode.enabled": "auto",
+  "volar.codeLens.scriptSetupTools": true,
+  "volar.doctor.checkVueTsc": true,
+  "volar.vueserver.noProjectReferences": false,
   "volar.autoWrapParentheses": true,
   "volar.updateImportsOnFileMove.enabled": true,
   "volar.doctor.statusBarItem": true,
   "volar.vueserver.vitePress.processMdFile": true,
   "volar.autoCompleteRefs": true,
-  "volar.completion.normalizeComponentAutoImportName": true,
   "volar.vueserver.textDocumentSync": "incremental",
+  "volar.vueserver.diagnosticModel": "pull",
 
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {

@@ -5,6 +5,7 @@ root = true
 
 [*]
 indent_style = space
+max_line_length = 100
 indent_size = 2
 end_of_line = lf
 charset = utf-8
@@ -15,4 +16,7 @@ insert_final_newline = false
 max_line_length = 65
 
 [*.tsx]
+max_line_length = 65
+
+[*.ts]
 max_line_length = 65

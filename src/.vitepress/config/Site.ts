@@ -31,15 +31,4 @@ export const BUILD_HOOKS: Partial<UserConfig<DefaultTheme.Config>> = {
       page.frontmatter["@starbeam:registry"] = process.env.STARBEAM_REGISTRY;
     }
   },
-
-  buildEnd: async ({ outDir }) => {
-    const sitemap = new SitemapStream({
-      hostname: "https://vitepress.vuejs.org/",
-    });
-    const writeStream = createWriteStream(resolve(outDir, "sitemap.xml"));
-    sitemap.pipe(writeStream);
-    links.forEach((link) => sitemap.write(link));
-    sitemap.end();
-    await new Promise((r) => writeStream.on("finish", r));
-  },
 };

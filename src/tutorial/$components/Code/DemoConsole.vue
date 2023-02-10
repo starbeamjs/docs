@@ -1,9 +1,10 @@
-<script lang="ts"></script>
-
 <script setup lang="ts">
+import {
+  ConsoleData,
+  isArrayLogMethod,
+} from "@/tutorial/$components/code/console.js";
 import { ref, watch } from "vue";
 import { Console, ConsoleItem, DataAPI, Encode } from "vue-console-feed";
-import { ConsoleData, isArrayLogMethod } from "./code/console.js";
 
 const { consoleData, isVisible } = defineProps<{
   consoleData: ConsoleData;
@@ -70,6 +71,11 @@ function reset() {
 div.demo-console {
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: max-content 1fr;
+
+  span.icon {
+    font-family: var(--icons);
+  }
 
   button.clear {
     display: grid;
@@ -87,6 +93,10 @@ div.demo-console {
     &:active {
       color: var(--sp-colors-base);
     }
+  }
+
+  > div {
+    overflow-y: auto;
   }
 
   div.console-item.empty {

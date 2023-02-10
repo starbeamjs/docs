@@ -159,34 +159,7 @@ const customSetup = computed((): SandpackSetup => {
   </div>
 </template>
 
-<style lang="scss">
-button.clear span.icon {
-  font-family: var(--icons);
-}
-
-div.sp-layout {
-  border: none;
-  background: none;
-}
-
-div.sp-stack {
-  /* height: max-content; */
-
-  div.sp-tabs {
-    border: none;
-  }
-
-  div.sp-preview-container {
-    border-radius: var(--sp-border-radius);
-    border-color: var(--vp-badge-info-border);
-    border-width: 1px;
-    border-style: solid;
-    background: var(--vp-badge-info-bg);
-
-    color: var(--theme-color);
-  }
-}
-
+<style scoped lang="scss">
 div.demo {
   display: grid;
   // contain: layout;
@@ -199,49 +172,82 @@ div.demo {
     border-block-start: 1rem;
     margin-block-start: 0;
   }
-}
 
-button.toggle-button {
-  display: grid;
-  contain: layout;
-  align-content: center;
-  background-color: var(--sp-colors-surface2);
-  color: var(--sp-colors-clickable);
-  padding-inline: 0.5rem;
-  padding-block-end: 0.15rem;
-  border-radius: 1rem;
-
-  &:hover {
-    background-color: var(--sp-colors-surface3);
-    color: var(--sp-colors-hover);
+  :deep(div.sp-wrapper) {
+    margin-block-start: 0.5rem;
   }
 
-  &:active {
+  :deep(button.clear span.icon) {
+    font-family: var(--icons);
+  }
+
+  :deep(div.sp-layout) {
+    border: none;
+    background: none;
+  }
+
+  :deep(div.sp-stack) {
+    /* height: max-content; */
+
+    div.sp-tabs {
+      border: none;
+    }
+
+    div.sp-preview-container {
+      border-radius: var(--sp-border-radius);
+      border-color: var(--vp-badge-info-border);
+      border-width: 1px;
+      border-style: solid;
+      background: var(--vp-badge-info-bg);
+
+      color: var(--theme-color);
+    }
+  }
+
+  :deep(button.toggle-button) {
+    display: grid;
+    contain: layout;
+    align-content: center;
+    background-color: var(--sp-colors-surface2);
     color: var(--sp-colors-clickable);
-  }
+    padding-inline: 0.5rem;
+    padding-block-end: 0.15rem;
+    border-radius: 1rem;
 
-  > span.count {
-    display: none;
-  }
+    &:hover {
+      background-color: var(--sp-colors-surface3);
+      color: var(--sp-colors-hover);
+    }
 
-  &:not([data-count="0"]) {
-    padding-inline-end: 0.75rem;
+    &:active {
+      color: var(--sp-colors-clickable);
+    }
 
     > span.count {
-      display: grid;
-      font-size: 0.75em;
-      width: 2em;
-      height: 2em;
-      place-content: center;
-      color: red;
-      position: absolute;
-      right: 0;
-      top: -0.5em;
-      background-color: var(--sp-colors-clickable);
-      color: var(--sp-colors-surface3);
+      display: none;
+    }
 
-      border-radius: 1000px;
+    &:not([data-count="0"]) {
+      padding-inline-end: 0.75rem;
+
+      > span.count {
+        display: grid;
+        font-size: 0.75em;
+        width: 2em;
+        height: 2em;
+        place-content: center;
+        color: red;
+        position: absolute;
+        right: 0;
+        top: -0.5em;
+        background-color: var(--sp-colors-clickable);
+        color: var(--sp-colors-surface3);
+
+        border-radius: 1000px;
+      }
     }
   }
 }
 </style>
+
+<style lang="scss"></style>

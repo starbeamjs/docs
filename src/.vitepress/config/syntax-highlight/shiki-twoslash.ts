@@ -6,18 +6,18 @@ import { renderCodeToHTML } from "shiki-twoslash";
 import { addIncludes } from "./includes.js";
 import { cachedTwoslashCall } from "./run-twoslash.js";
 
-export const transformAttributesToHTML = (
+export function transformAttributesToHTML(
   code: string,
   fenceString: string,
   highlighters: Highlighter[],
   settings: UserConfigSettings
-) => {
+) {
   const fence = parseFence(fenceString);
 
   const twoslash = runTwoSlashOnNode(code, fence, settings);
   const newCode = (twoslash && twoslash.code) || code;
   return getHTML(newCode, fence, highlighters, twoslash, settings);
-};
+}
 
 const parseFence = (fence: string): Fence => {
   const [lang, ...tokens] = lex(fence);
@@ -45,26 +45,24 @@ const parseFence = (fence: string): Fence => {
  * Runs twoslash across an AST node, switching out the text content, and lang
  * and adding a `twoslash` property to the node.
  */
-export const runTwoSlashOnNode = (
+export function runTwoSlashOnNode(
   code: string,
   { lang, meta }: Fence,
   settings: UserConfigSettings = {}
-) => {
+): TwoSlashReturn | undefined {
   // Offer a way to do high-perf iterations, this is less useful
   // given that we cache the results of twoslash in the file-system
   const shouldDisableTwoslash =
-    typeof process !== "undefined" &&
-    process.env &&
-    !!process.env.TWOSLASH_DISABLE;
+    typeof process !== "undefined" && process.env && !!process.env["TWOSLASH_DISABLE"];
   if (shouldDisableTwoslash) return undefined;
 
   // Only run twoslash when the meta has the attribute twoslash
-  if (meta.twoslash) {
+  if (meta["twoslash"]) {
     return cachedTwoslashCall(code, lang, settings);
   }
 
   return undefined;
-};
+}
 
 const includes = new Map<string, string>();
 
@@ -74,36 +72,30 @@ function getHTML(
   highlighters: Highlighter[],
   twoslash: TwoSlashReturn | undefined,
   twoslashSettings: UserConfigSettings
-) {
+): string {
   // Shiki doesn't respect json5 as an input, so switch it
   // to json, which can handle comments in the syntax highlight
   const replacer: Record<string, string> = {
     json5: "json",
   };
 
-  if (replacer[fence.lang]) fence.lang = replacer[fence.lang];
+  const replacement = replacer[fence.lang];
+  if (replacement) fence.lang = replacement;
 
-  let results;
+  let results: string;
   // Support 'twoslash' includes
   if (fence.lang === "twoslash") {
-    if (!fence.meta.include || typeof fence.meta.include !== "string") {
-      throw new Error(
-        "A twoslash code block needs a pragma like 'twoslash include [name]'"
-      );
+    if (!fence.meta["include"] || typeof fence.meta["include"] !== "string") {
+      throw new Error("A twoslash code block needs a pragma like 'twoslash include [name]'");
     }
 
-    addIncludes(includes, fence.meta.include as string, code);
-    results = twoslashSettings.wrapFragments
-      ? `<div class="shiki-twoslash-fragment"></div>`
-      : "";
+    addIncludes(includes, fence.meta["include"] as string, code);
+    results = twoslashSettings.wrapFragments ? `<div class="shiki-twoslash-fragment"></div>` : "";
   } else {
     // All good, get each highlighter and render the shiki output for it
     const output = highlighters.map((highlighter) => {
       // @ts-ignore
-      const themeName: string = highlighter.customName
-        .split("/")
-        .pop()
-        .replace(".json", "");
+      const themeName: string = highlighter.customName.split("/").pop().replace(".json", "");
       return renderCodeToHTML(
         code,
         fence.lang,
