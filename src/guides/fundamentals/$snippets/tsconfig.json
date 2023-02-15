@@ -16,5 +16,12 @@
     "experimentalDecorators": true,
     "strict": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["**/*"],
+  "exclude": ["**/*.tsx"],
+  "references": [
+    {
+      "path": "./tsconfig.jsx.json"
+    }
+  ]
 }

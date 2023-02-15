@@ -1,5 +1,4 @@
 import type MarkdownIt from "markdown-it";
-import { resolve } from "node:path";
 import type { MarkdownOptions } from "vitepress";
 import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 import { snippets } from "../packages/vitepress-snippets/build.js";
@@ -11,18 +10,13 @@ import { flowchart } from "../plugins/mermaid/flowchart.js";
 import { mermaid } from "../plugins/mermaid/mermaid.js";
 import { highlight as createHighlight } from "./syntax-highlight/highlight.js";
 import { markdownItShikiTwoslashSetup } from "./syntax-highlight/setup.js";
-import { root } from "./vite.js";
 
 const Shiki = await markdownItShikiTwoslashSetup({
   themes: ["github-dark", "github-light"],
 });
 
-console.log({ root: resolve(root, "packages/twoslash") });
-
 const shiki = (md: MarkdownIt) => {
   return Shiki(md, {
-    includeJSDocInHover: true,
-
     ignoreCodeblocksWithCodefenceMeta: ["no-shiki"],
   });
 };

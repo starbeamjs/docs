@@ -1,5 +1,8 @@
 import "@mdit-vue/plugin-sfc";
-import Snippet, { type Highlight, type Region } from "docs-snippet";
+import Snippet, {
+  type Highlight,
+  type Region,
+} from "docs-snippet";
 import { existsSync, readFileSync } from "fs";
 import type MarkdownIt from "markdown-it";
 import stripAnsi from "strip-ansi";
@@ -7,27 +10,63 @@ import type { RuleBlock } from "../../../../../node_modules/@types/markdown-it/l
 import type { Snippets } from "../../../../../node_modules/docs-snippet/dist/types/src/snippets.js";
 import type { VitepressStateBlock } from "../../../plugins/markdown/env.js";
 import { RenderLanguageRegion } from "./snippets/language-region.js";
-import { MDState, StateEnv } from "./utils.js";
+import { MDState } from "./utils.js";
 
 export function snippetPlugin(md: MarkdownIt, srcDir: string) {
-  const parser: RuleBlock = (state: VitepressStateBlock, startLine, _endLine, silent): boolean => {
-    const mdState = new MDState(state);
+  const parser: RuleBlock = (
+    state: VitepressStateBlock,
+    startLine,
+    _endLine,
+    silent
+  ): boolean => {
+    const mdState = new MDState(md, state);
     const line = mdState.line(startLine);
 
     if (line.isCodeBlock) {
       return false;
     }
 
+    // The syntax is `![#cell](./-snippets/cell.ts)
+    if (line.startsWith("![#")) {
+      const snippet = line.string();
+
+      // use named captures
+      const match = snippet.match(
+        /^!\[#(?<region>(.*))\]\((?<file>(.*))\)$/
+      );
+
+      console.log({ match });
+
+      if (match) {
+        const { region, file } = match.groups as {
+          region: string;
+          file: string;
+        };
+
+        mdState.consumeLine();
+        pushSnippetToken(
+          mdState,
+          mdState.env.resolve(file),
+          region
+        );
+        return true;
+      }
+    }
+
     if (line.startsWith("```snippet")) {
       const fenceline = line.string();
 
-      let rawPath = fenceline.match(/```snippet\s+\{(.*)\}/)?.[1] as string | undefined;
+      let rawPath = fenceline.match(
+        /```snippet\s+\{(.*)\}/
+      )?.[1] as string | undefined;
 
       if (silent) {
         return true;
       }
 
-      const fenceContent = line.next?.until((line) => line.slice()?.trim() === "```");
+      const fenceContent = line.next?.until(
+        (line) => line.slice()?.trim() === "```"
+      );
 
       if (!fenceContent) {
         return false;
@@ -36,7 +75,9 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
       const token = state.push("html_block", "", 0);
 
       if (!rawPath?.startsWith("#")) {
-        token.content = error(`Invalid region attribute "${rawPath}"`);
+        token.content = error(
+          `Invalid region attribute "${rawPath}"`
+        );
         return true;
       }
 
@@ -45,7 +86,9 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
       const filename = mdState.env.resolve(fenceContent.trim());
 
       if (!existsSync(filename)) {
-        token.content = mdState.error(`File "${filename}" does not exist`);
+        token.content = mdState.error(
+          `File "${filename}" does not exist`
+        );
         return true;
       }
 
@@ -69,20 +112,21 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 
         if (region === undefined) {
           token.content = error(
-            `Invalid region name: ${regionName}\n\n${codeForError(fenceContent)}`
+            `Invalid region name: ${regionName}\n\n${codeForError(
+              fenceContent
+            )}`
           );
           return true;
         }
 
         token.content = highlightRegion({
-          md,
-          env: mdState.env,
+          state: mdState,
           filename,
           region,
           complete: snippet,
         });
       } else {
-        token.content = highlight(md, filename, snippet);
+        token.content = highlight(mdState, filename, snippet);
       }
 
       return true;
@@ -94,15 +138,67 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
   md.block.ruler.before("fence", "snippet", parser);
 }
 
+function pushSnippetToken(
+  state: MDState,
+  filename: string,
+  regionName: string
+) {
+  const token = state.open();
+
+  if (!existsSync(filename)) {
+    token.content = state.error(
+      `File "${filename}" does not exist`
+    );
+    return true;
+  }
+
+  const content = readFileSync(filename, "utf8");
+
+  let snippet: Snippets;
+
+  try {
+    snippet = Snippet(content);
+  } catch (e) {
+    token.content = error(
+      `Invalid source file: ${codeForError(
+        (e as Error).stack ?? "missing stack trace"
+      )}\n\nCode:\n\n${codeForError(content)}`
+    );
+    return true;
+  }
+
+  if (regionName) {
+    const region = snippet.regions?.get(regionName);
+
+    if (region === undefined) {
+      token.content = error(
+        `Invalid region name: ${regionName}\n\n${codeForError(
+          filename
+        )}`
+      );
+      return true;
+    }
+
+    token.content = highlightRegion({
+      state,
+      filename,
+      region,
+      complete: snippet,
+    });
+  } else {
+    token.content = highlight(state, filename, snippet);
+  }
+
+  return token;
+}
+
 function highlightRegion({
-  md,
-  env,
+  state,
   filename,
   region,
   complete,
 }: {
-  md: MarkdownIt;
-  env: StateEnv;
+  state: MDState;
   filename: string;
   region: Region;
   complete: Snippets;
@@ -112,8 +208,8 @@ function highlightRegion({
     region,
     parsed: complete,
     kind: "ts",
-    env,
-  }).highlight(md);
+    env: state.env,
+  }).highlight(state.highlight);
 
   if (region.ts.code === region.js.code) {
     return `<section class="both-lang">${tsFenced}</section>`;
@@ -124,14 +220,18 @@ function highlightRegion({
     region,
     parsed: complete,
     kind: "js",
-    env,
-  }).highlight(md);
+    env: state.env,
+  }).highlight(state.highlight);
 
   return `<Code><template #ts>${tsFenced}</template><template #js>${jsFenced}</template></Code>`;
 }
 
-function highlight(md: MarkdownIt, filename: string, region: Snippets) {
-  const tsFenced = highlightLang(md, {
+function highlight(
+  state: MDState,
+  filename: string,
+  region: Snippets
+) {
+  const tsFenced = highlightLang(state, {
     filename,
     code: region.ts.code,
     highlights: [],
@@ -142,7 +242,7 @@ function highlight(md: MarkdownIt, filename: string, region: Snippets) {
     return `<section class="both-lang">${tsFenced}</section>`;
   }
 
-  const jsFenced = highlightLang(md, {
+  const jsFenced = highlightLang(state, {
     filename,
     code: region.js.code,
     highlights: [],
@@ -153,7 +253,7 @@ function highlight(md: MarkdownIt, filename: string, region: Snippets) {
 }
 
 function highlightLang(
-  md: MarkdownIt,
+  state: MDState,
   {
     code,
     filename,
@@ -170,7 +270,9 @@ function highlightLang(
 ): string {
   const attr =
     highlights && highlights.length > 0
-      ? `{${highlights.map((h) => h.lines).join(",")}} {filename=${JSON.stringify(filename)}}`
+      ? `{${highlights
+          .map((h) => h.lines)
+          .join(",")}} {filename=${JSON.stringify(filename)}}`
       : "";
 
   const output = [];
@@ -188,7 +290,7 @@ function highlightLang(
   const source = output.join("\n").trimEnd();
 
   return (
-    md.options.highlight?.(source, "tsx twoslash", attr) ??
+    state.highlight?.(source, "tsx twoslash", attr) ??
     `<pre><code class="language-ts">${code}</code></pre>`
   );
 }
@@ -199,7 +301,9 @@ function error(message: string) {
 
 function normalize(data: string) {
   // escape < and >
-  return breakable(data).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return breakable(data)
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
 
 function breakable(data: string) {
@@ -209,5 +313,7 @@ function breakable(data: string) {
 
 function codeForError(code: string) {
   // escape the code
-  return stripAnsi(code).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return stripAnsi(code)
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }

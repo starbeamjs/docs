@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["vite/client"]
+  },
+  "include": ["./*/index.ts", "./*/src/**/*"],
+  "vueCompilerOptions": {}
+}

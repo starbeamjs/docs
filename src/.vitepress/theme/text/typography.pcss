@@ -1,10 +1,13 @@
 :root,
 :before,
 :after {
-  --vp-font-family-base: "Readex Pro", sans-serif;
-  --vp-font-family-mono: "Azeret Mono", monospace;
-  --starbeam-font-family-fancy: "Comfortaa", sans-serif;
-  --starbeam-font-family-em: "Sofia Sans", sans-serif;
+  --starbeam-font-base: "Readex Pro", sans-serif;
+  --starbeam-font-mono: "Martian Mono", monospace;
+  --starbeam-font-fancy: "Comfortaa", sans-serif;
+  --starbeam-font-em: "Sofia Sans", sans-serif;
+
+  --vp-font-family-base: var(--starbeam-font-base);
+  --vp-font-family-mono: var(--starbeam-font-mono);
 
   --starbeam-font-weight-thin: 100;
   --starbeam-font-weight-light: 300;

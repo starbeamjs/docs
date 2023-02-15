@@ -1,6 +1,11 @@
-import type { Highlight, LanguageRegion, Region, Snippets, Source } from "docs-snippet";
-import type MarkdownIt from "markdown-it";
-import type { StateEnv } from "../utils.ts";
+import type {
+  Highlight,
+  LanguageRegion,
+  Region,
+  Snippets,
+  Source,
+} from "docs-snippet";
+import type { HighlightFn, StateEnv } from "../utils.ts";
 
 export class RenderLanguageRegion {
   static create({
@@ -19,7 +24,14 @@ export class RenderLanguageRegion {
     const lang = region[kind];
     const source = parsed[kind];
 
-    return new RenderLanguageRegion({ kind, region: lang, parsed, source, filename, env });
+    return new RenderLanguageRegion({
+      kind,
+      region: lang,
+      parsed,
+      source,
+      filename,
+      env,
+    });
   }
 
   readonly #kind: "ts" | "js";
@@ -57,7 +69,9 @@ export class RenderLanguageRegion {
 
     const highlights = this.#highlights;
     if (highlights && highlights.length > 0) {
-      attrs.push(`{${highlights.map((h) => h.lines).join(",")}}`);
+      attrs.push(
+        `{${highlights.map((h) => h.lines).join(",")}}`
+      );
     }
 
     attrs.push(`filename=${JSON.stringify(this.#filename)}`);
@@ -65,7 +79,7 @@ export class RenderLanguageRegion {
     return attrs.join(" ");
   }
 
-  highlight(md: MarkdownIt) {
+  highlight(highlight: HighlightFn | null | undefined) {
     const code = this.#region.code;
     const prefix = this.#prefix();
     const postfix = this.#postfix();
@@ -101,7 +115,7 @@ export class RenderLanguageRegion {
     const source = output.join("\n").trimEnd();
 
     return (
-      md.options.highlight?.(source, "tsx twoslash", this.#attr) ??
+      highlight?.(source, "tsx twoslash", this.#attr) ??
       `<pre><code class="language-ts">// @jsxImportSource: preact\n${code}</code></pre>`
     );
   }

@@ -12,7 +12,7 @@ constructor function is `Cell` and the compute function is
 `read()` (`.current` is an alias of `.read()`).
 
 ```snippet {#cells}
-./$snippets/setup-and-compute.ts
+./-snippets/setup-and-compute.ts
 ```
 
 :::tip Classes or Functions? Your Choice
@@ -73,7 +73,7 @@ You can easily create your own universal reactive objects in
 Starbeam.
 
 ```snippet {#custom}
-./$snippets/custom.tsx
+./-snippets/custom.tsx
 ```
 
 ::: details In React
@@ -82,21 +82,21 @@ You can pass a reactive constructor to the `useSetup` hook, and
 it will return the same reactive object on every render.
 
 ```snippet {#format-component}
-./$snippets/custom.tsx
+./-snippets/custom.tsx
 ```
 
 The `useReactive` hook combines the `useSetup` hook with a
 reactive
 
 ```snippet {#use-reactive}
-./$snippets/custom.tsx
+./-snippets/custom.tsx
 ```
 
 You can convert a class into a reactive object by using the
 `Reactive.class` function.
 
 ```snippet {#class-based}
-./$snippets/custom.tsx
+./-snippets/custom.tsx
 ```
 
 :::

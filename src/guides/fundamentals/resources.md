@@ -41,7 +41,7 @@ whenever the channel name changes, but _not_ when we get a new
 message. :::
 
 ```snippet {#define-resource}
-<!--@include: ./$snippets/resource-lifecycle.ts-->
+<!--@include: ./-snippets/resource-lifecycle.ts-->
 ```
 
 `ChannelResource` is a JavaScript function that takes the channel

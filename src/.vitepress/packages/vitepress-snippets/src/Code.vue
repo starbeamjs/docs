@@ -66,7 +66,7 @@ onMounted(() => {
 function button(text: string, callback: () => void) {
   const button = document.createElement("button");
   button.setAttribute("type", "button");
-  button.className = "toggler-button";
+  button.className = "toggler-button3";
   button.innerText = text;
   button.addEventListener("click", callback);
 
@@ -93,22 +93,10 @@ function current() {
 </script>
 
 <template>
-  <section :class="current()">
+  <section :class="`${currentLang} section`">
     <p class="toggler">
-      <button
-        type="button"
-        class="toggler-button js"
-        @click="STORAGE.lang = 'js'"
-      >
-        js
-      </button>
-      <button
-        type="button"
-        class="toggler-button ts"
-        @click="STORAGE.lang = 'ts'"
-      >
-        ts
-      </button>
+      <button type="button" class="toggler-button3 js" @click="STORAGE.lang = 'js'">js</button>
+      <button type="button" class="toggler-button3 ts" @click="STORAGE.lang = 'ts'">ts</button>
     </p>
 
     <div class="js" ref="js"><slot name="js"></slot></div>
@@ -118,31 +106,39 @@ function current() {
   </section>
 </template>
 
-<style lang="scss">
-.lang-switcher {
+<style scoped lang="postcss">
+.section {
   position: relative;
 }
 
-.lang-switcher > div:is(.ts, .js) {
+.section .toggler {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.section:hover .toggler {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+div.ts,
+div.js {
   display: none;
 }
 
-.lang-switcher.ts > div.ts,
-.lang-switcher.js > div.js {
+.section.ts div.ts,
+.section.js div.js {
   display: block;
 }
 
-.lang-switcher p.toggler button {
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-.lang-switcher.ts p.toggler button.ts,
-.lang-switcher.js p.toggler button.js {
+.section.ts button.ts,
+.section.js button.js {
   background-color: var(--vp-button-brand-bg);
   color: var(--vp-button-brand-text);
 }
 
-.lang-switcher p.toggler {
+.toggler {
   display: grid;
   grid-template-columns: max-content 1fr;
   position: absolute;
@@ -153,65 +149,33 @@ function current() {
   user-select: none;
   z-index: 3;
   font-size: 0.75rem;
-}
 
-.vp-doc [class*="language-"] > p.toggler + button.copy {
-  top: 3rem;
-}
-
-.vp-doc [class*="language-"]:not(:hover) button.copy.copied {
-  opacity: 0;
-}
-
-.vp-doc [class*="language-"] > p.toggler ~ span.lang {
-  display: none;
-}
-
-.lang-switcher p.toggler {
   border: var(--sb-border-thin-width) solid var(--vp-button-brand-border);
   background-color: var(--vp-button-alt-bg);
   border-end-start-radius: var(--starbeam-radius-sm);
-
-  > button {
-    font-family: var(--vp-font-family-base), sans-serif;
-    font-size: 0.75rem;
-    padding-block: 0;
-    padding-inline: calc(var(--starbeam-ui-padding-inline) * 0.75);
-  }
-
-  button {
-    background-color: var(--vp-button-alt-bg);
-    color: var(--vp-button-alt-text);
-  }
-
-  button:hover {
-    background-color: var(--vp-button-brand-hover-bg);
-    color: var(--vp-button-brand-hover-text);
-  }
 }
 
-.lang-switcher p.toggler button {
+button {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+button {
   font-family: var(--vp-font-family-base), sans-serif;
-  color: var(--vp-button-alt-text);
-  background-color: var(--vp-button-alt-bg);
+  font-size: 0.75rem;
+  padding-block: 0;
+  padding-inline: calc(var(--starbeam-ui-padding-inline) * 0.75);
   border: 0;
+
+  background-color: var(--vp-button-alt-bg);
+  color: var(--vp-button-alt-text);
 }
 
-.lang-switcher p.toggler button:first-child {
+button:hover {
+  background-color: var(--vp-button-brand-hover-bg);
+  color: var(--vp-button-brand-hover-text);
+}
+
+button:first-child {
   border-end-start-radius: var(--starbeam-radius-xsm);
-}
-
-.lang-switcher div[class*="language-"]::before {
-  display: none;
-}
-</style>
-
-<style scoped>
-section.js div.types {
-  display: none;
-}
-
-section.ts div.js {
-  display: none;
 }
 </style>

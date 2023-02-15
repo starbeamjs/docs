@@ -1,0 +1,35 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "composite": true,
+    "noEmit": true,
+
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+
+    "esModuleInterop": true,
+
+    "verbatimModuleSyntax": true,
+    "importsNotUsedAsValues": "remove",
+    "forceConsistentCasingInFileNames": true,
+    "allowArbitraryExtensions": true,
+
+    "skipLibCheck": true,
+
+    "baseUrl": ".",
+    "lib": ["DOM", "ESNext"],
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "types": ["vite/client", "vitepress"],
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "customConditions": ["dev"]
+  },
+  "files": ["./src/vite.config.ts", "./src/postcss.config.ts"]
+}

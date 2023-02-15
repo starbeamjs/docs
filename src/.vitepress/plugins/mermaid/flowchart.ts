@@ -6,12 +6,15 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const styles = readFileSync(path.resolve(dirname, "../mermaid.css"), "utf-8");
+const styles = readFileSync(
+  path.resolve(dirname, "../mermaid.css"),
+  "utf-8"
+);
 
 const theme: MermaidConfig = {
   theme: "neutral",
   themeVariables: {
-    fontFamily: "Azeret Mono",
+    fontFamily: "var(--starbeam-font-mono)",
     fontSize: "12px",
   },
   flowchart: {

@@ -6,7 +6,8 @@ export const HEAD: Head = [
   font("Baloo 2", { weight: "400..800" }),
   font("Sofia Sans", { weight: "100..900", italic: true }),
   font("Expletus Sans", { weight: "400..700" }),
-  font("Azeret Mono", { weight: "100..900" }),
+  font("Martian Mono", { weight: "100..800" }),
+  font("Overpass", { weight: "100..900" }),
   font("Comfortaa", { weight: "400..700" }),
   // https://microsoft.github.io/vscode-codicons/dist/codicon.ttf
   [
@@ -27,12 +28,19 @@ export const HEAD: Head = [
 
 function font(
   family: string,
-  { weight, italic = false }: { italic?: boolean; weight: string }
+  {
+    weight,
+    width,
+    italic = false,
+  }: { italic?: boolean; width?: string; weight: string }
 ): HeadConfig {
   const axes = [];
   const values = [];
 
-  if (italic) {
+  if (italic && width) {
+    axes.push("ital", "wght", "width");
+    values.push(`0,${weight},${width}`, `1,${weight},${width}`);
+  } else if (italic) {
     axes.push("ital", "wght");
     values.push(`0,${weight}`, `1,${weight}`);
   } else {
@@ -41,7 +49,9 @@ function font(
   }
 
   const safeFamily = family.replaceAll(" ", "+");
-  const font = `family=${safeFamily}:${axes.join(",")}@${values.join(";")}`;
+  const font = `family=${safeFamily}:${axes.join(
+    ","
+  )}@${values.join(";")}`;
 
   return [
     "link",

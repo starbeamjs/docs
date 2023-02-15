@@ -18,5 +18,5 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "types": ["vite/client"]
   },
-  "include": ["./$snippets/**/*", "./demos/**/*"]
+  "include": ["./-snippets/**/*", "./demos/**/*"]
 }

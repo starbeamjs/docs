@@ -21,7 +21,9 @@ export async function markdownItShikiTwoslashSetup(
     const prev = markdownit.options.highlight;
 
     if (prev === undefined || prev === null) {
-      throw Error("markdown-it-shiki-twoslash requires markdown-it to have a highlighter set");
+      throw Error(
+        "markdown-it-shiki-twoslash requires markdown-it to have a highlighter set"
+      );
     }
 
     markdownit.options.highlight = (snippet, lang, rawAttrs) => {
@@ -55,33 +57,28 @@ export async function markdownItShikiTwoslashSetup(
 
       const vfsRoot = { vfsRoot: dirname(pkgJSON) };
 
-      console.log({ filename, ...vfsRoot, options });
-
       const pkg = ShikiPackage.at({
         path: filename,
         workspaceRoot: root,
       });
 
-      console.log({ pkg });
-
-      // const defaultOptions: Partial<ExampleOptions> = IS_DEV
-      //   ? {
-      //       // noErrorValidation: true,
-      //     }
-      //   : {};
-
       snippet = snippet.replace(/\r?\n$/, ""); // strip trailing newline fed during code block parsing
-      return transformAttributesToHTML(snippet, [lang, rawAttrs].join(" "), highlighters, {
-        ...options,
+      return transformAttributesToHTML(
+        snippet,
+        [lang, rawAttrs].join(" "),
+        highlighters,
+        {
+          ...options,
 
-        defaultCompilerOptions: pkg.compilerOptions,
-        // ...vfsRoot,
-        // ...vfsRoot,
-        // defaultOptions: {
-        // ...options.defaultOptions,
-        // ...defaultOptions,
-        // },
-      });
+          defaultCompilerOptions: pkg.compilerOptions,
+          // ...vfsRoot,
+          // ...vfsRoot,
+          // defaultOptions: {
+          // ...options.defaultOptions,
+          // ...defaultOptions,
+          // },
+        }
+      );
     };
   };
 }

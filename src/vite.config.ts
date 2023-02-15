@@ -1,6 +1,7 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
+import postcss from "./postcss.config.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -9,24 +10,23 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": resolve(__dirname),
-      "@tutorial-lib": resolve(__dirname, "tutorial", "$components", "code"),
-      "@tutorial-vue": resolve(__dirname, "tutorial", "$components"),
+      "@tutorial-lib": resolve(
+        __dirname,
+        "tutorial",
+        "-components",
+        "lib"
+      ),
+      "@tutorial-vue": resolve(
+        __dirname,
+        "tutorial",
+        "-components"
+      ),
     },
   },
   optimizeDeps: {
     exclude: ["vitepress-plugin-tabs"],
   },
   css: {
-    preprocessorOptions: {
-      scss: {
-        charset: false,
-      },
-      sass: {
-        charset: false,
-      },
-      css: {
-        charset: false,
-      },
-    },
+    postcss,
   },
 });

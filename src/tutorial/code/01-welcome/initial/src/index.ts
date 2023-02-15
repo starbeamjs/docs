@@ -1,9 +1,8 @@
-import { Cell } from "@starbeam/universal";
+import { reactive } from "@starbeam/js";
 
-const cell = Cell(0);
+const hello = reactive.object({
+  greeting: "Hello",
+});
 
-console.log(cell.current);
-
-cell.current = 1;
-
-console.log(cell.current);
+const output = document.querySelector("#currentCount")!;
+output.innerHTML = hello.greeting;

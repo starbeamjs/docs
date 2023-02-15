@@ -1,23 +1,26 @@
 {
-  "extends": "./tsconfig.strict.json",
   "compilerOptions": {
     "composite": true,
-    "allowJs": true,
-    "checkJs": true,
-    "outDir": "build",
     "target": "esnext",
-    "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
 
     "resolveJsonModule": true,
     "noEmit": true,
+    "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true,
 
-    "skipLibCheck": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
 
-    "types": ["vite/client", "@vue/runtime-dom", "src/components.d.ts"]
+    "lib": ["ES2022", "DOM"],
+
+    "skipLibCheck": true
   }
 }

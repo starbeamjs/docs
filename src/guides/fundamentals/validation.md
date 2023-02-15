@@ -44,14 +44,14 @@ reactive array under the hood, but exposes a normal JavaScript
 API.
 
 ```snippet {#indirect-consumption}
-<!--@include: ./$snippets/indirect-consumption.ts-->
+<!--@include: ./-snippets/indirect-consumption.ts-->
 ```
 
 We want to render a comma-separated list of people from New York,
 using `people.byLocation("New York")`.
 
 ```snippet {#rendering-indirect-consumption}
-<!--@include: ./$snippets/indirect-consumption.ts-->
+<!--@include: ./-snippets/indirect-consumption.ts-->
 ```
 
 How does `byLocation` **consume** reactive cells?
@@ -63,7 +63,7 @@ How does `byLocation` **consume** reactive cells?
 Next, we'll add some people to the array.
 
 ```snippet {#adding-people}
-<!--@include: ./$snippets/indirect-consumption.ts-->
+<!--@include: ./-snippets/indirect-consumption.ts-->
 ```
 
 And how did this code **update** reactive cells?

@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve"
+  },
+  "files": ["**/*.tsx"],
+  "references": [
+    {
+      "path": "./frameworks/react/tsconfig.json"
+    }
+  ]
+}

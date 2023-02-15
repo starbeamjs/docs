@@ -87,16 +87,16 @@
     }
   },
 
-  "volar.codeLens.scriptSetupTools": true,
   "volar.doctor.checkVueTsc": true,
-  "volar.vueserver.noProjectReferences": false,
+  "volar.vueserver.noProjectReferences": true,
+  "volar.vueserver.vitePress.processMdFile": true,
+  "volar.completion.normalizeComponentImportName": true,
+  "volar.inlayHints.missingRequiredProps": true,
   "volar.autoWrapParentheses": true,
   "volar.updateImportsOnFileMove.enabled": true,
   "volar.doctor.statusBarItem": true,
-  "volar.vueserver.vitePress.processMdFile": true,
   "volar.autoCompleteRefs": true,
-  "volar.vueserver.textDocumentSync": "incremental",
-  "volar.vueserver.diagnosticModel": "pull",
+  "volar.vueserver.textDocumentSync": "full",
 
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {

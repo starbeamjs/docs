@@ -3,14 +3,8 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./*"]
-    },
-    "strict": true,
-    "noImplicitAny": true,
-    "noUncheckedIndexedAccess": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "exactOptionalPropertyTypes": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true
+    }
   },
-  "include": ["**/*", "**/*.vue", "**/*.json"]
+  "files": ["./config/head.ts"],
+  "include": ["**/*"]
 }

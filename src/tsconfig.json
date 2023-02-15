@@ -1,0 +1,22 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+
+    "types": ["vite/client", "@vue/runtime-dom", "src/components.d.ts"],
+
+    "paths": {
+      "@/*": ["../*"],
+      "@tutorial-lib/*": ["./tutorial/-components/lib/*"],
+      "@tutorial-vue/*": ["./tutorial/-components/*"]
+    }
+  },
+  "exclude": ["**/*.tsx"],
+  "references": [
+    { "path": "./tutorial/tsconfig.json" },
+    { "path": "./tsconfig.react.json" },
+    {
+      "path": "./-components/tsconfig.json"
+    }
+  ]
+}

@@ -51,7 +51,7 @@ const consoleData = useSandpackConsole();
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 div.sp-preview-container {
   display: grid;
 

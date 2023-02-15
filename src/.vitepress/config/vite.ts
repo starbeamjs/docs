@@ -16,7 +16,13 @@ export const root = path.resolve(__dirname, "../../..");
 export const CSS: CSSOptions = {
   postcss: {
     syntax: sass,
-    plugins: [vars(), functions({ color }), values(), property(), nested()],
+    plugins: [
+      vars(),
+      functions({ color }),
+      values(),
+      property(),
+      nested(),
+    ],
   },
   devSourcemap: true,
 };

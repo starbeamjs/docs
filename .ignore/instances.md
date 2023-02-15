@@ -1,7 +1,7 @@
 # Blueprints and Instances
 
 <script setup lang="ts">
-  import ReactPreact from '../src/$components/ReactPreact.vue';
+  import ReactPreact from '../src/-components/ReactPreact.vue';
 </script>
 
 Since Starbeam is a way to write universal reactive code, it
@@ -29,7 +29,7 @@ universal constructors that can be used in any framework.
 The most fundamental _blueprint_ is a normal JavaScript function.
 
 ```snippet {#blueprint}
-<!-- @include: ./$snippets/blueprints.tsx -->
+<!-- @include: ./-snippets/blueprints.tsx -->
 ```
 
 Yes, this is just a function that returns a value. What makes
@@ -40,7 +40,7 @@ Let's take a look at how we can use this blueprint with a React
 renderer.
 
 ```snippet {#component}
-<!-- @include: ./$snippets/blueprints.tsx -->
+<!-- @include: ./-snippets/blueprints.tsx -->
 ```
 
 The `use` function takes a blueprint and returns an instance of
@@ -72,14 +72,14 @@ blueprint for each framework-defined instance of the component.
 Blueprints can take parameters, just like normal functions.
 
 ```snippet {#blueprint}
-<!-- @include: ./$snippets/blueprints-with-parameters.tsx -->
+<!-- @include: ./-snippets/blueprints-with-parameters.tsx -->
 ```
 
 Let's take a look at how we can use this blueprint in a React
 component.
 
 ```snippet {#component}
-<!-- @include: ./$snippets/blueprints-with-parameters.tsx -->
+<!-- @include: ./-snippets/blueprints-with-parameters.tsx -->
 ```
 
 This is one way to pass reactive parameters to a blueprint. But
@@ -104,7 +104,7 @@ To accomplish this, your function will use the `Reactive.read`
 function to read from its parameters.
 
 ```snippet {#blueprint}
-<!-- @include: ./$snippets/flexible-blueprints.tsx -->
+<!-- @include: ./-snippets/flexible-blueprints.tsx -->
 ```
 
 :::typescript
@@ -130,7 +130,7 @@ In this option, we pass `start` as a regular value to `Counter`
 and specify it as a dependency to the `use` hook.
 
 ```snippet {#component}
-<!-- @include: ./$snippets/flexible-blueprints.tsx -->
+<!-- @include: ./-snippets/flexible-blueprints.tsx -->
 ```
 
 This will run the `Counter` blueprint whenever the `start`
@@ -150,7 +150,7 @@ If we call `Counter` with a reactive `start`, the counter will
 update the `start` value without resetting its internal counter.
 
 ```snippet {#reactive-component}
-<!-- @include: ./$snippets/flexible-blueprints.tsx -->
+<!-- @include: ./-snippets/flexible-blueprints.tsx -->
 ```
 
 ### Universality
@@ -361,14 +361,14 @@ constructor that can be used in any framework.
 Well, if you like classes, you can just use them as blueprints.
 
 ```snippet {#blueprint}
-<!-- @include: ./$snippets/classes-blueprints.tsx -->
+<!-- @include: ./-snippets/classes-blueprints.tsx -->
 ```
 
 And if you need parameters, you can use constructor parameters as
 you'd expect.
 
 ```snippet {#with-params}
-<!-- @include: ./$snippets/classes-blueprints.tsx -->
+<!-- @include: ./-snippets/classes-blueprints.tsx -->
 ```
 
 This example uses the `Reactive.from` function to convert the
@@ -410,7 +410,7 @@ value to the `Counter` constructor, and then specify it as a
 dependency to the `use` hook.
 
 ```snippet {#component}
-<!-- @include: ./$snippets/classes-blueprints.tsx -->
+<!-- @include: ./-snippets/classes-blueprints.tsx -->
 ```
 
 As before, if `start` changes, the `Counter` instance will be
@@ -421,5 +421,5 @@ But as before, you could pass a reactive value directly to the
 resetting.
 
 ```snippet {#reactive-component}
-<!-- @include: ./$snippets/classes-blueprints.tsx -->
+<!-- @include: ./-snippets/classes-blueprints.tsx -->
 ```

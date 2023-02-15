@@ -1,20 +1,15 @@
 <script setup lang="ts">
 import {
-  SandpackFiles,
-  SandpackInternalOptions,
   SandpackProvider,
-  SandpackSetup,
+  type SandpackFiles,
+  type SandpackInternalOptions,
+  type SandpackSetup,
 } from "sandpack-vue3";
 import { useData } from "vitepress";
-import { computed, Ref } from "vue";
+import { computed, type Ref } from "vue";
 
 import type { StarbeamFrontmatter } from "../../config/site-data.js";
-import {
-  DemoDeps,
-  toSandpackDeps,
-  toSandpackFiles,
-  type DemoFiles,
-} from "./demo.js";
+import { toSandpackDeps, toSandpackFiles, type DemoDeps, type DemoFiles } from "./demo.js";
 import DemoBody from "./DemoBody.vue";
 
 const { config } = defineProps<{
@@ -36,8 +31,10 @@ const deps = computed(() => {
 
   return Object.fromEntries(
     Object.entries(deps).map(([dep, version]) => {
-      if (dep in versions) {
-        return [dep, version === "package.json" ? versions[dep] : version];
+      const foundVersion = versions[dep];
+
+      if (foundVersion) {
+        return [dep, version === "package.json" ? foundVersion : version];
       } else {
         throw Error(
           `Dependency ${dep} (used in ${
@@ -104,7 +101,6 @@ const files: SandpackFiles = {
         esModuleInterop: true,
         sourceMap: true,
         allowJs: true,
-        lib: ["es6", "dom"],
         rootDir: "src",
         moduleResolution: "node16",
       },

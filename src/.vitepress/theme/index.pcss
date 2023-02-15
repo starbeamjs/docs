@@ -195,11 +195,7 @@ blockquote.em p.title:first-child {
       font-size: 0.8em;
       transform: translateY(-0.1em);
       border-block: 0.05em solid
-        hsl(
-          var(--sb-mark-bg-hue),
-          var(--sb-hl-saturated),
-          var(--starbeam-fg-lightness-bright)
-        );
+        hsl(var(--sb-mark-bg-hue), var(--sb-hl-saturated), var(--starbeam-fg-lightness-bright));
 
       background-color: hsl(
         var(--sb-mark-bg-hue),
@@ -321,7 +317,7 @@ summary::marker {
 }
 
 @mixin marker {
-  font-family: var(--starbeam-font-family-fancy);
+  font-family: var(--starbeam-font-fancy);
   color: var(--vp-button-alt-text);
   background-color: var(--vp-button-alt-bg);
   font-size: 0.75em;
