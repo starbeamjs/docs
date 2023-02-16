@@ -69,7 +69,7 @@ section.description {
 
   .shiki.twoslash {
     padding: var(--t-ui-gap-xs);
-    font-size: var(--vp-code-font-size);
+    font-size: calc(var(--vp-code-font-size) * 0.8);
   }
 }
 
@@ -89,7 +89,7 @@ h1 {
   margin-block-end: var(--t-margin-block);
 }
 
-:is(p, blockquote, ul, ol) + :is(p, blockquote, ul, ol) {
+:is(p, blockquote, ul, ol, div.custom-block) + :is(p, blockquote, ul, ol, div.custom-block) {
   margin-block-start: calc(var(--t-margin-block) / var(--starbeam-ratio));
 }
 

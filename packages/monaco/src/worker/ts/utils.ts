@@ -37,7 +37,7 @@ export function parseCompilerOptions(
     target: ScriptTarget.ESNext,
     module: ModuleKind.ESNext,
     moduleResolution: ModuleResolutionKind.NodeNext,
-    lib: ["dom", "es5", "es6"],
+    lib: ["dom", "es5", "es6", "es2022"],
   };
 }
 

@@ -19,7 +19,7 @@
     "noImplicitOverride": true,
     "noImplicitReturns": true,
 
-    "lib": ["ES2022", "DOM"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
 
     "skipLibCheck": true
   }

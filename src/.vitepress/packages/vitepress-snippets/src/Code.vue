@@ -143,7 +143,7 @@ div.js {
   grid-template-columns: max-content 1fr;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 1px;
   align-items: center;
   align-content: center;
   user-select: none;
@@ -153,6 +153,7 @@ div.js {
   border: var(--sb-border-thin-width) solid var(--vp-button-brand-border);
   background-color: var(--vp-button-alt-bg);
   border-end-start-radius: var(--starbeam-radius-sm);
+  border-start-end-radius: var(--starbeam-radius-sm);
 }
 
 button {
@@ -177,5 +178,9 @@ button:hover {
 
 button:first-child {
   border-end-start-radius: var(--starbeam-radius-xsm);
+}
+
+button:last-child {
+  border-start-end-radius: var(--starbeam-radius-xsm);
 }
 </style>

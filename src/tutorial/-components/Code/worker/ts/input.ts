@@ -127,6 +127,7 @@ export class Inputs {
   }
 
   get compilerOptions() {
+    console.log({ tsconfig: this.#tsconfig });
     return parseCompilerOptions(this.#tsconfig);
   }
 
