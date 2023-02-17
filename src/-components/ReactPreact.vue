@@ -7,15 +7,15 @@
       <span class="preact">Preact</span> code is very similar.
     </p>
     <p>
-      To make it easier to see the differences between them, lines that are
-      specific to React are highlighted with
-      <span class="react hl">React</span> and lines that are specific to Preact
-      are highlighted with <span class="preact hl">Preact</span>.
+      To make it easier to see the differences between them, lines that are specific to React are
+      highlighted with
+      <span class="react hl">React</span> and lines that are specific to Preact are highlighted with
+      <span class="preact hl">Preact</span>.
     </p>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped lang="postcss">
 .react,
 .preact {
   display: inline-flex;

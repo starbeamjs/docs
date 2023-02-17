@@ -1,4 +1,4 @@
-@use "../shared/reset.scss";
+@import "../shared/reset.pcss";
 
 :root {
   --tab-bg-color: var(--c-bg);
@@ -46,7 +46,7 @@ html.dark {
 }
 
 .tab-list-nav-item {
-  @include reset.button;
+  @extend %button;
 
   position: relative;
 
@@ -95,19 +95,11 @@ html.dark {
     background-color: var(--tab-bg-color);
 
     &::before {
-      background: radial-gradient(
-        16px at left top,
-        transparent 50%,
-        var(--tab-bg-color) 50%
-      );
+      background: radial-gradient(16px at left top, transparent 50%, var(--tab-bg-color) 50%);
     }
 
     &::after {
-      background: radial-gradient(
-        16px at right top,
-        transparent 50%,
-        var(--tab-bg-color) 50%
-      );
+      background: radial-gradient(16px at right top, transparent 50%, var(--tab-bg-color) 50%);
     }
   }
 

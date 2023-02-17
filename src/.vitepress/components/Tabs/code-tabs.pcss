@@ -1,4 +1,4 @@
-@use "../shared/reset.scss";
+@import "../shared/reset.pcss";
 
 .code-tabs-nav {
   overflow-x: auto;
@@ -22,7 +22,7 @@
 }
 
 .code-tabs-nav-tab {
-  @include reset.button;
+  @extend %button;
 
   position: relative;
 

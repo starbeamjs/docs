@@ -1,0 +1,10 @@
+{
+  "name": "@types/postcss-extend-rule",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "types": "index.d.ts",
+  "dependencies": {
+    "postcss": "^8.4.21"
+  }
+}

@@ -155,10 +155,9 @@ const customSetup = computed((): SandpackSetup => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped lang="postcss">
 div.demo {
   display: grid;
-  // contain: layout;
   margin-block-start: 1rem;
   margin-block-end: 1rem;
   padding: 0;
@@ -245,5 +244,3 @@ div.demo {
   }
 }
 </style>
-
-<style lang="scss"></style>

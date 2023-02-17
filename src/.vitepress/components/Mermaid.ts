@@ -11,12 +11,14 @@ import {
 import type { VNode } from "vue";
 
 import { atou } from "../plugins/utils.js";
-import "./mermaid.scss";
+import "./mermaid.pcss";
 import { LoadingIcon } from "./shared/icons.js";
 
 const MARKDOWN_ENHANCE_DELAY = 500;
 
-const getThemeVariables = (isDarkMode: boolean): Record<string, unknown> => {
+const getThemeVariables = (
+  isDarkMode: boolean
+): Record<string, unknown> => {
   return {
     dark: isDarkMode,
     background: isDarkMode ? "#1e1e1e" : "#fff",
@@ -100,7 +102,9 @@ export default defineComponent({
         import(
           /* webpackChunkName: "mermaid" */ "mermaid"
         ) as unknown as typeof import("mermaid"),
-        new Promise((resolve) => setTimeout(resolve, MARKDOWN_ENHANCE_DELAY)),
+        new Promise((resolve) =>
+          setTimeout(resolve, MARKDOWN_ENHANCE_DELAY)
+        ),
       ]).then(
         ([
           {
@@ -123,7 +127,9 @@ export default defineComponent({
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               theme: "base",
-              themeVariables: getThemeVariables(isDarkmode.value),
+              themeVariables: getThemeVariables(
+                isDarkmode.value
+              ),
               flowchart: { useMaxWidth: false },
               sequence: { useMaxWidth: false },
               journey: { useMaxWidth: false },
@@ -141,7 +147,12 @@ export default defineComponent({
 
             // make sure dom is refreshed
             void nextTick().then(() =>
-              renderAsync(props.id, code, renderCallback, container)
+              renderAsync(
+                props.id,
+                code,
+                renderCallback,
+                container
+              )
             );
           };
 
@@ -171,11 +182,17 @@ export default defineComponent({
         "div",
         {
           ref: mermaidElement,
-          class: ["mermaid-wrapper", { loading: !svgCode.value }],
+          class: [
+            "mermaid-wrapper",
+            { loading: !svgCode.value },
+          ],
         },
         svgCode.value
           ? // mermaid
-            h("div", { class: "content", innerHTML: svgCode.value })
+            h("div", {
+              class: "content",
+              innerHTML: svgCode.value,
+            })
           : // loading
             h(LoadingIcon)
       );

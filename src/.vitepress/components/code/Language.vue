@@ -44,7 +44,7 @@ function current() {
   </section>
 </template>
 
-<style lang="scss">
+<style lang="postcss">
 .lang-docs {
   position: relative;
   display: contents;
@@ -120,9 +120,7 @@ function current() {
     align-items: baseline;
     grid-template-columns: 1fr 1000fr;
     row-gap: var(--starbeam-p-break);
-    column-gap: calc(
-      var(--starbeam-ui-text-offset-start) * var(--starbeam-ratio-up2)
-    );
+    column-gap: calc(var(--starbeam-ui-text-offset-start) * var(--starbeam-ratio-up2));
   }
 
   > p {
@@ -144,12 +142,8 @@ function current() {
     line-height: 1;
     grid-column: 1;
 
-    padding-inline: calc(
-      var(--starbeam-ui-padding-inline) * var(--starbeam-ratio-down2)
-    );
-    padding-block-start: calc(
-      var(--starbeam-ui-padding-block) * var(--starbeam-ratio-down1)
-    );
+    padding-inline: calc(var(--starbeam-ui-padding-inline) * var(--starbeam-ratio-down2));
+    padding-block-start: calc(var(--starbeam-ui-padding-block) * var(--starbeam-ratio-down1));
     padding-block-end: calc(var(--starbeam-ui-padding-block) + 0.05rem);
 
     border-radius: var(--starbeam-radius-xsm);

@@ -51,7 +51,7 @@ const consoleData = useSandpackConsole();
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped lang="postcss">
 div.sp-preview-container {
   display: grid;
 
@@ -65,7 +65,7 @@ div.sp-preview-container {
 }
 </style>
 
-<style lang="scss" scoped>
+<style scoped lang="postcss">
 div.demo .sp-layout > .sp-stack {
   height: max-content;
 }

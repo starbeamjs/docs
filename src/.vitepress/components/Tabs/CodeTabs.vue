@@ -1,5 +1,5 @@
 <script lang="ts">
-import "./code-tabs.scss";
+import "./code-tabs.pcss";
 
 import { useStorage } from "@vueuse/core";
 
@@ -12,10 +12,7 @@ interface TabProps extends Record<string, unknown> {
   value?: string;
 }
 
-const codeTabStore = useStorage<Record<string, string>>(
-  "VUEPRESS_CODE_TAB_STORE",
-  {}
-);
+const codeTabStore = useStorage<Record<string, string>>("VUEPRESS_CODE_TAB_STORE", {});
 
 const PROPS = {
   active: { type: Number, default: 0 },
@@ -100,9 +97,7 @@ watch(
   () => codeTabStore.value[props.tabId],
   (newValue, oldValue) => {
     if (props.tabId && newValue !== oldValue) {
-      const index = props.data.findIndex(
-        ({ title, value = title }) => value === newValue
-      );
+      const index = props.data.findIndex(({ title, value = title }) => value === newValue);
 
       if (index !== -1) activeIndex.value = index;
     }
@@ -115,25 +110,43 @@ watch(
     <template v-if="props.data.length">
       <div class="code-tabs-nav" role="tablist">
         <template v-for="({ title }, index) in props.data">
-          <button :class="['code-tabs-nav-tab', { active: index === activeIndex }]"
-            :aria-pressed="index === activeIndex" :aria-expanded="index === activeIndex" role="tab"
-            :aria-controls="`codetab-${props.id}-${index}`" :aria-selected="index === activeIndex" :ref="(element) => {
+          <button
+            :class="['code-tabs-nav-tab', { active: index === activeIndex }]"
+            :aria-pressed="index === activeIndex"
+            :aria-expanded="index === activeIndex"
+            role="tab"
+            :aria-controls="`codetab-${props.id}-${index}`"
+            :aria-selected="index === activeIndex"
+            :ref="(element) => {
               if (element) tabRefs[index] = element as
                 HTMLUListElement
-            }" @click="
-  () => {
-    activeIndex = index;
-    updateStore();
-  }
-" @keydown="(event: KeyboardEvent) => keyboardHandler(event, index)">
+            }"
+            @click="
+              () => {
+                activeIndex = index;
+                updateStore();
+              }
+            "
+            @keydown="(event: KeyboardEvent) => keyboardHandler(event, index)"
+          >
             {{ title }}
           </button>
         </template>
       </div>
       <template v-for="({ title, value = title }, index) in props.data">
-        <div :class="['code-tab', { active: index === activeIndex }]" :id="`codetab-${props.id}-${index}`"
-          role="tabpanel" :aria-selected="index === activeIndex" :aria-expanded="index === activeIndex">
-          <slot :name="`tab${index}`" :title="title" :value="value" :isActive="index === activeIndex" />
+        <div
+          :class="['code-tab', { active: index === activeIndex }]"
+          :id="`codetab-${props.id}-${index}`"
+          role="tabpanel"
+          :aria-selected="index === activeIndex"
+          :aria-expanded="index === activeIndex"
+        >
+          <slot
+            :name="`tab${index}`"
+            :title="title"
+            :value="value"
+            :isActive="index === activeIndex"
+          />
         </div>
       </template>
     </template>

@@ -10,5 +10,5 @@
       "@tutorial-lib/*": ["./-components/lib/*"],
       "@tutorial-vue/*": ["./-components/*"]
     }
-  }
+  },
 }

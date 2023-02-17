@@ -1,20 +1,15 @@
 import vars from "postcss-advanced-variables";
+import extend from "postcss-extend-rule";
 import functions from "postcss-functions";
 import type { Config } from "postcss-load-config";
 import values from "postcss-modules-values";
 import nested from "postcss-nested";
 import property from "postcss-property-lookup";
-import * as sass from "postcss-scss";
+
+console.log("postcss");
 
 export default {
-  syntax: sass,
-  plugins: [
-    vars(),
-    functions({ color }),
-    values(),
-    property(),
-    nested(),
-  ],
+  plugins: [extend(), vars(), functions({ color }), values(), property(), nested()],
 } satisfies Config;
 
 export function color(

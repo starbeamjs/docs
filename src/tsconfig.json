@@ -6,11 +6,12 @@
     "types": ["vite/client", "@vue/runtime-dom", "src/components.d.ts"],
 
     "paths": {
-      "@/*": ["../*"],
+      "@/*": ["./*"],
       "@tutorial-lib/*": ["./tutorial/-components/lib/*"],
       "@tutorial-vue/*": ["./tutorial/-components/*"]
     }
   },
+  "include": ["**/*", "**/*.md"],
   "exclude": ["**/*.tsx"],
   "references": [
     { "path": "./tutorial/tsconfig.json" },

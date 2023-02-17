@@ -1,4 +1,4 @@
-const imports = import.meta.glob("@/tutorial/code/*/*.ts");
+const imports = import.meta.glob("../../code/*/*.ts");
 
 export const modules = Object.fromEntries(
   Object.entries(imports).map(([path, module]) => [
@@ -7,8 +7,10 @@ export const modules = Object.fromEntries(
   ])
 );
 
+console.log({ modules });
+
 function normalize(path: string) {
   return path
-    .replace(/^\/tutorial\/code\//, "")
+    .replace("../../code/", "")
     .replace(/\/config.ts$/, "");
 }
