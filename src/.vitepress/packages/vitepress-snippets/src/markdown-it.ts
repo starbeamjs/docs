@@ -35,8 +35,6 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         /^!\[#(?<region>(.*))\]\((?<file>(.*))\)$/
       );
 
-      console.log({ match });
-
       if (match) {
         const { region, file } = match.groups as {
           region: string;
