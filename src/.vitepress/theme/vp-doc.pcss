@@ -1,1 +1,32 @@
-/** empty for now */
+.vp-doc {
+  blockquote > p {
+    color: var(--sb-fg-theme-dim);
+  }
+
+  .custom-block blockquote {
+    border: none;
+    padding-inline-start: 2rem;
+    padding-inline-end: 2rem;
+    position: relative;
+
+    &::before,
+    &::after {
+      position: absolute;
+      opacity: 20%;
+      font-size: 3rem;
+    }
+
+    &::before {
+      content: "“";
+      top: 0.1em;
+      left: 0.1em;
+    }
+
+    &::after {
+      content: ",,";
+      letter-spacing: -0.06em;
+      bottom: 0.1em;
+      right: 0.1em;
+    }
+  }
+}

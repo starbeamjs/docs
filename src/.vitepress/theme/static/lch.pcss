@@ -1,0 +1,142 @@
+@using brand {
+  $theme: 212;
+  $green: 162;
+  $yellow: 86;
+  $red: 16;
+  $neutral: 285;
+  $highlight: 107;
+
+  $chroma: 0.2;
+  $chroma-soft: 0.15;
+  $chroma-softer: 0.1;
+  $chroma-muted: 0.05;
+  $chroma-pure: 0;
+  $chroma-vivid: 0.25;
+  $chroma-vibrant: 0.3;
+
+  @define-mixin colors $name, $hue {
+    --sb-fg-$(name): oklch(var(--fglt) $chroma $hue);
+    --sb-fg-$(name)-dim: oklch(var(--fglt-dim) $chroma-soft $hue);
+    --sb-fg-$(name)-dimmer: oklch(var(--fglt-dimmer) $chroma-softer $hue);
+    --sb-fg-$(name)-strong: oklch(var(--fglt-strong) $chroma-vivid $hue);
+    --sb-fg-$(name)-stronger: oklch(var(--fglt-stronger) $chroma-vibrant $hue);
+    --sb-fg-$(name)-strongest: oklch(var(--fglt-strongest) $chroma-vibrant $hue);
+
+    --sb-bg-$(name): oklch(var(--bglt) $chroma $hue);
+    --sb-bg-$(name)-muted: oklch(var(--bglt-strongest) $chroma-muted $hue);
+
+    --sb-bg-$(name)-dim: oklch(var(--bglt-dim) $chroma-soft $hue);
+    --sb-bg-$(name)-dimmer: oklch(var(--bglt-dimmer) $chroma-softer $hue);
+    --sb-bg-$(name)-strong: oklch(var(--bglt-strong) $chroma-vivid $hue);
+    --sb-bg-$(name)-stronger: oklch(var(--bglt-stronger) $chroma-vibrant $hue);
+    --sb-bg-$(name)-strongest: oklch(var(--bglt-strongest) $chroma-vibrant $hue);
+  }
+
+  @define-mixin text $hue {
+    --vp-c-text-1: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-strong));
+    --vp-c-text-2: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-medium));
+    --vp-c-text-3: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-muted));
+
+    --vp-c-text-inverse-1: oklch(var(--bglt-max) $chroma-muted $hue / var(--alpha-strong));
+    --vp-c-text-inverse-2: oklch(var(--bglt-max) $chroma-muted $hue / var(--alpha-medium));
+    --vp-c-text-inverse-3: oklch(var(--bglt-max) $chroma-muted $hue / var(--alpha-muted));
+  }
+
+  @define-mixin gray {
+    --vp-c-mute: oklch(var(--bglt-max) $chroma-pure $theme);
+    --vp-c-mute-darker: oklch(var(--bglt-max) $chroma-pure $theme);
+
+    --vp-c-bg-elv: var(--vp-c-mute-darker);
+    --vp-c-bg-elv-up: var(--vp-c-mute);
+    --vp-c-bg-elv-down: oklch(var(--bglt-stronger) $chroma-pure $theme);
+    --vp-c-bg-elv-mute: var(--vp-c-mute);
+    --vp-c-bg-soft: var(--vp-c-mute-darker);
+    --vp-c-bg-soft-up: var(--vp-c-mute);
+    --vp-c-bg-soft-down: var(--vp-c-bg-elv-down);
+    --vp-c-bg-soft-mute: var(--vp-c-mute);
+    --vp-c-bg-alt: var(--vp-c-bg-elv-down);
+
+    --vp-c-border: oklch(var(--fglt-stronger) $chroma-muted $neutral / var(--alpha-border));
+    --vp-c-divider: oklch(var(--fglt-stronger) $chroma-muted $neutral / var(--alpha-divider));
+    --vp-c-gutter: var(--vp-c-divider);
+
+    --vp-c-neutral: oklch(var(--fglt-max) $chroma-muted $neutral / var(--alpha-max));
+    --vp-c-neutral-inverse: oklch(var(--bglt-max) $chroma-muted $neutral / var(--alpha-max));
+
+    /* --vp-c-text-1: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-strong));
+    --vp-c-text-2: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-medium));
+    --vp-c-text-3: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-muted)); */
+  }
+
+  @define-mixin scheme {
+    @mixin colors theme, $theme;
+    @mixin colors red, $red;
+    @mixin colors green, $green;
+    @mixin colors yellow, $yellow;
+    @mixin colors highlight, $highlight;
+    @mixin text $neutral;
+    @mixin gray;
+  }
+
+  :root {
+    --fglt-max: 0%;
+    --fglt-strongest: 35%;
+    --fglt-stronger: 40%;
+    --fglt-strong: 45%;
+    --fglt: 60%;
+    --fglt-dim: 72%;
+    --fglt-dimmer: 84%;
+
+    --bglt-max: 98%;
+    --bglt-strongest: 93%;
+    --bglt-stronger: 88%;
+    --bglt-strong: 75%;
+    --bglt: 60%;
+    --bglt-dim: 48%;
+    --bglt-dimmer: 35%;
+
+    --alpha-max: 100%;
+    --alpha-strong: 92%;
+    --alpha-medium: 70%;
+    --alpha-muted: 35%;
+    --alpha-border: 29%;
+    --alpha-divider: 12%;
+
+    @mixin scheme;
+  }
+
+  :root.dark {
+    --fglt-max: 100%;
+    --fglt-stronger: 96%;
+    --fglt-strong: 84%;
+    --fglt: 72%;
+    --fglt-dim: 60%;
+    --fglt-dimmer: 48%;
+
+    --bglt-max: 0%;
+    --bglt-strongest: 20%;
+    --bglt-stronger: 23%;
+    --bglt-strong: 26%;
+    --bglt: 31%;
+    --bglt-dim: 35%;
+    --bglt-dimmer: 40%;
+
+    --alpha-max: 100%;
+    --alpha-strong: 86%;
+    --alpha-medium: 60%;
+    --alpha-muted: 38%;
+    --alpha-border: 68%;
+    --alpha-divider: 32%;
+    @mixin scheme;
+  }
+}
+
+:root {
+  --vp-c-brand: var(--sb-fg-theme);
+  --vp-c-brand-light: var(--sb-fg-theme-dim);
+  --vp-c-brand-lighter: var(--sb-fg-theme-dimmer);
+  --vp-c-brand-dark: var(--sb-fg-theme-strong);
+  --vp-c-brand-darker: var(--sb-fg-theme-stronger);
+
+  --vp-sidebar-bg-color: var(--sb-bg-theme-muted);
+}

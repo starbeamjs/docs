@@ -1,0 +1,27 @@
+
+$output = lightcyan
+$pad = 0.5cm
+$linesize = 0.5cm
+$arrowsize = 0.6cm
+$captionpad = 0.3cm
+
+
+define $box {
+  A: [
+    Body: $2
+    text $1 at $captionpad above Body.end
+  ]
+Border: box thin width (A.width + $pad) height (A.height + $captionpad) at ($captionpad / 3 south of A.center)
+}
+
+define $arrow {
+  line height $linesize
+  box $1 invisible fit 
+  arrow height $arrowsize
+}
+
+up
+$box("Output", [
+  C: oval "Contact Card" fill $output
+])
+$arrow("calls")

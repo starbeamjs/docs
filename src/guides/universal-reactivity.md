@@ -38,9 +38,11 @@ Starbeam provides four universal building blocks:
   cleanup behavior is tied to an element in the DOM (prototyped
   in the repo, coming in 0.10).
 
-:::💡 When you write code using these universal building blocks,
-you use the Starbeam libraries and **don't** reference any
-specific framework.
+:::💡
+
+When you write code using these universal building blocks, you
+use the Starbeam libraries and **don't** reference any specific
+framework.
 
 Starbeam is expressive enough to allow you to write code that
 builds on powerful framework features such as React's concurrent
@@ -54,7 +56,9 @@ lowest-common-denominator library.
 Instead, _we_ jump through hoops to find streamlined APIs that
 are expressive enough to take advantage of advanced framework
 features and ergonomic enough to use in any framework environment
-so _you_ don't have to. :::
+so _you_ don't have to.
+
+:::
 
 ## What is Starbeam Reactivity?
 
@@ -74,9 +78,7 @@ a function that takes some inputs and produces some outputs."
 For example, a program that takes a list of people objects and
 produces a list of contact cards might look like this:
 
-```snippet {#basics}
-<!--@include: ./-snippets/universal-inputs.ts-->
-```
+![#basics](./-snippets/universal-inputs.ts)
 
 :::tip Functional Programming
 
@@ -96,9 +98,7 @@ program this way:
 
 If we ran the `display` function with the following person:
 
-```snippet {#person}
-<!--@include: ./-snippets/universal-inputs.ts-->
-```
+![#person](./-snippets/universal-inputs.ts)
 
 We'd get the following output:
 
@@ -116,9 +116,7 @@ We'd get the following output:
 If we ran the `display` function again with a person with an
 extra phone number:
 
-```snippet {#person2}
-<!--@include: ./-snippets/universal-inputs.ts-->
-```
+![#person2](./-snippets/universal-inputs.ts)
 
 We'd get:
 
@@ -139,33 +137,167 @@ outputs are clearly defined, _data oriented programming_.
 
 We can visualize this kind of program as a data flow diagram:
 
-```lifecycle {BT}
-subgraph inputs [Inputs]
-  direction TB
-  subgraph person [Person]
-    name([Name])
-    location([Location])
-    subgraph contact [Contact]
-      iterate[/iterate/]
-      home([Home])
-      work([Work])
-    end
-  end
-end
-subgraph output [Output]
-  contactCard([Contact Card])
-end
-subgraph functions [Functions]
-  display[/display/]
-  displayPhone[/displayPhone/]
-end
-output--calls-->display
-display--reads-->name
-display--reads-->location
-display--reads-->iterate
-display--calls-->displayPhone
-displayPhone--reads-->home
-displayPhone--reads-->work
+```d2
+direction: right
+Sequence: "" {
+  shape: sequence_diagram
+
+  display: "display" {
+    shape: rectangle
+
+    style: {
+      font-size: 25
+      font-color: "#14485f"
+      fill: "#92C6E1"
+      stroke: "#043d53"
+      double-border: true
+      bold: true
+    }
+  }
+
+  Person: Person {
+    shape: package
+    style: {
+      font-size: 30
+      fill: "#E3E8D2"
+      stroke: "#5F6933"
+      font-color: "#5c6347"
+    }
+  }
+
+  displayPhone: "displayPhone()" {
+    shape: rectangle
+    style: {
+      font-size: 25
+      fill: "#ecd265"
+      font-color: "#5f4f00"
+      stroke: "#5f4f00"
+    }
+  }
+  Contact: {
+    shape: package
+    style: {
+      multiple: true
+      font-size: 30
+      fill: "#E3E8D2"
+      stroke: "#5F6933"
+      font-color: "#5c6347"
+    }
+  }
+
+  read cells: "" {
+    style: {
+      fill: "#E3E8D2"
+    }
+    Person.t -> display.t: "read name" {
+      style: {
+        animated: true
+        font-color: "#004947"
+        stroke: "#2d716e"
+        stroke-dash: 2
+      }
+    }
+    Person.t -> display.t: "read location" {
+      style: {
+        animated: true
+        font-color: "#004947"
+        stroke: "#2d716e"
+        stroke-dash: 2
+      }
+    }
+    Person.t -> display.t: "read contacts" {
+      style: {
+        animated: true
+        font-color: "#004947"
+        stroke: "#2d716e"
+        stroke-dash: 2
+      }
+    }
+  }
+
+  Contact.t -> display.t: "iterate contacts" {
+    style: {
+      animated: true
+      font-color: "#004947"
+      stroke: "#2d716e"
+      stroke-dash: 2
+    }
+  }
+
+  read list of contacts: "" {
+    style: {
+      fill: "#ecd265"
+    }
+    display.t -> displayPhone.t: "call displayPhone with contact" {
+      style: {
+        stroke: "#96a16c"
+      }
+    }
+
+    read home: "" {
+      Contact.t -> displayPhone.t: "read home.type" {
+        style: {
+          animated: true
+          font-color: "#004947"
+          stroke: "#2d716e"
+          stroke-dash: 2
+        }
+      }
+      Contact.t -> displayPhone.t: "read home.number" {
+        style: {
+          animated: true
+          font-color: "#004947"
+          stroke: "#2d716e"
+          stroke-dash: 2
+        }
+      }
+    }
+    read work: "" {
+      Contact.t -> displayPhone.t: "read work.type" {
+        style: {
+          animated: true
+          font-color: "#004947"
+          stroke: "#2d716e"
+          stroke-dash: 2
+        }
+      }
+      Contact.t -> displayPhone.t: "read work.number" {
+        style: {
+          animated: true
+          font-color: "#004947"
+          stroke: "#2d716e"
+          stroke-dash: 2
+        }
+      }
+    }
+
+    displayPhone.t -> display.t: "return rendered contact" {
+      style: {
+        stroke: "#96a16c"
+      }
+    }
+  }
+
+  display.t.style: {
+    fill: "#92C6E1"
+    stroke: "#043d53"
+  }
+
+  displayPhone.t.style: {
+    fill: "#ecd265"
+    stroke: "#5f4f00"
+  }
+
+  Person.t.style: {
+    fill: "#E3E8D2"
+    stroke: "#5F6933"
+  }
+
+  Contact.t.style: {
+    fill: "#E3E8D2"
+    stroke: "#5F6933"
+  }
+}
 ```
 
 To create the contact card, the `display` function reads the
@@ -187,9 +319,7 @@ the changes.
 For example, if we add a phone number to the person, it's obvious
 that the HTML won't magically update in response.
 
-```snippet {#person3}
-<!--@include: ./-snippets/universal-inputs.ts-->
-```
+![#person3](./-snippets/universal-inputs.ts)
 
 This happens because the `person` we created isn't an _input_ to
 our `display` function, but rather a piece of **state** that can
@@ -269,9 +399,7 @@ To convert our program into a reactive program, the first thing
 we need to do is to convert our data structures into reactive
 data structures.
 
-```snippet {#reactive-object}
-<!--@include: ./-snippets/state-into-inputs.ts-->
-```
+![#reactive-object](./-snippets/state-into-inputs.ts)
 
 Critically, ==we didn't need to change the `display` function at
 all==. It still takes a `person` object as an input and produces
@@ -335,9 +463,7 @@ To keep things simple, we're going to use the ==debug renderer==,
 which is a very simple renderer that calls a callback with the
 value of the reactive value whenever it changes.
 
-```snippet {#reactive-function}
-<!--@include: ./-snippets/state-into-inputs.ts-->
-```
+![#reactive-function](./-snippets/state-into-inputs.ts)
 
 The `renderPerson` function takes a `person` object and an HTML
 element, and renders the HTML representation of the person into
@@ -395,9 +521,7 @@ the `person` object into a JSX element. React would take the JSX
 element and render it into a DOM node, and the Starbeam renderer
 would notify React whenever the `person` object changed.
 
-```snippet {#react}
-<!--@include: ./-snippets/react-state.tsx-->
-```
+![#react](./-snippets/react-state.tsx)
 
 To get an idea for how Starbeam reactivity works in your
 framework, check out the "Frameworks" tab in the navigation
@@ -445,7 +569,3 @@ And even more!
 - Starbeam reactivity is universal. It doesn't **replace** your
   JavaScript framework. It works with your framework (or
   frameworks) of choice.
-
-```
-
-```

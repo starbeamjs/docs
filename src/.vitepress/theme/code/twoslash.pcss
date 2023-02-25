@@ -12,8 +12,8 @@ Code blocks structurally look like:
 */
 
 :root {
-  --highlight-hue: var(--starbeam-fg-hue);
-  --highlight-saturation: var(--starbeam-fg-saturation);
+  --highlight-hue: var(--sb-fg-hue);
+  --highlight-saturation: var(--sb-fg-saturation);
 
   --dropdown-bg: var(--vp-c-brand-dark);
   --dropdown-border: var(--vp-c-brand-dark);
@@ -126,7 +126,7 @@ pre {
     var(--twoslash-add-hue),
     var(--twoslash-add-saturation),
     var(--twoslash-add-bg-lightness),
-    var(--starbeam-bg-lightness-normal)
+    var(--sb-bg-lightness-normal)
   );
 
   &.twoslash {
@@ -179,15 +179,15 @@ pre {
       var(--hue),
       var(--saturation),
       var(--bg-lightness),
-      var(--starbeam-bg-lightness-dim)
+      var(--sb-bg-lightness-dim)
     );
   }
 
   .line.starbeam {
     &,
     &::before {
-      --fg-lightness: var(--starbeam-fg-lightness-bright);
-      --bg-lightness: var(--starbeam-bg-lightness-bright);
+      --fg-lightness: var(--sb-fg-lightness-bright);
+      --bg-lightness: var(--sb-bg-lightness-bright);
     }
 
     &:not(.annotate)::before {
@@ -230,8 +230,8 @@ pre {
   .line.template,
   .line.template::before {
     --hue: 130;
-    --fg-lightness: var(--starbeam-fg-lightness-bright);
-    --bg-lightness: var(--starbeam-bg-lightness-bright);
+    --fg-lightness: var(--sb-fg-lightness-bright);
+    --bg-lightness: var(--sb-bg-lightness-bright);
   }
 
   .line.template.tag:first-child + .line.template.tag,
@@ -355,7 +355,7 @@ pre.shiki :after {
   --vp-code-line-diff-remove-symbol-color: hsl(
     var(--twoslash-error-hue),
     var(--twoslash-error-saturation),
-    var(--starbeam-bg-lightness-normal)
+    var(--sb-bg-lightness-normal)
   );
 }
 

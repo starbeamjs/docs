@@ -61,8 +61,6 @@ export const lifecycle: PluginSimple = (md) => {
       token.content = `%%{init: ${JSON.stringify(
         theme
       )}}%%\nflowchart ${direction}\n${indent(token.content)}`;
-
-      console.log(token.content);
     }
 
     return fence!(...args);

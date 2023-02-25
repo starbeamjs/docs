@@ -1,40 +1,40 @@
 .vp-doc {
-  font-weight: var(--starbeam-font-weight-body);
+  font-weight: var(--sb-font-weight-body);
 
   &,
   & :before,
   & :after {
-    --em-lightness: var(--starbeam-fg-lightness-bright);
+    --em-lightness: var(--sb-fg-lightness-bright);
   }
 
   em {
     font-size: 105%;
     font-style: italic;
-    font-family: var(--starbeam-font-em);
+    font-family: var(--sb-font-em);
     color: hsl(var(--em-hue), var(--em-saturation), var(--em-lightness));
   }
 
   em:not(.kw) {
-    font-weight: var(--starbeam-font-weight-em);
+    font-weight: var(--sb-font-weight-em);
   }
 
   /** light emphasis **/
   em.kw {
-    --em-lightness: var(--starbeam-fg-lightness-normal);
-    font-weight: var(--starbeam-font-weight-keyword);
+    --em-lightness: var(--sb-fg-lightness-normal);
+    font-weight: var(--sb-font-weight-keyword);
   }
 
   p,
   summary {
-    margin: var(--starbeam-p-break) 0;
+    margin: var(--sb-p-break) 0;
   }
 
   p {
-    line-height: var(--starbeam-p-leading);
+    line-height: var(--sb-p-leading);
   }
 
   :not(pre) > code {
-    padding: var(--starbeam-inline-code-padding);
+    padding: var(--sb-inline-code-padding);
   }
 
   span.li {
@@ -61,7 +61,7 @@
         color: hsl(
           var(--inline-decor-hue),
           var(--inline-decor-saturation),
-          var(--starbeam-fg-lightness-normal)
+          var(--sb-fg-lightness-normal)
         );
       }
     }

@@ -1,0 +1,20 @@
+pre.error {
+  display: grid;
+  row-gap: 0.5rem;
+  color: var(--sb-fg-red-stronger);
+  background-color: var(--sb-bg-red-stronger);
+  font-size: 60%;
+  line-height: 1.5;
+  padding: 1em;
+
+  &::before {
+    font-size: 1rem;
+    padding: 0.2em;
+    background-color: var(--sb-bg-red-dim);
+    color: var(--sb-fg-red-dim);
+    border-radius: 0.2em;
+    width: max-content;
+    font-family: var(--sb-font-base);
+    content: "Error";
+  }
+}

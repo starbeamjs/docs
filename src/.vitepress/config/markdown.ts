@@ -8,6 +8,11 @@ import { fences } from "../plugins/fences.js";
 import { mark } from "../plugins/mark/mark.js";
 import { flowchart } from "../plugins/mermaid/flowchart.js";
 import { mermaid } from "../plugins/mermaid/mermaid.js";
+import d2, {
+  DarkTheme,
+  LightTheme,
+  type D2Options,
+} from "./d2.js";
 import { highlight as createHighlight } from "./syntax-highlight/highlight.js";
 import { markdownItShikiTwoslashSetup } from "./syntax-highlight/setup.js";
 
@@ -37,6 +42,18 @@ export const MARKDOWN: MarkdownOptions = {
     md.use(fences);
     md.use(snippets);
     md.use(containers);
+    md.use(d2, {
+      layout: {
+        type: "elk",
+        padding: {
+          block: 20,
+          inline: 20,
+        },
+      },
+      pad: 20,
+      theme: LightTheme.EarthTones,
+      darkTheme: DarkTheme.DarkMauve,
+    } satisfies D2Options);
     md.use(mermaid);
     md.use(flowchart);
     md.use(mark);

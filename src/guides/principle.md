@@ -1,8 +1,11 @@
 # Our Guiding Principle
 
-::: tip Starbeam's Core Principle If you model your reactive data
-like any other data, you can build reliable reactive UIs with the
-skills you already have. :::
+::: tip Starbeam's Core Principle
+
+If you model your reactive data like any other data, you can
+build reliable reactive UIs with the skills you already have.
+
+:::
 
 **We believe that reactive programming should feel exactly like
 regular programming.**

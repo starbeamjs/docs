@@ -59,7 +59,8 @@
       margin-block-start: 1rem;
     }
 
-    :is(&.card-container, &.card) + section.card-container {
+    &.card-container + section.card-container,
+    .card + section.card-container {
       margin-block-start: 2rem;
     }
 

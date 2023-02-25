@@ -51,7 +51,7 @@
   :is(h2, h3, h4, h5, h6) {
     span.starbeam-tag {
       margin-inline-start: 1ch;
-      font-weight: var(--starbeam-font-weight-thin);
+      font-weight: var(--sb-font-weight-thin);
 
       &:before {
         content: "(";
@@ -64,19 +64,15 @@
   }
 
   .lang-docs.custom-block p > code {
-    color: hsl(
-      var(--starbeam-fg-hue),
-      var(--starbeam-fg-saturation),
-      var(--starbeam-fg-lightness-bright)
-    );
+    color: hsl(var(--sb-fg-hue), var(--sb-fg-saturation), var(--sb-fg-lightness-bright));
     background-color: hsl(
-      var(--starbeam-bg-hue),
-      var(--starbeam-bg-saturation),
-      var(--starbeam-bg-lightness-brightest)
+      var(--sb-bg-hue),
+      var(--sb-bg-saturation),
+      var(--sb-bg-lightness-brightest)
     );
-    padding: var(--starbeam-nested-inline-code-padding);
-    font-size: calc(var(--starbeam-font-size) * var(--starbeam-ratio-down1));
+    padding: var(--sb-nested-inline-code-padding);
+    font-size: calc(var(--sb-font-size) * var(--sb-ratio-down1));
     font-family: var(--vp-font-family-mono);
-    font-weight: var(--starbeam-font-weight-light);
+    font-weight: var(--sb-font-weight-light);
   }
 }

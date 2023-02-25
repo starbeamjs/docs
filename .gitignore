@@ -1,7 +1,4 @@
 node_modules
 docs
-src/.vitepress/.cache
-src/.vitepress/cache
 !src/.vitepress
-#src/.vitepress/config.ts.timestamp-*
 build

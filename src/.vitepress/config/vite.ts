@@ -24,11 +24,15 @@ export const root = path.resolve(__dirname, "../../..");
 export const VITE: UserConfig = {
   css: { postcss },
   logLevel: "info",
+
   plugins: [
     tsconfigPaths({
       loose: true,
     }),
   ],
+  resolve: {
+    alias: {},
+  },
 
   optimizeDeps: {
     exclude: ["vitepress-plugin-tabs"],

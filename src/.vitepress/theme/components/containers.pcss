@@ -1,58 +1,61 @@
-.vp-doc .custom-block {
-  padding: var(--starbeam-container-padding);
-
-  > h3 {
-    margin-block: var(--starbeam-container-padding);
-  }
-
-  &.warning {
-    --block-hue: 45;
-  }
-
-  &.info {
-    --block-hue: 208;
-  }
-
-  &.tip {
-    --block-hue: 153;
-  }
-
-  &.danger {
-    --block-hue: 353;
-  }
-
-  :not(pre) > code {
-    background-color: hsl(
-      var(--block-hue),
-      var(--starbeam-bg-saturation),
-      var(--starbeam-bg-lightness-brighter)
-    );
-
-    color: hsl(
-      var(--block-hue),
-      var(--starbeam-fg-saturation),
-      var(--starbeam-fg-lightness-bright)
-    );
-
-    padding: var(--starbeam-nested-inline-code-padding);
-    font-family: var(--vp-font-family-mono);
-    font-weight: var(--starbeam-font-weight-body);
-  }
-
-  &.info {
-    > .custom-block-title {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-gap: 0.2rem;
-
-      &::before {
-        content: "💁";
-      }
+.vp-doc {
+  .code-container {
+    padding-block: var(--sb-container-padding-block);
+    .line {
+      padding-inline: var(--sb-container-padding-inline);
     }
   }
 
-  em {
-    font-weight: var(--starbeam-font-weight-em);
-    background-color: var(--vp-c-yellow-lighter);
+  .custom-block {
+    padding: var(--sb-container-padding);
+
+    > h3 {
+      margin-block: var(--sb-container-padding);
+    }
+
+    &.warning {
+      --block-hue: 45;
+    }
+
+    &.info {
+      --block-hue: 208;
+    }
+
+    &.tip {
+      --block-hue: 153;
+    }
+
+    &.danger {
+      --block-hue: 353;
+    }
+
+    :not(pre) > code {
+      background-color: hsl(
+        var(--block-hue) var(--sb-bg-saturation) var(--sb-bg-lightness-brighter)
+      );
+
+      color: hsl(var(--block-hue) var(--sb-fg-saturation) var(--sb-fg-lightness-bright));
+
+      padding: var(--sb-nested-inline-code-padding);
+      font-family: var(--vp-font-family-mono);
+      font-weight: var(--sb-font-weight-body);
+    }
+
+    &.info {
+      > .custom-block-title {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-gap: 0.2rem;
+
+        &::before {
+          content: "💁";
+        }
+      }
+    }
+
+    em {
+      font-weight: var(--sb-font-weight-em);
+      background-color: var(--vp-c-yellow-lighter);
+    }
   }
 }
