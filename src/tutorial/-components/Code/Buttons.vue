@@ -40,8 +40,8 @@ button.toggle-button {
   --hue: 0;
   --saturation: 0%;
 
-  --fg-lightness: var(--starbeam-fg-lightness-brighter);
-  --bg-lightness: var(--starbeam-bg-lightness-brighter);
+  --fg-lightness: var(--sb-fg-lightness-brighter);
+  --bg-lightness: var(--sb-bg-lightness-brighter);
 }
 
 button.toggle-button.counted {
@@ -54,8 +54,8 @@ button.toggle-button.counted {
     display: grid;
     transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out;
 
-    --fg-lightness: var(--starbeam-fg-lightness-brighter);
-    --bg-lightness: var(--starbeam-bg-lightness-brightest);
+    --fg-lightness: var(--sb-fg-lightness-brighter);
+    --bg-lightness: var(--sb-bg-lightness-brightest);
 
     background-color: hsl(var(--hue), var(--saturation), var(--bg-lightness));
     color: hsl(var(--hue), var(--saturation), var(--fg-lightness));
@@ -68,22 +68,22 @@ button.toggle-button.counted {
 }
 
 button.toggle-button:hover {
-  --fg-lightness: var(--starbeam-fg-lightness-normal);
-  --bg-lightness: var(--starbeam-bg-lightness-brightest);
+  --fg-lightness: var(--sb-fg-lightness-normal);
+  --bg-lightness: var(--sb-bg-lightness-brightest);
 
   span.count {
-    --fg-lightness: var(--starbeam-fg-lightness-brightest);
-    --bg-lightness: var(--starbeam-bg-lightness-pure);
+    --fg-lightness: var(--sb-fg-lightness-brightest);
+    --bg-lightness: var(--sb-bg-lightness-pure);
   }
 }
 
 button.toggle-button:active {
-  --fg-lightness: var(--starbeam-fg-lightness-brighter);
-  --bg-lightness: var(--starbeam-bg-lightness-brighter);
+  --fg-lightness: var(--sb-fg-lightness-brighter);
+  --bg-lightness: var(--sb-bg-lightness-brighter);
 
   span.count {
-    --fg-lightness: var(--starbeam-fg-lightness-bright);
-    --bg-lightness: var(--starbeam-bg-lightness-bright);
+    --fg-lightness: var(--sb-fg-lightness-bright);
+    --bg-lightness: var(--sb-bg-lightness-bright);
   }
 }
 </style>

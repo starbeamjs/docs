@@ -14,7 +14,7 @@ span {
   white-space: nowrap;
 }
 b {
-  font-weight: var(--starbeam-font-weight-body);
+  font-weight: var(--sb-font-weight-body);
   color: #666;
 }
 span.nodeLabel {
@@ -30,7 +30,7 @@ g.node.note foreignObject div span.nodeLabel {
   padding: 0;
 }
 g.node.lifecycle span.nodeLabel {
-  font-weight: var(--starbeam-font-weight-bold);
+  font-weight: var(--sb-font-weight-bold);
 }
 
 .lifecycle span.nodeLabel {

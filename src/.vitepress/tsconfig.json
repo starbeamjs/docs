@@ -1,10 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "preserveSymlinks": true,
+    "esModuleInterop": true,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "*": ["./packages/*/index.ts"]
     }
-  },
-  "files": ["./config/head.ts"],
-  "include": ["**/*"]
+  }
 }

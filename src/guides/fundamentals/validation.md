@@ -20,8 +20,7 @@ structured. You use normal functions, getters and methods to
 build up your rendered value, and ==none of that code needs to be
 aware of reactivity at all==.
 
-::: info
-
+```md info
 Reactive collections, like `Map`s and `Set`s, work exactly the
 same way.
 
@@ -34,8 +33,7 @@ And if a rendered function iterates over a reactive `Map`, it
 consumes a cell for the **iteration**. If you later set a value,
 delete an entry or clear the map, the iteration cell is
 invalidated, which invalidates your rendered function.
-
-:::
+```
 
 ## Example: Reactive People List
 
@@ -43,16 +41,12 @@ To demonstrate this point, let's create an object that uses a
 reactive array under the hood, but exposes a normal JavaScript
 API.
 
-```snippet {#indirect-consumption}
-<!--@include: ./-snippets/indirect-consumption.ts-->
-```
+![#indirect-consumption](./-snippets/indirect-consumption.ts)
 
 We want to render a comma-separated list of people from New York,
 using `people.byLocation("New York")`.
 
-```snippet {#rendering-indirect-consumption}
-<!--@include: ./-snippets/indirect-consumption.ts-->
-```
+![#rendering-indirect-consumption](./-snippets/indirect-consumption.ts)
 
 How does `byLocation` **consume** reactive cells?
 
@@ -62,9 +56,7 @@ How does `byLocation` **consume** reactive cells?
 
 Next, we'll add some people to the array.
 
-```snippet {#adding-people}
-<!--@include: ./-snippets/indirect-consumption.ts-->
-```
+![#adding-people](./-snippets/indirect-consumption.ts)
 
 And how did this code **update** reactive cells?
 

@@ -36,7 +36,7 @@ const component = computed(() => {
   display: inline-block;
   border: 1px solid transparent;
   text-align: center;
-  font-weight: var(--starbeam-font-weight-label);
+  font-weight: var(--sb-font-weight-label);
   white-space: nowrap;
   transition: color 0.25s, border-color 0.25s, background-color 0.25s;
 }
@@ -53,7 +53,7 @@ const component = computed(() => {
   border-radius: 24px;
   padding: 0 24px;
   line-height: 46px;
-  font-size: var(--starbeam-font-size);
+  font-size: var(--sb-font-size);
 }
 .VPButton.brand {
   border-color: var(--vp-button-brand-border);

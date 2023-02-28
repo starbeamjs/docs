@@ -1,32 +1,32 @@
 :root {
   --size0: 16px;
-  --big1: calc(var(--size0) * var(--starbeam-ratio));
-  --big2: calc(var(--big1) * var(--starbeam-ratio));
-  --big3: calc(var(--big2) * var(--starbeam-ratio));
-  --big4: calc(var(--big3) * var(--starbeam-ratio));
-  --big5: calc(var(--big4) * var(--starbeam-ratio));
-  --big6: calc(var(--big5) * var(--starbeam-ratio));
-  --small1: calc(var(--size0) / var(--starbeam-ratio));
-  --small2: calc(var(--small1) / var(--starbeam-ratio));
-  --small3: calc(var(--small2) / var(--starbeam-ratio));
-  --small4: calc(var(--small3) / var(--starbeam-ratio));
-  --small5: calc(var(--small4) / var(--starbeam-ratio));
-  --small6: calc(var(--small5) / var(--starbeam-ratio));
+  --big1: calc(var(--size0) * var(--sb-ratio));
+  --big2: calc(var(--big1) * var(--sb-ratio));
+  --big3: calc(var(--big2) * var(--sb-ratio));
+  --big4: calc(var(--big3) * var(--sb-ratio));
+  --big5: calc(var(--big4) * var(--sb-ratio));
+  --big6: calc(var(--big5) * var(--sb-ratio));
+  --small1: calc(var(--size0) / var(--sb-ratio));
+  --small2: calc(var(--small1) / var(--sb-ratio));
+  --small3: calc(var(--small2) / var(--sb-ratio));
+  --small4: calc(var(--small3) / var(--sb-ratio));
+  --small5: calc(var(--small4) / var(--sb-ratio));
+  --small6: calc(var(--small5) / var(--sb-ratio));
 
   --t-font-body: "Readex Pro", sans-serif;
-  --t-font-mono: var(--starbeam-font-mono);
+  --t-font-mono: var(--sb-font-mono);
   --t-font-fancy: "Comfortaa", sans-serif;
   --t-font-em: "Sofia Sans", sans-serif;
 
-  --t-margin-block: calc(1em / var(--starbeam-ratio));
+  --t-margin-block: calc(1em / var(--sb-ratio));
 
   --t-ui-gap: 1rem;
-  --t-ui-gap-sm: calc(var(--t-ui-gap) / var(--starbeam-ratio));
-  --t-ui-gap-xs: calc(var(--t-ui-gap-sm) / var(--starbeam-ratio));
-  --t-ui-gap-xxs: calc(var(--t-ui-gap-xs) / var(--starbeam-ratio));
+  --t-ui-gap-sm: calc(var(--t-ui-gap) / var(--sb-ratio));
+  --t-ui-gap-xs: calc(var(--t-ui-gap-sm) / var(--sb-ratio));
+  --t-ui-gap-xxs: calc(var(--t-ui-gap-xs) / var(--sb-ratio));
 
-  --t-ui-gap-lg: calc(var(--t-ui-gap) * var(--starbeam-ratio));
-  --t-ui-gap-xl: calc(var(--t-ui-gap-lg) * var(--starbeam-ratio));
+  --t-ui-gap-lg: calc(var(--t-ui-gap) * var(--sb-ratio));
+  --t-ui-gap-xl: calc(var(--t-ui-gap-lg) * var(--sb-ratio));
 
   --t-rest: 1fr;
   --t-fit: max-content;
@@ -90,7 +90,7 @@ h1 {
 }
 
 :is(p, blockquote, ul, ol, div.custom-block) + :is(p, blockquote, ul, ol, div.custom-block) {
-  margin-block-start: calc(var(--t-margin-block) / var(--starbeam-ratio));
+  margin-block-start: calc(var(--t-margin-block) / var(--sb-ratio));
 }
 
 h1,

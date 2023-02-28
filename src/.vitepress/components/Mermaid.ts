@@ -11,7 +11,7 @@ import {
 import type { VNode } from "vue";
 
 import { atou } from "../plugins/utils.js";
-import "./mermaid.pcss";
+import "./mermaid.postcss";
 import { LoadingIcon } from "./shared/icons.js";
 
 const MARKDOWN_ENHANCE_DELAY = 500;

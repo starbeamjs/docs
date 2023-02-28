@@ -36,6 +36,10 @@ export class MDState {
     return this.#state.push("html_block", "", 0);
   }
 
+  render(content: string) {
+    return this.#md.render(content, this.#state.env);
+  }
+
   error(message: string) {
     return `<div class="language-error ext-error"><pre class="ext-error"><code>${message}</code></pre></div>`;
   }

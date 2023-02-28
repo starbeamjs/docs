@@ -2,7 +2,7 @@
 import { useStorage } from "@vueuse/core";
 import { PropType, ref, watch } from "vue";
 
-import "./tabs.pcss";
+import "./tabs.postcss";
 
 export interface TabProps extends Record<string, unknown> {
   title: string;

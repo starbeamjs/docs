@@ -1,0 +1,24 @@
+{
+  "name": "@wycatsjs/utils",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@jsergo/tagged-templates": "workspace:^"
+  },
+  "devDependencies": {
+    "@wycatsjs/building": "workspace:^",
+    "vite": "*",
+    "vite-plugin-dts": "^2.0.2",
+    "typescript": "*"
+  },
+  "scripts": {
+    "build": "vite build"
+  }
+}

@@ -1299,7 +1299,7 @@ var styles = readFileSync2(
 var theme = {
   theme: "neutral",
   themeVariables: {
-    fontFamily: "var(--starbeam-font-mono)",
+    fontFamily: "var(--sb-font-mono)",
     fontSize: "12px"
   },
   flowchart: {

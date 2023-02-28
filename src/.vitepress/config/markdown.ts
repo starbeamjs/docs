@@ -1,6 +1,7 @@
 import type MarkdownIt from "markdown-it";
 import type { MarkdownOptions } from "vitepress";
 import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
+import fencedContainer from "../packages/fenced-container/index.js";
 import { snippets } from "../packages/vitepress-snippets/build.js";
 import { codeTabs } from "../plugins/code-tabs/code-tabs.js";
 import { containers } from "../plugins/containers/containers.js";
@@ -8,11 +9,7 @@ import { fences } from "../plugins/fences.js";
 import { mark } from "../plugins/mark/mark.js";
 import { flowchart } from "../plugins/mermaid/flowchart.js";
 import { mermaid } from "../plugins/mermaid/mermaid.js";
-import d2, {
-  DarkTheme,
-  LightTheme,
-  type D2Options,
-} from "./d2.js";
+import d2, { DarkTheme, LightTheme, type D2Options } from "./d2.js";
 import { highlight as createHighlight } from "./syntax-highlight/highlight.js";
 import { markdownItShikiTwoslashSetup } from "./syntax-highlight/setup.js";
 
@@ -41,6 +38,7 @@ export const MARKDOWN: MarkdownOptions = {
     md.use(shiki);
     md.use(fences);
     md.use(snippets);
+    md.use(fencedContainer);
     md.use(containers);
     md.use(d2, {
       layout: {

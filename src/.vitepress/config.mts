@@ -1,8 +1,8 @@
 import { defineConfig } from "vitepress";
-import { HEAD } from "./config/head.js";
 import { NAV, SOCIAL } from "./config/Nav.js";
 import { SIDEBAR } from "./config/Sidebar.js";
 import { BUILD_HOOKS, CONFIG, SITE } from "./config/Site.js";
+import { HEAD } from "./config/head.js";
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";

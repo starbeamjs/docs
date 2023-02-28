@@ -14,7 +14,7 @@ const styles = readFileSync(
 const theme: MermaidConfig = {
   theme: "neutral",
   themeVariables: {
-    fontFamily: "var(--starbeam-font-mono)",
+    fontFamily: "var(--sb-font-mono)",
     fontSize: "12px",
   },
   flowchart: {

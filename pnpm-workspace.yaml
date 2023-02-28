@@ -1,6 +1,6 @@
-- .
-- ./types/@types/*
-- ./src/frameworks/react
-- ./packages/*
-- ./packages/@types/*
-- ./scripts
+- types/@types/*
+- src/.vitepress
+- src/frameworks/react
+- packages/*
+- packages/@types/*
+- scripts

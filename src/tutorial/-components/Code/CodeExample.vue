@@ -173,32 +173,32 @@ watch(sandpack.activeFile, (activeFile) => {
 
 .files-wrapper,
 :deep(.demo-console) {
-  border-bottom-left-radius: var(--starbeam-radius);
-  border-bottom-right-radius: var(--starbeam-radius);
+  border-bottom-left-radius: var(--sb-radius);
+  border-bottom-right-radius: var(--sb-radius);
   contain: paint;
 }
 
 .files {
   display: grid;
   grid-template-columns: max-content 1fr;
-  border-bottom-left-radius: var(--starbeam-radius);
-  border-bottom-right-radius: var(--starbeam-radius);
+  border-bottom-left-radius: var(--sb-radius);
+  border-bottom-right-radius: var(--sb-radius);
 
   :deep(.sp-file-explorer) {
-    background-color: hsl(var(--starbeam-bg-hue), 50%, var(--starbeam-bg-lightness-brightest));
+    background-color: hsl(var(--sb-bg-hue), 50%, var(--sb-bg-lightness-brightest));
   }
 }
 
 .preview {
-  border-top-left-radius: var(--starbeam-radius);
-  border-top-right-radius: var(--starbeam-radius);
+  border-top-left-radius: var(--sb-radius);
+  border-top-right-radius: var(--sb-radius);
 }
 
 :deep(.code-editor) {
   display: grid;
   width: 100%;
   border: 2px solid var(--sp-colors-surface3);
-  border-radius: var(--starbeam-radius);
+  border-radius: var(--sb-radius);
 
   > div.sp-file-explorer {
     background-color: var(--sp-colors-surface3);

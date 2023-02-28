@@ -1,5 +1,5 @@
-@import "../shared/arrow.pcss";
-@import "../shared/reset.pcss";
+@import "../shared/arrow.postcss";
+@import "../shared/reset.postcss";
 
 :root {
   --code-demo-header-bg-color: #eee;
@@ -82,7 +82,7 @@ html.dark {
     vertical-align: top;
     flex: 1;
 
-    font-weight: var(--starbeam-font-weight-body);
+    font-weight: var(--sb-font-weight-body);
     font-size: 1.25rem;
     line-height: 2.5rem;
 

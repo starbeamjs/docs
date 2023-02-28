@@ -31,5 +31,5 @@
     },
     "customConditions": ["dev"]
   },
-  "files": ["./src/vite.config.ts", "./src/postcss.config.ts"]
+  "include": ["./**/vite.config.ts", "./src/postcss.config.ts", "*.quokka.ts"]
 }

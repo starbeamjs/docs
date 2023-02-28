@@ -31,15 +31,11 @@ Code blocks structurally look like:
   --twoslash-add-fg-lightness: var(--dim-lightness-fg);
 
   --twoslash-error-bg: hsl(
-    var(--twoslash-error-hue),
-    var(--twoslash-error-saturation),
-    var(--twoslash-error-bg-lightness)
+    var(--twoslash-error-hue) var(--twoslash-error-saturation) var(--twoslash-error-bg-lightness)
   );
 
   --twoslash-error-fg: hsl(
-    var(--twoslash-error-hue),
-    var(--twoslash-error-saturation),
-    var(--twoslash-error-fg-lightness)
+    var(--twoslash-error-hue) var(--twoslash-error-saturation) var(--twoslash-error-fg-lightness)
   );
 
   --twoslash-error-border: var(--twoslash-error-fg);
@@ -61,11 +57,8 @@ Code blocks structurally look like:
 
 pre.twoslash,
 pre.shiki {
-  --highlight-color: hsla(
-    var(--highlight-hue),
-    var(--highlight-saturation),
-    var(--highlight-lightness),
-    50%
+  --highlight-color: hsl(
+    var(--highlight-hue) var(--highlight-saturation) var(--highlight-lightness) / 50%
   );
 }
 
@@ -74,9 +67,9 @@ pre.shiki {
 }
 
 pre.twoslash * {
-  --dim-bg: hsla(var(--highlight-hue), var(--highlight-saturation), var(--dim-lightness-bg));
+  --dim-bg: hsl(var(--highlight-hue) var(--highlight-saturation) var(--dim-lightness-bg));
 
-  --dim-fg: hsla(var(--highlight-hue), var(--highlight-saturation), var(--dim-lightness-fg));
+  --dim-fg: hsl(var(--highlight-hue) var(--highlight-saturation) var(--dim-lightness-fg));
 }
 
 html.dark {
@@ -116,28 +109,24 @@ pre {
 
 .vp-doc pre.shiki {
   overflow-x: auto;
-  --vp-code-line-diff-remove-color: hsla(
-    var(--twoslash-error-hue),
-    var(--twoslash-error-saturation),
-    var(--twoslash-error-bg-lightness),
-    100%
+  --vp-code-line-diff-remove-color: hsl(
+    var(--twoslash-error-hue) var(--twoslash-error-saturation) var(--twoslash-error-bg-lightness) /
+      100%
   );
-  --vp-code-line-diff-add-color: hsla(
-    var(--twoslash-add-hue),
-    var(--twoslash-add-saturation),
-    var(--twoslash-add-bg-lightness),
-    var(--sb-bg-lightness-normal)
+  --vp-code-line-diff-add-color: hsl(
+    var(--twoslash-add-hue) var(--twoslash-add-saturation) var(--twoslash-add-bg-lightness) /
+      var(--sb-bg-lightness-normal)
   );
 
   &.twoslash {
-    padding-block: var(--sb-code-padding-block);
-
     .line {
       padding-inline: var(--sb-code-padding-inline);
     }
   }
 
   &.twoslash code {
+    padding-block: var(--sb-code-padding-block);
+
     .line::before {
       contents: "";
       display: none;
@@ -175,11 +164,8 @@ pre {
 
     --saturation: 100%;
 
-    background-color: hsla(
-      var(--hue),
-      var(--saturation),
-      var(--bg-lightness),
-      var(--sb-bg-lightness-dim)
+    background-color: hsl(
+      var(--hue) var(--saturation) var(--bg-lightness) / var(--sb-bg-lightness-dim)
     );
   }
 
@@ -208,7 +194,7 @@ pre {
 
       font-size: var(--custom-logo, calc(var(--vp-code-font-size) * var(--vp-code-line-height)));
       content: var(--icon, "");
-      color: hsl(var(--hue), var(--saturation), var(--fg-lightness));
+      color: hsl(var(--hue) var(--saturation) var(--fg-lightness));
 
       background: var(--custom-logo) right center/contain no-repeat;
     }
@@ -353,9 +339,7 @@ pre.shiki,
 pre.shiki :before,
 pre.shiki :after {
   --vp-code-line-diff-remove-symbol-color: hsl(
-    var(--twoslash-error-hue),
-    var(--twoslash-error-saturation),
-    var(--sb-bg-lightness-normal)
+    var(--twoslash-error-hue) var(--twoslash-error-saturation) var(--sb-bg-lightness-normal)
   );
 }
 
@@ -393,6 +377,10 @@ pre.shiki {
   overflow: hidden;
 }
 
+pre.twoslash {
+  /* container: twoslash / inline-size; */
+}
+
 /** When you mouse over the pre, show the underlines */
 pre.twoslash:hover data-lsp {
   border-color: var(--accent-border);
@@ -400,7 +388,6 @@ pre.twoslash:hover data-lsp {
 
 pre.twoslash data-lsp {
   cursor: pointer;
-
   &:hover {
     background-color: var(--sb-hover-bg-overlay);
     transition: all 0.2s ease-in-out;
@@ -412,7 +399,7 @@ pre.twoslash data-lsp:hover::before,
 pre.twoslash data-lsp:active::before {
   content: attr(lsp);
   position: absolute;
-  transform: translate(0, 1.5rem);
+  transform: translate(0, -2rem);
   margin-inline-end: 1rem;
   background-color: var(--dim-bg);
   color: var(--dim-fg);
@@ -430,6 +417,8 @@ pre.twoslash data-lsp:active::before {
   font-size: 0.7rem;
   white-space: pre-wrap;
   z-index: 100;
+  /* top: 0;
+  left: 0; */
 }
 
 pre .code-container {
@@ -667,8 +656,8 @@ pre .logger svg {
 }
 
 pre .logger {
-  background-color: hsl(var(--current-hue), var(--current-saturation), var(--dim-lightness-bg));
-  border-left: 2px solid hsl(var(--current-hue), var(--current-saturation), var(--dim-lightness-fg));
+  background-color: hsl(var(--current-hue) var(--current-saturation) var(--dim-lightness-bg));
+  border-left: 2px solid hsl(var(--current-hue) var(--current-saturation) var(--dim-lightness-fg));
 }
 
 pre .logger.error-log {

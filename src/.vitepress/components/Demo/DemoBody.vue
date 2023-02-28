@@ -74,7 +74,7 @@ div.code-editor {
   display: grid;
   width: 100%;
   border: 2px solid var(--sp-colors-surface3);
-  border-radius: var(--starbeam-radius);
+  border-radius: var(--sb-radius);
 
   > div.sp-file-explorer {
     background-color: var(--sp-colors-surface3);

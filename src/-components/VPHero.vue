@@ -105,7 +105,7 @@ defineProps<{
   letter-spacing: -0.4px;
   line-height: 40px;
   font-size: 32px;
-  font-weight: var(--starbeam-font-weight-bold);
+  font-weight: var(--sb-font-weight-bold);
   white-space: pre-wrap;
 }
 .VPHero.has-image .name,
@@ -145,7 +145,7 @@ defineProps<{
   max-width: 392px;
   line-height: 28px;
   font-size: 18px;
-  font-weight: var(--starbeam-font-weight-keyword);
+  font-weight: var(--sb-font-weight-keyword);
   white-space: pre-wrap;
   color: var(--vp-c-text-2);
 }

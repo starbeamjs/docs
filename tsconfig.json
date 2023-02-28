@@ -10,6 +10,7 @@
     //   "path": "./src/guides/fundamentals/-snippets/tsconfig.json"
     // },
 
+    { "path": "./tsconfig.config.json" },
     { "path": "./src/tsconfig.json" },
     { "path": "./src/.vitepress/tsconfig.json" }
 

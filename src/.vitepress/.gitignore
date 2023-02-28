@@ -1,4 +1,4 @@
 .cache
 cache
-config.ts.timestamp-*
+config.*.timestamp-*
 node_modules

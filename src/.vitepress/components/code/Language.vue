@@ -61,19 +61,19 @@ function current() {
   --fg-color: hsl(
     var(--typescript-hue),
     var(--typescript-saturation),
-    var(--starbeam-fg-lightness-normal)
+    var(--sb-fg-lightness-normal)
   );
 
   --border-color: hsl(
     var(--typescript-hue),
     var(--typescript-saturation),
-    var(--starbeam-fg-lightness-dim)
+    var(--sb-fg-lightness-dim)
   );
 
   --bg-color: hsl(
     var(--typescript-hue),
     var(--typescript-saturation),
-    var(--starbeam-bg-lightness-brightest)
+    var(--sb-bg-lightness-brightest)
   );
 }
 
@@ -83,19 +83,19 @@ function current() {
   --fg-color: hsl(
     var(--javascript-hue),
     var(--javascript-saturation),
-    var(--starbeam-fg-lightness-bright)
+    var(--sb-fg-lightness-bright)
   );
 
   --border-color: hsl(
     var(--javascript-hue),
     var(--javascript-saturation),
-    var(--starbeam-fg-lightness-normal)
+    var(--sb-fg-lightness-normal)
   );
 
   --bg-color: hsl(
     var(--javascript-hue),
     var(--javascript-saturation),
-    var(--starbeam-bg-lightness-brighter)
+    var(--sb-bg-lightness-brighter)
   );
 }
 
@@ -103,9 +103,9 @@ function current() {
 .lang-docs.js > div.js:not(:empty) {
   display: block;
 
-  border-radius: var(--starbeam-radius);
+  border-radius: var(--sb-radius);
 
-  margin-block: var(--starbeam-p-break) calc(var(--starbeam-p-break) + 0.3rem);
+  margin-block: var(--sb-p-break) calc(var(--sb-p-break) + 0.3rem);
 
   > :first-child {
     margin-block-start: 0;
@@ -119,8 +119,8 @@ function current() {
     display: grid;
     align-items: baseline;
     grid-template-columns: 1fr 1000fr;
-    row-gap: var(--starbeam-p-break);
-    column-gap: calc(var(--starbeam-ui-text-offset-start) * var(--starbeam-ratio-up2));
+    row-gap: var(--sb-p-break);
+    column-gap: calc(var(--sb-ui-text-offset-start) * var(--sb-ratio-up2));
   }
 
   > p {
@@ -142,17 +142,17 @@ function current() {
     line-height: 1;
     grid-column: 1;
 
-    padding-inline: calc(var(--starbeam-ui-padding-inline) * var(--starbeam-ratio-down2));
-    padding-block-start: calc(var(--starbeam-ui-padding-block) * var(--starbeam-ratio-down1));
-    padding-block-end: calc(var(--starbeam-ui-padding-block) + 0.05rem);
+    padding-inline: calc(var(--sb-ui-padding-inline) * var(--sb-ratio-down2));
+    padding-block-start: calc(var(--sb-ui-padding-block) * var(--sb-ratio-down1));
+    padding-block-end: calc(var(--sb-ui-padding-block) + 0.05rem);
 
-    border-radius: var(--starbeam-radius-xsm);
-    font-size: calc(var(--starbeam-font-size) / var(--starbeam-ratio));
+    border-radius: var(--sb-radius-xsm);
+    font-size: calc(var(--sb-font-size) / var(--sb-ratio));
     content: attr(class);
     background-color: var(--bg-color);
     color: var(--fg-color);
-    border-block-end: var(--starbeam-border-thicker) solid var(--border-color);
-    border-inline-end: var(--starbeam-border-thicker) solid var(--border-color);
+    border-block-end: var(--sb-border-thicker) solid var(--border-color);
+    border-inline-end: var(--sb-border-thicker) solid var(--border-color);
   }
 }
 

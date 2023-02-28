@@ -1,13 +1,9 @@
+import type { RuleBlock } from "@jsergo/mdit";
 import "@mdit-vue/plugin-sfc";
-import Snippet, {
-  type Highlight,
-  type Region,
-} from "docs-snippet";
+import Snippet, { Snippets, type Highlight, type Region } from "docs-snippet";
 import { existsSync, readFileSync } from "fs";
 import type MarkdownIt from "markdown-it";
 import stripAnsi from "strip-ansi";
-import type { RuleBlock } from "../../../../../node_modules/@types/markdown-it/lib/parser_block.js";
-import type { Snippets } from "../../../../../node_modules/docs-snippet/dist/types/src/snippets.js";
 import type { VitepressStateBlock } from "../../../plugins/markdown/env.js";
 import { RenderLanguageRegion } from "./snippets/language-region.js";
 import { MDState } from "./utils.js";
@@ -31,9 +27,7 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
       const snippet = line.string();
 
       // use named captures
-      const match = snippet.match(
-        /^!\[#(?<region>(.*))\]\((?<file>(.*))\)$/
-      );
+      const match = snippet.match(/^!\[#(?<region>(.*))\]\((?<file>(.*))\)$/);
 
       if (match) {
         const { region, file } = match.groups as {
@@ -42,11 +36,7 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         };
 
         mdState.consumeLine();
-        pushSnippetToken(
-          mdState,
-          mdState.env.resolve(file),
-          region
-        );
+        pushSnippetToken(mdState, mdState.env.resolve(file), region);
         return true;
       }
     }
@@ -54,9 +44,9 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
     if (line.startsWith("```snippet")) {
       const fenceline = line.string();
 
-      let rawPath = fenceline.match(
-        /```snippet\s+\{(.*)\}/
-      )?.[1] as string | undefined;
+      let rawPath = fenceline.match(/```snippet\s+\{(.*)\}/)?.[1] as
+        | string
+        | undefined;
 
       if (silent) {
         return true;
@@ -73,9 +63,7 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
       const token = state.push("html_block", "", 0);
 
       if (!rawPath?.startsWith("#")) {
-        token.content = error(
-          `Invalid region attribute "${rawPath}"`
-        );
+        token.content = error(`Invalid region attribute "${rawPath}"`);
         return true;
       }
 
@@ -84,9 +72,7 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
       const filename = mdState.env.resolve(fenceContent.trim());
 
       if (!existsSync(filename)) {
-        token.content = mdState.error(
-          `File "${filename}" does not exist`
-        );
+        token.content = mdState.error(`File "${filename}" does not exist`);
         return true;
       }
 
@@ -144,9 +130,7 @@ function pushSnippetToken(
   const token = state.open();
 
   if (!existsSync(filename)) {
-    token.content = state.error(
-      `File "${filename}" does not exist`
-    );
+    token.content = state.error(`File "${filename}" does not exist`);
     return true;
   }
 
@@ -170,9 +154,7 @@ function pushSnippetToken(
 
     if (region === undefined) {
       token.content = error(
-        `Invalid region name: ${regionName}\n\n${codeForError(
-          filename
-        )}`
+        `Invalid region name: ${regionName}\n\n${codeForError(filename)}`
       );
       return true;
     }
@@ -224,11 +206,7 @@ function highlightRegion({
   return `<Code><template #ts>${tsFenced}</template><template #js>${jsFenced}</template></Code>`;
 }
 
-function highlight(
-  state: MDState,
-  filename: string,
-  region: Snippets
-) {
+function highlight(state: MDState, filename: string, region: Snippets) {
   const tsFenced = highlightLang(state, {
     filename,
     code: region.ts.code,
@@ -299,9 +277,7 @@ function error(message: string) {
 
 function normalize(data: string) {
   // escape < and >
-  return breakable(data)
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  return breakable(data).replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 function breakable(data: string) {
@@ -311,7 +287,5 @@ function breakable(data: string) {
 
 function codeForError(code: string) {
   // escape the code
-  return stripAnsi(code)
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+  return stripAnsi(code).replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }

@@ -63,7 +63,7 @@ function src() {
 
 const style = {
   width: "100%",
-  "border-radius": "var(--starbeam-radius)",
+  "border-radius": "var(--sb-radius)",
   height: typeof props.height === "string" ? props.height : `${props.height}px`,
 };
 </script>

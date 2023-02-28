@@ -1,0 +1,12 @@
+{
+  "name": "@wycatsjs/building",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    ".": "./index.js"
+  },
+  "devDependencies": {
+    "vite": "*"
+  }
+}

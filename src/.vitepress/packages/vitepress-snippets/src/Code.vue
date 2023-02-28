@@ -95,8 +95,8 @@ function current() {
 <template>
   <section :class="`${currentLang} section`">
     <p class="toggler">
-      <button type="button" class="toggler-button3 js" @click="STORAGE.lang = 'js'">js</button>
-      <button type="button" class="toggler-button3 ts" @click="STORAGE.lang = 'ts'">ts</button>
+      <button type="button" class="toggler-button js" @click="STORAGE.lang = 'js'">js</button>
+      <button type="button" class="toggler-button ts" @click="STORAGE.lang = 'ts'">ts</button>
     </p>
 
     <div class="js" ref="js"><slot name="js"></slot></div>
@@ -152,8 +152,8 @@ div.js {
 
   border: var(--sb-border-thin-width) solid var(--vp-button-brand-border);
   background-color: var(--vp-button-alt-bg);
-  border-end-start-radius: var(--starbeam-radius-sm);
-  border-start-end-radius: var(--starbeam-radius-sm);
+  border-end-start-radius: var(--sb-radius-sm);
+  border-start-end-radius: var(--sb-radius-sm);
 }
 
 button {
@@ -164,7 +164,7 @@ button {
   font-family: var(--vp-font-family-base), sans-serif;
   font-size: 0.75rem;
   padding-block: 0;
-  padding-inline: calc(var(--starbeam-ui-padding-inline) * 0.75);
+  padding-inline: calc(var(--sb-ui-padding-inline) * 0.75);
   border: 0;
 
   background-color: var(--vp-button-alt-bg);
@@ -177,10 +177,10 @@ button:hover {
 }
 
 button:first-child {
-  border-end-start-radius: var(--starbeam-radius-xsm);
+  border-end-start-radius: var(--sb-radius-xsm);
 }
 
 button:last-child {
-  border-start-end-radius: var(--starbeam-radius-xsm);
+  border-start-end-radius: var(--sb-radius-xsm);
 }
 </style>

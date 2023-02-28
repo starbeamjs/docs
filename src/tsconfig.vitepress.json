@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./.vitepress/*"],
+      "*": ["./.vitepress/packages/*/index.ts"]
+    }
+  },
+  "include": [".vitepress/**/*"]
+}

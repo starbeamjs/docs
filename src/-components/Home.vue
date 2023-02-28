@@ -55,7 +55,7 @@ const features = [
 
 <style>
 .VPHomeHero {
-  font-family: var(--starbeam-font-fancy);
+  font-family: var(--sb-font-fancy);
 }
 </style>
 

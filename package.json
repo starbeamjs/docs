@@ -11,10 +11,11 @@
     "docs:serve": "vitepress serve src",
     "build:schema": "pnpm --filter @starbeam/api-docs schema:build",
     "build:api": "node ./scripts/generate-api.js",
-    "postinstall": "node ./scripts/fetch-d2.js",
-    "prepare": "node ./scripts/fetch-d2.js --force",
+    "prepublish": "node ./scripts/fetch-d2.js --force",
+    "prepare": "node ./scripts/fetch-d2.js",
     "fetch:d2": "node ./scripts/fetch-d2.js",
-    "update:d2": "node ./scripts/fetch-d2.js --force"
+    "update:d2": "node ./scripts/fetch-d2.js --force",
+    "build:deps": "pnpm -r build"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "@babel/plugin-syntax-import-assertions": "^7.20.0",
     "@codesandbox/sandpack-client": "^2.0.1",
     "@csstools/postcss-global-data": "^1.0.2",
+    "@jsergo/mdit": "workspace:^",
     "@mdit-vue/plugin-sfc": "^0.12.0",
     "@monaco-editor/loader": "^1.3.2",
     "@shimyshack/uid": "^0.1.7",
@@ -58,6 +60,7 @@
     "@vue/runtime-core": "^3.2.47",
     "@vue/runtime-dom": "^3.2.47",
     "@vueuse/core": "^9.12.0",
+    "@wycatsjs/utils": "workspace:^",
     "docs-snippet": "^1.0.4",
     "eslint": "^8.34.0",
     "execa": "^7.0.0",
@@ -110,6 +113,7 @@
     "stylelint-gamut": "^1.3.1",
     "svgbob-wasm": "^1.0.0",
     "ts-node": "^10.9.1",
+    "turbo": "^1.8.3",
     "typescript": "*",
     "vite": "*",
     "vite-plugin-babel": "^1.1.3",
@@ -118,7 +122,9 @@
     "vitepress": "^1.0.0-alpha.46",
     "vitepress-plugin-tabs": "^0.2.0",
     "vitest": "^0.28.5",
-    "vue": "*"
+    "vue": "*",
+    "nx": "15.8.1",
+    "@nrwl/nx-cloud": "latest"
   },
   "imports": {
     "#components": "./src/-components"

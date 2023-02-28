@@ -2,3 +2,5 @@ node_modules
 docs
 !src/.vitepress
 build
+*.tsbuildinfo
+.turbo

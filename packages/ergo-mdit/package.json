@@ -1,0 +1,19 @@
+{
+  "name": "@jsergo/mdit",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A more ergonomic way to create MarkdownIt plugins",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@wycatsjs/building": "workspace:^",
+    "markdown-it": "^13.0.1"
+  },
+  "scripts": {
+    "build": "vite build"
+  }
+}

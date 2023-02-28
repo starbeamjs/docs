@@ -1,5 +1,5 @@
 <script lang="ts">
-import "./code-tabs.pcss";
+import "./code-tabs.postcss";
 
 import { useStorage } from "@vueuse/core";
 

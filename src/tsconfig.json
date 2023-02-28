@@ -12,9 +12,10 @@
     }
   },
   "include": ["**/*", "**/*.md"],
-  "exclude": ["**/*.tsx"],
+  "exclude": ["**/*.tsx", ".vitepress"],
   "references": [
     { "path": "./tutorial/tsconfig.json" },
+    { "path": "./tsconfig.vitepress.json" },
     { "path": "./tsconfig.react.json" },
     {
       "path": "./-components/tsconfig.json"

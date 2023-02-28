@@ -22,8 +22,10 @@ that uses a `setInterval` to tick. By using a Starbeam resource,
 we can ensure that the stopwatch is stopped when the owner is
 cleaned up.
 
-::: 💡 A resource's return value is a function that computes the
-value of the resource whenever its dependencies change. :::
+```md lightbulb
+A resource's return value is a function that computes the value
+of the resource whenever its dependencies change.
+```
 
 ### <strong class="marker">demo</strong> rendering the stopwatch
 
@@ -35,14 +37,13 @@ Let's take a look at an example of a resource that receives
 messages on a channel, and returns a string representing the last
 message it received.
 
-::: info In this example, the channel name that we're subscribing
-to is dynamic, and we want to unsubscribe from the channel
-whenever the channel name changes, but _not_ when we get a new
-message. :::
-
-```snippet {#define-resource}
-<!--@include: ./-snippets/resource-lifecycle.ts-->
+```md info
+In this example, the channel name that we're subscribing to is
+dynamic, and we want to unsubscribe from the channel whenever the
+channel name changes, but _not_ when we get a new message.
 ```
+
+![#define-resource](./-snippets/resource-lifecycle.ts)
 
 `ChannelResource` is a JavaScript function that takes the channel
 name as a reactive input and returns a resource constructor.
@@ -118,14 +119,17 @@ As a result, the resource will be cleaned up and the channel
 unsubscribed. After that, the resource will be re-created from
 the new `channelName`, and the process will continue.
 
-::: emphasis From the perspective of the creator of a resource,
-the resource represents a stable reactive value. :::
+```md em
+From the perspective of the creator of a resource, the resource
+represents a stable reactive value.
+```
 
-::: details Under the Hood Under the hood, the internal
-`ChannelResource` instance is cleaned up and recreated whenever
-**its** inputs change. However, the resource you got back when
-you `create`d it remains the same.
+```md details Under the Hood
+Under the hood, the internal `ChannelResource` instance is
+cleaned up and recreated whenever **its** inputs change. However,
+the resource you got back when you `create`d it remains the same.
 
 That's what makes it possible to pass a resource to
 `TIMELINE.render` and have it continue to work even when the
-internal resource is torn down and recreated. :::
+internal resource is torn down and recreated.
+```

@@ -1,22 +1,22 @@
-@import "./code/code.pcss";
-@import "./code/twoslash.pcss";
-@import "./components/tabs.pcss";
-@import "./components/containers.pcss";
-@import "./home.pcss";
-@import "./colors/colors.pcss";
-@import "./ui/sizes.pcss";
-@import "./vars.pcss";
-@import "./sp-demo.pcss";
-@import "./vp-doc.pcss";
-@import "./annotations.pcss";
-@import "./text/copy.pcss";
-@import "./text/typography.pcss";
-@import "./static/index.pcss";
+@import "./code/code.postcss";
+@import "./code/twoslash.postcss";
+@import "./components/tabs.postcss";
+@import "./components/containers.postcss";
+@import "./home.postcss";
+@import "./colors/colors.postcss";
+@import "./ui/sizes.postcss";
+@import "./vars.postcss";
+@import "./sp-demo.postcss";
+@import "./vp-doc.postcss";
+@import "./annotations.postcss";
+@import "./text/copy.postcss";
+@import "./text/typography.postcss";
+@import "./static/index.postcss";
 
 :root,
 :before,
 :after {
-  --light-fg: hsl(0, 0%, var(--sb-bg-lightness-brighter));
+  --light-fg: hsl(0 0% var(--sb-bg-lightness-brighter));
 
   --theme-color: var(--vp-c-brand);
   --theme-color-bright: var(--vp-c-brand-light);
@@ -28,10 +28,10 @@
 html,
 :before,
 :after {
-  --invalid-color-bg: hsl(0, 100%, 70%);
-  --invalid-color-fg: hsl(0, 100%, 20%);
-  --inactive-color-bg: hsl(0, 0%, 90%);
-  --inactive-color-fg: hsl(0, 0%, 50%);
+  --invalid-color-bg: hsl(0 100% 70%);
+  --invalid-color-fg: hsl(0 100% 20%);
+  --inactive-color-bg: hsl(0 0% 90%);
+  --inactive-color-fg: hsl(0 0% 50%);
 
   --sb-lightness-normal-fg: 50%;
   --sb-lightness-dim-fg: 70%;
@@ -46,10 +46,10 @@ html,
 html.dark,
 html.dark :before,
 html.dark :after {
-  --invalid-color-bg: hsl(0, 50%, 30%);
-  --invalid-color-fg: hsl(0, 100%, 70%);
-  --inactive-color-bg: hsl(0, 0%, 20%);
-  --inactive-color-fg: hsl(0, 0%, 70%);
+  --invalid-color-bg: hsl(0 50% 30%);
+  --invalid-color-fg: hsl(0 100% 70%);
+  --inactive-color-bg: hsl(0 0% 20%);
+  --inactive-color-fg: hsl(0 0% 70%);
 
   --sb-lightness-normal-fg: 50%;
   --sb-lightness-dim-fg: 30%;
@@ -69,9 +69,7 @@ html:not(.dark) {
   pre.shiki.github-light {
     display: block;
     background-color: hsl(
-      var(--sb-bg-hue),
-      var(--sb-bg-saturation),
-      var(--sb-lightness-brighter-bg)
+      var(--sb-bg-hue) var(--sb-bg-saturation) var(--sb-lightness-brighter-bg)
     ) !important;
   }
 
@@ -85,9 +83,8 @@ html:not(.dark) {
 
   .vp-doc .custom-block [class*="language-"] > span.lang {
     color: hsl(
-      var(--sb-var(--sb-fg-hue)),
-      var(--sb-var(--sb-fg-saturation)),
-      var(--sb-lightness-normal-fg)
+      var(--sb-var(--sb-fg-hue)) var(--sb-var(--sb-fg-saturation))
+        var(--sb-lightness-normal-fg)
     );
   }
 }
@@ -127,7 +124,7 @@ div.custom-container.info {
   }
 
   p code {
-    background-color: hsl(195, 100%, 90%);
+    background-color: hsl(195 100% 90%);
     padding: var(--sb-nested-inline-code-padding);
     border-radius: 0.2em;
   }
@@ -153,10 +150,10 @@ div.theme-hope-content {
 }
 
 blockquote.em {
+  --size: calc(1rem * var(--sb-ratio-up1));
+  --font-size: var(--size);
   display: grid;
   padding: 0.5em;
-  font-weight: var(--sb-font-weight-keyword);
-  font-size: 1.3em;
   border: 0;
   background-color: var(--bg-color-back);
   border-color: var(--grey12);
@@ -166,15 +163,18 @@ blockquote.em {
 }
 
 blockquote.em p {
-  line-height: 1.3em;
+  font-weight: var(--sb-font-weight-block-em);
+  font-size: var(--font-size);
+  line-height: 1.2;
+  color: var(--sb-fg-theme-strong);
 }
 
-blockquote.em p.title:first-child {
-  content: "Key Point";
+blockquote.em p.custom-block-title {
+  --font-size: calc(var(--size) * var(--sb-ratio-down1));
+  line-height: 1;
   font-family: "Baloo 2", sans-serif;
   font-weight: var(--sb-font-weight-bold);
   color: var(--theme-color);
-  font-size: 0.5em;
   margin-block-end: 0.5em;
 }
 
