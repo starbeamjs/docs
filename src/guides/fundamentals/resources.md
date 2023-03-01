@@ -59,16 +59,34 @@ received any messages yet).
 
 At this point, let's take a look at the dependencies:
 
-```deps
-resource:::chart-resource
+```d2 width="40%"
+direction: up
 
-channelName
-subgraph resource [ChannelResource]
-lastMessage
-end
-resource --> channelName
-Output --> channelName
-Output --> lastMessage
+Output: {
+  shape: rectangle
+  style: {
+    %output-style
+    %output-color
+  }
+}
+
+channelName: {
+  shape: rectangle
+  style: %valid
+}
+
+resource: "" {
+  ChannelResource: {
+    shape: text
+  }
+  lastMessage: {
+    style: %valid
+  }
+}
+
+Output -> channelName
+Output -> resource.lastMessage
+resource.ChannelResource -> channelName
 ```
 
 Our output depends on the channel name and the last message
@@ -80,18 +98,34 @@ resource is cleaned up and the channel is unsubscribed.
 the new message. This invalidates `lastMessage` and therefore the
 output as well.
 
-```deps
-resource:::chart-resource
+```d2 width="40%"
+direction: up
 
-channelName
-subgraph resource [ChannelResource]
-lastMessage:::invalidated
-end
-Output:::invalidated
-resource
-resource --> channelName
-Output --> channelName
-Output --> lastMessage
+Output: {
+  shape: rectangle
+  style: {
+    %output-style
+    %invalid
+  }
+}
+
+channelName: {
+  shape: rectangle
+  style: %valid
+}
+
+resource: "" {
+  ChannelResource: {
+    shape: text
+  }
+  lastMessage: {
+    style: %invalid
+  }
+}
+
+Output -> channelName
+Output -> resource.lastMessage
+resource.ChannelResource -> channelName
 ```
 
 However, this does **not** invalidate the resource itself, so the
@@ -100,19 +134,35 @@ channel subscription remains active.
 On the other hand, **if we change the `channelName`**, that
 invalidates the `ChannelResource` itself.
 
-```deps
-resource:::chart-resource
-classDef default font-family:monospace
+```d2 width="40%"
+direction: up
 
-channelName:::invalidated
-subgraph resource [ChannelResource]
-  lastMessage:::inactive
-end
-Output:::inactive
-resource:::invalidated
-resource --> channelName
-Output --> channelName
-Output --> lastMessage
+Output: {
+  shape: rectangle
+  style: {
+    %output-style
+    %invalid
+  }
+}
+
+channelName: {
+  shape: rectangle
+  style: %invalid
+}
+
+resource: "" {
+  style: %invalid
+  ChannelResource: {
+    shape: text
+  }
+  lastMessage {
+    style: %na
+  }
+}
+
+Output -> channelName
+Output -> resource.lastMessage
+resource.ChannelResource -> channelName
 ```
 
 As a result, the resource will be cleaned up and the channel

@@ -9,7 +9,7 @@ import { fences } from "../plugins/fences.js";
 import { mark } from "../plugins/mark/mark.js";
 import { flowchart } from "../plugins/mermaid/flowchart.js";
 import { mermaid } from "../plugins/mermaid/mermaid.js";
-import d2, { DarkTheme, LightTheme, type D2Options } from "./d2.js";
+import d2, { DarkTheme, LightTheme, type D2Options } from "./d2/d2.js";
 import { highlight as createHighlight } from "./syntax-highlight/highlight.js";
 import { markdownItShikiTwoslashSetup } from "./syntax-highlight/setup.js";
 

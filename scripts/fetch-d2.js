@@ -12,13 +12,24 @@ const root = resolve(__dirname, "..");
 
 const force = process.argv[2] === "--force";
 
-if (existsSync(resolve(root, "bin", "d2")) && !force) {
-  console.debug(chalk.yellow("d2 binary is already downloaded."));
+const D2_VERSION = "0.2.2";
+
+const BINS = resolve(root, "bin");
+const D2_BINFILE = resolve(BINS, `d2`);
+const D2_VERSIONFILE = resolve(BINS, `d2.version`);
+
+const currentVersion = existsSync(D2_VERSIONFILE)
+  ? readFileSync(D2_VERSIONFILE, "utf-8")
+  : undefined;
+
+if (D2_VERSION === currentVersion && existsSync(D2_BINFILE)) {
+  console.log(chalk.green(`D2 version ${D2_VERSION} is already installed.`));
   process.exit(0);
+} else {
+  console.log(chalk.yellow(`Installing D2 version ${D2_VERSION}...`));
 }
 
-const LATEST_D2_LINUX =
-  "https://github.com/terrastruct/d2/releases/download/v0.2.1/d2-v0.2.1-linux-amd64.tar.gz";
+const LATEST_D2_LINUX = `https://github.com/terrastruct/d2/releases/download/v${D2_VERSION}/d2-v${D2_VERSION}-linux-amd64.tar.gz`;
 
 shell.cd(root);
 shell.mkdir("-p", "bin");
@@ -48,7 +59,7 @@ const file = await new Promise((fulfill, reject) => {
 });
 
 import extract from "fast-extract";
-import { existsSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 
 await extract(file, resolve(__dirname, "tmp/d2"), {
   type: "tar.gz",
@@ -57,7 +68,8 @@ await extract(file, resolve(__dirname, "tmp/d2"), {
 });
 
 shell.cd(__dirname);
-shell.cp("tmp/d2/bin/d2", resolve("../bin/d2"));
+shell.cp("tmp/d2/bin/d2", D2_BINFILE);
+writeFileSync(D2_VERSIONFILE, D2_VERSION);
 shell.rm("-rf", "tmp");
 
 process.exit(0);

@@ -50,8 +50,6 @@ export function tokenize<T>(
 ): Tokenized<T>[] {
   const tokens: Tokenized<T>[] = [];
 
-  console.log({ staticItems, dynamicItems });
-
   staticItems.forEach((staticItem, i) => {
     tokens.push(...parseStaticItem<T>(staticItem));
 

@@ -19,21 +19,19 @@ export function parse<T>(
   return Lines.of(lines);
 }
 
-type TemplateFn<I extends (items: Lines<any>) => any> = I extends (
-  items: Lines<infer T>
-) => infer U
-  ? (items: TemplateStringsArray, ...dynamicItems: T[]) => U
-  : never;
+type TemplateFn<I extends (items: Lines<any>) => any> =
+  I extends (items: Lines<infer T>) => infer U
+    ? (items: TemplateStringsArray, ...dynamicItems: T[]) => U
+    : never;
 
-type StringifyFn<I extends (items: Lines<any>) => any> = I extends (
-  items: Lines<infer T>
-) => any
-  ? (item: T) => string
-  : never;
+type StringifyFn<I extends (items: Lines<any>) => any> =
+  I extends (items: Lines<infer T>) => any
+    ? (item: T) => string
+    : never;
 
-export function parsed<Impl extends (items: Lines<any>) => string>(
-  impl: Impl
-): TemplateFn<Impl>;
+export function parsed<
+  Impl extends (items: Lines<any>) => string
+>(impl: Impl): TemplateFn<Impl>;
 export function parsed<Impl extends (items: Lines<any>) => any>(
   impl: Impl,
   stringify: StringifyFn<Impl>
@@ -52,8 +50,6 @@ export function tokenize<T>(
 ): Tokenized<T>[] {
   const tokens: Tokenized<T>[] = [];
 
-  console.log({ staticItems, dynamicItems });
-
   staticItems.forEach((staticItem, i) => {
     tokens.push(...parseStaticItem<T>(staticItem));
 
@@ -66,7 +62,9 @@ export function tokenize<T>(
   return tokens;
 }
 
-function parseStaticItem<T>(staticItem: string): TokenizedStatic[] {
+function parseStaticItem<T>(
+  staticItem: string
+): TokenizedStatic[] {
   const tokens: TokenizedStatic[] = [];
   let nextNewline = staticItem.indexOf("\n");
 
@@ -111,7 +109,10 @@ class TextToken implements AbstractToken {
     return `Text(${JSON.stringify(this.value)})`;
   }
 
-  slice(from: number, to?: number | undefined): TextToken | null {
+  slice(
+    from: number,
+    to?: number | undefined
+  ): TextToken | null {
     const sliced = this.value.slice(from, to);
 
     if (sliced.length === 0) {
@@ -158,7 +159,9 @@ class DynamicToken<T> implements AbstractToken {
   }
 }
 
-export type ProcessLine<T> = (line: Line<T>) => Line<T>[] | undefined;
+export type ProcessLine<T> = (
+  line: Line<T>
+) => Line<T>[] | undefined;
 
 export class Lines<T> {
   static of<T>(lines: Line<T>[]): Lines<T> {
@@ -173,18 +176,24 @@ export class Lines<T> {
 
   minIndent(): number {
     return Math.min(
-      ...this.#lines.map((line) => line.indent?.indent ?? Infinity)
+      ...this.#lines.map(
+        (line) => line.indent?.indent ?? Infinity
+      )
     );
   }
 
   dedent(indent: number): Lines<T> {
-    return Lines.of(this.#lines.map((line) => line.dedent(indent)));
+    return Lines.of(
+      this.#lines.map((line) => line.dedent(indent))
+    );
   }
 
   display(stringify: (item: T) => string): string;
   display(this: Lines<string>): string;
   display(stringify?: (item: T) => string): string {
-    return this.#lines.map((line) => line.display(stringify as any)).join("\n");
+    return this.#lines
+      .map((line) => line.display(stringify as any))
+      .join("\n");
   }
 
   *[Symbol.iterator](): IterableIterator<Line<T>> {
@@ -207,11 +216,15 @@ export class Lines<T> {
     }
   }
 
-  processFirst(processor: (line: Line<T>) => Line<T>[] | undefined): void {
+  processFirst(
+    processor: (line: Line<T>) => Line<T>[] | undefined
+  ): void {
     this.process(0, processor);
   }
 
-  processLast(processor: (line: Line<T>) => Line<T>[] | undefined): void {
+  processLast(
+    processor: (line: Line<T>) => Line<T>[] | undefined
+  ): void {
     if (this.#lines.length === 0) {
       return;
     }
@@ -319,14 +332,23 @@ class Line<T> {
   display(stringify: (item: T) => string): string;
   display(this: Line<string>): string;
   display(stringify: (item: T) => string = String): string {
-    return this.tokens.map((token) => token.display(stringify as any)).join("");
+    return this.tokens
+      .map((token) => token.display(stringify as any))
+      .join("");
   }
 }
 
 type TokenizedStatic = TextToken | NewlineToken;
 type Tokenized<T> = TokenizedStatic | DynamicToken<T>;
-type Token<T> = IndentToken | TextToken | NewlineToken | DynamicToken<T>;
+type Token<T> =
+  | IndentToken
+  | TextToken
+  | NewlineToken
+  | DynamicToken<T>;
 
 type Fragment<T> = TextToken | DynamicToken<T>;
 type LineTokens<T> = Token<T>[] &
-  (readonly [IndentToken?, ...Fragment<T>[]] | readonly Fragment<T>[]);
+  (
+    | readonly [IndentToken?, ...Fragment<T>[]]
+    | readonly Fragment<T>[]
+  );
