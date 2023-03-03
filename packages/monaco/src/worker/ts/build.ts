@@ -3,17 +3,17 @@ import {
   createVirtualTypeScriptEnvironment,
 } from "@typescript/vfs";
 import ts from "typescript";
-import { TS_VERSION } from "../../shared/version.ts";
-import { TYPES_REGISTRY } from "../dependencies.ts";
-import { post } from "../events.ts";
-import { Dependencies, PackageFile } from "./dep.ts";
-import { Inputs, type CacheableFile } from "./input.ts";
+import { TS_VERSION } from "../../shared/version.js";
+import { TYPES_REGISTRY } from "../dependencies.js";
+import { post } from "../events.js";
+import { Dependencies, PackageFile } from "./dep.js";
+import { Inputs, type CacheableFile } from "./input.js";
 import {
   TsSystem,
   type CachedFsMap,
   type TypeRegistry,
-} from "./system.ts";
-import { getCache, getDependencies } from "./utils.ts";
+} from "./system.js";
+import { getCache, getDependencies } from "./utils.js";
 
 export class BuildTsSystem {
   static async create(

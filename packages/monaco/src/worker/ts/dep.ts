@@ -1,10 +1,10 @@
 import {
   fetchDependencyTyping,
   type DependencyFiles,
-} from "../dependencies.ts";
-import { FileCache } from "./build.ts";
-import type { CacheableFile } from "./input.ts";
-import { typeNameForPackage } from "./utils.ts";
+} from "../dependencies.js";
+import { FileCache } from "./build.js";
+import type { CacheableFile } from "./input.js";
+import { typeNameForPackage } from "./utils.js";
 
 export class Dependencies {
   static create(cache: FileCache) {

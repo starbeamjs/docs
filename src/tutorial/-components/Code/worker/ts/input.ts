@@ -1,7 +1,7 @@
 import {
   parseCompilerOptions,
   type DependencyFileEntry,
-} from "./utils.ts";
+} from "./utils.js";
 
 export interface CacheableFile {
   readonly absolutePath: string;

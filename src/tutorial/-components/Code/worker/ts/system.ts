@@ -1,7 +1,7 @@
 import { type VirtualTypeScriptEnvironment } from "@typescript/vfs";
 import ts from "typescript";
 import "../events.ts";
-import { BuildTsSystem } from "./build.ts";
+import { BuildTsSystem } from "./build.js";
 
 export class TsSystem {
   static create(

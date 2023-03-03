@@ -4,12 +4,12 @@ import {
   MDState,
   MDStateCreator,
   type LineState,
-} from "./state.ts";
+} from "./state.js";
 import type {
   RuleBlock,
   TypedBlockRule,
   TypedBlockState,
-} from "./types.ts";
+} from "./types.js";
 
 type RenderedContent =
   | {

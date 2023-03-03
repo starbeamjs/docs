@@ -1,12 +1,12 @@
 import type { CompilerOptions } from "typescript";
-import { TS_VERSION } from "../shared/version.ts";
+import { TS_VERSION } from "../shared/version.js";
 import {
   ModuleKind,
   ModuleResolutionKind,
   ScriptTarget,
-} from "./enums.ts";
-import type { CachedFsMap } from "./ts/system.ts";
-import type { DependencyFileEntry } from "./ts/utils.ts";
+} from "./enums.js";
+import type { CachedFsMap } from "./ts/system.js";
+import type { DependencyFileEntry } from "./ts/utils.js";
 
 /**
  * Process the TS compile options or default to

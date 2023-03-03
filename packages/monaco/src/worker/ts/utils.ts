@@ -1,21 +1,21 @@
 import { createDefaultMapFromCDN } from "@typescript/vfs";
 import ts from "typescript";
-import { TS_VERSION } from "../../shared/version.ts";
+import { TS_VERSION } from "../../shared/version.js";
 import {
   type DependencyFile,
   type DependencyFiles,
-} from "../dependencies.ts";
+} from "../dependencies.js";
 import {
   ModuleKind,
   ModuleResolutionKind,
   ScriptTarget,
-} from "../enums.ts";
-import "../events.ts";
+} from "../enums.js";
+import "../events.js";
 import {
   getCompileOptions,
   processTypescriptCacheFromStorage,
-} from "../utils.ts";
-import { InputFile } from "./input.ts";
+} from "../utils.js";
+import { InputFile } from "./input.js";
 
 export type CachedFsMap = Map<string, string>;
 export type TypeVersions = Record<string, { latest: string }>;

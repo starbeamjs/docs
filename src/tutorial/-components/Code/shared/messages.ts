@@ -1,5 +1,5 @@
 import ts from "typescript";
-import type { CachedFsMap } from "../worker/ts/utils.ts";
+import type { CachedFsMap } from "../worker/ts/utils.js";
 
 export interface CodeFile {
   readonly code: string;

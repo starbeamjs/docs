@@ -1,5 +1,5 @@
 import MarkdownIt from "markdown-it";
-import type { StateBlock, TypedBlockState } from "./types.ts";
+import type { StateBlock, TypedBlockState } from "./types.js";
 
 export class MDStateCreator<Env, WrapperEnv> {
   readonly #md: MarkdownIt;
@@ -110,8 +110,9 @@ export class LineState {
   }
 
   until(predicate: (line: LineState) => boolean): string {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     let line: LineState | undefined = this;
-    let lines = [];
+    const lines = [];
 
     while (line) {
       const next: LineState | undefined = line.next;

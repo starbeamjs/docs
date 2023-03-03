@@ -1,1 +1,0 @@
-{"version":3,"sources":["../index.ts"],"sourcesContent":["export { mapEntries } from \"./src/object.ts\";\nexport { strip } from \"./src/strip.ts\";\n"],"names":["mapEntries","strip"],"mappings":"AAAA,SAASA,UAAU,QAAQ,kBAAkB;AAC7C,SAASC,KAAK,QAAQ,iBAAiB"}

@@ -5,7 +5,7 @@ import {
   type UseSandpack,
 } from "sandpack-vue3";
 import { onUnmounted, shallowRef, watch, type Ref } from "vue";
-import type { VirtualFile } from "./monaco.ts";
+import type { VirtualFile } from "./monaco.js";
 
 type SandpackListeners = {
   [E in SandpackMessage["type"]]: (

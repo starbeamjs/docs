@@ -1,28 +1,48 @@
 version = 0.1
-extensions = ['chomp@0.1:swc']
+extensions = [
+  'chomp@0.1:swc',
+  './packages/chomp-extensions/dts.js',
+  './packages/chomp-extensions/pkg.js'
+]
 
 [env]
 PACKAGE_MANAGER = 'pnpm'
 
 [[task]]
 name = "clean"
-run = "rm -r packages/@*/*/dist"
+run = "rm -rf packages/@*/*/dist"
 
 [[task]]
 name = "build"
-deps = ["build:mdit", "build:tagged-templates"]
+deps = ["mdit", "build:tagged-templates", "build:utils"]
 
 [[task]]
-name = "build:mdit"
+name = "mdit"
+template = "pkg"
+template-options = { root = "packages/@jsergo/mdit" }
+
+[[task]]
+name = "js:mdit"
 template = 'swc'
-target = 'packages/@jsergo/mdit/dist/##.ts'
+target = 'packages/@jsergo/mdit/dist/##.js'
 dep = 'packages/@jsergo/mdit/src/##.ts'
+
+[[task]]
+name = "dts:mdit"
+template = "dts"
+template-options = { root = "packages/@jsergo/mdit" }
 
 [[task]]
 name = "build:tagged-templates"
 template = 'swc'
-target = 'packages/@jsergo/tagged-templates/dist/##.ts'
+target = 'packages/@jsergo/tagged-templates/dist/##.js'
 dep = 'packages/@jsergo/tagged-templates/src/##.ts'
+
+[[task]]
+name = "build:utils"
+template = 'swc'
+target = 'packages/@wycatsjs/utils/dist/##.js'
+dep = 'packages/@wycatsjs/utils/src/##.ts'
 
 [task.template-options]
 auto-install = true

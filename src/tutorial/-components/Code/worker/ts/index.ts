@@ -1,4 +1,4 @@
-import { TsSystem, type CachedFsMap } from "./system.ts";
+import { TsSystem, type CachedFsMap } from "./system.js";
 
 let system: TsSystem | null = null;
 

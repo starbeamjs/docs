@@ -1,7 +1,7 @@
 import { dirname } from "node:path";
 import ts from "typescript";
 
-import { FileDiagnostics } from "../shiki/ts.ts";
+import { FileDiagnostics } from "../shiki/ts.js";
 
 type JsonValue = string | number | boolean | JsonObject | JsonArray;
 

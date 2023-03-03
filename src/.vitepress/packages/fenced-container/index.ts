@@ -1,1 +1,1 @@
-export { fencedContainerPlugin as default } from "./src/fenced-container.ts";
+export { fencedContainerPlugin as default } from "./src/fenced-container.js";

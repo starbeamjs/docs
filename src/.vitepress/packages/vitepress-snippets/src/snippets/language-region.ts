@@ -5,7 +5,7 @@ import type {
   Snippets,
   Source,
 } from "docs-snippet";
-import type { HighlightFn, StateEnv } from "../utils.ts";
+import type { HighlightFn, StateEnv } from "../utils.js";
 
 export class RenderLanguageRegion {
   static create({
@@ -69,9 +69,7 @@ export class RenderLanguageRegion {
 
     const highlights = this.#highlights;
     if (highlights && highlights.length > 0) {
-      attrs.push(
-        `{${highlights.map((h) => h.lines).join(",")}}`
-      );
+      attrs.push(`{${highlights.map((h) => h.lines).join(",")}}`);
     }
 
     attrs.push(`filename=${JSON.stringify(this.#filename)}`);

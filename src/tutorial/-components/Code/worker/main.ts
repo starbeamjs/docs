@@ -1,7 +1,7 @@
 import { type VirtualTypeScriptEnvironment } from "@typescript/vfs";
 import ts from "typescript";
 import "./events.ts";
-import { post } from "./events.ts";
+import { post } from "./events.js";
 
 let env: VirtualTypeScriptEnvironment;
 

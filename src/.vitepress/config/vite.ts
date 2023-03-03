@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { visualizer } from "rollup-plugin-visualizer";
 import type { UserConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import postcss from "../../postcss.config.mts";
+import postcss from "../../postcss.config.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const root = path.resolve(__dirname, "../../..");

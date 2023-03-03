@@ -1,2 +1,2 @@
-export { mapEntries } from "./object.ts";
-export { strip } from "./strip.ts";
+export { mapEntries } from "./object.js";
+export { strip } from "./strip.js";

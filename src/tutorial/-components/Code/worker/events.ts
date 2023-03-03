@@ -1,11 +1,11 @@
-import { logOnServer } from "../shared/log.ts";
-import type { Events } from "../shared/messages.ts";
+import { logOnServer } from "../shared/log.js";
+import type { Events } from "../shared/messages.js";
 import {
   autocompleteAtPosition,
   infoAtPosition,
   updateFile,
-} from "./main.ts";
-import { createTsSystemIfNeeded } from "./ts/index.ts";
+} from "./main.js";
+import { createTsSystemIfNeeded } from "./ts/index.js";
 
 const doCreateSystem = (payload: {
   files: Record<string, { code: string }>;
