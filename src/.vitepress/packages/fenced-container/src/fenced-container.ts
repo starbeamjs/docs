@@ -169,6 +169,14 @@ export const fencedContainerPlugin = parserPlugin({
   name: "fenced-container",
   before: "fence",
 }).block((line, md) => {
+  console.log("in plugin");
+
+  try {
+    throw new Error("test");
+  } catch (e) {
+    console.log(e);
+  }
+
   if (line.startsWith("```md ")) {
     const fenceline = line.string();
     const info = fenceline.slice("```md ".length);
@@ -202,6 +210,7 @@ export const fencedContainerPlugin = parserPlugin({
       };
     };
   } else {
+    console.log(line.string());
     return false;
   }
 });

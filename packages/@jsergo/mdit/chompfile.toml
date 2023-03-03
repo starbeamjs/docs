@@ -1,0 +1,12 @@
+version = 0.1
+extensions = ['chomp@0.1:swc']
+
+[[task]]
+name = "clean"
+run = "rm -r dist"
+
+[[task]]
+name = "build"
+template = "swc"
+target = "dist/##.ts"
+dep = "src/##.ts"

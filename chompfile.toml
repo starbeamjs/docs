@@ -1,0 +1,29 @@
+version = 0.1
+extensions = ['chomp@0.1:swc']
+
+[env]
+PACKAGE_MANAGER = 'pnpm'
+
+[[task]]
+name = "clean"
+run = "rm -r packages/@*/*/dist"
+
+[[task]]
+name = "build"
+deps = ["build:mdit", "build:tagged-templates"]
+
+[[task]]
+name = "build:mdit"
+template = 'swc'
+target = 'packages/@jsergo/mdit/dist/##.ts'
+dep = 'packages/@jsergo/mdit/src/##.ts'
+
+[[task]]
+name = "build:tagged-templates"
+template = 'swc'
+target = 'packages/@jsergo/tagged-templates/dist/##.ts'
+dep = 'packages/@jsergo/tagged-templates/src/##.ts'
+
+[task.template-options]
+auto-install = true
+swc-rc = true

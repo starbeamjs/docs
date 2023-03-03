@@ -1,0 +1,27 @@
+{
+  "name": "@jsergo/tagged-templates",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "default": "./dist/index.js",
+      "require": "./index.js"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts"
+      }
+    }
+  },
+  "nx": {
+    "tags": [
+      "scope:lib"
+    ]
+  },
+  "main": "./index.js",
+  "types": "./index.d.ts"
+}

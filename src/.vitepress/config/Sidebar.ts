@@ -16,9 +16,7 @@ export const SIDEBAR: Sidebar = {
       item("Validation", "/guides/fundamentals/validation.md"),
       item("Resources", "/guides/fundamentals/resources.md"),
     ]),
-    group("Universal Code", [
-      item("Blueprints and Instances", "/guides/fundamentals/instances.md"),
-    ]),
+    group("Universal Code", []),
     // group("Universal Building Blocks", [
     //   item("Introduction", "/guides/universal/index.md"),
     //   item("Reactives", "/guides/universal/reactive.md"),
@@ -36,7 +34,9 @@ export const SIDEBAR: Sidebar = {
       ],
       "expanded"
     ),
-    group("Optimization", [item("Formulas", "/guides/optimization/formulas.md")]),
+    group("Optimization", [
+      item("Formulas", "/guides/optimization/formulas.md"),
+    ]),
   ],
   "/api/": [
     group("@starbeam/timeline", [
@@ -55,13 +55,25 @@ export const SIDEBAR: Sidebar = {
     group("React", [item("Getting Started", "/frameworks/react/index.md")]),
     group("Tutorial", [
       item("Introduction", "/frameworks/react/tutorial/index.md"),
-      item("Getting Started", "/frameworks/react/tutorial/1-getting-started.md"),
+      item(
+        "Getting Started",
+        "/frameworks/react/tutorial/1-getting-started.md"
+      ),
       item("Computed Data", "/frameworks/react/tutorial/2-computed-data.md"),
-      item("Reactive Builtins", "/frameworks/react/tutorial/3-reactive-builtins.md"),
-      item("Reactive Arrays", "/frameworks/react/tutorial/4-reactive-arrays.md"),
+      item(
+        "Reactive Builtins",
+        "/frameworks/react/tutorial/3-reactive-builtins.md"
+      ),
+      item(
+        "Reactive Arrays",
+        "/frameworks/react/tutorial/4-reactive-arrays.md"
+      ),
     ]),
     group("Tutorial Bonus", [
-      item("More with Reactive Arrays", "/frameworks/react/tutorial/5-reactive-arrays-bonus.md"),
+      item(
+        "More with Reactive Arrays",
+        "/frameworks/react/tutorial/5-reactive-arrays-bonus.md"
+      ),
     ]),
   ],
   "/frameworks/preact/": [
@@ -70,7 +82,10 @@ export const SIDEBAR: Sidebar = {
   "/demos/": [],
 };
 
-type AnonymousGroupArgs = [items: DefaultTheme.SidebarItem[], collapse?: "expanded" | "collapsed"];
+type AnonymousGroupArgs = [
+  items: DefaultTheme.SidebarItem[],
+  collapse?: "expanded" | "collapsed"
+];
 
 type NamedGroupArgs = [
   text: string,
@@ -85,7 +100,9 @@ function item(text: string, link: string): DefaultTheme.SidebarItem {
   };
 }
 
-function group(...args: AnonymousGroupArgs | NamedGroupArgs): DefaultTheme.SidebarItem {
+function group(
+  ...args: AnonymousGroupArgs | NamedGroupArgs
+): DefaultTheme.SidebarItem {
   if (Array.isArray(args[0])) {
     const [items, collapse] = args as AnonymousGroupArgs;
 

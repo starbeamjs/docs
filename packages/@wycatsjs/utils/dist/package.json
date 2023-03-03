@@ -1,0 +1,25 @@
+{
+  "name": "@wycatsjs/utils",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "default": "./dist/index.js",
+      "require": "./index.js"
+    }
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts"
+      }
+    }
+  },
+  "dependencies": {
+    "@jsergo/tagged-templates": "workspace:^"
+  },
+  "main": "./index.js",
+  "types": "./index.d.ts"
+}

@@ -1,12 +1,49 @@
 {
+  "namedInputs": {
+    "source": [
+      "{projectRoot}/index.ts",
+      "{projectRoot}/src/**/*.ts",
+      "!{projectRoot}/node_modules/**"
+    ],
+    "default": ["source"],
+    "build": ["default"],
+    "production": ["default"]
+  },
+  "configurations": {
+    "compile": {}
+  },
+  "workspaceLayout": {
+    "appsDir": "src",
+    "libsDir": "packages"
+  },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": [],
-        "accessToken": "MDdkNDgzZTYtN2EzZS00MTM4LTllODEtMDQ0YzgxMmFiZjA3fHJlYWQtd3JpdGU="
+        "cacheableOperations": ["build"]
       }
     }
   },
-  "defaultBase": "main"
+  "pluginsConfig": {
+    "@nrwl/js": {
+      "analyzeSourceFiles": false,
+      "analyzePackageJson": true
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "executor": "@nrwl/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "clean": true,
+        "swcrc": "packages/.swcrc",
+        "outputPath": "{projectRoot}/dist",
+        "tsConfig": "{workspaceRoot}/tsconfig.base.json",
+        "main": "{projectRoot}/index.ts",
+        "skipTypeCheck": true
+      },
+      "inputs": ["production", "^production"]
+    }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json"
 }

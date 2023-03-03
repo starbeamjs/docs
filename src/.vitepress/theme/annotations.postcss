@@ -8,7 +8,7 @@
   }
 
   em.annotation {
-    color: hsl(var(--block-hue), 50%, var(--sb-fg-lightness-bright));
+    color: hsl(var(--block-hue) 50% var(--sb-fg-lightness-bright));
     background-color: transparent;
   }
 }
@@ -21,9 +21,8 @@
   --annotation-hue: 250;
 
   --annotation-color: hsl(
-    var(--annotation-hue),
-    var(--annotation-saturation),
-    var(--annotation-lightness)
+    var(--annotation-hue) var(--annotation-saturation)
+      var(--annotation-lightness)
   );
 }
 

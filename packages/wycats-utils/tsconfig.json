@@ -1,4 +1,0 @@
-{
-  "extends": "../tsconfig.package.json",
-  "compilerOptions": { "outDir": "./dist", "emitDeclarationOnly": true }
-}

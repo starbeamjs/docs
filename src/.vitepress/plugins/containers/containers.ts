@@ -1,20 +1,6 @@
 import type { PluginSimple } from "markdown-it";
 import { container } from "./container.js";
 
-export const blockEmphasis: PluginSimple = (md) =>
-  container(md, {
-    name: "emphasis",
-    openRender: (tokens, idx) => {
-      const token = tokens[idx];
-      const info = token.info.trim().slice("emphasis".length).trim();
-
-      return `<blockquote class='em'><p class='title'>${
-        info || "Key Point"
-      }</p>\n`;
-    },
-    closeRender: () => "</blockquote>\n",
-  });
-
 export const hack: PluginSimple = (md) =>
   container(md, {
     name: "hack",
@@ -83,7 +69,6 @@ export const containers: PluginSimple = (md) => {
   md.use(typescript);
   md.use(javascript);
   md.use(reactPreact);
-  md.use(blockEmphasis);
   md.use(lightBulb);
   md.use(construction);
   md.use(algorithm);

@@ -22,5 +22,6 @@
     //   "path": "./tsconfig.config.json"
     // },
     // { "path": "./src/.vitepress/tsconfig.json" }
-  ]
+  ],
+  "typeAcquisition": { "enable": false }
 }
