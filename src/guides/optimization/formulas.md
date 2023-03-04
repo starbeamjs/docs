@@ -8,19 +8,16 @@ on cells, you can also turn functions into formulas:
 2. You can render a formula into the DOM using a Starbeam
    renderer.
 
-::: tip In practice, it's very uncommon for the overhead of
-formula functions to outweigh the cost of JavaScript functions,
-even if they iterate a medium-sized list and do some work for
-each entry. :::
+```md tip
+In practice, it's very uncommon for the overhead of formula
+functions to outweigh the cost of JavaScript functions, even if
+they iterate a medium-sized list and do some work for each entry.
+```
 
 To create a formula, pass a function to `Formula`.
 
-```snippet {#create-formula}
-<!--@include: ./-snippets/formulas.ts-->
-```
+![#create-formula](./-snippets/formulas.ts)
 
 And you use the formula the same way as a function.
 
-```snippet {#use-the-same-way}
-<!--@include: ./-snippets/formulas.ts-->
-```
+![#use-the-same-way](./-snippets/formulas.ts)

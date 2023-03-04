@@ -14,7 +14,8 @@ run = "rm -rf packages/@*/*/dist"
 
 [[task]]
 name = "build"
-deps = ["mdit", "build:tagged-templates", "build:utils"]
+serial = true
+deps = ["mdit", "tagged-templates", "utils"]
 
 [[task]]
 name = "mdit"
@@ -22,28 +23,11 @@ template = "pkg"
 template-options = { root = "packages/@jsergo/mdit" }
 
 [[task]]
-name = "js:mdit"
-template = 'swc'
-target = 'packages/@jsergo/mdit/dist/##.js'
-dep = 'packages/@jsergo/mdit/src/##.ts'
+name = "tagged-templates"
+template = "pkg"
+template-options = { root = "packages/@jsergo/tagged-templates" }
 
 [[task]]
-name = "dts:mdit"
-template = "dts"
-template-options = { root = "packages/@jsergo/mdit" }
-
-[[task]]
-name = "build:tagged-templates"
-template = 'swc'
-target = 'packages/@jsergo/tagged-templates/dist/##.js'
-dep = 'packages/@jsergo/tagged-templates/src/##.ts'
-
-[[task]]
-name = "build:utils"
-template = 'swc'
-target = 'packages/@wycatsjs/utils/dist/##.js'
-dep = 'packages/@wycatsjs/utils/src/##.ts'
-
-[task.template-options]
-auto-install = true
-swc-rc = true
+name = "utils"
+template = "pkg"
+template-options = { root = "packages/@wycatsjs/utils" }

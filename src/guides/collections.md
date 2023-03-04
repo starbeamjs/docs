@@ -28,7 +28,7 @@ JavaScript type.
 ```
 
 ```ts
-import reactive from "@starbeam/js";
+import reactive from "@starbeam/js"; // [!code ann]
 
 const map = reactive.Map<string, number>();
 // typeof map is Map<string, number>

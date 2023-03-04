@@ -1,7 +1,12 @@
 import { customAlphabet } from "nanoid";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Highlighter, HtmlRendererOptions, IThemeRegistration, Lang } from "shiki";
+import type {
+  Highlighter,
+  HtmlRendererOptions,
+  IThemeRegistration,
+  Lang,
+} from "shiki";
 import {
   LineOptions,
   addClass,
@@ -18,7 +23,9 @@ import handlebarsLang from "./handlebars.tmLanguage.json" assert { type: "json" 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-type ThemeOptions = IThemeRegistration | { light: IThemeRegistration; dark: IThemeRegistration };
+type ThemeOptions =
+  | IThemeRegistration
+  | { light: IThemeRegistration; dark: IThemeRegistration };
 
 const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz", 10);
 
@@ -80,11 +87,13 @@ const customProcessor = defineProcessor({
     "template-ann": ["starbeam", "sfc", "bare", "tag", "template", "annotate"],
     ann: ["starbeam", "annotate"],
   }),
-  postProcess: ({ code }) => {
-    if (!code.includes("starbeam")) {
+  postProcess: ({ code }): string | undefined => {
+    const hasStarbeam = code.match(/class="[^"]*starbeam[^"]*"/);
+    if (hasStarbeam) {
+      return addClass(code, "has-starbeam-lines", "pre");
+    } else {
       return;
     }
-    return addClass(code, "has-starbeam-lines", "pre");
   },
 });
 
@@ -128,8 +137,10 @@ export async function highlight(
   return (str: string, specifiedLanguage: string, attrs: string) => {
     const vPre = vueRE.test(specifiedLanguage) ? "" : "v-pre";
     const lang =
-      (specifiedLanguage.replace(lineNoRE, "").replace(vueRE, "").toLowerCase() as Lang) ||
-      (defaultLang as Lang);
+      (specifiedLanguage
+        .replace(lineNoRE, "")
+        .replace(vueRE, "")
+        .toLowerCase() as Lang) || (defaultLang as Lang);
 
     const lineOptions = attrsToLines(attrs);
     const cleanup = (str: string) =>
@@ -169,11 +180,18 @@ export async function highlight(
       }
 
       // const options: HtmlOptions = { lang, lineOptions, theme: getThemeName(theme) };
-      return cleanup(restoreMustache(highlighter.codeToHtml(removeMustache(str), options)));
+      return cleanup(
+        restoreMustache(highlighter.codeToHtml(removeMustache(str), options))
+      );
     }
 
     const dark = addClass(
-      cleanup(highlighter.codeToHtml(str, renderOptions({ lang, lineOptions, theme: theme.dark }))),
+      cleanup(
+        highlighter.codeToHtml(
+          str,
+          renderOptions({ lang, lineOptions, theme: theme.dark })
+        )
+      ),
       "vp-code-dark",
       "pre"
     );
@@ -185,7 +203,7 @@ export async function highlight(
           renderOptions({
             lang,
             lineOptions,
-            theme: theme.dark,
+            theme: theme.light,
           })
         )
       ),

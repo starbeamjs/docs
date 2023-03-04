@@ -64,11 +64,11 @@
   }
 
   .lang-docs.custom-block p > code {
-    color: hsl(var(--sb-fg-hue), var(--sb-fg-saturation), var(--sb-fg-lightness-bright));
+    color: hsl(
+      var(--sb-fg-hue) var(--sb-fg-saturation) var(--sb-fg-lightness-bright)
+    );
     background-color: hsl(
-      var(--sb-bg-hue),
-      var(--sb-bg-saturation),
-      var(--sb-bg-lightness-brightest)
+      var(--sb-bg-hue) var(--sb-bg-saturation) var(--sb-bg-lightness-brightest)
     );
     padding: var(--sb-nested-inline-code-padding);
     font-size: calc(var(--sb-font-size) * var(--sb-ratio-down1));

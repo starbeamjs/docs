@@ -1,4 +1,13 @@
-import { expect } from "vitest";
+// #region dts
+
+declare class Expect<T> {
+  toBe(value: T): void;
+  not: Expect<T>;
+}
+
+declare function expect<T>(value: T): Expect<T>;
+
+// #endregion
 
 // #region equality
 import { Cell } from "@starbeam/universal";

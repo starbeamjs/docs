@@ -23,8 +23,8 @@ This is the most basic way to use Starbeam in a React app.
 - You use the `useReactive` hook to read from reactive values and
   tell React to rerender when they change.
 
-:::tip React 18 The `useSetup` hook was designed to work well
-with React 18's new
+```md tip React 18
+The `useSetup` hook was designed to work well with React 18's new
 [strict mode](https://reactjs.org/blog/2022/03/29/react-v18.html),
 which tests whether your components are resilient to unmounting
 and remounting.
@@ -35,7 +35,8 @@ Starbeam automatically handles this for you by running the
 We **do not** circumvent React's strict mode by attempting to
 detect whether the component is "really" being unmounted.
 Instead, we follow React's guidance and clean on any unmount, and
-recreate `useSetup` state if the component gets remounted. :::
+recreate `useSetup` state if the component gets remounted.
+```
 
 ## The `useResource` Hook
 
@@ -50,9 +51,7 @@ section into React.
 
 As a quick refresher, here's what the resource looks like:
 
-```snippet {#stopwatch}
-<!--@include: ./-snippets/resources.tsx-->
-```
+![#stopwatch](./-snippets/resources.tsx)
 
 The resource creates a cell that holds the current date, but
 waits to set up the interval until the component that uses the
@@ -66,9 +65,7 @@ that uses the resource is **unmounted**.
 Next, we'll use the `useResource` hook to integrate it into a
 React component.
 
-```snippet {#component}
-<!--@include: ./-snippets/resources.tsx-->
-```
+![#component](./-snippets/resources.tsx)
 
 The `useResource` hook constructs the resource for us and
 integrates it into the component's lifecycle. ==That's the magic
@@ -102,8 +99,7 @@ the resource, a remounted component is a new component, which
 means that resources don't need to implement special logic to
 reset state on remount. It just works.
 
-:::tip Framework agnostic
-
+```md tip Framework agnostic
 It's important to remember that Starbeam's resources are
 framework agnostic. They are intended to be expressive enough to
 describe the lifecycle behavior of any framework. In our case,
@@ -114,8 +110,7 @@ features such as Concurrent APIs, as well as strict mode.
 And Starbeam resources can be used in other frameworks, which
 makes it easy to share reactive logic with lifecycle behavior
 between frameworks.
-
-:::
+```
 
 ## Compatibility with Strict Mode and Concurrent APIs
 

@@ -1,9 +1,0 @@
-{
-  "extends": ["stylelint-config-recommended-vue"],
-  "files": ["**/*.pcss"],
-  "plugins": ["stylelint-gamut"],
-  "rules": {
-    "gamut/color-no-out-gamut-range": true,
-    "color-function-notation": "modern"
-  }
-}

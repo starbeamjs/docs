@@ -1,11 +1,25 @@
 # Our Guiding Principle
 
-::: tip Starbeam's Core Principle
+```md em
+Untitled
+```
 
+```md em Titled
+Testing
+```
+
+```md tip
 If you model your reactive data like any other data, you can
 build reliable reactive UIs with the skills you already have.
+```
 
-:::
+```md details
+Untitled
+```
+
+```md details Some Title
+Titled
+```
 
 **We believe that reactive programming should feel exactly like
 regular programming.**
@@ -47,22 +61,17 @@ match JavaScript features however you want. Once you've used a
 reactive value to store your state, ==you don't have to think
 about reactivity as you compute values.==
 
-:::: details Example
-
-```snippet {#reactive-class}
-<!--@include: ./-snippets/items.ts-->
-```
+````md details Example
+![#reactive-class](./-snippets/items.ts)
 
 In this example, we built a `People` class that stores a list of
 people. We used a [private field] to store a reactive array.
 
-::: info
-
+```md info
 We could have stored it some other way (like a public field or
 even in a `WeakMap`) and everything would have worked just as
 well.
-
-:::
+```
 
 We created a `byLocation` method that uses a normal JavaScript
 `filter` function to filter the array by location. And we use the
@@ -81,8 +90,7 @@ rendering concept may feel analogous to the reactive systems
 you're used to, the similarities end with those concepts. All
 other reads and writes to those reactive values are normal
 JavaScript.
-
-::::
+````
 
 [private field]:
   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields

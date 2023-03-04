@@ -32,17 +32,13 @@ html.dark {
     span {
       display: inline-block;
       color: hsl(
-        var(--sb-hl-hue),
-        var(--sb-hl-saturation),
-        var(--sb-hl-lightness)
+        var(--sb-hl-hue) var(--sb-hl-saturation) var(--sb-hl-lightness)
       );
     }
 
     &.starbeam-inline {
       color: hsl(
-        var(--sb-hl-hue),
-        var(--sb-hl-saturation),
-        var(--sb-hl-lightness)
+        var(--sb-hl-hue) var(--sb-hl-saturation) var(--sb-hl-lightness)
       );
     }
 
@@ -51,9 +47,7 @@ html.dark {
       --sb-hl-saturation: var(--sb-fg-saturation);
       background-color: var(--sb-inline-light-bg-c);
       border-color: hsl(
-        var(--sb-hl-kind-ch),
-        var(--sb-fg-saturation),
-        var(--sb-fg-lightness)
+        var(--sb-hl-kind-ch) var(--sb-fg-saturation) var(--sb-fg-lightness)
       );
       border-style: solid;
       border-width: 1px;
@@ -67,7 +61,7 @@ html.dark {
 
     &.starbeam-inline.starbeam-bg-dark {
       --sb-hl-lightness: 80%;
-      background-color: hsl(var(--sb-code-block-ch), 40%, 30%);
+      background-color: hsl(var(--sb-code-block-ch) 40% 30%);
     }
 
     &.starbeam-inline.starbeam-bg-light.starbeam-optional {

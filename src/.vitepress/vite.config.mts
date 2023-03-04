@@ -7,6 +7,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, "../..");
 export default defineConfig({
   plugins: [tsconfigPaths({ loose: true })],
+  optimizeDeps: {
+    exclude: ["@jsergo/mdit"],
+  },
   build: {},
   resolve: {
     mainFields: ["browser", "module", "main"],

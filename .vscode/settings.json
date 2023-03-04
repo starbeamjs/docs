@@ -10,6 +10,7 @@
     "docs": true,
     "vitepress": true
   },
+
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
@@ -53,9 +54,6 @@
     "**/*.code-search": true,
     "docs": true
   },
-
-  "stylelint.enable": true,
-  "stylelint.validate": ["css", "less", "postcss"],
 
   "[typescript]": {
     "editor.rulers": [
@@ -112,12 +110,38 @@
   },
   "yaml.trace.server": "messages",
 
+  "postcss.validate": false,
+  "stylelint.packageManager": "pnpm",
+  "stylelint.snippet": ["css", "less", "postcss"],
+  "stylelint.validate": ["css", "less", "postcss"],
+  "cssVariables.lookupFiles": [
+    "**/*.css",
+    "**/*.postcss",
+    "**/*.scss",
+    "**/*.sass",
+    "**/*.less",
+    "src/.vitepress/**/*.postcss"
+  ],
+  "cssVariables.blacklistFolders": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/.git",
+    "**/node_modules",
+    "**/bower_components",
+    "**/tmp",
+    "**/dist",
+    "**/tests"
+  ],
   "json.schemas": [
     {
       "fileMatch": ["src/api/**/$api/*.json", "src/api/**/$api/*.jsonc"],
       "url": "./packages/api-docs/dist/api.schema.json"
     }
   ],
+
   "files.trimTrailingWhitespace": false,
   "typescript.tsdk": "node_modules/typescript/lib"
 }

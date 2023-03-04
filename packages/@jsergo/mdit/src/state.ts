@@ -1,4 +1,5 @@
 import MarkdownIt from "markdown-it";
+import type Token from "markdown-it/lib/token.js";
 import type { StateBlock, TypedBlockState } from "./types.js";
 
 export class MDStateCreator<Env, WrapperEnv> {
@@ -57,8 +58,15 @@ export class MDState<Env = unknown> {
     return this.#state.push("html_block", "", 0);
   }
 
-  render(content: string) {
+  renderHTML(content: string) {
     return this.#md.render(content, this.#state.env);
+  }
+
+  parse(content: string) {
+    const tokens: Token[] = [];
+    this.#md.block.parse(content, this.#md, this.#env, tokens);
+    return tokens;
+    // return this.#md.parse(content, this.#state.env);
   }
 
   error(message: string) {
@@ -104,6 +112,10 @@ export class LineState {
     return this.#state.src;
   }
 
+  get rest() {
+    return this.#state.src.slice(this.start);
+  }
+
   consume(): LineState {
     this.#state.line = this.#startLine + 1;
     return new LineState(this.#state, this.#startLine + 1);
@@ -143,6 +155,32 @@ export class LineState {
 
   startsWith(chars: string): boolean {
     return this.slice(chars.length) === chars;
+  }
+
+  matchStart(
+    regex: RegExp
+  ):
+    | { type: "unmatched" }
+    | { type: "match"; raw: RegExpExecArray; fragment: string }
+    | { type: "error"; error: string } {
+    if (!regex.source.startsWith("^")) {
+      return {
+        type: "error",
+        error: `invalid pattern for matchStart (${regex}). matchStart patterns must be anchored`,
+      };
+    }
+
+    const match = regex.exec(this.rest);
+
+    if (!match) {
+      return { type: "unmatched" };
+    } else {
+      return {
+        type: "match",
+        raw: match,
+        fragment: match[0],
+      };
+    }
   }
 
   slice(

@@ -20,7 +20,9 @@
     --sb-fg-$(name)-dimmer: oklch(var(--fglt-dimmer) $chroma-softer $hue);
     --sb-fg-$(name)-strong: oklch(var(--fglt-strong) $chroma-vivid $hue);
     --sb-fg-$(name)-stronger: oklch(var(--fglt-stronger) $chroma-vibrant $hue);
-    --sb-fg-$(name)-strongest: oklch(var(--fglt-strongest) $chroma-vibrant $hue);
+    --sb-fg-$(name)-strongest: oklch(
+      var(--fglt-strongest) $chroma-vibrant $hue
+    );
 
     --sb-bg-$(name): oklch(var(--bglt) $chroma $hue);
     --sb-bg-$(name)-muted: oklch(var(--bglt-strongest) $chroma-muted $hue);
@@ -29,17 +31,31 @@
     --sb-bg-$(name)-dimmer: oklch(var(--bglt-dimmer) $chroma-softer $hue);
     --sb-bg-$(name)-strong: oklch(var(--bglt-strong) $chroma-vivid $hue);
     --sb-bg-$(name)-stronger: oklch(var(--bglt-stronger) $chroma-vibrant $hue);
-    --sb-bg-$(name)-strongest: oklch(var(--bglt-strongest) $chroma-vibrant $hue);
+    --sb-bg-$(name)-strongest: oklch(
+      var(--bglt-strongest) $chroma-vibrant $hue
+    );
   }
 
   @define-mixin text $hue {
-    --vp-c-text-1: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-strong));
-    --vp-c-text-2: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-medium));
-    --vp-c-text-3: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-muted));
+    --vp-c-text-1: oklch(
+      var(--fglt-stronger) $chroma-muted $hue / var(--alpha-strong)
+    );
+    --vp-c-text-2: oklch(
+      var(--fglt-stronger) $chroma-muted $hue / var(--alpha-medium)
+    );
+    --vp-c-text-3: oklch(
+      var(--fglt-stronger) $chroma-muted $hue / var(--alpha-muted)
+    );
 
-    --vp-c-text-inverse-1: oklch(var(--bglt-max) $chroma-muted $hue / var(--alpha-strong));
-    --vp-c-text-inverse-2: oklch(var(--bglt-max) $chroma-muted $hue / var(--alpha-medium));
-    --vp-c-text-inverse-3: oklch(var(--bglt-max) $chroma-muted $hue / var(--alpha-muted));
+    --vp-c-text-inverse-1: oklch(
+      var(--bglt-max) $chroma-muted $hue / var(--alpha-strong)
+    );
+    --vp-c-text-inverse-2: oklch(
+      var(--bglt-max) $chroma-muted $hue / var(--alpha-medium)
+    );
+    --vp-c-text-inverse-3: oklch(
+      var(--bglt-max) $chroma-muted $hue / var(--alpha-muted)
+    );
   }
 
   @define-mixin gray {
@@ -56,12 +72,20 @@
     --vp-c-bg-soft-mute: var(--vp-c-mute);
     --vp-c-bg-alt: var(--vp-c-bg-elv-down);
 
-    --vp-c-border: oklch(var(--fglt-stronger) $chroma-muted $neutral / var(--alpha-border));
-    --vp-c-divider: oklch(var(--fglt-stronger) $chroma-muted $neutral / var(--alpha-divider));
+    --vp-c-border: oklch(
+      var(--fglt-stronger) $chroma-muted $neutral / var(--alpha-border)
+    );
+    --vp-c-divider: oklch(
+      var(--fglt-stronger) $chroma-muted $neutral / var(--alpha-divider)
+    );
     --vp-c-gutter: var(--vp-c-divider);
 
-    --vp-c-neutral: oklch(var(--fglt-max) $chroma-muted $neutral / var(--alpha-max));
-    --vp-c-neutral-inverse: oklch(var(--bglt-max) $chroma-muted $neutral / var(--alpha-max));
+    --vp-c-neutral: oklch(
+      var(--fglt-max) $chroma-muted $neutral / var(--alpha-max)
+    );
+    --vp-c-neutral-inverse: oklch(
+      var(--bglt-max) $chroma-muted $neutral / var(--alpha-max)
+    );
 
     /* --vp-c-text-1: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-strong));
     --vp-c-text-2: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-medium));

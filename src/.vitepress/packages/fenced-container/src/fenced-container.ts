@@ -1,142 +1,11 @@
-import { parserPlugin, type PluginHelper } from "@jsergo/mdit";
+import { parserPlugin } from "@jsergo/mdit";
 import "@mdit-vue/plugin-sfc";
-import { mapEntries, strip } from "@wycatsjs/utils";
 import parseFence from "fenceparser";
+import { Builtins, UnparsedContent } from "./define.js";
+import { El, If } from "./nodes.js";
 
 type OBJECT = ReturnType<typeof parseFence>;
 type VALUE = OBJECT[keyof OBJECT];
-
-interface RenderOptions {
-  kind: string;
-  title: string | null | undefined;
-  attrs: Record<string, VALUE>;
-  content: string;
-  md: PluginHelper;
-}
-
-type RenderContainer = ({
-  title,
-  kind,
-  attrs,
-  content,
-  md,
-}: {
-  title: string | null | undefined;
-  kind: string;
-  attrs: Record<string, VALUE>;
-  content: string;
-  md: PluginHelper;
-}) => string;
-
-type BuiltinConfig =
-  | {
-      defaultTitle?: string | null | undefined;
-    }
-  | {
-      render?: RenderContainer;
-    };
-
-class Builtin {
-  readonly #config: BuiltinConfig;
-
-  constructor(config: BuiltinConfig) {
-    this.#config = config;
-  }
-
-  render(options: RenderOptions): string {
-    return this.#renderFn(options);
-  }
-
-  get #renderFn(): RenderContainer {
-    if ("render" in this.#config) {
-      return this.#config.render;
-    }
-
-    const renderTitle = (provided: string | null | undefined): string => {
-      const title = this.#title(provided);
-      return title ? `<p class="custom-block-title">${title}</p>` : "";
-    };
-
-    return ({ kind, title: providedTitle, content }) => {
-      const title = this.#title(providedTitle);
-
-      return strip`
-      <div class="custom-block ${kind}">
-        ${renderTitle(title)}
-        ${content}
-      </div>
-      `;
-    };
-  }
-
-  #title(provided: string | null | undefined): string | undefined {
-    if (provided) {
-      return provided;
-    }
-
-    if ("defaultTitle" in this.#config) {
-      return this.#config.defaultTitle ?? undefined;
-    }
-
-    return;
-  }
-}
-
-class Builtins<N extends string> {
-  static empty(): Builtins<never> {
-    return new Builtins({});
-  }
-
-  static from<N extends string>(config: Record<N, BuiltinConfig>) {
-    return new Builtins(
-      mapEntries(config, (config, name) => [name, new Builtin(config)])
-    );
-  }
-
-  readonly #builtins: Record<N, Builtin>;
-
-  constructor(builtins: Record<N, Builtin>) {
-    this.#builtins = builtins;
-  }
-
-  register<NewName extends string>(
-    name: NewName,
-    config?: BuiltinConfig | string | RenderContainer
-  ): Builtins<N | NewName> {
-    function normalize(): BuiltinConfig {
-      if (typeof config === "string") {
-        return { defaultTitle: config };
-      } else if (typeof config === "function") {
-        return { render: config };
-      } else if (config === undefined) {
-        return { defaultTitle: name.toUpperCase() };
-      } else {
-        return config;
-      }
-    }
-
-    return new Builtins({
-      ...this.#builtins,
-      [name]: new Builtin(normalize()),
-    } as Record<N | NewName, Builtin>);
-  }
-
-  tryGet(name: string): Builtin | undefined {
-    if (name in this.#builtins) {
-      return this.#builtins[name as N];
-    } else {
-      return new Builtin({
-        render: ({ md }) => {
-          return md.error(`Unknown builtin: ${name}`);
-        },
-      });
-    }
-  }
-
-  get(name: N): Builtin {
-    return this.#builtins[name];
-  }
-}
 
 const BUILTINS = Builtins.empty()
   .register("info")
@@ -146,73 +15,71 @@ const BUILTINS = Builtins.empty()
   .register("lightbulb", {
     defaultTitle: null,
   })
-  .register(
-    "em",
-    ({ title, content, md }) => strip`
-      <blockquote class="em">
-        ${`<p class="custom-block-title">${title ?? "Key Point"}</p>`}
-        ${content}
-      </blockquote>
-    `
+  .register("em", ({ tokens, title, content }) =>
+    tokens.el("blockquote", { class: "em" }, [title ?? "Key Point", content])
   )
-  .register(
-    "details",
-    ({ title, content, md }) => strip`
-      <details>
-        <summary>${title ?? "Details"}</summary>
-        ${md.render(content)}
-      </details>
-    `
+  .register("details", ({ title, content, tokens }) =>
+    tokens.el(
+      "details",
+      {
+        class: ["custom-block", "container"],
+      },
+      [
+        If(title, ($) => [El("summary", { class: "custom-block-title" }, [$])]),
+        content,
+      ]
+    )
   );
 
 export const fencedContainerPlugin = parserPlugin({
   name: "fenced-container",
   before: "fence",
 }).block((line, md) => {
-  console.log("in plugin");
+  const matched = line.matchStart(/^(?<ticks>````*)md /);
 
-  try {
-    throw new Error("test");
-  } catch (e) {
-    console.log(e);
-  }
-
-  if (line.startsWith("```md ")) {
-    const fenceline = line.string();
-    const info = fenceline.slice("```md ".length);
-
-    // split the fenceline into the part before the first space (kind) and the
-    // part after it (params).
-    const [kind, params] = split2(info, " ");
-
-    if (kind === undefined) {
-      return false;
-    }
-
-    const builtin = BUILTINS.tryGet(kind);
-
-    if (builtin === undefined) {
-      return false;
-    }
-
-    return () => {
-      const fenceContent = line.next?.until(
-        (line) => line.slice()?.trim() === "```"
-      );
-
-      return (render) => {
-        const { title, attrs = {} } = parseTitle(params);
-        const body = fenceContent ? md.render(fenceContent) : "";
-
-        return render.html(
-          builtin.render({ md, kind, title, attrs, content: body })
-        );
-      };
-    };
-  } else {
-    console.log(line.string());
+  if (matched.type === "error") {
+    return () => (render) => render.html(md.error(matched.error));
+  } else if (matched.type === "unmatched") {
     return false;
   }
+
+  const ticks = matched.raw.groups?.["ticks"] as string;
+  const fenceline = line.string();
+  const info = fenceline.slice(matched.fragment.length);
+
+  // split the fenceline into the part before the first space (kind) and the
+  // part after it (params).
+  const [kind, params] = split2(info, " ");
+
+  if (kind === undefined) {
+    return false;
+  }
+
+  const builtin = BUILTINS.tryGet(kind);
+
+  if (builtin === undefined) {
+    return false;
+  }
+
+  return () => {
+    const fenceContent = line.next?.until(
+      (line) => line.slice()?.trim() === ticks
+    );
+
+    return (render) => {
+      const { title, attrs = {} } = parseTitle(params);
+
+      const rendered = builtin.render({
+        md,
+        kind,
+        title,
+        attrs,
+        content: UnparsedContent.of(fenceContent),
+      });
+
+      return render.tokens(rendered);
+    };
+  };
 });
 
 function parseTitle(params: string | undefined): {

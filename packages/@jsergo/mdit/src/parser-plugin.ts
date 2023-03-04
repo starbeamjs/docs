@@ -1,5 +1,6 @@
 import type MarkdownIt from "markdown-it";
 import type { PluginWithOptions } from "markdown-it";
+import type Token from "markdown-it/lib/token.js";
 import {
   MDState,
   MDStateCreator,
@@ -17,6 +18,10 @@ type RenderedContent =
       readonly content: string;
     }
   | {
+      readonly type: "tokens";
+      readonly content: Token[];
+    }
+  | {
       readonly type: "empty";
     }
   | { readonly type: "reconsume" };
@@ -26,6 +31,13 @@ export class ReturnRendered {
     return {
       type: "html",
       content,
+    };
+  }
+
+  tokens(tokens: Token[]): RenderedContent {
+    return {
+      type: "tokens",
+      content: tokens,
     };
   }
 
@@ -51,8 +63,20 @@ export class PluginHelper<Env = unknown> {
     this.#state = state;
   }
 
-  render(content: string): string {
-    return this.#state.render(content);
+  get md(): MarkdownIt {
+    return this.#state.md;
+  }
+
+  get env(): unknown {
+    return this.#state.env;
+  }
+
+  renderHTML(content: string): string {
+    return this.#state.renderHTML(content);
+  }
+
+  parse(content: string): Token[] {
+    return this.#state.parse(content);
   }
 
   error(message: string): string {
@@ -85,46 +109,38 @@ export type PluginOptions<Env, WrapperEnv> = {
   readonly env?: (env: Env) => WrapperEnv;
 } & PluginInsertion;
 
-export function parserPlugin<Env>(
-  pluginOptions: PluginOptions<any, Env>
+export function parserPlugin<Env, T = Env>(
+  pluginOptions: PluginOptions<T, Env>
 ): {
   block: <Options>(
     plugin: BlockPlugin<Env>
   ) => PluginWithOptions<Options>;
 } {
-  const wrapEnv = pluginOptions.env ?? ((env) => env);
+  const wrapEnv: (env: T) => Env =
+    pluginOptions.env ?? ((env) => env as unknown as Env);
 
   return {
     block: <Options>(plugin: BlockPlugin<Env>) => {
-      return (md: MarkdownIt, options: Options) => {
+      return (md: MarkdownIt, _options: Options) => {
         const createState = new MDStateCreator(md, wrapEnv);
 
-        console.log({ plugin });
-
-        const parser: TypedBlockRule<Env> = (
-          state: TypedBlockState<Env>,
+        const parser: TypedBlockRule<T> = (
+          state: TypedBlockState<T>,
           startLine,
           _endLine,
           silent
         ): boolean => {
-          console.log("running parser");
           const mdState = createState.create(state);
           const line = mdState.line(startLine);
-
-          console.log("checking");
 
           if (line.isCodeBlock) {
             return false;
           }
 
-          console.log("running plugin");
-
           const consume = plugin(
             line,
             new PluginHelper(mdState)
           );
-
-          console.log("consume", consume);
 
           if (!consume) {
             return false;
@@ -147,6 +163,11 @@ export function parserPlugin<Env>(
               const token = state.push("html_block", "", 0);
               token.content = rendered.content;
               return true;
+            }
+            case "tokens": {
+              for (const token of rendered.content) {
+                state.tokens.push(token);
+              }
             }
             case "empty": {
               return true;

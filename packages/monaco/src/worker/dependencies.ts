@@ -26,7 +26,6 @@ class EsmShTypes {
   }
 
   async types(pkg: string, version = "latest") {
-    console.log("fetching", `${this.#root}/${pkg}@${version}`);
     const response = await fetch(
       `${this.#root}/${pkg}@${version}`,
       {
@@ -44,6 +43,7 @@ class EsmShTypes {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TYPES = EsmShTypes.default();
 
 /**

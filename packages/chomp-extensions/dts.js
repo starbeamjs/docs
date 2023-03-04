@@ -30,11 +30,6 @@
 
           run: `tsc \${{DEP}} ${flags(root)}`,
         },
-        {
-          name: `${task.name}:clean`,
-          invalidation: "always",
-          run: `rm -f ${root}/dist/**/*.d.ts{,.map}`,
-        },
       ];
     }
   );

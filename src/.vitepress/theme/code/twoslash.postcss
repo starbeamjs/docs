@@ -69,6 +69,10 @@ pre.shiki {
   --vp-code-line-highlight-color: var(--highlight-color);
 }
 
+:root {
+  --my-hue: 20;
+}
+
 pre.twoslash * {
   --dim-bg: hsl(
     var(--highlight-hue) var(--highlight-saturation) var(--dim-lightness-bg)
@@ -116,6 +120,7 @@ pre {
 
 .vp-doc pre.shiki {
   overflow-x: auto;
+  height: auto;
   --vp-code-line-diff-remove-color: hsl(
     var(--twoslash-error-hue) var(--twoslash-error-saturation)
       var(--twoslash-error-bg-lightness) / 100%
@@ -135,7 +140,7 @@ pre {
     padding-block: var(--sb-code-padding-block);
 
     .line::before {
-      contents: "";
+      content: "";
       display: none;
     }
   }
@@ -235,21 +240,21 @@ pre {
   :not(.line.template.tag) + .line.template.tag + .line.template.tag {
     &,
     &::before {
-      /* --icon: "html"; */
+      --icon-ignore: "html";
     }
   }
 
   .line.bare.template:first-child,
   :not(.line.bare.template) + .line.bare.template {
     &::before {
-      /* --icon: "html"; */
+      --icon-ignore: "html";
     }
   }
 
   .line.script:first-child + .line.script,
   :not(.line.script) + .line.script + .line.script {
     &::before {
-      /* --icon: "javascript"; */
+      --icon-ignore: "javascript";
     }
   }
 
@@ -257,11 +262,18 @@ pre {
     counter-increment: starbeam-lines;
     &::before {
       display: flex;
-      align-items: center;
-      align-content: center;
+      --enlarge-by: 0.3;
+      --enlarge-multiple: calc(var(--enlarge-by) + 1);
       content: counter(starbeam-lines, annotation);
       color: var(--annotation-color);
-      font-size: 120%;
+      font-size: calc(100% * var(--enlarge-multiple));
+      height: max-content;
+      /**
+       * subtract 0.1 to align with the visible text, not including whitespace below descenders.
+       * divide by 1.3 to get the height of the parent (before font-size: 130%)
+       */
+      line-height: calc(var(--vp-code-line-height) / var(--enlarge-multiple)) -
+        (var(--enlarge-by) / 3);
     }
   }
 
@@ -313,7 +325,6 @@ pre {
 
   code {
     padding: 0;
-    overflow-x: auto;
     white-space: pre-wrap;
     width: 100%;
 
@@ -374,6 +385,7 @@ pre.shiki div.highlight {
 pre.shiki > code > .line {
   &.highlight,
   &.diff {
+    --noop: true;
   }
 }
 
@@ -390,6 +402,7 @@ pre.shiki {
 }
 
 pre.twoslash {
+  --noop: true;
   /* container: twoslash / inline-size; */
 }
 

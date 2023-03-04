@@ -74,7 +74,7 @@ html:not(.dark) {
     ) !important;
   }
 
-  .custom-block div[class*="language-"] {
+  .custom-block div[class*="language-"]:not(.ext-error) {
     background-color: transparent !important;
   }
 
@@ -326,8 +326,7 @@ strong.marker {
 
 div.ext-error {
   background-color: var(--invalid-color-fg);
-
-  pre {
+  background-color pre {
     margin-inline-start: 0;
   }
 

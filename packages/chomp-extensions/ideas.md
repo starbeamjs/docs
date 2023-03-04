@@ -19,14 +19,19 @@ transitive dependencies.
 > An imported extension is available to tasks returned by the
 > extension, but not to the file that included the extension.
 
-> **Out of scope**: exported extensions. It might be useful to
-> support an extension exporting/declaring extensions, but that
-> opens up a can of worms: does the chompfile that uses an
-> extension that exports other extensions need to explicitly
-> import those names? Can the names be renamed? It's not a bad
-> feature but it's much more complex than letting an extension
-> use extensions in its own exported tasks that aren't visible to
-> the chompfile that uses the extension.
+<details>
+  <summary>Out of scope: exported extensions</summary>
+
+**Out of scope**: exported extensions. It might be useful to
+support an extension exporting/declaring extensions, but that
+opens up a can of worms: does the chompfile that uses an
+extension that exports other extensions need to explicitly import
+those names? Can the names be renamed? It's not a bad feature but
+it's much more complex than letting an extension use extensions
+in its own exported tasks that aren't visible to the chompfile
+that uses the extension.
+
+</details>
 
 ```ts
 Chomp.registerTemplate("name", (task) => {
@@ -143,6 +148,45 @@ $ chomp clean --verbose
 # - packages/mdit/dist/index.js.map
 # - packages/mdit/dist/index.d.ts.map
 ```
+
+### Verbose Operations
+
+In verbose mode, list the operations that are performed.
+
+> This could be an extension point for third-party extensions.
+> For example, a "clean" extension could remove files, and could
+> use this extension point to enumerate the files it is removing.
+
+<details>
+  <summary>Aside: Dry Run</summary>
+
+This could also enable a "dry run" mode, which would list the
+operations that would be performed, but would not actually
+perform them. To allow this in the future, it might be a good
+idea to make sure that the way that an extension reports its
+operations isn't interleaved with direct execution of those
+operations.
+
+One possible approach could be: as an alternative to returning a
+string for `run`, extensions could return an array of
+`Operation`s.
+
+Each `Operation` would have:
+
+- an engine
+- the command to run
+- a description of the operation for logging purposes
+
+For logging purposes, it might be useful for the operation
+description to be structured, so the description could include
+information about what source and target files it is operating
+on.
+
+If this proposal was implemented, we should start with a simple
+description, and keep an eye out for use-cases that would benefit
+from more structured information around the description.
+
+</details>
 
 ## Template Improvements
 
@@ -317,3 +361,12 @@ changed.
 > could make a lot of changes to the source `.ts` files without
 > any changes to the `.d.ts` files, so it would be good to avoid
 > re-bundling every time you change the `.ts` files.
+
+## More Builtins
+
+- Remove files and directories
+
+## Node Engine Improvements
+
+- Document the `node` engine environment
+- Access to glob

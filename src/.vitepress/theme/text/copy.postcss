@@ -11,7 +11,7 @@
     font-size: 105%;
     font-style: italic;
     font-family: var(--sb-font-em);
-    color: hsl(var(--em-hue), var(--em-saturation), var(--em-lightness));
+    color: hsl(var(--em-hue) var(--em-saturation) var(--em-lightness));
   }
 
   em:not(.kw) {
@@ -59,9 +59,8 @@
         content: counter(inline-span, annotation);
         margin-inline-end: 0.5ex;
         color: hsl(
-          var(--inline-decor-hue),
-          var(--inline-decor-saturation),
-          var(--sb-fg-lightness-normal)
+          var(--inline-decor-hue) var(--inline-decor-saturation)
+            var(--sb-fg-lightness-normal)
         );
       }
     }

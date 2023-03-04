@@ -35,10 +35,10 @@ export const MARKDOWN: MarkdownOptions = {
   theme: THEME,
   highlight,
   config: (md) => {
-    md.use(shiki);
-    md.use(fences);
     md.use(snippets);
+    md.use(shiki);
     md.use(fencedContainer);
+    md.use(fences);
     md.use(containers);
     md.use(d2, {
       layout: {

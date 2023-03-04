@@ -5,8 +5,9 @@
   "description": "A more ergonomic way to create MarkdownIt plugins",
   "exports": {
     ".": {
-      "types": "./index.ts",
-      "default": "./dist/index.js"
+      "types": "./src/index.ts",
+      "node": "./dist/index.js",
+      "default": "./src/index.ts"
     }
   },
   "devDependencies": {
