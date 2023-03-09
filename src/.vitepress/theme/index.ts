@@ -13,8 +13,8 @@ import Api from "../components/api/Api.vue";
 import Language from "../components/code/Language.vue";
 import { Code } from "../packages/vitepress-snippets/browser.js";
 import Layout from "./Layout.vue";
-import "./static/lch.postcss";
 import "./index.postcss";
+import "./static/lch.postcss";
 
 export default {
   ...theme,

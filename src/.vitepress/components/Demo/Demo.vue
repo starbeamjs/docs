@@ -9,10 +9,16 @@ import { useData } from "vitepress";
 import { computed, type Ref } from "vue";
 
 import type { StarbeamFrontmatter } from "../../config/site-data.js";
-import { toSandpackDeps, toSandpackFiles, type DemoDeps, type DemoFiles } from "./demo.js";
+import {
+  toSandpackDeps,
+  toSandpackFiles,
+  type DemoDeps,
+  type DemoFiles,
+} from "./demo.js";
 import DemoBody from "./DemoBody.vue";
 
-const { config } = defineProps<{
+const { config, size = 160 } = defineProps<{
+  size?: number | undefined;
   config: {
     files: DemoFiles;
     dependencies: DemoDeps;
@@ -21,6 +27,9 @@ const { config } = defineProps<{
     activeFile?: string;
   };
 }>();
+
+const height = `${size}px`;
+console.log({ height });
 
 const info = useData();
 const data = useData().frontmatter as Ref<StarbeamFrontmatter>;
@@ -182,6 +191,7 @@ div.demo {
   }
 
   :deep(div.sp-stack) {
+    min-height: v-bind(height);
     /* height: max-content; */
 
     div.sp-tabs {

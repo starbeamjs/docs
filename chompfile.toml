@@ -14,7 +14,6 @@ run = "rm -rf packages/@*/*/dist"
 
 [[task]]
 name = "build"
-serial = true
 deps = ["mdit", "tagged-templates", "utils"]
 
 [[task]]
@@ -26,8 +25,10 @@ template-options = { root = "packages/@jsergo/mdit" }
 name = "tagged-templates"
 template = "pkg"
 template-options = { root = "packages/@jsergo/tagged-templates" }
+display = "init-only"
 
 [[task]]
 name = "utils"
 template = "pkg"
 template-options = { root = "packages/@wycatsjs/utils" }
+display = "init-only"

@@ -1,28 +1,9 @@
 # Our Guiding Principle
 
-```md em
-Untitled
-```
-
-```md em Titled
-Testing
-```
-
-```md tip
-If you model your reactive data like any other data, you can
-build reliable reactive UIs with the skills you already have.
-```
-
-```md details
-Untitled
-```
-
-```md details Some Title
-Titled
-```
-
+```md em title=null
 **We believe that reactive programming should feel exactly like
 regular programming.**
+```
 
 Reactive UI frameworks have a way of describing reactive inputs
 and a way of describing an output in terms of those inputs, which
@@ -62,7 +43,7 @@ reactive value to store your state, ==you don't have to think
 about reactivity as you compute values.==
 
 ````md details Example
-![#reactive-class](./-snippets/items.ts)
+!(./-snippets/items.ts#reactive-class)
 
 In this example, we built a `People` class that stores a list of
 people. We used a [private field] to store a reactive array.

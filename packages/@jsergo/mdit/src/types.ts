@@ -1,6 +1,8 @@
-import type { RuleBlock } from "markdown-it/lib/parser_block";
+import type ParserBlock from "markdown-it/lib/parser_block";
 import type StateBlock from "markdown-it/lib/rules_block/state_block";
-export type { RuleBlock, StateBlock };
+export type { StateBlock };
+
+export type RuleBlock = ParserBlock.RuleBlock;
 
 export interface TypedBlockState<Env> extends StateBlock {
   readonly env: Env;

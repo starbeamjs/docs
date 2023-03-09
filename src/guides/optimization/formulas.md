@@ -1,23 +1,35 @@
-# Formula Functions
+# Optimizing Expensive Computations
 
-While you can always use normal functions to compute values based
-on cells, you can also turn functions into formulas:
+While the cost of maintaining a cache is usually higher than the
+cost the computation, this is not always true.
 
-1. Formulas recompute only when any reactive state used in the
-   formula changes.
-2. You can render a formula into the DOM using a Starbeam
-   renderer.
+For example, imagine that you wrote a function that takes a
+reactive markdown string and some reactive parameters and renders
+the markdown.
 
-```md tip
-In practice, it's very uncommon for the overhead of formula
-functions to outweigh the cost of JavaScript functions, even if
-they iterate a medium-sized list and do some work for each entry.
+!(./-snippets/markdown.ts#render)
+
+If you then render the markdown using a Starbeam renderer, the
+output will be updated every time the reactive `text` or reactive
+`linkify` changes.
+
+This is great, but it might also run when the input **didn't**
+change, or multiple times in response to input changes.
+
+```md 💡
+Again, most computations are so cheap that it would actually be
+more expensive to attempt to cache them. But that's not true
+here.
 ```
 
-To create a formula, pass a function to `Formula`.
+You can use to `Formula` API to make sure that the function only
+runs once, and only when the reactive values it used in its
+computation change.
 
-![#create-formula](./-snippets/formulas.ts)
+!(./-snippets/markdown.ts#cached)
 
-And you use the formula the same way as a function.
-
-![#use-the-same-way](./-snippets/formulas.ts)
+If you render the result of the `renderMarkdown` function with a
+Starbeam renderer, the output will still update whenever the
+reactive `text` or reactive `linkify` change, but the formula
+will only run once in response to changes, no matter how many
+times it's called.

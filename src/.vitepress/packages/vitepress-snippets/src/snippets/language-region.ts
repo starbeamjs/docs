@@ -72,7 +72,7 @@ export class RenderLanguageRegion {
       attrs.push(`{${highlights.map((h) => h.lines).join(",")}}`);
     }
 
-    attrs.push(`filename=${JSON.stringify(this.#filename)}`);
+    attrs.push(`filename=${JSON.stringify(this.#filename)} lang=${this.#kind}`);
 
     return attrs.join(" ");
   }

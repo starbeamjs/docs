@@ -8,6 +8,29 @@
 @import "./api/dl.postcss";
 @import "./api/generics.postcss";
 
+.vp-doc pre {
+  margin: 0;
+}
+
+.VPDoc .code-container {
+  background-color: hsl(
+    var(--sb-bg-hue) var(--sb-bg-saturation) var(--sb-lightness-brighter-bg)
+  );
+  border-block-end: 2px solid var(--sb-fg-theme);
+  border-inline-end: 2px solid var(--sb-fg-theme);
+}
+
+.VPDoc .code-container pre {
+  margin: 0;
+  padding: 0;
+}
+
+.VPDoc .code-container code {
+  display: grid;
+  margin: 0;
+  padding: 0;
+}
+
 .VPDoc {
   .vp-code-group > .tabs {
     @media (min-width: 0) {

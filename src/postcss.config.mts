@@ -10,6 +10,7 @@ import mixins from "postcss-mixins";
 import nested from "postcss-nested";
 import preset from "postcss-preset-env";
 import property from "postcss-property-lookup";
+import purge from "@fullhuman/postcss-purgecss";
 
 const PRESET = preset({
   stage: 1,
@@ -30,6 +31,7 @@ export default {
     nested(),
     using({
       vars: [vars({})],
+      mixins: [mixins({})],
       brand: [
         mixins(),
         vars(),

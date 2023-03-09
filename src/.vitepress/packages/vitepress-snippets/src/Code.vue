@@ -1,6 +1,6 @@
 <script lang="ts">
-import { useStorage } from "@vueuse/core";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
+import { STORAGE } from "./lang.js";
 
 function createToggler(): HTMLElement {
   const toggler = document.createElement("p");
@@ -19,30 +19,6 @@ function label(text: string) {
 const LANG_KEY = "default-lang";
 const DEFAULT_LANG = "js";
 
-class Lang {
-  store = useStorage<Record<string, string>>("VUEPRESS_CODE_TAB_STORE", {});
-
-  constructor() {
-    watch(
-      () => this.store.value[LANG_KEY] as "ts" | "js" | undefined,
-      (newValue) => {
-        currentLang.value = newValue ?? DEFAULT_LANG;
-      }
-    );
-  }
-
-  get lang(): "ts" | "js" {
-    return this.store.value[LANG_KEY] === "ts" ? "ts" : "js";
-  }
-
-  set lang(lang: "ts" | "js") {
-    this.store.value[LANG_KEY] = lang;
-  }
-}
-
-const STORAGE = new Lang();
-
-const currentLang = ref(STORAGE.lang);
 const js = ref();
 const ts = ref();
 
@@ -87,16 +63,46 @@ function addToggle(container: HTMLElement, text: string, callback: () => void) {
   container.prepend(toggler);
 }
 
+const container = ref();
+
+// TODO: Generate the right markdown
+onMounted(() => {
+  for (const item of container.value.querySelectorAll(
+    "code[class^=language-]"
+  )) {
+    item.parentElement.classList.add("code-container");
+
+    for (const child of item.querySelectorAll(
+      ".code-container"
+    ) as NodeListOf<Element>) {
+      child.classList.remove("code-container");
+    }
+  }
+  // const element =
+});
+
 function current() {
-  return `${currentLang.value} lang-switcher`;
+  return `${STORAGE.currentLang} lang-switcher`;
 }
 </script>
 
 <template>
-  <section :class="`${currentLang} section`">
+  <section :class="`${STORAGE.currentLang} section`" ref="container">
     <p class="toggler">
-      <button type="button" class="toggler-button js" @click="STORAGE.lang = 'js'">js</button>
-      <button type="button" class="toggler-button ts" @click="STORAGE.lang = 'ts'">ts</button>
+      <button
+        type="button"
+        class="toggler-button js"
+        @click="STORAGE.lang = 'js'"
+      >
+        js
+      </button>
+      <button
+        type="button"
+        class="toggler-button ts"
+        @click="STORAGE.lang = 'ts'"
+      >
+        ts
+      </button>
     </p>
 
     <div class="js" ref="js"><slot name="js"></slot></div>
@@ -109,9 +115,12 @@ function current() {
 <style scoped lang="postcss">
 .section {
   position: relative;
+  display: grid;
+  width: 100%;
 }
 
 .section .toggler {
+  z-index: 998;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease-in-out;

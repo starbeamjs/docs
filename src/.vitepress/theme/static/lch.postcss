@@ -3,6 +3,7 @@
   $green: 162;
   $yellow: 86;
   $red: 16;
+  $blue: 240;
   $neutral: 285;
   $highlight: 107;
 
@@ -86,10 +87,6 @@
     --vp-c-neutral-inverse: oklch(
       var(--bglt-max) $chroma-muted $neutral / var(--alpha-max)
     );
-
-    /* --vp-c-text-1: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-strong));
-    --vp-c-text-2: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-medium));
-    --vp-c-text-3: oklch(var(--fglt-stronger) $chroma-muted $hue / var(--alpha-muted)); */
   }
 
   @define-mixin scheme {
@@ -97,6 +94,7 @@
     @mixin colors red, $red;
     @mixin colors green, $green;
     @mixin colors yellow, $yellow;
+    @mixin colors blue, $blue;
     @mixin colors highlight, $highlight;
     @mixin text $neutral;
     @mixin gray;

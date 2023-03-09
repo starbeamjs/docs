@@ -22,12 +22,12 @@ that uses a `setInterval` to tick. By using a Starbeam resource,
 we can ensure that the stopwatch is stopped when the owner is
 cleaned up.
 
-```md lightbulb
+```md 💡
 A resource's return value is a function that computes the value
 of the resource whenever its dependencies change.
 ```
 
-### <strong class="marker">demo</strong> rendering the stopwatch
+### **demo**{.marker} rendering the stopwatch
 
 <Demo :config="resources" />
 
@@ -43,7 +43,7 @@ dynamic, and we want to unsubscribe from the channel whenever the
 channel name changes, but _not_ when we get a new message.
 ```
 
-![#define-resource](./-snippets/resource-lifecycle.ts)
+!(./-snippets/resource-lifecycle.ts#define-resource)
 
 `ChannelResource` is a JavaScript function that takes the channel
 name as a reactive input and returns a resource constructor.

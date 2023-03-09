@@ -1,5 +1,4 @@
 import type MarkdownIt from "markdown-it";
-import type { PluginWithOptions } from "markdown-it";
 import type Token from "markdown-it/lib/token.js";
 import {
   MDState,
@@ -114,7 +113,7 @@ export function parserPlugin<Env, T = Env>(
 ): {
   block: <Options>(
     plugin: BlockPlugin<Env>
-  ) => PluginWithOptions<Options>;
+  ) => MarkdownIt.PluginWithOptions<Options>;
 } {
   const wrapEnv: (env: T) => Env =
     pluginOptions.env ?? ((env) => env as unknown as Env);

@@ -1,6 +1,7 @@
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { visualizer } from "rollup-plugin-visualizer";
+import Icons from "unplugin-icons/vite";
 import type { UserConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import postcss from "../../postcss.config.mjs";
@@ -28,6 +29,9 @@ export const VITE: UserConfig = {
   plugins: [
     tsconfigPaths({
       loose: true,
+    }),
+    Icons({
+      autoInstall: true,
     }),
   ],
   resolve: {

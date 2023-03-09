@@ -15,7 +15,9 @@ const isConsoleVisible = ref(false);
 
 const toggleConsoleVisibility = () => {
   isConsoleVisible.value = !isConsoleVisible.value;
-  toggleConsoleText.value = isConsoleVisible.value ? "Hide Console" : "Show Console";
+  toggleConsoleText.value = isConsoleVisible.value
+    ? "Hide Console"
+    : "Show Console";
 };
 
 const toggleText = ref("Show Code");
@@ -47,7 +49,11 @@ const consoleData = useSandpackConsole();
   <DemoConsole :console-data="consoleData" :is-visible="isConsoleVisible" />
   <div class="code-editor" v-show="isCodeVisible">
     <SandpackFileExplorer :auto-hidden-files="true" />
-    <SandpackCodeEditor :show-tabs="false" :show-inline-errors="true" :wrap-content="false" />
+    <SandpackCodeEditor
+      :show-tabs="false"
+      :show-inline-errors="true"
+      :wrap-content="false"
+    />
   </div>
 </template>
 
@@ -67,11 +73,12 @@ div.sp-preview-container {
 
 <style scoped lang="postcss">
 div.demo .sp-layout > .sp-stack {
-  height: max-content;
+  /* height: max-content; */
 }
 
 div.code-editor {
   display: grid;
+  contain: paint;
   width: 100%;
   border: 2px solid var(--sp-colors-surface3);
   border-radius: var(--sb-radius);

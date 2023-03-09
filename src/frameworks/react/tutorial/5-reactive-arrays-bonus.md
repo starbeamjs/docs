@@ -13,8 +13,7 @@ an array to add support for an arbitrary number of counters.
 This example illustrates how to refactor a component that uses
 Starbeam into multiple components.
 
-:::💡
-
+```md 💡
 The **TL;DR** is that you break apart components using Starbeam
 the same way as you'd break apart any React component.
 
@@ -25,15 +24,13 @@ in one of the smaller component, you need to make sure to use
 But don't worry 😄. If you forget, you'll get a clear error
 message reminding you of the requirement and pointing you to the
 reactive access.
-
-:::
+```
 
 ## What We're Building
 
-<Demo :config="resources" />
+<Demo :config="resources" :size="600" />
 
-:::tip Breaking it Apart
-
+```md tip Breaking it Apart
 This demo expands on the Reactive Arrays lesson, which used a
 reactive array to store the counters, and rendered everything in
 a single component.
@@ -45,5 +42,4 @@ each counter.
 This is a common pattern in React apps, and it's easy to do with
 Starbeam. This bonus lesson helps you get your hands dirty with a
 multi-component example. Go to town!
-
-:::
+```

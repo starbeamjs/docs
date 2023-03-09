@@ -1,4 +1,5 @@
 import type MarkdownIt from "markdown-it";
+import { resolve } from "node:path";
 import type { MarkdownOptions } from "vitepress";
 import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 import fencedContainer from "../packages/fenced-container/index.js";
@@ -12,6 +13,7 @@ import { mermaid } from "../plugins/mermaid/mermaid.js";
 import d2, { DarkTheme, LightTheme, type D2Options } from "./d2/d2.js";
 import { highlight as createHighlight } from "./syntax-highlight/highlight.js";
 import { markdownItShikiTwoslashSetup } from "./syntax-highlight/setup.js";
+import { root } from "./vite.js";
 
 const Shiki = await markdownItShikiTwoslashSetup({
   themes: ["github-dark", "github-light"],
@@ -20,6 +22,10 @@ const Shiki = await markdownItShikiTwoslashSetup({
 const shiki = (md: MarkdownIt) => {
   return Shiki(md, {
     ignoreCodeblocksWithCodefenceMeta: ["no-shiki"],
+    vfsRoot: resolve(root, "packages/twoslash"),
+    defaultCompilerOptions: {
+      moduleResolution: 100,
+    },
   });
 };
 

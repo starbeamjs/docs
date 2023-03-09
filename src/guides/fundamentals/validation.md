@@ -41,12 +41,12 @@ To demonstrate this point, let's create an object that uses a
 reactive array under the hood, but exposes a normal JavaScript
 API.
 
-![#indirect-consumption](./-snippets/indirect-consumption.ts)
+!(./-snippets/indirect-consumption.ts#indirect-consumption)
 
 We want to render a comma-separated list of people from New York,
 using `people.byLocation("New York")`.
 
-![#rendering-indirect-consumption](./-snippets/indirect-consumption.ts)
+!(./-snippets/indirect-consumption.ts#rendering-indirect-consumption)
 
 How does `byLocation` **consume** reactive cells?
 
@@ -56,7 +56,7 @@ How does `byLocation` **consume** reactive cells?
 
 Next, we'll add some people to the array.
 
-![#adding-people](./-snippets/indirect-consumption.ts)
+!(./-snippets/indirect-consumption.ts#adding-people)
 
 And how did this code **update** reactive cells?
 
@@ -70,7 +70,7 @@ rendered function.
 Finally, since invalidation simply schedules revalidation, our
 renderer only ran once.
 
-### <strong class="marker">demo</strong> Rendering With the Debug Renderer
+### **demo**{.marker} Rendering With the Debug Renderer
 
 <Demo :config="validation" />
 

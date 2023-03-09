@@ -15,21 +15,37 @@ export function El(...args: Parameters<Tokens["el"]>): LazyChild {
   };
 }
 
-export function If<T>(
-  condition: T,
-  then: (value: Exclude<T, Falsy>, tokens: Tokens) => Tokens | Child[]
+export function Do(then: () => Rendered): LazyChild {
+  return {
+    render: (tokens) => render(tokens, then),
+  };
+}
+
+export function Let<T>(
+  values: T,
+  then: (values: T) => Tokens | Child[]
 ): LazyChild {
   return {
     render: (tokens) => {
-      if (condition) {
-        const result = then(condition as Exclude<T, Falsy>, tokens);
+      return render(tokens, () => then(values));
+    },
+  };
+}
 
-        if (Array.isArray(result)) {
-          tokens.append(...result);
+export function If<T>(
+  condition: T,
+  then: (value: Exclude<T, Falsy>, tokens: Tokens) => Tokens | Child[],
+  options?: { else: (tokens: Tokens) => Tokens | Child[] }
+): LazyChild {
+  return {
+    render: (tokens) => {
+      return render(tokens, (): Rendered | void => {
+        if (condition) {
+          return then(condition as Exclude<T, Falsy>, tokens);
+        } else if (options?.else) {
+          return options.else(tokens);
         }
-      }
-
-      return tokens;
+      });
     },
   } satisfies LazyChild;
 }
@@ -40,4 +56,14 @@ export function HTML(value: string): LazyChild {
   return {
     render: (tokens) => tokens.append(html),
   };
+}
+
+type Rendered = Tokens | Child[] | void;
+
+function render(tokens: Tokens, callback: () => Rendered): Tokens {
+  const children = callback();
+  if (Array.isArray(children)) {
+    return tokens.append(...children);
+  }
+  return tokens;
 }

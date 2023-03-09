@@ -14,9 +14,7 @@ Start by installing the Preact renderer into your app.
 
 ## Using Starbeam
 
-```snippet {#app}
-<!--@include: ./-snippets/quickstart.tsx-->
-```
+!(./-snippets/quickstart.tsx#app)
 
 This is the most basic way to use Starbeam in a Preact app.
 
@@ -33,9 +31,7 @@ section into Preact.
 
 As a quick refresher, here's what the resource looks like:
 
-```snippet {#stopwatch}
-<!--@include: ./-snippets/resources.tsx-->
-```
+!(./-snippets/resources.tsx#stopwatch)
 
 The resource creates a cell that holds the current date, but
 waits to set up the interval until the component that uses the
@@ -49,9 +45,7 @@ that uses the resource is **unmounted**.
 Next, we'll use the `use` hook to integrate it into a Preact
 component.
 
-```snippet {#component}
-<!--@include: ./-snippets/resources.tsx-->
-```
+!(./-snippets/resources.tsx#component)
 
 The `use` hook constructs the resource for us and integrates it
 into the component's lifecycle. ==That's the magic of Starbeam

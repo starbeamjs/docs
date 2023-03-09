@@ -33,26 +33,28 @@ export async function markdownItShikiTwoslashSetup(
         return prev(snippet, lang, rawAttrs);
       }
 
-      const filename = attrs["filename"];
+      const rawFilename = attrs["filename"];
 
-      if (!filename) {
+      if (!rawFilename) {
         throw Error(
           "```twoslash fences must specify a filename (e.g. ```twoslash filename=index.ts"
         );
       }
 
-      if (typeof filename !== "string") {
+      if (typeof rawFilename !== "string") {
         throw Error(
-          `the filename specified in \`\`\`twoslash fences must be a string (you specified ${filename})`
+          `the filename specified in \`\`\`twoslash fences must be a string (you specified ${rawFilename})`
         );
       }
+
+      const filename = decodeURIComponent(rawFilename);
 
       const pkgJSON = pkgUpSync({
         cwd: dirname(filename),
       });
 
       if (pkgJSON === undefined) {
-        throw Error(`no package.json found for ${filename}`);
+        throw Error(`no package.json found for ${rawFilename}`);
       }
 
       const vfsRoot = { vfsRoot: dirname(pkgJSON) };
@@ -62,6 +64,21 @@ export async function markdownItShikiTwoslashSetup(
         workspaceRoot: root,
       });
 
+      const mode = attrs["lang"];
+
+      if (typeof mode !== "string") {
+        throw Error(
+          `the mode specified in \`\`\`twoslash fences must be a string (you specified ${mode})`
+        );
+      }
+
+      if (mode !== "ts" && mode !== "js") {
+        throw Error(
+          `the mode specified in \`\`\`twoslash fences must be "ts" or "js" (you specified ${mode})`
+        );
+      }
+
+      console.log({ lang, attrs });
       snippet = snippet.replace(/\r?\n$/, ""); // strip trailing newline fed during code block parsing
       return transformAttributesToHTML(
         snippet,
@@ -71,6 +88,10 @@ export async function markdownItShikiTwoslashSetup(
           ...options,
 
           defaultCompilerOptions: pkg.compilerOptions,
+          defaultOptions: {
+            noErrors: mode === "js",
+            noErrorValidation: mode === "js" || IS_DEV,
+          },
           // ...vfsRoot,
           // ...vfsRoot,
           // defaultOptions: {

@@ -22,16 +22,16 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
       return false;
     }
 
-    // The syntax is `![#cell](./-snippets/cell.ts)
-    if (line.startsWith("![#")) {
+    // The syntax is `!(./-snippets/cell.ts#cell)
+    if (line.startsWith("!(")) {
       const snippet = line.string();
 
       // use named captures
-      const match = snippet.match(/^!\[#(?<region>(.*))\]\((?<file>(.*))\)$/);
+      const match = snippet.match(/^!\((?<file>(.*?))(?:#(?<region>.*))?\)$/);
 
       if (match) {
         const { region, file } = match.groups as {
-          region: string;
+          region: string | undefined;
           file: string;
         };
 
@@ -40,7 +40,6 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         return true;
       }
     }
-
     if (line.startsWith("```snippet")) {
       const fenceline = line.string();
 
@@ -67,7 +66,7 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         return true;
       }
 
-      const regionName = rawPath.slice(1);
+      let regionName = rawPath.slice(1);
 
       const filename = mdState.env.resolve(fenceContent.trim());
 
@@ -76,7 +75,12 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         return true;
       }
 
-      const content = readFileSync(filename, "utf8");
+      let content = readFileSync(filename, "utf8");
+
+      if (!regionName) {
+        content = `// #region all\n${content}\n// #endregion\n`;
+        regionName = "all";
+      }
 
       let snippet: Snippets;
 
@@ -91,27 +95,21 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         return true;
       }
 
-      if (regionName) {
-        const region = snippet.regions?.get(regionName);
+      const region = snippet.regions?.get(regionName);
 
-        if (region === undefined) {
-          token.content = error(
-            `Invalid region name: ${regionName}\n\n${codeForError(
-              fenceContent
-            )}`
-          );
-          return true;
-        }
-
-        token.content = highlightRegion({
-          state: mdState,
-          filename,
-          region,
-          complete: snippet,
-        });
-      } else {
-        token.content = highlight(mdState, filename, snippet);
+      if (region === undefined) {
+        token.content = error(
+          `Invalid region name: ${regionName}\n\n${codeForError(fenceContent)}`
+        );
+        return true;
       }
+
+      token.content = highlightRegion({
+        state: mdState,
+        filename,
+        region,
+        complete: snippet,
+      });
 
       return true;
     }
@@ -125,7 +123,7 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 function pushSnippetToken(
   state: MDState,
   filename: string,
-  regionName: string
+  regionName: string | undefined
 ) {
   const token = state.open();
 
@@ -149,7 +147,7 @@ function pushSnippetToken(
     return true;
   }
 
-  if (regionName) {
+  if (regionName?.trim()) {
     const region = snippet.regions?.get(regionName);
 
     if (region === undefined) {
@@ -209,6 +207,7 @@ function highlightRegion({
 function highlight(state: MDState, filename: string, region: Snippets) {
   const tsFenced = highlightLang(state, {
     filename,
+    lang: "ts",
     code: region.ts.code,
     highlights: [],
     prefix: "",
@@ -220,6 +219,7 @@ function highlight(state: MDState, filename: string, region: Snippets) {
 
   const jsFenced = highlightLang(state, {
     filename,
+    lang: "js",
     code: region.js.code,
     highlights: [],
     prefix: "",
@@ -232,12 +232,14 @@ function highlightLang(
   state: MDState,
   {
     code,
+    lang,
     filename,
     highlights,
     prefix,
     postfix,
   }: {
     code: string;
+    lang: "ts" | "js";
     filename: string;
     highlights?: Highlight[];
     prefix?: string;
@@ -246,10 +248,10 @@ function highlightLang(
 ): string {
   const attr =
     highlights && highlights.length > 0
-      ? `{${highlights
-          .map((h) => h.lines)
-          .join(",")}} {filename=${JSON.stringify(filename)}}`
+      ? `{${highlights.map((h) => h.lines).join(",")}}`
       : "";
+
+  console.log({ filename });
 
   const output = [];
 
@@ -264,11 +266,13 @@ function highlightLang(
   }
 
   const source = output.join("\n").trimEnd();
-
-  return (
-    state.highlight?.(source, "tsx twoslash", attr) ??
-    `<pre><code class="language-ts">${code}</code></pre>`
+  const highlighted = state.highlight?.(
+    source,
+    `tsx twoslash`,
+    `filename="${encodeURIComponent(filename)}" lang=${lang} ${attr}`
   );
+
+  return `<pre><code class="language-ts">${highlighted}</code></pre>`;
 }
 
 function error(message: string) {

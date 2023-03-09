@@ -21,6 +21,30 @@
     }
   }
 
+  details {
+    --protip-icon: var(--sb-icon-protip);
+    --expand-icon: "chevron_right";
+    --contract-icon: "expand_more";
+    --between-icons: var(--sb-icon-between);
+    --after-icons: var(--sb-icon-after);
+
+    > summary::before {
+      font-family: var(--icons);
+    }
+  }
+
+  details.protip {
+    > summary::before {
+      content: var(--expand-icon) var(--between-icons) var(--protip-icon)
+        var(--after-icons);
+    }
+
+    &[open] > summary::before {
+      content: var(--contract-icon) var(--between-icons) var(--protip-icon)
+        var(--after-icons);
+    }
+  }
+
   details.deep-dive {
     summary span {
       border: 1px solid var(--vp-badge-tip-border);
@@ -32,7 +56,6 @@
     }
 
     summary span::before {
-      font-family: var(--icons);
       line-height: 1;
       content: "🤿";
     }

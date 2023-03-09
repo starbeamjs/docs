@@ -4,14 +4,18 @@ import { mapEntries } from "@wycatsjs/utils";
 import parseFence from "fenceparser";
 import Token from "markdown-it/lib/token.js";
 import { HTML, If } from "./nodes.js";
-import { Tokens, type LazyChild } from "./tokens.js";
+import { Tokens, text, type LazyChild } from "./tokens.js";
 
 type OBJECT = ReturnType<typeof parseFence>;
 type VALUE = OBJECT[keyof OBJECT];
 
 interface RenderOptions {
   kind: string;
-  title: string | null | undefined;
+  /**
+   * false means "leave out the title"
+   * undefined means "use the default title"
+   */
+  title: Title;
   attrs: Record<string, VALUE>;
   content: UnparsedContent | undefined;
   md: PluginHelper;
@@ -48,7 +52,7 @@ type RenderContainer = ({
   md,
   tokens,
 }: {
-  title: string | null | undefined;
+  title: Title;
   kind: string;
   attrs: Record<string, VALUE>;
   content: UnparsedContent | undefined;
@@ -90,7 +94,7 @@ class Builtin {
     }
 
     return ({ md, kind, title: providedTitle, content }) => {
-      const title = this.#title(providedTitle);
+      const title = providedTitle.withDefault(this.#defaultTitle ?? undefined);
 
       return Tokens.empty(md).el("div", { class: ["custom-block", kind] }, [
         If(title, (title, tokens) =>
@@ -101,19 +105,63 @@ class Builtin {
     };
   }
 
-  #title(provided: string | null | undefined): string | undefined {
-    if (provided) {
-      return provided;
-    }
-
+  get #defaultTitle(): string | void {
     if (
       "defaultTitle" in this.#config &&
       typeof this.#config.defaultTitle === "string"
     ) {
       return this.#config.defaultTitle;
     }
+  }
+}
 
-    return;
+export class Title implements LazyChild {
+  static provided(provided: string | false | undefined): Title {
+    return new Title(provided, undefined);
+  }
+
+  static create(
+    provided: string | false | undefined,
+    defaultValue: string | undefined
+  ): Title {
+    return new Title(provided, defaultValue);
+  }
+
+  readonly #provided: string | undefined | false;
+  readonly #default: string | undefined;
+
+  private constructor(
+    provided: string | false | undefined,
+    defaultValue: string | undefined
+  ) {
+    this.#provided = provided;
+    this.#default = defaultValue;
+  }
+
+  [Symbol.for("nodejs.util.inspect.custom")]() {
+    return `Title(${JSON.stringify(String(this))})`;
+  }
+
+  withDefault(defaultValue: string | undefined): Title {
+    return new Title(this.#provided, defaultValue);
+  }
+
+  render(tokens: Tokens): Tokens {
+    return tokens.append(text(String(this)));
+  }
+
+  get provided(): string | undefined | false {
+    return this.#provided;
+  }
+
+  toString(): string {
+    if (this.#provided === false) {
+      return "";
+    } else if (this.#provided === undefined) {
+      return this.#default ?? "";
+    } else {
+      return this.#provided;
+    }
   }
 }
 

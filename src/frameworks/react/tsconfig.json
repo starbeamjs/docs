@@ -16,7 +16,7 @@
     "experimentalDecorators": true,
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "types": ["vite/client"]
+    "types": ["vite/client", "../../components.d.ts"]
   },
-  "include": ["./-snippets/**/*", "./demos/**/*"]
+  "include": ["./-snippets/**/*", "./demos/**/*", "**/*.md"]
 }

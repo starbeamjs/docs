@@ -5,6 +5,8 @@
 
 /** @typedef {{root: string}} PkgOptions */
 
+const DISPLAY = "status-only";
+
 Chomp.registerTemplate(
   "pkg",
   /**
@@ -33,6 +35,7 @@ Chomp.registerTemplate(
       },
       {
         name: `${task.name}:dts`,
+        display: DISPLAY,
         template: "dts",
         templateOptions: {
           root,
@@ -41,6 +44,7 @@ Chomp.registerTemplate(
       {
         name: `${task.name}:js`,
         template: "swc",
+        display: DISPLAY,
         target: `${root}/dist/##.js`,
         dep: `${root}/src/##.ts`,
       },

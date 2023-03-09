@@ -188,6 +188,20 @@ from more structured information around the description.
 
 </details>
 
+### `uncached-only` Status
+
+In some situations, listing each cache hit is too noisy.
+
+Relatedly, it might be useful to decompose the status into
+something like:
+
+```toml
+display = { init = true, cache-hit = false, cache-miss = true }
+```
+
+The existing status could remain, and be treated as shorthands
+for the expanded form.
+
 ## Template Improvements
 
 ### File Parameters

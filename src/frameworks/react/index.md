@@ -8,9 +8,7 @@ Start by installing the React renderer into your app.
 
 ## Using Starbeam
 
-```snippet {#app}
-./-snippets/quickstart.tsx
-```
+!(./-snippets/quickstart.tsx#app)
 
 ```stackblitz[starbeam-react-example-counter]
 file = src/App.tsx
@@ -51,7 +49,7 @@ section into React.
 
 As a quick refresher, here's what the resource looks like:
 
-![#stopwatch](./-snippets/resources.tsx)
+!(./-snippets/resources.tsx#stopwatch)
 
 The resource creates a cell that holds the current date, but
 waits to set up the interval until the component that uses the
@@ -65,7 +63,7 @@ that uses the resource is **unmounted**.
 Next, we'll use the `useResource` hook to integrate it into a
 React component.
 
-![#component](./-snippets/resources.tsx)
+!(./-snippets/resources.tsx#component)
 
 The `useResource` hook constructs the resource for us and
 integrates it into the component's lifecycle. ==That's the magic

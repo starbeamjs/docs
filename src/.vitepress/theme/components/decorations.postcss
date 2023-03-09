@@ -1,0 +1,19 @@
+:not(.custom-block) {
+  &.protip {
+    &::before {
+      align-self: center;
+      font-family: var(--icons);
+      font-size: calc(1em * var(--sb-ratio-down1));
+      content: var(--sb-icon-protip) var(--sb-icon-after);
+    }
+  }
+
+  &.optimization {
+    &::before {
+      align-self: center;
+      font-family: var(--icons);
+      font-size: calc(1em * var(--sb-ratio-down1));
+      content: var(--sb-icon-optimization) var(--sb-icon-after);
+    }
+  }
+}

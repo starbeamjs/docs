@@ -1,7 +1,8 @@
 @import "./code/code.postcss";
 @import "./code/twoslash.postcss";
-@import "./components/tabs.postcss";
 @import "./components/containers.postcss";
+@import "./components/decorations.postcss";
+@import "./components/tabs.postcss";
 @import "./home.postcss";
 @import "./colors/colors.postcss";
 @import "./ui/sizes.postcss";
@@ -13,6 +14,7 @@
 @import "./text/typography.postcss";
 @import "./static/index.postcss";
 @import "./diagram.postcss";
+@import "./icons.postcss";
 
 :root,
 :before,
@@ -62,24 +64,17 @@ html.dark :after {
   --sb-lightness-brighter-bg: 10%;
 }
 
+pre.shiki {
+  background: transparent !important;
+}
+
 html:not(.dark) {
   pre.shiki.github-dark {
     display: none;
   }
 
-  pre.shiki.github-light {
-    display: block;
-    background-color: hsl(
-      var(--sb-bg-hue) var(--sb-bg-saturation) var(--sb-lightness-brighter-bg)
-    ) !important;
-  }
-
   .custom-block div[class*="language-"]:not(.ext-error) {
     background-color: transparent !important;
-  }
-
-  .custom-block pre.shiki.github-light {
-    background: transparent !important;
   }
 
   .vp-doc .custom-block [class*="language-"] > span.lang {
@@ -98,6 +93,11 @@ html.dark {
   pre.shiki.github-light {
     display: none;
   }
+}
+
+.sp-wrapper.light,
+.sp-wrapper.dark {
+  --sp-layout-height: 160px;
 }
 
 .custom-block pre.shiki {
@@ -284,6 +284,55 @@ div.construction {
   }
 }
 
+.lang-ts {
+  display: grid;
+  margin-block: var(--sb-p-break);
+  /* background-color: var(--sb-bg-blue-muted); */
+  border-inline-start: 2px solid var(--sb-fg-blue);
+
+  grid-template-columns: minmax(1fr max-content) 1fr;
+  column-gap: var(--sb-ui-padding-inline);
+  row-gap: var(--sb-container-margin-block);
+  padding-block-end: var(--sb-container-padding-block);
+  &::before {
+    display: grid;
+    content: "ts";
+    grid-row: 1;
+    grid-column: 2;
+    height: 1.5em;
+    aspect-ratio: 1 / 1;
+    place-content: center;
+    /* border-radius: var(--sb-radius-xsm); */
+    border-radius: var(--sb-radius-sm);
+    border: 2px solid var(--sb-fg-theme-dimmer);
+    background-color: var(--sb-bg-theme-muted);
+    color: var(--sb-fg-theme);
+  }
+
+  p code {
+    background-color: var(--sb-bg-blue-stronger);
+  }
+
+  > p {
+    margin: 0;
+  }
+
+  > :first-child {
+    grid-column: 1;
+    padding-inline-start: var(--sb-container-padding-inline);
+    padding-block-start: var(--sb-container-padding-block);
+  }
+
+  > :not(:first-child) {
+    grid-column: 1 / span 2;
+    padding-inline: var(--sb-ui-padding-inline);
+  }
+}
+
+body[data-lang="js"] .lang-ts {
+  display: none;
+}
+
 div.lightbulb {
   --sb-border-color: var(--vp-badge-tip-border);
   --sb-background: var(--vp-badge-tip-bg);
@@ -309,21 +358,22 @@ summary::marker {
   padding-inline-end: 2em;
 }
 
-@mixin marker {
-  font-family: var(--sb-font-fancy);
-  color: var(--vp-button-alt-text);
-  background-color: var(--vp-button-alt-bg);
-  font-size: 0.75em;
-  border-radius: 0.75em;
-  border: 1px solid var(--vp-button-alt-border);
-  padding-inline: 0.5em;
-  padding-block: 0.3em;
-}
+@using mixins {
+  @define-mixin marker {
+    font-family: var(--sb-font-fancy);
+    color: var(--vp-button-alt-text);
+    background-color: var(--vp-button-alt-bg);
+    font-size: 0.75em;
+    border-radius: 0.75em;
+    border: 1px solid var(--vp-button-alt-border);
+    padding-inline: 0.5em;
+    padding-block: 0.3em;
+  }
 
-strong.marker {
-  @include marker;
+  strong.marker {
+    @mixin marker;
+  }
 }
-
 div.ext-error {
   background-color: var(--invalid-color-fg);
   background-color pre {
@@ -366,13 +416,15 @@ div.ext-error {
     font-size: 0.8em;
   }
 
-  &::before {
-    @include marker;
-    content: "Steps";
-    width: max-content;
-    margin-block-end: 0.5em;
-    background-color: var(--info-bg-color);
-    border-color: var(--info-border-color);
+  @using mixins {
+    &::before {
+      @include marker;
+      content: "Steps";
+      width: max-content;
+      margin-block-end: 0.5em;
+      background-color: var(--info-bg-color);
+      border-color: var(--info-border-color);
+    }
   }
 
   & > ol {

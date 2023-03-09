@@ -21,7 +21,7 @@ to build reactive systems that work with every framework.
 In Starbeam, reactive data is stored in _cells_. A cell is a
 JavaScript object that you can store data in and read from.
 
-![#cell](./-snippets/01-welcome/index.ts)
+!(./-snippets/01-welcome/index.ts#cell)
 
 The first thing to understand about reactive data in Starbeam is
 that you read from cells and write to cell in the same way that

@@ -11,9 +11,6 @@
     "vitepress": true
   },
 
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
   "editor.wordWrap": "bounded",
   "files.associations": {
     "tsconfig.*.json": "jsonc"
@@ -93,16 +90,8 @@
     }
   },
 
-  "volar.doctor.checkVueTsc": true,
   "volar.vueserver.noProjectReferences": true,
   "volar.vueserver.vitePress.processMdFile": true,
-  "volar.completion.normalizeComponentImportName": true,
-  "volar.inlayHints.missingRequiredProps": true,
-  "volar.autoWrapParentheses": true,
-  "volar.updateImportsOnFileMove.enabled": true,
-  "volar.doctor.statusBarItem": true,
-  "volar.autoCompleteRefs": true,
-  "volar.vueserver.textDocumentSync": "full",
 
   "yaml.schemaStore.enable": true,
   "yaml.schemas": {
@@ -114,14 +103,36 @@
   "stylelint.packageManager": "pnpm",
   "stylelint.snippet": ["css", "less", "postcss"],
   "stylelint.validate": ["css", "less", "postcss"],
-  "cssVariables.lookupFiles": [
-    "**/*.css",
-    "**/*.postcss",
-    "**/*.scss",
-    "**/*.sass",
-    "**/*.less",
-    "src/.vitepress/**/*.postcss"
+  "cssvar.files": ["**/*.postcss"],
+  "cssvar.extensions": [
+    "css",
+    "scss",
+    "sass",
+    "less",
+    "postcss",
+    "vue",
+    "svelte",
+    "astro",
+    "ts",
+    "tsx",
+    "js",
+    "jsx"
   ],
+  "cssvar.ignore": [
+    "**/.git/**",
+    "**/.svn/**",
+    "**/.hg/**",
+    "**/CVS/**",
+    "**/.DS_Store/**",
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/tmp/**",
+    "**/dist/**",
+    "**/tests/**"
+  ],
+  "cssvar.themes": ["dark"],
+  "cssVariables.lookupFiles": ["**/*.postcss", "src/.vitepress/**/*.postcss"],
   "cssVariables.blacklistFolders": [
     "**/.git",
     "**/.svn",
@@ -143,5 +154,38 @@
   ],
 
   "files.trimTrailingWhitespace": false,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "cssVariables.trace.server": "verbose",
+  "todo-tree.general.showActivityBarBadge": true,
+  "todo-tree.filtering.useBuiltInExcludes": "file excludes",
+  "todo-tree.filtering.includeGlobs": [],
+  "todo-tree.filtering.includeHiddenFiles": true,
+  "todo-tree.filtering.excludeGlobs": ["**/node_modules/**", "docs/**"],
+  "todo-tree.filtering.scopes": [
+    {
+      "name": "all",
+      "includeGlobs": ["**/*"]
+    },
+    {
+      "name": "docs",
+      "includeGlobs": ["src/**/*.{md,ts,vue}"],
+      "excludeGlobs": ["src/.vitepress/**"]
+    },
+    {
+      "name": "packages",
+      "includeGlobs": ["packages/**/*", "src/.vitepress/packages/**/*.{ts,vue}"],
+      "excludeGlobs": ["**/node_modules/**"]
+    },
+    {
+      "name": "vitepress config",
+      "includeGlobs": ["src/.vitepress/**/*.{ts,vue}"],
+      "excludeGlobs": ["src/.vitepress/cache/**"]
+    }
+  ],
+  "todo-tree.tree.scanAtStartup": false,
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.tree.showCurrentScanMode": true,
+  "todo-tree.tree.scanMode": "workspace only",
+  "todo-tree.tree.buttons.groupBySubTag": true,
+  "todo-tree.tree.buttons.scanMode": true
 }

@@ -1,6 +1,10 @@
 import type { PluginHelper } from "@jsergo/mdit";
 import Token from "markdown-it/lib/token.js";
 
+export type SingleAttrValue = AttrPart | boolean;
+export type AttrPart = string | number | null | undefined;
+export type AttrValue = SingleAttrValue | AttrPart[];
+
 export class Tokens {
   static empty(md: PluginHelper): Tokens {
     return new Tokens(md);
@@ -13,20 +17,11 @@ export class Tokens {
     this.#md = md;
   }
 
-  open(
-    tag: string,
-    attrs: Record<string, string | string[]> | undefined = {}
-  ): this {
+  open(tag: string, attrs: Record<string, AttrValue> | undefined = {}): this {
     const token = new Token("paragraph_open", tag, 1);
 
     for (const [key, value] of Object.entries(attrs)) {
-      if (Array.isArray(value)) {
-        for (const v of value) {
-          token.attrJoin(key, v);
-        }
-      } else {
-        token.attrSet(key, value);
-      }
+      applyValue(token, key, value);
     }
 
     this.#tokens.push(token);
@@ -35,11 +30,11 @@ export class Tokens {
 
   el(
     tag: string,
-    attrs?: Record<string, string | string[]> | Children | undefined,
+    attrs?: Record<string, AttrValue> | Children | undefined,
     children?: Children
   ): this {
     function normalize(): {
-      attrs: Record<string, string | string[]>;
+      attrs: Record<string, AttrValue>;
       children: Children | undefined;
     } {
       if (
@@ -58,13 +53,7 @@ export class Tokens {
     const token = new Token("paragraph_open", tag, 1);
 
     for (const [key, value] of Object.entries(actualAttrs)) {
-      if (Array.isArray(value)) {
-        for (const v of value) {
-          token.attrJoin(key, v);
-        }
-      } else {
-        token.attrSet(key, value);
-      }
+      applyValue(token, key, value);
     }
 
     if (actualChildren === undefined) {
@@ -116,7 +105,7 @@ export class Tokens {
   }
 
   #append(child: Child): void {
-    if (child === undefined) {
+    if (child === undefined || child === null) {
       return;
     } else if (typeof child === "string") {
       this.#tokens.push(text(child));
@@ -132,15 +121,56 @@ export class Tokens {
   }
 }
 
-export type Child = LazyChild | Token | string | undefined;
+export type Child = LazyChild | Token | string | null | undefined;
 export type Children = Child[] | ((tokens: Tokens) => Tokens);
 
 export interface LazyChild {
   render(tokens: Tokens): Tokens;
 }
 
-function text(string: string): Token {
+export function text(string: string): Token {
   const token = new Token("text", "", 0);
   token.content = string;
   return token;
+}
+
+function applyValue(token: Token, name: string, value: AttrValue): void {
+  if (value === undefined || value === false) {
+    return;
+  } else if (Array.isArray(value)) {
+    for (const val of attrListValue(value)) {
+      token.attrJoin(name, val);
+    }
+  } else if (value === true) {
+    token.attrSet(name, "");
+  } else {
+    const val = attrPart(value);
+    if (val) {
+      token.attrSet(name, val);
+    }
+  }
+}
+
+function attrListValue(value: AttrPart[]) {
+  return value.map(attrPart).filter(isPresent);
+}
+
+function attrPart(value: AttrPart): string | undefined {
+  if (value === undefined || value === null) {
+    return undefined;
+  } else if (typeof value === "number") {
+    return String(value);
+  } else if (typeof value === "string") {
+    return value;
+  } else {
+    throw unreachable(value);
+  }
+}
+
+function isPresent<T>(value: T | null | undefined): value is T {
+  return value !== null && value !== undefined;
+}
+
+function unreachable(_value: never, message = "unreachable") {
+  throw new Error(message);
 }

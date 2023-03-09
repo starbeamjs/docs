@@ -38,8 +38,7 @@ Starbeam provides four universal building blocks:
   cleanup behavior is tied to an element in the DOM (prototyped
   in the repo, coming in 0.10).
 
-:::💡
-
+```md 💡
 When you write code using these universal building blocks, you
 use the Starbeam libraries and **don't** reference any specific
 framework.
@@ -57,8 +56,7 @@ Instead, _we_ jump through hoops to find streamlined APIs that
 are expressive enough to take advantage of advanced framework
 features and ergonomic enough to use in any framework environment
 so _you_ don't have to.
-
-:::
+```
 
 ## What is Starbeam Reactivity?
 
@@ -78,10 +76,9 @@ a function that takes some inputs and produces some outputs."
 For example, a program that takes a list of people objects and
 produces a list of contact cards might look like this:
 
-![#basics](./-snippets/universal-inputs.ts)
+!(./-snippets/universal-inputs.ts#basics)
 
-:::tip Functional Programming
-
+```md tip Functional Programming
 This kind of programming, which is focused on inputs and outputs,
 is usually called _functional programming_.
 
@@ -93,12 +90,11 @@ program this way:
 > Hence any reasonably complete program consists of many building
 > blocks: some deal with input, some create output, while some
 > bridge the gap between those two.
-
-:::
+```
 
 If we ran the `display` function with the following person:
 
-![#person](./-snippets/universal-inputs.ts)
+!(./-snippets/universal-inputs.ts#person)
 
 We'd get the following output:
 
@@ -116,7 +112,7 @@ We'd get the following output:
 If we ran the `display` function again with a person with an
 extra phone number:
 
-![#person2](./-snippets/universal-inputs.ts)
+!(./-snippets/universal-inputs.ts#person2)
 
 We'd get:
 
@@ -319,21 +315,19 @@ the changes.
 For example, if we add a phone number to the person, it's obvious
 that the HTML won't magically update in response.
 
-![#person3](./-snippets/universal-inputs.ts)
+!(./-snippets/universal-inputs.ts#person3)
 
 This happens because the `person` we created isn't an _input_ to
 our `display` function, but rather a piece of **state** that can
 change over time.
 
-:::tip State
-
+```md tip State
 Adding state to a program with inputs and outputs complicates
 things, because now we have to worry about updating our outputs
 when our state changes. This is much more complicated than the
 simple input/output model we started with, but real programs need
 to be able to change over time. ==Real programs have state==.
-
-:::
+```
 
 The thing we liked about our input/output model was that it was
 easy to understand. We could see exactly what our program would
@@ -379,27 +373,11 @@ get worse as our program gets more complicated.
 Starbeam reactivity is a way to write ==data-oriented programs
 that automatically update their outputs==.
 
-<details class="container deep-dive">
-  <summary><span>Deep Dive</span> Compared to Web Frameworks</summary>
-
-In the modern era, web frameworks like React, Vue and Svelte have
-solved this problem by providing a way to use framework-specific
-reactive values in a template or JSX.
-
-Starbeam reactivity differs from these solutions in several ways.
-
-- Starbeam reactivity is universal. It doesn't **replace** your
-  JavaScript framework. It works with your framework (or
-  frameworks) of choice.
-- Starbeam reactivity is
-
-</details>
-
 To convert our program into a reactive program, the first thing
 we need to do is to convert our data structures into reactive
 data structures.
 
-![#reactive-object](./-snippets/state-into-inputs.ts)
+!(./-snippets/state-into-inputs.ts#reactive-object)
 
 Critically, ==we didn't need to change the `display` function at
 all==. It still takes a `person` object as an input and produces
@@ -463,7 +441,7 @@ To keep things simple, we're going to use the ==debug renderer==,
 which is a very simple renderer that calls a callback with the
 value of the reactive value whenever it changes.
 
-![#reactive-function](./-snippets/state-into-inputs.ts)
+!(./-snippets/state-into-inputs.ts#reactive-function)
 
 The `renderPerson` function takes a `person` object and an HTML
 element, and renders the HTML representation of the person into
@@ -489,9 +467,7 @@ input/output functions we used when the `person` object wasn't
 reactive and we were living in a functional world of unchanging
 inputs and outputs.
 
-<details class="container deep-dive">
-  <summary><span>Deep Dive</span> Not "Effects"</summary>
-
+```md details type="deep-dive" title='Not Effects'
 Unlike a lot of other reactive programming libraries, Starbeam
 reactivity uses the term "rendered output" instead of "effect".
 This is because Starbeam reactivity emphasizes the data-oriented
@@ -503,8 +479,7 @@ of the whole app as a function that takes the current state and
 produces a rendered output. Through this lens, the DOM update
 "effect" is just an implementation detail of the way that the
 output is produced.
-
-</details>
+```
 
 ## Framework Renderers
 
@@ -521,7 +496,7 @@ the `person` object into a JSX element. React would take the JSX
 element and render it into a DOM node, and the Starbeam renderer
 would notify React whenever the `person` object changed.
 
-![#react](./-snippets/react-state.tsx)
+!(./-snippets/react-state.tsx#react)
 
 To get an idea for how Starbeam reactivity works in your
 framework, check out the "Frameworks" tab in the navigation

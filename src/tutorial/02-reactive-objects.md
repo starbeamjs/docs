@@ -24,14 +24,14 @@ equivalent JavaScript APIs.
 
 ## Reactive Objects
 
-![#object](./-snippets/02-reactive-builtins/index.ts)
+!(./-snippets/02-reactive-builtins/index.ts#object)
 
 ## Reactive Arrays
 
-![#array](./-snippets/02-reactive-builtins/index.ts)
+!(./-snippets/02-reactive-builtins/index.ts#array)
 
 ## Reactive Maps
 
-![#map](./-snippets/02-reactive-builtins/index.ts)
+!(./-snippets/02-reactive-builtins/index.ts#map)
 
 </Tutorial>
