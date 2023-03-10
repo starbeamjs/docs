@@ -51,6 +51,8 @@
     "@samatech/postcss-basics": "^0.6.0",
     "@shimyshack/uid": "^0.1.7",
     "@stackblitz/sdk": "^1.8.2",
+    "@starbeam-docs/fenced-container": "workspace:^",
+    "@starbeam-docs/snippets": "workspace:^",
     "@starbeam/api-docs": "workspace:^0.0.0",
     "@starbeam/debug": "0.8.9",
     "@starbeam/interfaces": "0.8.9",
@@ -120,6 +122,7 @@
     "pnpapi": "^0.0.0",
     "postcss": "^8.4.21",
     "postcss-atroot": "^0.2.3",
+    "postcss-cli": "^10.1.0",
     "postcss-css-variables": "^0.18.0",
     "postcss-current-selector": "^0.0.3",
     "postcss-custom-prop-vars": "^0.0.5",
@@ -130,6 +133,7 @@
     "postcss-html": "^1.5.0",
     "postcss-load-config": "^4.0.1",
     "postcss-mixins": "^9.0.4",
+    "postcss-modules": "^6.0.0",
     "postcss-modules-values": "^4.0.0",
     "postcss-nested": "^6.0.1",
     "postcss-nested-ancestors": "^3.0.0",
@@ -167,7 +171,8 @@
     "vitepress-plugin-tabs": "^0.2.0",
     "vitest": "^0.28.5",
     "vue": "^3.2.47",
-    "vue-eslint-parser": "^9.1.0"
+    "vue-eslint-parser": "^9.1.0",
+    "vue-sfc2esm": "^0.1.6"
   },
   "imports": {
     "#components": "./src/-components"

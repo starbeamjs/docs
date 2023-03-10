@@ -2,7 +2,8 @@ version = 0.1
 extensions = [
   'chomp@0.1:swc',
   './packages/chomp-extensions/dts.js',
-  './packages/chomp-extensions/pkg.js'
+  './packages/chomp-extensions/pkg.js',
+  './packages/chomp-extensions/postcss.js',
 ]
 
 [env]
@@ -10,11 +11,12 @@ PACKAGE_MANAGER = 'pnpm'
 
 [[task]]
 name = "clean"
-run = "rm -rf packages/@*/*/dist"
+run = "rm -rf packages/@*/*/dist; rm -f packages/@*/src/*.css.ts"
 
 [[task]]
 name = "build"
-deps = ["mdit", "tagged-templates", "utils"]
+serial = true
+deps = ["mdit", "tagged-templates", "utils", "fenced-container", "snippets:postcss", "snippets"]
 
 [[task]]
 name = "mdit"
@@ -25,10 +27,24 @@ template-options = { root = "packages/@jsergo/mdit" }
 name = "tagged-templates"
 template = "pkg"
 template-options = { root = "packages/@jsergo/tagged-templates" }
-display = "init-only"
 
 [[task]]
 name = "utils"
 template = "pkg"
 template-options = { root = "packages/@wycatsjs/utils" }
-display = "init-only"
+
+[[task]]
+name = "fenced-container"
+template = "pkg"
+template-options = { root = "packages/@starbeam-docs/fenced-container" }
+
+[[task]]
+name = "snippets"
+deps = ["snippets:postcss"]
+template = "pkg"
+template-options = { root = "packages/@starbeam-docs/snippets" }
+
+[[task]]
+name = "snippets:postcss"
+template = "postcss"
+template-options = { root = "packages/@starbeam-docs/snippets" }

@@ -10,7 +10,7 @@ import mixins from "postcss-mixins";
 import nested from "postcss-nested";
 import preset from "postcss-preset-env";
 import property from "postcss-property-lookup";
-import purge from "@fullhuman/postcss-purgecss";
+import modules from "postcss-modules";
 
 const PRESET = preset({
   stage: 1,

@@ -26,7 +26,7 @@ Chomp.registerTemplate(
     return [
       {
         name: task.name,
-        deps: [`${task.name}:dts`, `${task.name}:js`],
+        deps: [...task.deps, `${task.name}:dts`, `${task.name}:js`],
       },
       {
         name: `${task.name}:clean`,

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/index.ts"],"names":[],"mappings":"AAAA,SAAS,OAAO,QAAQ,YAAY;AACpC,SAAS,WAAW,IAAI,QAAQ,YAAY","file":"index.js","sourcesContent":["export { STORAGE } from \"./lang.js\";\nexport { default as Code } from \"./Code.js\";\n"]}

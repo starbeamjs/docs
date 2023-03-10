@@ -7,3 +7,4 @@ build
 bin/d2
 bin/d2.version
 .ignore
+tmp

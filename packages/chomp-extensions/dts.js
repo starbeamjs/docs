@@ -28,7 +28,6 @@
           target: `${root}/dist/##.d.ts`,
           dep: `${root}/src/##.ts`,
           display: task.display,
-
           run: `tsc \${{DEP}} ${flags(root)}`,
         },
       ];

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/build.ts"],"names":[],"mappings":"AAAA,SAAS,iBAAiB,QAAQ,QAAQ,mBAAmB","file":"build.js","sourcesContent":["export { snippetPlugin as snippets } from \"./markdown-it.js\";\n"]}

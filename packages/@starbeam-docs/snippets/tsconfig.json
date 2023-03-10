@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "allowJs": true,
+    "paths": {
+      "node_modules/vue-sfc2esm/lib/vue-sfc2esm.esm.js": [
+        "./node_modules/vue-sfc2esm/lib/vue-sfc2esm.d.ts"
+      ]
+    }
+  },
+  "include": ["./src/**/*", "./src/**/*.vue", "build.mts"]
+}
