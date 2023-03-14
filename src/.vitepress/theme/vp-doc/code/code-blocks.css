@@ -1,0 +1,434 @@
+@custom-selector :--shiki-block div[class^="language-"]:not(.language-id);
+@custom-selector :--top-level-code-block :--shiki-block, section.code-block;
+@custom-selector :--shiki-language-id div.language-id;
+
+@using content {
+  code {
+    font-weight: initial;
+  }
+
+  pre {
+    padding: initial;
+  }
+
+  pre.shiki {
+    background-color: initial !important;
+  }
+
+  code {
+    padding: initial;
+  }
+}
+
+@using content {
+  /*  Start of Shiki Twoslash CSS:
+
+Code blocks structurally look like: 
+
+<pre class='shiki lsp twoslash [theme-name]'>
+  <div class='language-id'>[lang-id]</div>
+    <div class='code-container'>
+      <code>[the code as a series of spans]</code>
+      <a href='playground...'>Try</a> (optional)
+    </div>
+  </pre> 
+*/
+
+  :--top-level-code-block {
+    @extend %custom-block;
+    margin: initial;
+    margin-block-end: 2rem;
+    --sbdoc-border-color: var(--sb-fg-theme);
+    box-shadow: 2px 2px var(--sb-fg-theme);
+    background-color: transparent;
+    border: none;
+    width: calc(100% - 2px);
+
+    /* --sbdoc-border-size: 2px; */
+    --sbdoc-local-radius: var(--sbdoc-radius);
+    /* contain: paint; */
+
+    & > :--shiki-language-id {
+      display: none;
+    }
+
+    code {
+      background-color: var(--sb-bg-theme-muted);
+      border-radius: var(--sbdoc-local-radius);
+    }
+
+    button.copy {
+      display: none;
+    }
+  }
+
+  pre.shiki {
+    margin: initial;
+  }
+
+  pre {
+    /* In theory shiki will overwrite these, but this is to make sure there are defaults regardless */
+    background-color: white;
+    color: black;
+
+    /* Give it some space to breathe */
+    /* padding: 12px; */
+
+    /* All code samples get a grey border, twoslash ones get a different color */
+
+    margin-block-start: 0;
+    margin-block-end: 2rem;
+
+    /* Important to allow the code to move horizontally; */
+    overflow-x: auto;
+    position: relative;
+  }
+  pre.shiki {
+    overflow-x: auto;
+  }
+  pre.shiki:hover .dim {
+    opacity: 1;
+  }
+  pre.shiki div.dim {
+    opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
+  }
+  pre.shiki div.dim,
+  pre.shiki div.highlight {
+    margin: 0;
+    padding: 0;
+  }
+  pre.shiki div.highlight {
+    opacity: 1;
+    background-color: #f1f8ff;
+  }
+  pre.shiki div.line {
+    min-height: 1rem;
+  }
+
+  /** Don't show the language identifiers */
+  pre.shiki .language-id {
+    display: none;
+  }
+
+  /* Visually differentiates twoslash code samples  */
+  pre.twoslash {
+    --twoslash-fg: #719af4;
+    --twoslash-alt-fg: #137998;
+    --twoslash-lsp-border: var(--sb-fg-theme-dim);
+    --twoslash-lsp-bg: var(--sb-bg-theme-stronger);
+    --twoslash-lsp-fg: var(--sb-fg-theme-strongest);
+    --twoslash-error-border: #bf1818;
+    --twoslash-error-bg: #fee;
+    --twoslash-warn-bg: #ffe;
+    --twoslash-warn-border: #eae662;
+    --twoslash-log-bg: #e9e9e9;
+    --twoslash-log-border: #ababab;
+    --twoslash-muted: #eee;
+    --twoslash-completion-bg: #4b9edd;
+    --twoslash-completion-fg: #000;
+    --twoslash-annotation-fg: #187abf;
+    --twoslash-annotation-bg: #fcf3d9;
+    --twoslash-logger-fg: #000;
+
+    --color1: #e49be4;
+    --color2: #ed1212;
+    --color3: #38ffff;
+    --color4: #ff52ff;
+    --color5: #00e085;
+    --color6: #ffa100;
+    --color7: #f7b9ff;
+
+    --z-index-base: 100;
+    --z-index-popover: 101;
+
+    overflow: visible;
+  }
+
+  pre.shiki.twoslash .code-container > code,
+  pre.shiki:not(.twoslash) > code {
+    display: grid;
+    grid-template-columns:
+      var(--sbdoc-ui-inner-padding)
+      1fr
+      var(--sbdoc-ui-inner-padding);
+    padding: var(--sbdoc-ui-inner-padding) 0;
+
+    & > .line {
+      grid-column: 2;
+    }
+
+    & > .line.highlight {
+      grid-column: 1 / span 3;
+      padding-inline-start: var(--sbdoc-ui-inner-padding);
+    }
+  }
+
+  @layer popover {
+    data-lsp {
+      /* Ensures there's no 1px jump when the hover happens */
+      border-bottom: 2px dotted transparent;
+      /* Fades in unobtrusively */
+      transition-timing-function: ease;
+      transition: border-color 0.3s;
+    }
+    /* Respect people's wishes to not have animations */
+    @media (prefers-reduced-motion: reduce) {
+      data-lsp {
+        transition: none;
+      }
+    }
+
+    /** When you mouse over the pre, show the underlines */
+    pre.twoslash:hover data-lsp {
+      cursor: help;
+      border-bottom-color: var(--twoslash-lsp-border);
+      /* border-bottom-width: 2px; */
+    }
+
+    pre.twoslash data-lsp::before {
+      position: absolute;
+      content: attr(lsp);
+      background-color: var(--twoslash-lsp-bg);
+      border-inline-end: 3px solid var(--twoslash-lsp-border);
+      border-block-end: 3px solid var(--twoslash-lsp-border);
+      color: var(--twoslash-lsp-fg);
+      text-align: left;
+      padding: 5px 8px;
+      border-radius: var(--sbdoc-radius);
+      font-family: var(--vp-font-family-mono) var(--vp-font-family-mono);
+      font-size: 14px;
+      white-space: pre-wrap;
+      z-index: var(--sbdoc-ui-layer-index-popover);
+
+      pointer-events: none;
+      transition: transform 0.1s ease-in-out, opacity 0.2s ease-in-out;
+      opacity: 0;
+      transform: translateY(0) scale(0);
+    }
+
+    /** The tooltip-like which provides the LSP response */
+    pre.twoslash data-lsp:hover::before {
+      pointer-events: auto;
+      opacity: 1;
+      transform: translateY(
+        calc(var(--sbdoc-line-height) * var(--sbdoc-font-size) - 2px)
+      );
+    }
+  }
+
+  pre .code-container {
+    overflow: auto;
+  }
+  /* The try button */
+  pre .code-container > a {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--twoslash-fg);
+    padding: 0 8px;
+    color: var(--twoslash-fg);
+    text-decoration: none;
+    opacity: 0;
+    transition-timing-function: ease;
+    transition: opacity 0.3s;
+  }
+  /* Respect no animations */
+  @media (prefers-reduced-motion: reduce) {
+    pre .code-container > a {
+      transition: none;
+    }
+  }
+  pre .code-container > a:hover {
+    color: white;
+    background-color: #719af4;
+  }
+  pre .code-container:hover a {
+    opacity: 1;
+  }
+
+  pre code {
+    font-size: 15px;
+    font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New,
+      monospace;
+    white-space: pre;
+    -webkit-overflow-scrolling: touch;
+  }
+  pre code a {
+    text-decoration: none;
+  }
+  pre data-err {
+    /* Extracted from VS Code */
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%23c94824'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E")
+      repeat-x bottom left;
+    padding-bottom: 3px;
+  }
+  pre .query {
+    margin-bottom: 10px;
+    color: var(--twoslash-alt-fg);
+    display: inline-block;
+  }
+
+  /* In order to have the 'popped out' style design and to not break the layout
+  /* we need to place a fake and un-selectable copy of the error which _isn't_ broken out
+  /* behind the actual error message.
+
+  /* This sections keeps both of those two in in sync  */
+
+  pre .error,
+  pre .error-behind {
+    margin-left: -14px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    padding: 6px;
+    padding-left: 14px;
+    width: calc(100% - 20px);
+    white-space: pre-wrap;
+    display: block;
+  }
+  pre .error {
+    position: absolute;
+    background-color: var(--twoslash-error-bg);
+    border-left: 2px solid var(--twoslash-error-border);
+    /* Give the space to the error code */
+    display: flex;
+    align-items: center;
+    color: black;
+  }
+  pre .error .code {
+    display: none;
+  }
+  pre .error-behind {
+    user-select: none;
+    visibility: transparent;
+    color: var(--twoslash-error-bg);
+  }
+  /* Queries */
+  pre .arrow {
+    /* Transparent background */
+    background-color: var(--twoslash-muted);
+    position: relative;
+    top: -7px;
+    margin-left: 0.1rem;
+    /* Edges */
+    border-left: 1px solid var(--twoslash-muted);
+    border-top: 1px solid var(--twoslash-muted);
+    transform: translateY(25%) rotate(45deg);
+    /* Size */
+    height: 8px;
+    width: 8px;
+  }
+  pre .popover {
+    margin-bottom: 10px;
+    background-color: var(--twoslash-muted);
+    display: inline-block;
+    padding: 0 0.5rem 0.3rem;
+    margin-top: 10px;
+    border-radius: 3px;
+  }
+  /* Completion */
+  pre .inline-completions ul.dropdown {
+    display: inline-block;
+    position: absolute;
+    width: 240px;
+    background-color: gainsboro;
+    color: grey;
+    padding-top: 4px;
+    font-family: var(--code-font);
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
+    border-left: 4px solid var(--twoslash-completion-bg);
+  }
+  pre .inline-completions ul.dropdown::before {
+    background-color: var(--twoslash-completion-bg);
+    width: 2px;
+    position: absolute;
+    top: -1.2rem;
+    left: -3px;
+    content: " ";
+  }
+  pre .inline-completions ul.dropdown li {
+    overflow-x: hidden;
+    padding-left: 4px;
+    margin-bottom: 4px;
+  }
+  pre .inline-completions ul.dropdown li.deprecated {
+    text-decoration: line-through;
+  }
+  pre .inline-completions ul.dropdown li span.result-found {
+    color: var(--twoslash-completion-bg);
+  }
+  pre .inline-completions ul.dropdown li span.result {
+    width: 100px;
+    color: var(--twoslash-completion-fg);
+    display: inline-block;
+  }
+  .dark-theme .markdown pre {
+    background-color: #d8d8d8;
+    border-color: #ddd;
+    filter: invert(98%) hue-rotate(180deg);
+  }
+
+  /** Annotations support, providing a tool for meta commentary */
+  .tag-container {
+    position: relative;
+  }
+  .tag-container .twoslash-annotation {
+    position: absolute;
+    font-family: var(--sbdoc-font-mono);
+    right: -10px;
+    /** Default annotation text to 200px */
+    width: 200px;
+    color: var(--twoslash-annotation-fg);
+    background-color: var(--twoslash-completion-bg) bb;
+  }
+  .tag-container .twoslash-annotation p {
+    text-align: left;
+    font-size: 0.8rem;
+    line-height: 0.9rem;
+  }
+  .tag-container .twoslash-annotation svg {
+    float: left;
+    margin-left: -44px;
+  }
+  .tag-container .twoslash-annotation.left {
+    right: auto;
+    left: -200px;
+  }
+  .tag-container .twoslash-annotation.left svg {
+    float: right;
+    margin-right: -5px;
+  }
+
+  /** Support for showing console log/warn/errors inline */
+  pre .logger {
+    display: flex;
+    align-items: center;
+    color: var(--twoslash-logger-fg);
+    padding: 6px;
+    padding-left: 8px;
+    width: calc(100% - 19px);
+    white-space: pre-wrap;
+  }
+  pre .logger svg {
+    margin-right: 9px;
+  }
+  pre .logger.error-log {
+    background-color: var(--twoslash-error-bg);
+    border-left: 2px solid var(--twoslash-error-fg);
+  }
+  pre .logger.warn-log {
+    background-color: var(--twoslash-warn-bg);
+    border-left: 2px solid var(--twoslash-warn-border);
+  }
+  pre .logger.log-log {
+    background-color: var(--twoslash-log-bg);
+    border-left: 2px solid var(--twoslash-log-border);
+  }
+  pre .logger.log-log svg {
+    margin-left: 6px;
+    margin-right: 9px;
+  }
+}

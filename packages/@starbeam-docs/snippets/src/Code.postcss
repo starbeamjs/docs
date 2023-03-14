@@ -1,38 +1,54 @@
+:global(html.dark .shiki.github-light) {
+  display: none;
+}
+
+:global(html:not(.dark) .shiki.github-dark) {
+  display: none;
+}
+
 .code-snippet {
   position: relative;
   display: grid;
   width: 100%;
 }
 
-.code-snippet[data-id="KVEWS96Xs"] .toggler {
-  z-index: 998;
+section.toggler {
+  z-index: var(--sbdoc-ui-layer-index-hud);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease-in-out;
+  border-start-end-radius: var(--sbdoc-radius);
+  contain: paint;
+  margin: 0;
 }
 
-.code-snippet[data-id="KVEWS96Xs"] .section:hover .toggler {
+.section:hover .toggler {
   opacity: 1;
   pointer-events: auto;
 }
 
-.code-snippet[data-id="KVEWS96Xs"] div.ts,
-.code-snippet[data-id="KVEWS96Xs"] div.js {
+div.ts,
+div.js {
   display: none;
 }
 
-.code-snippet[data-id="KVEWS96Xs"] .section.ts div.ts,
-.code-snippet[data-id="KVEWS96Xs"] .section.js div.js {
+.section.ts div.ts,
+.section.js div.js {
   display: block;
 }
 
-.code-snippet[data-id="KVEWS96Xs"] .section.ts button.ts,
-.code-snippet[data-id="KVEWS96Xs"] .section.js button.js {
+.section.ts button.ts,
+.section.js button.js {
   background-color: var(--vp-button-brand-bg);
   color: var(--vp-button-brand-text);
 }
 
-.code-snippet[data-id="KVEWS96Xs"] .toggler {
+.section :global(pre.shiki) {
+  padding: 1em;
+  margin: 0;
+}
+
+.toggler {
   display: grid;
   grid-template-columns: max-content 1fr;
   position: absolute;
@@ -50,7 +66,7 @@
   border-start-end-radius: var(--sb-radius-sm);
 }
 
-.code-snippet[data-id="KVEWS96Xs"] button {
+.code-snippet button {
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   font-family: var(--vp-font-family-base), sans-serif;
   font-size: 0.75rem;
@@ -62,15 +78,15 @@
   color: var(--vp-button-alt-text);
 }
 
-.code-snippet[data-id="KVEWS96Xs"] button:hover {
+.code-snippet button:hover {
   background-color: var(--vp-button-brand-hover-bg);
   color: var(--vp-button-brand-hover-text);
 }
 
-.code-snippet[data-id="KVEWS96Xs"] button:first-child {
+.code-snippet button:first-child {
   border-end-start-radius: var(--sb-radius-xsm);
 }
 
-.code-snippet[data-id="KVEWS96Xs"] button:last-child {
+.code-snippet button:last-child {
   border-start-end-radius: var(--sb-radius-xsm);
 }

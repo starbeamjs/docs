@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import type { MarkdownOptions } from "vitepress";
 import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 import fencedContainer from "@starbeam-docs/fenced-container";
-import { snippets } from "@starbeam-docs/vitepress-snippets";
+import { snippets } from "@starbeam-docs/snippets/mdit-plugin";
 import { codeTabs } from "../plugins/code-tabs/code-tabs.js";
 import { containers } from "../plugins/containers/containers.js";
 import { fences } from "../plugins/fences.js";

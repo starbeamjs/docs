@@ -35,9 +35,7 @@ in a render function.
 
 Here's how we use `CounterData` in our `Counter` component:
 
-```snippet {#counter}
-<!--@include: ../-snippets/tutorial-6-component.tsx-->
-```
+!(../-snippets/tutorial-6-component.tsx#counter)
 
 ## Using a Native Class as a Reactive Constructor
 

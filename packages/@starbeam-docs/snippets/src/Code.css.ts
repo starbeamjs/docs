@@ -1,6 +1,12 @@
-import "./Code.css";
-export const codeSnippet = "_code-snippet_yxqbe_1";
-export const toggler = "_toggler_yxqbe_7";
-export const section = "_section_yxqbe_14";
-export const ts = "_ts_yxqbe_19";
-export const js = "_js_yxqbe_20";
+export const codeSnippet = "_code-snippet_xgxez_9";
+export const toggler = "_toggler_xgxez_15";
+export const section = "_section_xgxez_25";
+export const ts = "_ts_xgxez_30";
+export const js = "_js_xgxez_31";
+if (typeof document !== undefined) {
+  const style = document.createElement('style');
+  style.setAttribute("type", "text/css");
+  const text = document.createTextNode("html.dark .shiki.github-light {\n  display: none;\n}\n\nhtml:not(.dark) .shiki.github-dark {\n  display: none;\n}\n\n._code-snippet_xgxez_9 {\n  position: relative;\n  display: grid;\n  width: 100%;\n}\n\nsection._toggler_xgxez_15 {\n  z-index: var(--sbdoc-ui-layer-index-hud);\n  opacity: 0;\n  pointer-events: none;\n  -webkit-transition: opacity 0.2s ease-in-out;\n  transition: opacity 0.2s ease-in-out;\n  border-top-right-radius: var(--sbdoc-radius);\n  contain: paint;\n  margin: 0;\n}\n\n._section_xgxez_25:hover ._toggler_xgxez_15 {\n  opacity: 1;\n  pointer-events: auto;\n}\n\ndiv._ts_xgxez_30,\ndiv._js_xgxez_31 {\n  display: none;\n}\n\n._section_xgxez_25._ts_xgxez_30 div._ts_xgxez_30,\n._section_xgxez_25._js_xgxez_31 div._js_xgxez_31 {\n  display: block;\n}\n\n._section_xgxez_25._ts_xgxez_30 button._ts_xgxez_30,\n._section_xgxez_25._js_xgxez_31 button._js_xgxez_31 {\n  background-color: var(--vp-button-brand-bg);\n  color: var(--vp-button-brand-text);\n}\n\n._section_xgxez_25 pre.shiki {\n  padding: 1em;\n  margin: 0;\n}\n\n._toggler_xgxez_15 {\n  display: grid;\n  grid-template-columns: -webkit-max-content 1fr;\n  grid-template-columns: max-content 1fr;\n  position: absolute;\n  top: 0;\n  right: 1px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -ms-flex-line-pack: center;\n      align-content: center;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  z-index: 3;\n  font-size: 0.75rem;\n\n  border: var(--sb-border-thin-width) solid var(--vp-button-brand-border);\n  background-color: var(--vp-button-alt-bg);\n  border-bottom-left-radius: var(--sb-radius-sm);\n  border-top-right-radius: var(--sb-radius-sm);\n}\n\n._code-snippet_xgxez_9 button {\n  -webkit-transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;\n  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;\n  font-family: var(--vp-font-family-base), sans-serif;\n  font-size: 0.75rem;\n  padding-top: 0;\n  padding-bottom: 0;\n  padding-left: calc(var(--sb-ui-padding-inline) * 0.75);\n  padding-right: calc(var(--sb-ui-padding-inline) * 0.75);\n  border: 0;\n\n  background-color: var(--vp-button-alt-bg);\n  color: var(--vp-button-alt-text);\n}\n\n._code-snippet_xgxez_9 button:hover {\n  background-color: var(--vp-button-brand-hover-bg);\n  color: var(--vp-button-brand-hover-text);\n}\n\n._code-snippet_xgxez_9 button:first-child {\n  border-bottom-left-radius: var(--sb-radius-xsm);\n}\n\n._code-snippet_xgxez_9 button:last-child {\n  border-top-right-radius: var(--sb-radius-xsm);\n}\n");
+  style.appendChild(text);
+  document.head.appendChild(style);
+}

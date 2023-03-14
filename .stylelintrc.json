@@ -9,7 +9,17 @@
     "at-rule-no-unknown": [
       true,
       {
-        "ignoreAtRules": ["include", "mixin", "value", "using", "define-mixin"]
+        "ignoreAtRules": [
+          "include",
+          "mixin",
+          "value",
+          "using",
+          "define-mixin",
+          "extend",
+          "def-vars",
+          "def-derived-vars",
+          "section"
+        ]
       }
     ]
   }

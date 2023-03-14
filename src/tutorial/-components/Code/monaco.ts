@@ -70,7 +70,6 @@ export function useMonaco({
 
     editor.onChange((e, model) => {
       sandpack.updateCurrentFile(model.code);
-      console.log(e, model);
     });
 
     watch(sandpack.activeFile, () => {
@@ -88,7 +87,6 @@ export function useMonaco({
     const initialized = returnRef.value;
 
     if (initialized) {
-      console.log("disposing");
       Editor.dispose(initialized.editor);
     }
   });
@@ -106,7 +104,7 @@ export class Monaco {
     const monaco = await loader.init();
     const ts = monaco.languages.typescript;
 
-    console.log("VERSION", ts.typescriptVersion);
+    console.debug("VERSION", ts.typescriptVersion);
 
     ts.typescriptDefaults.setEagerModelSync(true);
 

@@ -8,7 +8,6 @@ async function transpile(file) {
   const content = await readFile(file, "utf-8");
   addFile(file, content);
   const result = await compileModules(file);
-  console.log(result);
 }
 
 async function main() {

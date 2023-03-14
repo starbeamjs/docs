@@ -1,13 +1,21 @@
-import type { PluginHelper } from "@jsergo/mdit";
+import type { PluginHelper, Render } from "@jsergo/mdit";
 import "@mdit-vue/plugin-sfc";
 import { mapEntries } from "@wycatsjs/utils";
 import parseFence from "fenceparser";
 import Token from "markdown-it/lib/token.js";
-import { HTML, If } from "./nodes.js";
-import { Tokens, text, type LazyChild } from "./tokens.js";
+import { El, HTML, If, type LazyChildren } from "./nodes.js";
+import {
+  MarkdownElement,
+  ParagraphElement,
+  text,
+  type LazyChild,
+  CustomBuiltin,
+  BasicFragment,
+} from "./tokens.js";
 
 type OBJECT = ReturnType<typeof parseFence>;
 type VALUE = OBJECT[keyof OBJECT];
+export const CUSTOM_EL = "CustomBlock";
 
 interface RenderOptions {
   kind: string;
@@ -36,9 +44,9 @@ export class UnparsedContent implements LazyChild {
     return this.#content;
   }
 
-  render(tokens: Tokens): Tokens {
+  render(tokens: MarkdownElement): MarkdownElement {
     if (this.#content) {
-      return tokens.parse(this.#content);
+      return tokens.html(this.#content);
     }
     return tokens;
   }
@@ -50,23 +58,45 @@ type RenderContainer = ({
   attrs,
   content,
   md,
-  tokens,
+  define,
 }: {
   title: Title;
   kind: string;
   attrs: Record<string, VALUE>;
   content: UnparsedContent | undefined;
   md: PluginHelper;
-  tokens: Tokens;
-}) => Token[] | Tokens;
+  define: CustomBuiltin;
+}) => LazyChildren;
 
 type BuiltinConfig =
   | {
       defaultTitle?: string | null | undefined;
+      colors?: {
+        fg?: string | undefined;
+        bg?: string | undefined;
+        border?: string | undefined;
+      };
     }
+  | CustomConfig;
+
+/**
+ * A bare string is the default title.
+ */
+type BasicConfig =
   | {
-      render?: RenderContainer;
-    };
+      defaultTitle?: string | null | undefined;
+      colors?: {
+        fg?: string | undefined;
+        bg?: string | undefined;
+        border?: string | undefined;
+      };
+    }
+  | string;
+
+interface CustomConfig {
+  render: RenderContainer;
+  options?: {} | undefined;
+}
 
 class Builtin {
   readonly #config: BuiltinConfig;
@@ -76,37 +106,69 @@ class Builtin {
   }
 
   render(options: RenderOptions): Token[] {
-    const tokens = this.#renderFn({
+    const result = this.#renderFn({
       ...options,
-      tokens: Tokens.empty(options.md),
+      define: new CustomBuiltin(options.md),
     });
 
-    if (Array.isArray(tokens)) {
-      return tokens;
+    const fragment = BasicFragment.empty(options.md);
+
+    if (Array.isArray(result)) {
+      fragment.push(...result);
     } else {
-      return tokens.tokens;
+      fragment.push(result);
     }
+
+    return fragment.done();
   }
 
   get #renderFn(): RenderContainer {
-    if ("render" in this.#config) {
+    if (
+      typeof this.#config === "object" &&
+      "render" in this.#config
+    ) {
       return this.#config.render;
     }
 
-    return ({ md, kind, title: providedTitle, content }) => {
-      const title = providedTitle.withDefault(this.#defaultTitle ?? undefined);
+    const defaultBg = "var(--sbdoc-default-block-bg)";
+    const defaultFg = "var(--sbdoc-default-block-fg)";
+    const bgcolor = this.#config.colors?.bg ?? defaultBg;
+    const fgcolor = this.#config.colors?.fg ?? defaultFg;
+    const border = this.#config.colors?.border ?? fgcolor;
+    console.log({ config: this.#config, bgcolor });
 
-      return Tokens.empty(md).el("div", { class: ["custom-block", kind] }, [
-        If(title, (title, tokens) =>
-          tokens.el("p", { class: "custom-block-title" }, [title])
-        ),
-        content,
-      ]).tokens;
+    return ({ md, kind, title: providedTitle, content }) => {
+      const title = providedTitle.withDefault(
+        this.#defaultTitle ?? undefined
+      );
+
+      return ParagraphElement.tag(CUSTOM_EL, md)
+        .attrs({
+          class: [kind],
+          style: `--sbdoc-local-bg: ${bgcolor}; --sbdoc-local-fg: ${fgcolor}; --sbdoc-local-border-color: ${border};`,
+        })
+        .append(
+          If(title, (title) =>
+            El("p", { class: "custom-block-title" }, [title])
+          )
+        )
+        .append(content);
     };
+
+    //   { class: [kind] }, [
+    //     If(title, (title, tokens) =>
+    //       tokens.el("p", { class: "custom-block-title" }, [
+    //         title,
+    //       ])
+    //     ),
+    //     content,
+    //   ]).tokens;
+    // };
   }
 
   get #defaultTitle(): string | void {
     if (
+      typeof this.#config === "object" &&
       "defaultTitle" in this.#config &&
       typeof this.#config.defaultTitle === "string"
     ) {
@@ -146,8 +208,32 @@ export class Title implements LazyChild {
     return new Title(this.#provided, defaultValue);
   }
 
-  render(tokens: Tokens): Tokens {
+  render(tokens: MarkdownElement): MarkdownElement {
     return tokens.append(text(String(this)));
+  }
+
+  isBlank(): boolean {
+    return this.#provided === false;
+  }
+
+  map<T>(callback: (title: string) => T): T | null {
+    const title = String(this);
+
+    if (title === "") {
+      return null;
+    } else {
+      return callback(title);
+    }
+  }
+
+  exists(): boolean {
+    if (this.#provided === false) {
+      return false;
+    } else if (this.#provided === undefined) {
+      return this.#default !== undefined;
+    } else {
+      return true;
+    }
   }
 
   get provided(): string | undefined | false {
@@ -170,9 +256,14 @@ export class Builtins<N extends string> {
     return new Builtins({});
   }
 
-  static from<N extends string>(config: Record<N, BuiltinConfig>) {
+  static from<N extends string>(
+    config: Record<N, BuiltinConfig>
+  ) {
     return new Builtins(
-      mapEntries(config, (config, name) => [name, new Builtin(config)])
+      mapEntries(config, (config, name) => [
+        name,
+        new Builtin(config),
+      ])
     );
   }
 
@@ -182,37 +273,38 @@ export class Builtins<N extends string> {
     this.#builtins = builtins;
   }
 
-  register<NewName extends string>(
+  custom<NewName extends string>(
     name: NewName,
-    config?: BuiltinConfig | string | RenderContainer
+    render: RenderContainer
   ): Builtins<N | NewName> {
-    function normalize(): BuiltinConfig {
-      if (typeof config === "string") {
-        return { defaultTitle: config };
-      } else if (typeof config === "function") {
-        return { render: config };
-      } else if (config === undefined) {
-        return { defaultTitle: name.toUpperCase() };
-      } else {
-        return config;
-      }
-    }
+    return new Builtins({
+      ...this.#builtins,
+      [name]: new Builtin({
+        render,
+      }),
+    } as Record<N | NewName, Builtin>);
+  }
+
+  basic<NewName extends string>(
+    name: NewName,
+    config?: BasicConfig
+  ): Builtins<N | NewName> {
+    const defaultTitle =
+      typeof config === "string"
+        ? config
+        : config?.defaultTitle ?? name.toLocaleUpperCase();
 
     return new Builtins({
       ...this.#builtins,
-      [name]: new Builtin(normalize()),
+      [name]: new Builtin({
+        ...(typeof config === "string" ? {} : config),
+        defaultTitle,
+      }),
     } as Record<N | NewName, Builtin>);
   }
 
   tryGet(name: string): Builtin | undefined {
-    if (name in this.#builtins) {
-      return this.#builtins[name as N];
-    } else {
-      return new Builtin({
-        render: ({ tokens, md }) =>
-          tokens.append(HTML(md.error(`Unknown builtin: ${name}`))),
-      });
-    }
+    return (this.#builtins as Record<string, Builtin>)[name];
   }
 
   get(name: N): Builtin {

@@ -22,7 +22,6 @@
     "baseUrl": ".",
     "lib": ["DOM", "ESNext"],
     "jsx": "preserve",
-    "resolveJsonModule": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "types": ["vite/client", "vitepress"],
@@ -31,5 +30,10 @@
     },
     "customConditions": ["dev"]
   },
-  "include": ["./**/vite.config.mts", "./src/postcss.config.ts", "*.quokka.ts"]
+  "include": [
+    "./**/vite.config.mts",
+    "./src/postcss.config.ts",
+    "*.quokka.ts",
+    "./src/postcss.config.mts"
+  ]
 }

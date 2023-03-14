@@ -5,6 +5,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import Language from "./.vitepress/components/code/Language.vue";
 import Demo from "./.vitepress/components/Demo/Demo.vue";
+import { CustomBlock } from "@starbeam-docs/custom-block";
 
 declare module "@vue/runtime-core" {
   export interface GlobalComponents {
@@ -12,5 +13,6 @@ declare module "@vue/runtime-core" {
     RouterView: typeof RouterView;
     Demo: typeof Demo;
     Language: typeof Language;
+    CustomBlock: typeof CustomBlock;
   }
 }

@@ -4,6 +4,8 @@ extensions = [
   './packages/chomp-extensions/dts.js',
   './packages/chomp-extensions/pkg.js',
   './packages/chomp-extensions/postcss.js',
+  './packages/chomp-extensions/inline-css.js',
+
 ]
 
 [env]
@@ -11,12 +13,38 @@ PACKAGE_MANAGER = 'pnpm'
 
 [[task]]
 name = "clean"
-run = "rm -rf packages/@*/*/dist; rm -f packages/@*/src/*.css.ts"
+deps = ["clean:src", "clean:dist"]
+
+[[task]]
+name = "clean:dist"
+run = "rm -rf packages/@*/*/dist"
+
+
+[[task]]
+name = "clean:src"
+engine = "node"
+run = """
+import glob from 'fast-glob';
+import { rmSync } from 'node:fs';
+const files = glob.sync('packages/@*/*/src/**/*.css.ts');
+
+for (const file of files) {
+  rmSync(file);
+}
+"""
 
 [[task]]
 name = "build"
 serial = true
-deps = ["mdit", "tagged-templates", "utils", "fenced-container", "snippets:postcss", "snippets"]
+deps = [
+  "vue-jsx-runtime",
+  "mdit",
+  "tagged-templates",
+  "utils",
+  "fenced-container",
+  "snippets",
+  "custom-block",
+]
 
 [[task]]
 name = "mdit"
@@ -39,8 +67,33 @@ template = "pkg"
 template-options = { root = "packages/@starbeam-docs/fenced-container" }
 
 [[task]]
+name = "custom-block"
+deps = ["custom-block:postcss"]
+template = "pkg"
+template-options = { root = "packages/@starbeam-docs/custom-block" }
+
+
+[[task]]
+name = "custom-block:postcss"
+template = "postcss"
+template-options = { root = "packages/@starbeam-docs/custom-block" }
+
+[[task]]
+name = "custom-block:inline-css"
+dep = "packages/@starbeam-docs/custom-block/dist/##.css"
+template-options = { from = 'import "./Code.css";', to = "packages/@starbeam-docs/custom-block/dist/Code.css" }
+template = "inline-css"
+
+[[task]]
+name = "vue-jsx-runtime"
+template = "pkg"
+template-options = { root = "packages/@starbeam-docs/vue-jsx-runtime" }
+
+
+[[task]]
 name = "snippets"
 deps = ["snippets:postcss"]
+serial = true
 template = "pkg"
 template-options = { root = "packages/@starbeam-docs/snippets" }
 
@@ -48,3 +101,9 @@ template-options = { root = "packages/@starbeam-docs/snippets" }
 name = "snippets:postcss"
 template = "postcss"
 template-options = { root = "packages/@starbeam-docs/snippets" }
+
+[[task]]
+name = "snippets:inline-css"
+dep = "packages/@starbeam-docs/snippets/dist/##.css"
+template-options = { from = 'import "./Code.css";', to = "packages/@starbeam-docs/snippets/dist/Code.css" }
+template = "inline-css"

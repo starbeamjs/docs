@@ -7,7 +7,7 @@ let env: VirtualTypeScriptEnvironment;
 
 post("ready", []);
 
-console.log("Hello from the worker");
+console.debug("Hello from the worker");
 
 export function updateFile(filePath: string, content: string) {
   env.updateFile(filePath, content);

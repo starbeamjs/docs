@@ -29,7 +29,7 @@ class EsmShTypes {
   }
 
   async types(pkg: string, version = "latest") {
-    console.log("fetching", `${this.#root}/${pkg}@${version}`);
+    console.debug("fetching", `${this.#root}/${pkg}@${version}`);
     const response = await fetch(
       `${this.#root}/${pkg}@${version}`,
       {
@@ -40,7 +40,7 @@ class EsmShTypes {
     const ts = response.headers.get("x-typescript-types");
 
     if (ts) {
-      console.log("found", `${pkg}@${version}`, ts);
+      console.debug("found", `${pkg}@${version}`, ts);
     } else {
       console.warn("not found", `${pkg}@${version}`);
     }
@@ -83,8 +83,6 @@ async function query(
 
   {
     const response = await requestPackager(url, 0);
-
-    console.log({ "1": response });
 
     if (response.ok) {
       return response.value.files;

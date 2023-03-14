@@ -1,0 +1,5 @@
+%font {
+  font-size: var(--sbdoc-font-size);
+  font-weight: var(--sbdoc-font-weight);
+  color: var(--sbdoc-color);
+}

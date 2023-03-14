@@ -1,6 +1,6 @@
 import "@mdit-vue/plugin-sfc";
 import Snippet from "docs-snippet";
-import { existsSync, readFileSync } from "fs";
+import { existsSync, readFileSync } from "node:fs";
 import stripAnsi from "strip-ansi";
 import { RenderLanguageRegion } from "./snippets/language-region.js";
 import { MDState } from "./utils.js";
@@ -120,7 +120,7 @@ function highlightRegion({ state , filename , region , complete  }) {
         env: state.env
     }).highlight(state.highlight);
     if (region.ts.code === region.js.code) {
-        return `<section class="both-lang">${tsFenced}</section>`;
+        return `<section class="both-lang code-block">${tsFenced}</section>`;
     }
     const jsFenced = RenderLanguageRegion.create({
         filename,
@@ -140,7 +140,7 @@ function highlight(state, filename, region) {
         prefix: ""
     });
     if (region.ts.code === region.js.code) {
-        return `<section class="both-lang">${tsFenced}</section>`;
+        return `<section class="both-lang code-block">${tsFenced}</section>`;
     }
     const jsFenced = highlightLang(state, {
         filename,
@@ -154,9 +154,6 @@ function highlight(state, filename, region) {
 function highlightLang(state, { code , lang , filename , highlights , prefix , postfix  }) {
     var _state_highlight;
     const attr = highlights && highlights.length > 0 ? `{${highlights.map((h)=>h.lines).join(",")}}` : "";
-    console.log({
-        filename
-    });
     const output = [];
     if (prefix) {
         output.push(prefix, "// ---cut---");

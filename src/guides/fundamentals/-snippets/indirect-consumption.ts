@@ -19,7 +19,9 @@ class People {
   }
 
   byLocation(location: string): Person[] {
-    return this.#people.filter((person) => person.location === location);
+    return this.#people.filter(
+      (person) => person.location === location
+    );
   }
 }
 
@@ -33,7 +35,7 @@ DEBUG_RENDERER.render({
   // #highlight:next
   render: () => people.byLocation("New York"),
   debug: (people) => {
-    console.log(people.map((person) => person.name).join(", "));
+    console.info(people.map((person) => person.name).join(", "));
   },
 });
 // #endregion

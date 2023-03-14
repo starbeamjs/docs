@@ -1,0 +1,12 @@
+@import "./text.extends.css";
+@import "./text.vars.css";
+
+@using content {
+  @layer baseline {
+    @section inline {
+      code {
+        background-color: var(--sb-local-code-bg, transparent);
+      }
+    }
+  }
+}

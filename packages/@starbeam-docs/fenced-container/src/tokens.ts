@@ -5,127 +5,276 @@ export type SingleAttrValue = AttrPart | boolean;
 export type AttrPart = string | number | null | undefined;
 export type AttrValue = SingleAttrValue | AttrPart[];
 
-export class Tokens {
-  static empty(md: PluginHelper): Tokens {
-    return new Tokens(md);
-  }
-
+export class CustomBuiltin {
   readonly #md: PluginHelper;
-  readonly #tokens: Token[] = [];
 
   constructor(md: PluginHelper) {
     this.#md = md;
   }
 
-  open(tag: string, attrs: Record<string, AttrValue> | undefined = {}): this {
-    const token = new Token("paragraph_open", tag, 1);
-
-    for (const [key, value] of Object.entries(attrs)) {
-      applyValue(token, key, value);
-    }
-
-    this.#tokens.push(token);
-    return this;
-  }
-
   el(
     tag: string,
-    attrs?: Record<string, AttrValue> | Children | undefined,
-    children?: Children
-  ): this {
-    function normalize(): {
-      attrs: Record<string, AttrValue>;
-      children: Children | undefined;
-    } {
-      if (
-        attrs === undefined ||
-        Array.isArray(attrs) ||
-        typeof attrs === "function"
-      ) {
-        return { attrs: {}, children: attrs };
-      } else {
-        return { attrs, children };
-      }
-    }
+    attrs: Record<string, AttrValue>,
+    children: Child[]
+  ): MarkdownElement {
+    return ParagraphElement.tag(tag, this.#md)
+      .attrs(attrs)
+      .push(...children);
+  }
+}
 
-    const { attrs: actualAttrs, children: actualChildren = [] } = normalize();
+export abstract class MarkdownFragment implements LazyChild {
+  abstract done(): Token[];
+  protected abstract appendToken(token: Token): void;
 
-    const token = new Token("paragraph_open", tag, 1);
+  #md: PluginHelper;
 
-    for (const [key, value] of Object.entries(actualAttrs)) {
-      applyValue(token, key, value);
-    }
+  constructor(md: PluginHelper) {
+    this.#md = md;
+  }
 
-    if (actualChildren === undefined) {
-      return this;
-    }
+  render(tokens: MarkdownFragment): MarkdownFragment {
+    return tokens.push(...this.done());
+  }
 
-    if (Array.isArray(actualChildren)) {
-      this.#tokens.push(token);
-      for (const child of actualChildren) {
-        this.#append(child);
-      }
-    } else if (typeof actualChildren === "function") {
-      this.#tokens.push(token);
-      actualChildren(this);
-    }
+  protected get md(): PluginHelper {
+    return this.#md;
+  }
 
-    this.close(tag);
+  html(html: string): this {
+    this.push(...this.md.parse(html));
     return this;
   }
 
-  close(tag: string): this {
-    this.#tokens.push(new Token("paragraph_close", tag, -1));
-    return this;
-  }
-
-  append(...content: Child[]): this {
-    for (const child of content) {
-      this.#append(child);
-    }
-    return this;
-  }
-
-  parse(content: string): this {
-    this.#tokens.push(...this.#md.parse(content));
-    return this;
-  }
-
-  if<T>(
-    predicate: T,
-    content: (
-      tokens: Tokens,
-      value: Exclude<T, null | undefined | false | "" | 0>
-    ) => Tokens
-  ): this {
-    if (predicate) {
-      content(this, predicate as Exclude<T, null | undefined | false | "" | 0>);
-    }
-    return this;
-  }
-
-  #append(child: Child): void {
+  append(child: Child): this {
     if (child === undefined || child === null) {
-      return;
+      // do nothing
     } else if (typeof child === "string") {
-      this.#tokens.push(text(child));
+      this.appendToken(text(child));
     } else if ("render" in child) {
       child.render(this);
     } else {
-      this.#tokens.push(child);
+      this.appendToken(child);
     }
+
+    return this;
   }
 
-  get tokens(): Token[] {
+  push(...children: Child[]): this {
+    for (const child of children) {
+      this.append(child);
+    }
+    return this;
+  }
+
+  element(
+    {
+      tag,
+      attrs,
+      children,
+    }: {
+      tag: string;
+      attrs: Record<string, AttrValue>;
+      children: Children | undefined;
+    },
+    {
+      create,
+    }: {
+      create: {
+        tag: (tag: string, md: PluginHelper) => MarkdownElement;
+      };
+    }
+  ): this {
+    let el = create.tag(tag, this.md).attrs(attrs);
+
+    if (Array.isArray(children)) {
+      for (const child of children) {
+        el.append(child);
+      }
+    } else if (typeof children === "function") {
+      children(this);
+    }
+
+    this.push(...el.done());
+
+    return this;
+  }
+
+  htmlEl(...elArgs: ElArgs): this {
+    return this.element(normalizeElArgs(elArgs), {
+      create: HtmlElement,
+    });
+  }
+
+  el(...elArgs: ElArgs): this {
+    return this.element(normalizeElArgs(elArgs), {
+      create: ParagraphElement,
+    });
+  }
+}
+
+export abstract class MarkdownElement extends MarkdownFragment {
+  abstract attr(key: string, value: AttrValue): this;
+
+  constructor(_tag: string, md: PluginHelper) {
+    super(md);
+  }
+
+  attrs(attrs: Record<string, AttrValue>): this {
+    for (const [key, value] of Object.entries(attrs)) {
+      this.attr(key, value);
+    }
+    return this;
+  }
+}
+
+export class BasicFragment extends MarkdownFragment {
+  static empty(md: PluginHelper): MarkdownFragment {
+    return new BasicFragment(md);
+  }
+
+  readonly #tokens: Token[] = [];
+
+  protected override appendToken(token: Token): void {
+    this.#tokens.push(token);
+  }
+
+  override done(): Token[] {
     return this.#tokens;
   }
 }
 
-export type Child = LazyChild | Token | string | null | undefined;
-export type Children = Child[] | ((tokens: Tokens) => Tokens);
+export class HtmlElement extends MarkdownElement {
+  static tag(tag: string, md: PluginHelper): MarkdownElement {
+    return new HtmlElement(tag, md);
+  }
+
+  readonly #tag: string;
+  #open: string;
+  readonly #children: Token[] = [];
+
+  private constructor(tag: string, md: PluginHelper) {
+    super(tag, md);
+    this.#tag = tag;
+
+    this.#open = `<${this.#tag}`;
+  }
+
+  override attr(key: string, value: AttrValue): this {
+    const valueString = this.#attrValue(value);
+
+    if (valueString !== null) {
+      this.#open += ` ${key}=${valueString}`;
+    }
+
+    return this;
+  }
+
+  #attrValue(value: AttrValue): string | null {
+    if (Array.isArray(value)) {
+      return `"${value.join(" ")}`;
+    } else if (typeof value === "string") {
+      return JSON.stringify(value);
+    } else if (typeof value === "number") {
+      return `"${value}"`;
+    } else if (value === true) {
+      return `""`;
+    } else {
+      return null;
+    }
+  }
+
+  override done(): Token[] {
+    const open = new Token("html_block", "", 0);
+    open.content = `${this.#open}\n\n`;
+    const tokens: Token[] = [open];
+    tokens.push(...this.#children);
+
+    const close = new Token("html_block", "", 0);
+    close.content = `\n\n</${this.#tag}>`;
+    tokens.push(close);
+
+    return tokens;
+  }
+
+  protected override appendToken(token: Token): void {
+    if (!this.#open.endsWith(">")) this.#open += ">";
+
+    this.#children.push(token);
+  }
+}
+
+export class ParagraphElement extends MarkdownElement {
+  static tag(tag: string, md: PluginHelper): ParagraphElement {
+    return new ParagraphElement(
+      md,
+      tag,
+      new Token("paragraph_open", tag, 1),
+      []
+    );
+  }
+
+  readonly #tag: string;
+  readonly #token: Token;
+  readonly #children: Token[];
+
+  private constructor(
+    md: PluginHelper,
+    tag: string,
+    token: Token,
+    children: Token[]
+  ) {
+    super(tag, md);
+    this.#tag = tag;
+    this.#token = token;
+    this.#children = children;
+  }
+
+  protected override appendToken(token: Token): void {
+    this.#children.push(token);
+  }
+
+  done(): Token[] {
+    return [
+      this.#token,
+      ...this.#children,
+      new Token("paragraph_close", this.#tag, -1),
+    ];
+  }
+
+  attr(name: string, value: AttrValue): this {
+    if (value === undefined || value === false) {
+      // do nothing
+    } else if (Array.isArray(value)) {
+      for (const val of attrListValue(value)) {
+        this.#token.attrJoin(name, val);
+      }
+    } else if (value === true) {
+      this.#token.attrSet(name, "");
+    } else {
+      const val = attrPart(value);
+      if (val) {
+        this.#token.attrSet(name, val);
+      }
+    }
+
+    return this;
+  }
+}
+
+export type Child =
+  | LazyChild
+  | Token
+  | string
+  | null
+  | undefined;
+
+export type Children =
+  | Child[]
+  | ((el: MarkdownFragment) => MarkdownFragment);
 
 export interface LazyChild {
-  render(tokens: Tokens): Tokens;
+  render(tokens: MarkdownFragment): MarkdownFragment;
 }
 
 export function text(string: string): Token {
@@ -134,7 +283,11 @@ export function text(string: string): Token {
   return token;
 }
 
-function applyValue(token: Token, name: string, value: AttrValue): void {
+function applyValue(
+  token: Token,
+  name: string,
+  value: AttrValue
+): void {
   if (value === undefined || value === false) {
     return;
   } else if (Array.isArray(value)) {
@@ -173,4 +326,26 @@ function isPresent<T>(value: T | null | undefined): value is T {
 
 function unreachable(_value: never, message = "unreachable") {
   throw new Error(message);
+}
+
+type ElArgs = [
+  tag: string,
+  attrs?: Record<string, AttrValue> | Children | undefined,
+  children?: Children
+];
+
+function normalizeElArgs([tag, attrs, children]: ElArgs): {
+  tag: string;
+  attrs: Record<string, AttrValue>;
+  children: Children | undefined;
+} {
+  if (
+    attrs === undefined ||
+    Array.isArray(attrs) ||
+    typeof attrs === "function"
+  ) {
+    return { tag, attrs: {}, children: attrs };
+  } else {
+    return { tag, attrs, children };
+  }
 }

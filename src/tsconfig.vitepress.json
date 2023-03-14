@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowJs": true,
     "esModuleInterop": true,
+    "dist": "./.vitepress/tsdist",
     "paths": {
       "@/*": ["./.vitepress/*"]
     }

@@ -5,14 +5,14 @@ export function logOnClient(
 ) {
   return;
   if (what === "in") {
-    console.log(
+    console.info(
       `  %cclient%c<-server:${name}`,
       "background-color: #ffc",
       "background-color: reset",
       details
     );
   } else {
-    console.log(
+    console.info(
       `  %cclient%c->server:${name}`,
       "background-color: #ffc",
       "background-color: reset",
@@ -28,14 +28,14 @@ export function logOnServer(
 ) {
   return;
   if (what === "in") {
-    console.log(
+    console.info(
       `%cserver%c<-client:${name}`,
       "background-color: #fcc",
       "background-color: reset",
       details
     );
   } else {
-    console.log(
+    console.info(
       `%cserver%c->client:${name}`,
       "background-color: #fcc",
       "background-color: reset",

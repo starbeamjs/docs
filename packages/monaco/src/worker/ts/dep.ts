@@ -87,8 +87,6 @@ export class DependencyPackage {
         version: typeRegistry[name]?.latest ?? "latest",
       });
 
-      console.log({ atTypeFiles });
-
       for (const [name, file] of Object.entries(atTypeFiles)) {
         this.#files.addFile(
           PackageFile.create(name, file.module.code)

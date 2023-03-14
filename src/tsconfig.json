@@ -3,7 +3,7 @@
   "compilerOptions": {
     "composite": true,
 
-    "types": ["vite/client", "@vue/runtime-dom", "src/components.d.ts"],
+    "types": ["vite/client", "@vue/runtime-dom", "./components"],
 
     "paths": {
       "@/*": ["./*"],

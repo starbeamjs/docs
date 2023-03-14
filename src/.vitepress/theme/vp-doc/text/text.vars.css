@@ -1,0 +1,64 @@
+@def-vars {
+  --sbdoc-font-weight-body: 400;
+  --sbdoc-font-weight-body-strong: 500;
+  --sbdoc-font-weight-headline: 600;
+
+  /**
+   * The size of 1rem.
+   */
+  --sbdoc-default-font-size: 16px;
+  --sbdoc-default-font-weight: var(--sbdoc-font-weight-body);
+  --sbdoc-default-line-height: calc(1.4 * var(--sbdoc-up));
+
+  --sbdoc-up: 1.3;
+
+  /**
+   * The default font family for body text.
+   */
+  --sbdoc-font-body: "Readex Pro", sans-serif;
+  /**
+   * The default font family for code (monospace).
+   */
+  --sbdoc-font-mono: "Martian Mono", monospace;
+  /**
+   * The default font family for headings, including stuff like `dt`.
+   */
+  --sbdoc-font-fancy: "Comfortaa", sans-serif;
+  /**
+   * The default font family for emphasized content.
+   */
+  --sbdoc-font-em: "Sofia Sans", sans-serif;
+}
+
+@def-derived-vars {
+  /**
+   * The default text color. Defaults to `--sbdoc-local-fg`.
+   */
+  --sbdoc-color: var(
+    --sbdoc-local-color,
+    var(--sbdoc-local-fg, var(--sbdoc-default-fg, var(--sbdoc-color-err)))
+  );
+  --sbdoc-font-size: var(
+    --sbdoc-local-font-size,
+    var(--sbdoc-default-font-size)
+  );
+  --sbdoc-font-weight: var(
+    --sbdoc-local-font-weight,
+    var(--sbdoc-default-font-weight)
+  );
+  --sbdoc-line-height: var(
+    --sbdoc-local-line-height,
+    var(--sbdoc-default-line-height)
+  );
+
+  /**
+   * The default border color. Defaults to `--sbdoc-local-border-color`.
+   */
+  --sbdoc-border-color: var(
+    --sbdoc-local-border-color,
+    var(
+      --sbdoc-local-fg,
+      var(--sbdoc-default-border-color, var(--sbdoc-color-err))
+    )
+  );
+}

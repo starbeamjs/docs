@@ -2,9 +2,11 @@ import type { PluginHelper } from "@jsergo/mdit";
 import "@mdit-vue/plugin-sfc";
 import parseFence from "fenceparser";
 import Token from "markdown-it/lib/token.js";
-import { Tokens, type LazyChild } from "./tokens.js";
+import { type LazyChildren } from "./nodes.js";
+import { MarkdownElement, type LazyChild, CustomBuiltin } from "./tokens.js";
 type OBJECT = ReturnType<typeof parseFence>;
 type VALUE = OBJECT[keyof OBJECT];
+export declare const CUSTOM_EL = "CustomBlock";
 interface RenderOptions {
     kind: string;
     /**
@@ -21,21 +23,39 @@ export declare class UnparsedContent implements LazyChild {
     static of(content: string | undefined): UnparsedContent;
     private constructor();
     get raw(): string | undefined;
-    render(tokens: Tokens): Tokens;
+    render(tokens: MarkdownElement): MarkdownElement;
 }
-type RenderContainer = ({ title, kind, attrs, content, md, tokens, }: {
+type RenderContainer = ({ title, kind, attrs, content, md, define, }: {
     title: Title;
     kind: string;
     attrs: Record<string, VALUE>;
     content: UnparsedContent | undefined;
     md: PluginHelper;
-    tokens: Tokens;
-}) => Token[] | Tokens;
+    define: CustomBuiltin;
+}) => LazyChildren;
 type BuiltinConfig = {
     defaultTitle?: string | null | undefined;
-} | {
-    render?: RenderContainer;
-};
+    colors?: {
+        fg?: string | undefined;
+        bg?: string | undefined;
+        border?: string | undefined;
+    };
+} | CustomConfig;
+/**
+ * A bare string is the default title.
+ */
+type BasicConfig = {
+    defaultTitle?: string | null | undefined;
+    colors?: {
+        fg?: string | undefined;
+        bg?: string | undefined;
+        border?: string | undefined;
+    };
+} | string;
+interface CustomConfig {
+    render: RenderContainer;
+    options?: {} | undefined;
+}
 declare class Builtin {
     #private;
     constructor(config: BuiltinConfig);
@@ -47,7 +67,10 @@ export declare class Title implements LazyChild {
     static create(provided: string | false | undefined, defaultValue: string | undefined): Title;
     private constructor();
     withDefault(defaultValue: string | undefined): Title;
-    render(tokens: Tokens): Tokens;
+    render(tokens: MarkdownElement): MarkdownElement;
+    isBlank(): boolean;
+    map<T>(callback: (title: string) => T): T | null;
+    exists(): boolean;
     get provided(): string | undefined | false;
     toString(): string;
 }
@@ -56,7 +79,8 @@ export declare class Builtins<N extends string> {
     static empty(): Builtins<never>;
     static from<N extends string>(config: Record<N, BuiltinConfig>): Builtins<N>;
     constructor(builtins: Record<N, Builtin>);
-    register<NewName extends string>(name: NewName, config?: BuiltinConfig | string | RenderContainer): Builtins<N | NewName>;
+    custom<NewName extends string>(name: NewName, render: RenderContainer): Builtins<N | NewName>;
+    basic<NewName extends string>(name: NewName, config?: BasicConfig): Builtins<N | NewName>;
     tryGet(name: string): Builtin | undefined;
     get(name: N): Builtin;
 }

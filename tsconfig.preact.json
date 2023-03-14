@@ -9,7 +9,6 @@
     "jsxImportSource": "preact",
     "module": "esnext",
     "moduleResolution": "Node",
-    "resolveJsonModule": true,
     "verbatimModuleSyntax": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

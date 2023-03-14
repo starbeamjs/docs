@@ -23,10 +23,10 @@ const currentVersion = existsSync(D2_VERSIONFILE)
   : undefined;
 
 if (D2_VERSION === currentVersion && existsSync(D2_BINFILE)) {
-  console.log(chalk.green(`D2 version ${D2_VERSION} is already installed.`));
+  console.info(chalk.green(`D2 version ${D2_VERSION} is already installed.`));
   process.exit(0);
 } else {
-  console.log(chalk.yellow(`Installing D2 version ${D2_VERSION}...`));
+  console.info(chalk.yellow(`Installing D2 version ${D2_VERSION}...`));
 }
 
 const LATEST_D2_LINUX = `https://github.com/terrastruct/d2/releases/download/v${D2_VERSION}/d2-v${D2_VERSION}-linux-amd64.tar.gz`;

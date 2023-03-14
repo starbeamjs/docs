@@ -40,10 +40,10 @@
     declaration: true,
     emitDeclarationOnly: true,
     declarationMap: true,
+    jsx: "preserve",
     moduleResolution: "bundler",
     allowImportingTsExtensions: false,
     allowArbitraryExtensions: true,
-    resolveJsonModule: true,
     verbatimModuleSyntax: true,
     moduleDetection: "force",
     forceConsistentCasingInFileNames: true,
@@ -55,6 +55,7 @@
     noImplicitOverride: true,
     noImplicitReturns: true,
     lib: ["ESNext", "DOM", "DOM.Iterable"],
+    types: ["node", "@vue/runtime-dom"],
     skipLibCheck: true,
   };
 

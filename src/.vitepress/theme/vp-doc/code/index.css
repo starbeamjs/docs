@@ -1,0 +1,46 @@
+@import "./code-blocks.css";
+@import "./api/section.css";
+@import "./api/toc.css";
+@import "./api/docs.css";
+@import "./api/prose.css";
+@import "./api/syntax.css";
+@import "./api/generics.css";
+
+@using content {
+  p,
+  mark,
+  em,
+  strong {
+    code {
+      display: inline-block;
+      padding-inline: var(--sbdoc-ui-inline-padding);
+      padding-block: 0;
+      border-block: 1px solid transparent;
+      align-self: center;
+    }
+  }
+
+  mark {
+    display: inline;
+    line-height: var(--sbdoc-line-height);
+    padding-inline: 2px;
+    code {
+      color: var(--sb-fg-yellow-strong);
+      background-color: var(--sb-bg-yellow-ultramuted);
+      border: 1px solid var(--sb-fg-yellow-dim);
+    }
+  }
+
+  .lang-docs.custom-block p > code {
+    color: hsl(
+      var(--sb-fg-hue) var(--sb-fg-saturation) var(--sb-fg-lightness-bright)
+    );
+    background-color: hsl(
+      var(--sb-bg-hue) var(--sb-bg-saturation) var(--sb-bg-lightness-brightest)
+    );
+    padding: var(--sb-nested-inline-code-padding);
+    font-size: calc(var(--sb-font-size) * var(--sb-ratio-down1));
+    font-family: var(--vp-font-family-mono);
+    font-weight: var(--sb-font-weight-light);
+  }
+}

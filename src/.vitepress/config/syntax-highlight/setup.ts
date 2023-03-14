@@ -78,7 +78,6 @@ export async function markdownItShikiTwoslashSetup(
         );
       }
 
-      console.log({ lang, attrs });
       snippet = snippet.replace(/\r?\n$/, ""); // strip trailing newline fed during code block parsing
       return transformAttributesToHTML(
         snippet,

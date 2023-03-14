@@ -11,7 +11,8 @@ import CodeTabs from "../components/Tabs/CodeTabs.vue";
 import Tabs from "../components/Tabs/Tabs.vue";
 import Api from "../components/api/Api.vue";
 import Language from "../components/code/Language.vue";
-import { Code } from "../packages/vitepress-snippets/browser.js";
+import { Code } from "@starbeam-docs/snippets";
+import { CustomBlock } from "@starbeam-docs/custom-block";
 import Layout from "./Layout.vue";
 import "./index.postcss";
 import "./static/lch.postcss";
@@ -23,6 +24,7 @@ export default {
     app.directive("uid", Uid);
 
     app.component("Code", Code);
+    app.component("CustomBlock", CustomBlock);
     app.component("Language", Language);
     app.component("StackBlitz", StackBlitz);
 

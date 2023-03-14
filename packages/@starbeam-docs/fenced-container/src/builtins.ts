@@ -1,55 +1,109 @@
 import { parserPlugin } from "@jsergo/mdit";
 import "@mdit-vue/plugin-sfc";
 import parseFence from "fenceparser";
-import { Builtins, Title, UnparsedContent } from "./define.js";
-import { Do, El } from "./nodes.js";
+import {
+  Builtins,
+  CUSTOM_EL,
+  Title,
+  UnparsedContent,
+} from "./define.js";
+import { Do, El, HtmlEl } from "./nodes.js";
 import type { AttrPart, AttrValue } from "./tokens.js";
 
 type OBJECT = ReturnType<typeof parseFence>;
 type VALUE = OBJECT[keyof OBJECT];
 
 const BUILTINS = Builtins.empty()
-  .register("info")
-  .register("warning")
-  .register("error")
-  .register("tip", { defaultTitle: null })
-  .register("callout", { defaultTitle: null })
-  .register("💡", ({ tokens, title, content }) =>
-    tokens.el("div", { class: ["custom-block", "lightbulb"] }, [title, content])
-  )
-  .register("lang-ts", ({ tokens, content }) =>
-    tokens.el("div", { class: ["lang-ts"] }, [content])
-  )
-  .register("em", ({ tokens, title, content }) =>
-    tokens.el("blockquote", { class: "em" }, [title ?? "Key Point", content])
-  )
-  .register("persona", ({ tokens, title, content }) =>
-    tokens.el("aside", { class: ["persona", String(title)] }, [content])
-  )
-  .register("details", ({ title, content, attrs, tokens }) => {
-    return tokens.el(
-      "details",
+  .basic("info", {
+    defaultTitle: "INFO",
+    colors: {
+      bg: "var(--sb-bg-blue-ultramuted)",
+      fg: "var(--sb-fg-blue-strongest)",
+    },
+  })
+  .basic("warning")
+  .basic("error")
+  .basic("tip", {
+    defaultTitle: null,
+    colors: {
+      bg: "var(--sb-bg-green-ultramuted)",
+      fg: "var(--sb-fg-green-strongest)",
+    },
+  })
+  .basic("callout", { defaultTitle: null })
+  .custom("💡", ({ title, content }) =>
+    El(
+      CUSTOM_EL,
       {
-        class: ["custom-block", "container", ...normalizePart(attrs["type"])],
+        class: ["lightbulb"],
+        border: "nw",
+        ":style": encode({
+          "--sbdoc-local-border-color": "var(--sb-fg-yellow)",
+        }),
+      },
+      [title, content]
+    )
+  )
+  .custom("lang-ts", ({ content }) =>
+    El(CUSTOM_EL, { class: ["lang-ts"] }, [content])
+  )
+  .custom("em", ({ title, content }) =>
+    HtmlEl(
+      CUSTOM_EL,
+      {
+        class: "em",
+        border: "w",
+        color: "var(--sb-fg-orange)",
+        ":style": encode({
+          "--sbdoc-local-font-size": "1.3em",
+          "--sbdoc-local-line-height": 1.2,
+          "--sbdoc-local-font-weight":
+            "var(--sb-font-weight-bold)",
+          "--sbdoc-local-bg": "var(--sb-bg-orange)",
+        }),
       },
       [
-        Do(() => {
-          function titleChild() {
-            switch (attrs["type"]) {
-              case "deep-dive":
-                // TODO:: Generalize
-                return [El("span", ["Deep Dive"]), title];
-              default:
-                return [title.withDefault("Details")];
-            }
-          }
-
-          console.log(titleChild());
-          return [El("summary", { class: "custom-block-title" }, titleChild())];
-        }),
+        title
+          .withDefault("Key Point")
+          .map((title) => El("h5", [title])),
         content,
       ]
-    );
+    )
+  )
+  .custom("persona", ({ title, content }) =>
+    El("aside", { class: ["persona", String(title)] }, [content])
+  )
+  .custom("details", ({ title, content, attrs }) => {
+    return El(CUSTOM_EL, { class: ["details"] }, [
+      El(
+        "details",
+        {
+          class: ["container", ...normalizePart(attrs["type"])],
+        },
+        [
+          Do(() => {
+            function titleChild() {
+              switch (attrs["type"]) {
+                case "deep-dive":
+                  // TODO:: Generalize
+                  return [El("span", ["Deep Dive"]), title];
+                default:
+                  return [title.withDefault("Details")];
+              }
+            }
+
+            return [
+              El(
+                "summary",
+                { class: "custom-block-title" },
+                titleChild()
+              ),
+            ];
+          }),
+          content,
+        ]
+      ),
+    ]);
   });
 
 export const fencedContainerPlugin = parserPlugin({
@@ -59,7 +113,8 @@ export const fencedContainerPlugin = parserPlugin({
   const matched = line.matchStart(/^(?<ticks>````*)md /);
 
   if (matched.type === "error") {
-    return () => (render) => render.html(md.error(matched.error));
+    return () => (render) =>
+      render.html(md.error(matched.error));
   } else if (matched.type === "unmatched") {
     return false;
   }
@@ -167,7 +222,9 @@ function normalize(value: VALUE): AttrValue {
   } else if (Array.isArray(value)) {
     return value.flatMap(normalizePart);
   } else if (typeof value === "object") {
-    throw Error(`Objects are not currently supported as attr values.`);
+    throw Error(
+      `Objects are not currently supported as attr values.`
+    );
   } else {
     return normalizePart(value);
   }
@@ -183,7 +240,9 @@ function normalizePart(value: VALUE): AttrPart[] {
   } else if (typeof value === "number") {
     return [String(value)];
   } else if (typeof value === "boolean") {
-    throw Error(`Booleans are not supported as part of an attr array.`);
+    throw Error(
+      `Booleans are not supported as part of an attr array.`
+    );
   } else {
     throw Error(
       `Object are not supported as part of an attr array. You passed ${JSON.stringify(
@@ -195,4 +254,13 @@ function normalizePart(value: VALUE): AttrPart[] {
 
 function isPresent<T>(value: T | undefined | null): value is T {
   return value !== undefined && value !== null;
+}
+
+function encode(
+  attrs: Record<
+    string,
+    string | number | boolean | null | undefined
+  >
+): string {
+  return JSON.stringify(attrs).replace(/\"/g, "'");
 }

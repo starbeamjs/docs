@@ -39,7 +39,6 @@ export const processTypescriptCacheFromStorage = (
   fsMapCached: CachedFsMap
 ): CachedFsMap => {
   const cache = new Map();
-  console.log(fsMapCached.keys());
 
   const matching = new Map(
     [...fsMapCached].filter(([key]) =>

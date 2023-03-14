@@ -1,0 +1,35 @@
+@import "./paragraphs.extends.css";
+@import "./paragraphs.css";
+@import "./details.css";
+@import "./dl.css";
+
+@using content {
+  :top {
+    --sbdoc-line-height: calc(1.4 * var(--sbdoc-up));
+    line-height: var(--sbdoc-line-height);
+    --sbdoc-default-fg: var(--vp-c-text-1);
+    --sbdoc-default-block-bg: var(--vp-c-bg-alt);
+  }
+
+  @section annotations {
+    :not(.custom-block, details) {
+      &.protip {
+        &::before {
+          align-self: center;
+          font-family: var(--icons);
+          font-size: calc(1em * var(--sb-ratio-down1));
+          content: var(--sb-icon-protip) var(--sb-icon-after);
+        }
+      }
+
+      &.optimization {
+        &::before {
+          align-self: center;
+          font-family: var(--icons);
+          font-size: calc(1em * var(--sb-ratio-down1));
+          content: var(--sb-icon-optimization) var(--sb-icon-after);
+        }
+      }
+    }
+  }
+}

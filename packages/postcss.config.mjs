@@ -4,15 +4,12 @@ import extend from "postcss-extend-rule";
 import vars from "postcss-simple-vars";
 // import values from "postcss-modules-values";
 // import "postcss";
-import postcss, { Result } from "postcss";
-import cssvars from "postcss-css-variables";
-import mixins from "postcss-mixins";
+import { readFileSync, writeFileSync } from "fs";
+import { basename, dirname, resolve } from "node:path";
 import modules from "postcss-modules";
 import nested from "postcss-nested";
 import preset from "postcss-preset-env";
 import property from "postcss-property-lookup";
-import { readFileSync, writeFileSync } from "fs";
-import { basename, dirname, resolve } from "node:path";
 
 const PRESET = preset({
   stage: 1,
@@ -21,6 +18,7 @@ const PRESET = preset({
     "oklab-function": true,
     "color-functional-notation": true,
     "color-function": true,
+    "cascade-layers": false,
   },
 });
 
@@ -36,17 +34,51 @@ export default {
     PRESET,
     modules({
       getJSON: (filepath, json, out) => {
-        console.log({ filepath, json, out });
         const outdir = dirname(filepath);
         const outbase = basename(filepath, ".postcss");
         const outfile = resolve(outdir, `${outbase}.css.ts`);
 
         // Write the file to the source directory
-        writeFileSync(outfile, `import "./${outbase}.css";\n${exports(json)}`);
+        writeFileSync(outfile, `${exports(json)}`);
+      },
+    }),
+    /** @satisfies {import("postcss").Plugin} */
+    ({
+      postcssPlugin: "custom",
+
+      prepare: (result) => {
+        const filepath = result.opts.from;
+        const outdir = dirname(filepath);
+        const outbase = basename(filepath, ".postcss");
+        const outfile = resolve(outdir, `${outbase}.css.ts`);
+
+        return {
+          OnceExit: (root, helper) => {
+            const ts = readFileSync(outfile, "utf8");
+            const combined = `${ts}\n${inject(String(root))}`;
+            writeFileSync(outfile, combined);
+          },
+        };
       },
     }),
   ],
 };
+
+/**
+ * @param {string} css
+ * @returns {string}
+ */
+function inject(css) {
+  return `
+if (typeof document !== undefined) {
+  const style = document.createElement('style');
+  style.setAttribute("type", "text/css");
+  const text = document.createTextNode(${JSON.stringify(css)});
+  style.appendChild(text);
+  document.head.appendChild(style);
+}
+`.trim();
+}
 
 /**
  * @param {Record<string, string>} json

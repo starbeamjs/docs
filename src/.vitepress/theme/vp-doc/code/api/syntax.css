@@ -1,0 +1,129 @@
+html:not(.dark) {
+  --sb-fg-lightness: 50%;
+  --sb-fg-saturation: 50%;
+
+  --sb-fg-lightness-dim: 40%;
+  --sb-fg-saturation-dim: 40%;
+}
+
+html.dark {
+  --sb-fg-lightness: 70%;
+  --sb-fg-saturation: 30%;
+
+  --sb-fg-lightness-dim: 60%;
+  --sb-fg-saturation-dim: 20%;
+}
+
+.VPDoc {
+  --vp-code-font-size: 0.8rem;
+  --vp-code-line-height: 1.7;
+
+  [class*="language-"] {
+    > pre {
+    }
+  }
+
+  [class*="language-"] > span.copy {
+    top: initial;
+    bottom: 8px;
+  }
+
+  code {
+    span {
+      display: inline-block;
+      color: hsl(
+        var(--sb-hl-hue) var(--sb-hl-saturation) var(--sb-hl-lightness)
+      );
+    }
+
+    &.starbeam-inline {
+      color: hsl(
+        var(--sb-hl-hue) var(--sb-hl-saturation) var(--sb-hl-lightness)
+      );
+    }
+
+    &.starbeam-inline.starbeam-bg-alt {
+      --sb-hl-lightness: var(--sb-fg-lightness);
+      --sb-hl-saturation: var(--sb-fg-saturation);
+      background-color: var(--sb-inline-light-bg-c);
+      border-color: hsl(
+        var(--sb-hl-kind-ch) var(--sb-fg-saturation) var(--sb-fg-lightness)
+      );
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    &.starbeam-inline.starbeam-bg-light {
+      --sb-hl-lightness: var(--sb-fg-lightness-dim);
+      --sb-hl-saturation: 100%;
+      background-color: var(--sb-inline-light-bg-c);
+    }
+
+    &.starbeam-inline.starbeam-bg-dark {
+      --sb-hl-lightness: 80%;
+      background-color: hsl(var(--sb-code-block-ch) 40% 30%);
+    }
+
+    &.starbeam-inline.starbeam-bg-light.starbeam-optional {
+      background-color: transparent;
+      padding: 0;
+
+      span {
+        --sb-hl-hue: var(--sb-hl-docs-ch);
+        --sb-hl-saturation: 50%;
+        --sb-hl-lightness: 60%;
+        font-style: italic;
+      }
+    }
+    span.starbeam-kind {
+      --sb-hl-hue: var(--sb-hl-kind-ch);
+    }
+    span.starbeam-name {
+      --sb-hl-hue: var(--sb-hl-name-ch);
+    }
+    span.starbeam-punct {
+      --sb-hl-hue: var(--sb-hl-punct-ch);
+    }
+    span.starbeam-param {
+      --sb-hl-hue: var(--sb-hl-param-ch);
+    }
+    span.starbeam-type {
+      --sb-hl-hue: var(--sb-hl-type-ch);
+    }
+    span.starbeam-docs {
+      --sb-hl-hue: var(--sb-hl-docs-ch);
+      --sb-hl-saturation: 25%;
+    }
+    span.starbeam-key {
+      --sb-hl-hue: var(--sb-hl-key-ch);
+    }
+    span.starbeam-string {
+      --sb-hl-hue: var(--sb-hl-string-ch);
+    }
+    span.starbeam-newline {
+      white-space: pre;
+    }
+    span.dim {
+      --sb-hl-lightness: 50%;
+      --sb-hl-saturation: 0%;
+    }
+  }
+
+  div[class*="language-"] pre.manual {
+    white-space: pre;
+
+    code {
+      span {
+        display: inline;
+      }
+
+      span.starbeam-name {
+        --sb-hl-saturation: 100%;
+      }
+
+      span.starbeam-type {
+        --sb-hl-saturation: 100%;
+      }
+    }
+  }
+}

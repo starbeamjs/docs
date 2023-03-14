@@ -5,6 +5,10 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./mdit-plugin": {
       "types": "./src/build.ts",
       "default": "./dist/build.js"
     },
@@ -14,11 +18,13 @@
     }
   },
   "dependencies": {
-    "@jsergo/mdit": "workspace:^"
+    "@jsergo/mdit": "workspace:^",
+    "@starbeam-docs/vue-jsx-runtime": "workspace:^"
   },
   "devDependencies": {
     "vue": "*",
     "vue-sfc2esm": "^0.1.6",
-    "vite": "*"
+    "vite": "*",
+    "@types/node": "^18.15.0"
   }
 }

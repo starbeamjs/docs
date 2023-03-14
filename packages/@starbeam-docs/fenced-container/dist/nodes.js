@@ -1,36 +1,39 @@
 import Token from "markdown-it/lib/token.js";
 export function Fragment(...children) {
     return {
-        render: (tokens)=>tokens.append(...children)
+        render: (fragment)=>fragment.push(...children)
     };
 }
 export function El(...args) {
     return {
-        render: (tokens)=>tokens.el(...args)
+        render: (fragment)=>fragment.el(...args)
+    };
+}
+export function HtmlEl(...args) {
+    return {
+        render: (fragment)=>fragment.htmlEl(...args)
     };
 }
 export function Do(then) {
     return {
-        render: (tokens)=>render(tokens, then)
+        render: (fragment)=>render(fragment, then())
     };
 }
 export function Let(values, then) {
     return {
-        render: (tokens)=>{
-            return render(tokens, ()=>then(values));
-        }
+        render: (fragment)=>render(fragment, then(values))
     };
 }
 export function If(condition, then, options) {
     return {
-        render: (tokens)=>{
-            return render(tokens, ()=>{
-                if (condition) {
-                    return then(condition, tokens);
-                } else if (options === null || options === void 0 ? void 0 : options.else) {
-                    return options.else(tokens);
-                }
-            });
+        render: (fragment)=>{
+            if (condition) {
+                return render(fragment, then(condition));
+            } else if (options === null || options === void 0 ? void 0 : options.else) {
+                return render(fragment, options.else());
+            } else {
+                return fragment;
+            }
         }
     };
 }
@@ -41,12 +44,15 @@ export function HTML(value) {
         render: (tokens)=>tokens.append(html)
     };
 }
-function render(tokens, callback) {
-    const children = callback();
+function render(fragment, children) {
     if (Array.isArray(children)) {
-        return tokens.append(...children);
+        for (const child of children){
+            child.render(fragment);
+        }
+    } else {
+        children.render(fragment);
     }
-    return tokens;
+    return fragment;
 }
 
 

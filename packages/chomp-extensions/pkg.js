@@ -26,7 +26,12 @@ Chomp.registerTemplate(
     return [
       {
         name: task.name,
-        deps: [...task.deps, `${task.name}:dts`, `${task.name}:js`],
+        deps: [...task.deps, `${task.name}:pkg`],
+        serial: task.serial,
+      },
+      {
+        name: `${task.name}:pkg`,
+        deps: [`${task.name}:dts`, `${task.name}:js`, `${task.name}:jsx`],
       },
       {
         name: `${task.name}:clean`,
@@ -47,6 +52,16 @@ Chomp.registerTemplate(
         display: DISPLAY,
         target: `${root}/dist/##.js`,
         dep: `${root}/src/##.ts`,
+      },
+      {
+        name: `${task.name}:jsx`,
+        template: "swc",
+        templateOptions: {
+          configFile: "packages/.swcrc",
+        },
+        display: DISPLAY,
+        target: `${root}/dist/##.js`,
+        dep: `${root}/src/##.tsx`,
       },
     ];
   }

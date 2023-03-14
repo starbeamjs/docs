@@ -1,0 +1,55 @@
+%border-base {
+  border-color: var(--sbdoc-border-color);
+  border-style: var(--sbdoc-default-border-style);
+  border-width: 0;
+}
+
+%border-is-width {
+  border-inline-start-width: var(--sbdoc-border-size);
+}
+
+%border-is {
+  @extend %border-base, %border-is-width;
+}
+
+%border-ie-width {
+  border-inline-end-width: var(--sbdoc-border-size);
+}
+
+%border-id {
+  @extend %border-base, %border-ie-width;
+}
+
+%border-bs-width {
+  border-block-start-width: var(--sbdoc-border-size);
+}
+
+%border-bs {
+  @extend %border-base, %border-bs-width;
+}
+
+%border-be-width {
+  border-block-end-width: var(--sbdoc-border-size);
+}
+
+%border-be {
+  @extend %border-base, %border-be-width;
+}
+
+%border-corner-end {
+  @extend %border-base, %border-ie-width, %border-be-width;
+}
+
+/**
+ * %border is used to apply the default border styles
+ *
+ * @param {size} sbc-local-border-color - The color of the border
+ * @param {size} [sbc-local-border-size] - The size of the border
+ */
+%border {
+  @extend %border-base,
+    %border-is-width,
+    %border-ie-width,
+    %border-bs-width,
+    %border-be-width;
+}

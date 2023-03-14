@@ -194,23 +194,23 @@ const D2Plugin: PluginWithOptions<D2Options> = (
           return default_render(`<img src="${output}">`, parsed);
         } else {
           console.group("code");
-          console.log(code);
+          console.debug(code);
           console.groupEnd();
 
           console.group("original");
-          console.log(original);
+          console.debug(original);
           console.groupEnd();
           return `<pre class='error'>${result.stderr}</pre>`;
         }
       } catch (e) {
         console.group("code");
-        console.log(code);
+        console.debug(code);
         console.groupEnd();
 
         console.group("original");
-        console.log(original);
+        console.debug(original);
         console.groupEnd();
-        console.log(e);
+        console.error(e);
         return `<pre class='error'>${String(e as ExecaError)}</pre>`;
       }
       // const render_f = opts

@@ -92,8 +92,9 @@ function _objectSpreadProps(target, source) {
 }
 import "@mdit-vue/plugin-sfc";
 import { mapEntries } from "@wycatsjs/utils";
-import { HTML, If } from "./nodes.js";
-import { Tokens, text } from "./tokens.js";
+import { El, If } from "./nodes.js";
+import { ParagraphElement, text, CustomBuiltin, BasicFragment } from "./tokens.js";
+export const CUSTOM_EL = "CustomBlock";
 var _content = /*#__PURE__*/ new WeakMap();
 export class UnparsedContent {
     static of(content) {
@@ -104,7 +105,7 @@ export class UnparsedContent {
     }
     render(tokens) {
         if (_classPrivateFieldGet(this, _content)) {
-            return tokens.parse(_classPrivateFieldGet(this, _content));
+            return tokens.html(_classPrivateFieldGet(this, _content));
         }
         return tokens;
     }
@@ -119,14 +120,16 @@ export class UnparsedContent {
 var _config = /*#__PURE__*/ new WeakMap(), _renderFn = /*#__PURE__*/ new WeakMap(), _defaultTitle = /*#__PURE__*/ new WeakMap();
 class Builtin {
     render(options) {
-        const tokens = _classPrivateFieldGet(this, _renderFn).call(this, _objectSpreadProps(_objectSpread({}, options), {
-            tokens: Tokens.empty(options.md)
+        const result = _classPrivateFieldGet(this, _renderFn).call(this, _objectSpreadProps(_objectSpread({}, options), {
+            define: new CustomBuiltin(options.md)
         }));
-        if (Array.isArray(tokens)) {
-            return tokens;
+        const fragment = BasicFragment.empty(options.md);
+        if (Array.isArray(result)) {
+            fragment.push(...result);
         } else {
-            return tokens.tokens;
+            fragment.push(result);
         }
+        return fragment.done();
     }
     constructor(config){
         _classPrivateFieldInit(this, _renderFn, {
@@ -145,29 +148,48 @@ class Builtin {
     }
 }
 function get_renderFn() {
-    if ("render" in _classPrivateFieldGet(this, _config)) {
+    var _classPrivateFieldGet_colors, _classPrivateFieldGet_colors1, _classPrivateFieldGet_colors2;
+    if (typeof _classPrivateFieldGet(this, _config) === "object" && "render" in _classPrivateFieldGet(this, _config)) {
         return _classPrivateFieldGet(this, _config).render;
     }
+    const defaultBg = "var(--sbdoc-default-block-bg)";
+    const defaultFg = "var(--sbdoc-default-block-fg)";
+    var _classPrivateFieldGet_colors_bg;
+    const bgcolor = (_classPrivateFieldGet_colors_bg = (_classPrivateFieldGet_colors = _classPrivateFieldGet(this, _config).colors) === null || _classPrivateFieldGet_colors === void 0 ? void 0 : _classPrivateFieldGet_colors.bg) !== null && _classPrivateFieldGet_colors_bg !== void 0 ? _classPrivateFieldGet_colors_bg : defaultBg;
+    var _classPrivateFieldGet_colors_fg;
+    const fgcolor = (_classPrivateFieldGet_colors_fg = (_classPrivateFieldGet_colors1 = _classPrivateFieldGet(this, _config).colors) === null || _classPrivateFieldGet_colors1 === void 0 ? void 0 : _classPrivateFieldGet_colors1.fg) !== null && _classPrivateFieldGet_colors_fg !== void 0 ? _classPrivateFieldGet_colors_fg : defaultFg;
+    var _classPrivateFieldGet_colors_border;
+    const border = (_classPrivateFieldGet_colors_border = (_classPrivateFieldGet_colors2 = _classPrivateFieldGet(this, _config).colors) === null || _classPrivateFieldGet_colors2 === void 0 ? void 0 : _classPrivateFieldGet_colors2.border) !== null && _classPrivateFieldGet_colors_border !== void 0 ? _classPrivateFieldGet_colors_border : fgcolor;
+    console.log({
+        config: _classPrivateFieldGet(this, _config),
+        bgcolor
+    });
     return ({ md , kind , title: providedTitle , content  })=>{
         var _classPrivateFieldGet1;
         const title = providedTitle.withDefault((_classPrivateFieldGet1 = _classPrivateFieldGet(this, _defaultTitle)) !== null && _classPrivateFieldGet1 !== void 0 ? _classPrivateFieldGet1 : undefined);
-        return Tokens.empty(md).el("div", {
+        return ParagraphElement.tag(CUSTOM_EL, md).attrs({
             class: [
-                "custom-block",
                 kind
-            ]
-        }, [
-            If(title, (title, tokens)=>tokens.el("p", {
-                    class: "custom-block-title"
-                }, [
-                    title
-                ])),
-            content
-        ]).tokens;
+            ],
+            style: `--sbdoc-local-bg: ${bgcolor}; --sbdoc-local-fg: ${fgcolor}; --sbdoc-local-border-color: ${border};`
+        }).append(If(title, (title)=>El("p", {
+                class: "custom-block-title"
+            }, [
+                title
+            ]))).append(content);
     };
+//   { class: [kind] }, [
+//     If(title, (title, tokens) =>
+//       tokens.el("p", { class: "custom-block-title" }, [
+//         title,
+//       ])
+//     ),
+//     content,
+//   ]).tokens;
+// };
 }
 function get_defaultTitle() {
-    if ("defaultTitle" in _classPrivateFieldGet(this, _config) && typeof _classPrivateFieldGet(this, _config).defaultTitle === "string") {
+    if (typeof _classPrivateFieldGet(this, _config) === "object" && "defaultTitle" in _classPrivateFieldGet(this, _config) && typeof _classPrivateFieldGet(this, _config).defaultTitle === "string") {
         return _classPrivateFieldGet(this, _config).defaultTitle;
     }
 }
@@ -188,6 +210,26 @@ export class Title {
     }
     render(tokens) {
         return tokens.append(text(String(this)));
+    }
+    isBlank() {
+        return _classPrivateFieldGet(this, _provided) === false;
+    }
+    map(callback) {
+        const title = String(this);
+        if (title === "") {
+            return null;
+        } else {
+            return callback(title);
+        }
+    }
+    exists() {
+        if (_classPrivateFieldGet(this, _provided) === false) {
+            return false;
+        } else if (_classPrivateFieldGet(this, _provided) === undefined) {
+            return _classPrivateFieldGet(this, _default) !== undefined;
+        } else {
+            return true;
+        }
     }
     get provided() {
         return _classPrivateFieldGet(this, _provided);
@@ -226,36 +268,24 @@ export class Builtins {
                 new Builtin(config)
             ]));
     }
-    register(name, config) {
-        function normalize() {
-            if (typeof config === "string") {
-                return {
-                    defaultTitle: config
-                };
-            } else if (typeof config === "function") {
-                return {
-                    render: config
-                };
-            } else if (config === undefined) {
-                return {
-                    defaultTitle: name.toUpperCase()
-                };
-            } else {
-                return config;
-            }
-        }
+    custom(name, render) {
         return new Builtins(_objectSpreadProps(_objectSpread({}, _classPrivateFieldGet(this, _builtins)), {
-            [name]: new Builtin(normalize())
+            [name]: new Builtin({
+                render
+            })
+        }));
+    }
+    basic(name, config) {
+        var _config_defaultTitle;
+        const defaultTitle = typeof config === "string" ? config : (_config_defaultTitle = config === null || config === void 0 ? void 0 : config.defaultTitle) !== null && _config_defaultTitle !== void 0 ? _config_defaultTitle : name.toLocaleUpperCase();
+        return new Builtins(_objectSpreadProps(_objectSpread({}, _classPrivateFieldGet(this, _builtins)), {
+            [name]: new Builtin(_objectSpreadProps(_objectSpread({}, typeof config === "string" ? {} : config), {
+                defaultTitle
+            }))
         }));
     }
     tryGet(name) {
-        if (name in _classPrivateFieldGet(this, _builtins)) {
-            return _classPrivateFieldGet(this, _builtins)[name];
-        } else {
-            return new Builtin({
-                render: ({ tokens , md  })=>tokens.append(HTML(md.error(`Unknown builtin: ${name}`)))
-            });
-        }
+        return _classPrivateFieldGet(this, _builtins)[name];
     }
     get(name) {
         return _classPrivateFieldGet(this, _builtins)[name];

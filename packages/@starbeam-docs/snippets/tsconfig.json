@@ -12,6 +12,9 @@
     "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
     "allowJs": true,
+    "jsx": "preserve",
+    "types": ["@vue/runtime-dom", "node"],
+
     "paths": {
       "node_modules/vue-sfc2esm/lib/vue-sfc2esm.esm.js": [
         "./node_modules/vue-sfc2esm/lib/vue-sfc2esm.d.ts"

@@ -7,8 +7,6 @@ export const modules = Object.fromEntries(
   ])
 );
 
-console.log({ modules });
-
 function normalize(path: string) {
   return path
     .replace("../../code/", "")

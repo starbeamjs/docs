@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import DefaultTheme from "vitepress/theme";
 import { onMounted, ref, watch } from "vue";
-import { STORAGE } from "../packages/vitepress-snippets/src/lang.js";
+import { STORAGE } from "@starbeam-docs/snippets";
 
 const { Layout } = DefaultTheme;
 

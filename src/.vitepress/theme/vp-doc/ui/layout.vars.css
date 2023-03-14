@@ -1,0 +1,16 @@
+@def-vars {
+  --sbdoc-ui-inner-padding: 1rem;
+  --sbdoc-ui-inner-padding-sm: calc(
+    var(--sbdoc-ui-inner-padding) / var(--sb-ratio) / var(--sb-ratio)
+  );
+  --sbdoc-ui-inner-padding-xsm: calc(
+    var(--sbdoc-ui-inner-padding-sm) / var(--sb-ratio)
+  );
+  --sbdoc-ui-inline-padding: var(--sbdoc-ui-inner-padding-xsm);
+
+  --sbdoc-ui-layer-index-bg-base: 98;
+  --sbdoc-ui-layer-index-bg-decor: 99;
+  --sbdoc-ui-layer-index-normal: 100;
+  --sbdoc-ui-layer-index-hud: 101;
+  --sbdoc-ui-layer-index-popover: 102;
+}

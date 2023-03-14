@@ -1,0 +1,27 @@
+/**
+ * If `sbdoc-local-size-multiple` is supplied, all other sizes (including
+ * defaults) will be multiplied by `sbdoc-local-size-multiple`.
+ * 
+ * @param {size} [sbdoc-local-line-height = sbdoc-line-height]
+ * @params {to %inline} ...rest
+ */
+%paragraph {
+  @extend %inline;
+  --sbdoc-internal-multiple: var(--sbdoc-local-size-multiple, 1);
+}
+
+/**
+ * If `sbdoc-local-size-multiple` is supplied, all other sizes (including
+ * defaults) will be multiplied by `sbdoc-local-size-multiple`.
+ * 
+ * @param {size} [sbdoc-local-size-multiple = 1]
+ * @param {size} [sbdoc-local-font-size = sbdoc-font-size]
+ */
+%inline {
+  --sbdoc-internal-multiple: var(--sbdoc-local-size-multiple, 1);
+  font-family: var(--sbdoc-local-font-family, var(--sbdoc-font-body));
+  font-size: var(
+    --sbdoc-local-font-size,
+    calc(var(--sbdoc-font-size) * var(--sbdoc-internal-multiple))
+  );
+}

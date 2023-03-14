@@ -1,51 +1,68 @@
 import Token from "markdown-it/lib/token.js";
-import { Tokens, type Child, type LazyChild } from "./tokens.js";
+import {
+  MarkdownFragment,
+  type Child,
+  type LazyChild,
+} from "./tokens.js";
 
 export type Falsy = null | undefined | false | 0 | "";
 
 export function Fragment(...children: Child[]): LazyChild {
   return {
-    render: (tokens: Tokens) => tokens.append(...children),
+    render: (fragment) => fragment.push(...children),
   };
 }
 
-export function El(...args: Parameters<Tokens["el"]>): LazyChild {
+export function El(
+  ...args: Parameters<MarkdownFragment["el"]>
+): LazyChild {
   return {
-    render: (tokens) => tokens.el(...args),
+    render: (fragment) => fragment.el(...args),
   };
 }
 
-export function Do(then: () => Rendered): LazyChild {
+export function HtmlEl(
+  ...args: Parameters<MarkdownFragment["el"]>
+): LazyChild {
   return {
-    render: (tokens) => render(tokens, then),
+    render: (fragment) => fragment.htmlEl(...args),
+  };
+}
+
+export function Do(then: () => LazyChild[]): LazyChild {
+  return {
+    render: (fragment) => render(fragment, then()),
   };
 }
 
 export function Let<T>(
   values: T,
-  then: (values: T) => Tokens | Child[]
+  then: (values: T) => LazyChildren
 ): LazyChild {
   return {
-    render: (tokens) => {
-      return render(tokens, () => then(values));
-    },
+    render: (fragment) => render(fragment, then(values)),
   };
 }
 
 export function If<T>(
   condition: T,
-  then: (value: Exclude<T, Falsy>, tokens: Tokens) => Tokens | Child[],
-  options?: { else: (tokens: Tokens) => Tokens | Child[] }
+  then: (value: Exclude<T, Falsy>) => LazyChildren,
+  options?: {
+    else: () => LazyChildren;
+  }
 ): LazyChild {
   return {
-    render: (tokens) => {
-      return render(tokens, (): Rendered | void => {
-        if (condition) {
-          return then(condition as Exclude<T, Falsy>, tokens);
-        } else if (options?.else) {
-          return options.else(tokens);
-        }
-      });
+    render: (fragment) => {
+      if (condition) {
+        return render(
+          fragment,
+          then(condition as Exclude<T, Falsy>)
+        );
+      } else if (options?.else) {
+        return render(fragment, options.else());
+      } else {
+        return fragment;
+      }
     },
   } satisfies LazyChild;
 }
@@ -58,12 +75,18 @@ export function HTML(value: string): LazyChild {
   };
 }
 
-type Rendered = Tokens | Child[] | void;
+export type LazyChildren = LazyChild | LazyChild[];
 
-function render(tokens: Tokens, callback: () => Rendered): Tokens {
-  const children = callback();
+function render(
+  fragment: MarkdownFragment,
+  children: LazyChildren
+): MarkdownFragment {
   if (Array.isArray(children)) {
-    return tokens.append(...children);
+    for (const child of children) {
+      child.render(fragment);
+    }
+  } else {
+    children.render(fragment);
   }
-  return tokens;
+  return fragment;
 }

@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "dist": "./tsdist/react",
     "jsx": "preserve"
   },
   "files": ["**/*.tsx"],

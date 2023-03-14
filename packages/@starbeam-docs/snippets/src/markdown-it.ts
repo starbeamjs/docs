@@ -5,7 +5,7 @@ import Snippet, {
   type Highlight,
   type Region,
 } from "docs-snippet";
-import { existsSync, readFileSync } from "fs";
+import { existsSync, readFileSync } from "node:fs";
 import type MarkdownIt from "markdown-it";
 import stripAnsi from "strip-ansi";
 import type { VitepressStateBlock } from "./env.js";
@@ -210,7 +210,7 @@ function highlightRegion({
   }).highlight(state.highlight);
 
   if (region.ts.code === region.js.code) {
-    return `<section class="both-lang">${tsFenced}</section>`;
+    return `<section class="both-lang code-block">${tsFenced}</section>`;
   }
 
   const jsFenced = RenderLanguageRegion.create({
@@ -238,7 +238,7 @@ function highlight(
   });
 
   if (region.ts.code === region.js.code) {
-    return `<section class="both-lang">${tsFenced}</section>`;
+    return `<section class="both-lang code-block">${tsFenced}</section>`;
   }
 
   const jsFenced = highlightLang(state, {
@@ -274,8 +274,6 @@ function highlightLang(
     highlights && highlights.length > 0
       ? `{${highlights.map((h) => h.lines).join(",")}}`
       : "";
-
-  console.log({ filename });
 
   const output = [];
 

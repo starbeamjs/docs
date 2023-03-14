@@ -1,5 +1,5 @@
 import type { TwoSlashReturn } from "@typescript/twoslash";
-import { runTwoSlash, UserConfigSettings } from "shiki-twoslash";
+import { runTwoSlash, type UserConfigSettings } from "shiki-twoslash";
 
 import { createHash } from "crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -10,8 +10,6 @@ import { fileURLToPath } from "url";
 const require = createRequire(import.meta.url);
 
 const shikiVersion = require("@typescript/twoslash/package.json").version;
-
-interface Pnp {}
 
 class NodeModules {
   static at(path: string, pnp = !!process.versions["pnp"]) {
@@ -25,7 +23,11 @@ class NodeModules {
   readonly #root: string | undefined;
   readonly #cache: string;
 
-  private constructor(dirname: string, root: string | undefined, cache: string) {
+  private constructor(
+    dirname: string,
+    root: string | undefined,
+    cache: string
+  ) {
     this.#dirname = dirname;
     this.#root = root;
     this.#cache = cache;
@@ -48,7 +50,11 @@ class NodeModules {
   }
 }
 
-function cacheFor(pnp: boolean, nmRoot: string | undefined, dirname: string): string {
+function cacheFor(
+  pnp: boolean,
+  nmRoot: string | undefined,
+  dirname: string
+): string {
   if (pnp === false) {
     return nmCache(nmRoot, dirname);
   }
@@ -88,7 +94,6 @@ export const cachedTwoslashCall = (
 ): TwoSlashReturn | undefined => {
   const isWebWorker =
     typeof self !== "undefined" &&
-    // @ts-expect-error
     typeof self.WorkerGlobalScope !== "undefined";
   const isBrowser =
     isWebWorker ||
@@ -109,7 +114,8 @@ export const cachedTwoslashCall = (
   const cachePath = join(cacheRoot, `${codeSha}.json`);
 
   if (false && existsSync(cachePath)) {
-    if (process.env["debug"]) console.log(`Using cached twoslash results from ${cachePath}`);
+    if (process.env["debug"])
+      console.debug(`Using cached twoslash results from ${cachePath}`);
 
     return JSON.parse(readFileSync(cachePath, "utf8"));
   } else {

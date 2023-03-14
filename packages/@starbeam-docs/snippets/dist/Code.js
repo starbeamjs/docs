@@ -1,60 +1,8 @@
-function _defineProperty(obj, key, value) {
-    if (key in obj) {
-        Object.defineProperty(obj, key, {
-            value: value,
-            enumerable: true,
-            configurable: true,
-            writable: true
-        });
-    } else {
-        obj[key] = value;
-    }
-    return obj;
-}
-function _objectSpread(target) {
-    for(var i = 1; i < arguments.length; i++){
-        var source = arguments[i] != null ? arguments[i] : {};
-        var ownKeys = Object.keys(source);
-        if (typeof Object.getOwnPropertySymbols === 'function') {
-            ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
-                return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-            }));
-        }
-        ownKeys.forEach(function(key) {
-            _defineProperty(target, key, source[key]);
-        });
-    }
-    return target;
-}
-function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-    if (Object.getOwnPropertySymbols) {
-        var symbols = Object.getOwnPropertySymbols(object);
-        if (enumerableOnly) {
-            symbols = symbols.filter(function(sym) {
-                return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-            });
-        }
-        keys.push.apply(keys, symbols);
-    }
-    return keys;
-}
-function _objectSpreadProps(target, source) {
-    source = source != null ? source : {};
-    if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-        ownKeys(Object(source)).forEach(function(key) {
-            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-    }
-    return target;
-}
-import { defineComponent, h } from "vue";
+import { createVNode as _createVNode } from "vue";
+import { defineComponent } from "vue";
 import { onMounted, ref } from "vue";
 import { STORAGE } from "./lang.js";
-import { codeSnippet } from "./Code.css.js";
-const ID = "KVEWS96Xs";
+import { codeSnippet, toggler as togglerClass, section as sectionClass, js as jsClass, ts as tsClass } from "./Code.css.js";
 export default defineComponent({
     setup (_, { slots  }) {
         const js = ref();
@@ -66,27 +14,27 @@ export default defineComponent({
         onMounted(()=>{
             mountElements(ts, js, container);
         });
-        return h("section", {
-            class: [
-                STORAGE.currentLang,
-                "section",
-                "code-snippet",
-                codeSnippet
-            ],
-            ref: container
-        }, [
-            toggler(),
-            ...langSlots(slots, {
-                ts,
-                js
-            })
-        ]);
+        return ()=>_createVNode("section", {
+                "class": [
+                    langClass(STORAGE.currentLang),
+                    "code-block",
+                    sectionClass,
+                    codeSnippet
+                ],
+                "ref": container
+            }, [
+                toggler(),
+                langSlots(slots, {
+                    ts,
+                    js
+                })
+            ]);
     }
 });
 function toggler() {
-    return h("p", a({
-        class: "toggler"
-    }), [
+    return _createVNode("section", {
+        "class": togglerClass
+    }, [
         langButton("js"),
         langButton("ts")
     ]);
@@ -100,36 +48,32 @@ function langSlots(slots, refs) {
 function langSlot(slots, lang, ref) {
     const slot = slots[lang];
     if (slot) {
-        return h("div", a({
-            class: lang,
-            ref
-        }), [
+        return _createVNode("div", {
+            "class": langClass(lang),
+            "ref": ref
+        }, [
             slot()
         ]);
     }
 }
 function langButton(lang) {
-    return h("button", a({
-        type: "button",
-        class: [
+    return _createVNode("button", {
+        "type": "button",
+        "class": [
             "toggler-button",
-            lang
+            langClass(lang)
         ],
-        onClick: ()=>{
-            STORAGE.lang = "ts";
+        "onClick": ()=>{
+            console.info("clicked", lang);
+            STORAGE.lang = lang;
         }
-    }), [
+    }, [
         lang
     ]);
 }
-function a(attrs) {
-    return _objectSpreadProps(_objectSpread({}, attrs), {
-        "data-id": ID
-    });
-}
 function createToggler() {
-    const toggler = document.createElement("p");
-    toggler.className = "toggler";
+    const toggler = document.createElement("section");
+    toggler.className = togglerClass;
     return toggler;
 }
 function label(text) {
@@ -140,7 +84,6 @@ function label(text) {
 function button(text, callback) {
     const button = document.createElement("button");
     button.setAttribute("type", "button");
-    button.className = "toggler-button3";
     button.innerText = text;
     button.addEventListener("click", callback);
     return button;
@@ -175,6 +118,7 @@ function mountElements(ts, js, container) {
     });
     // TODO: Generate the right markdown
     onMounted(()=>{
+        let x = 1;
         for (const item of container.value.querySelectorAll("code[class^=language-]")){
             assert(item.parentElement, exists);
             item.parentElement.classList.add("code-container");
@@ -192,6 +136,9 @@ function assert(value, check) {
 }
 function exists(value) {
     return value !== null && value !== undefined;
+}
+function langClass(lang) {
+    return lang === "ts" ? tsClass : jsClass;
 }
 
 

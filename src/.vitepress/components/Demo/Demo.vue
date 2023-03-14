@@ -28,9 +28,6 @@ const { config, size = 160 } = defineProps<{
   };
 }>();
 
-const height = `${size}px`;
-console.log({ height });
-
 const info = useData();
 const data = useData().frontmatter as Ref<StarbeamFrontmatter>;
 

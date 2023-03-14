@@ -3,6 +3,7 @@
   $green: 162;
   $yellow: 86;
   $red: 16;
+  $orange: 70;
   $blue: 240;
   $neutral: 285;
   $highlight: 107;
@@ -11,6 +12,7 @@
   $chroma-soft: 0.15;
   $chroma-softer: 0.1;
   $chroma-muted: 0.05;
+  $chroma-ultramuted: 0.02;
   $chroma-pure: 0;
   $chroma-vivid: 0.25;
   $chroma-vibrant: 0.3;
@@ -27,6 +29,7 @@
 
     --sb-bg-$(name): oklch(var(--bglt) $chroma $hue);
     --sb-bg-$(name)-muted: oklch(var(--bglt-strongest) $chroma-muted $hue);
+    --sb-bg-$(name)-ultramuted: oklch(var(--bglt-max) $chroma-ultramuted $hue);
 
     --sb-bg-$(name)-dim: oklch(var(--bglt-dim) $chroma-soft $hue);
     --sb-bg-$(name)-dimmer: oklch(var(--bglt-dimmer) $chroma-softer $hue);
@@ -87,11 +90,16 @@
     --vp-c-neutral-inverse: oklch(
       var(--bglt-max) $chroma-muted $neutral / var(--alpha-max)
     );
+
+    --sb-code-block-bg: oklch(var(--bglt-strongest) $chroma-muted $theme);
+    --vp-code-block-bg: var(--sb-code-block-bg);
+    --vp-code-block-bg-light: oklch(var(--bglt-max) $chroma-muted $theme);
   }
 
   @define-mixin scheme {
     @mixin colors theme, $theme;
     @mixin colors red, $red;
+    @mixin colors orange, $orange;
     @mixin colors green, $green;
     @mixin colors yellow, $yellow;
     @mixin colors blue, $blue;

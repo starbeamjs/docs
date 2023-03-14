@@ -16,7 +16,7 @@ const size = PageSize({
 });
 
 watch(size, (size) => {
-  console.log({ size });
+  console.debug({ size });
 });
 
 function renderTab(slotName: string, slot: Slot): { vdom: VNode[]; info: TabInfo } {
@@ -86,7 +86,7 @@ const renderedSlots = computed((): { Panes: () => VNode[]; infos: TabInfo[] } =>
       );
     }
 
-    console.log({ Panes: () => panes, switchers: infos });
+    console.debug({ Panes: () => panes, switchers: infos });
     return { Panes: () => panes, infos };
   }
 });

@@ -1,8 +1,8 @@
 # Our Guiding Principle
 
 ```md em title=null
-**We believe that reactive programming should feel exactly like
-regular programming.**
+We believe that reactive programming should feel exactly like
+regular programming.
 ```
 
 Reactive UI frameworks have a way of describing reactive inputs

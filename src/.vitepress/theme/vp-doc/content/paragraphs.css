@@ -1,0 +1,77 @@
+@custom-selector :--content-block p, .content-block;
+/** TODO: Don't use a p for custom-block-title */
+@custom-selector :--paragraph p:not(.custom-block-title);
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
+@using content {
+  @extend %font;
+
+  p,
+  summary,
+  blockquote {
+    --sbdoc-local-fg: var(--vp-c-text-1);
+    margin: initial;
+  }
+
+  :top {
+    display: grid;
+    row-gap: var(--sbdoc-font-size);
+  }
+
+  :top(:not(:--header)) {
+    margin-block: 0;
+  }
+
+  :top(aside > :not(:--header)) {
+    margin-block: 0;
+  }
+
+  :--paragraph {
+    @extend %font;
+    /* line-height: inherit; */
+  }
+
+  aside {
+    display: contents;
+  }
+
+  summary {
+    margin-block: 0;
+  }
+
+  p {
+    @extend %paragraph;
+  }
+
+  blockquote {
+    padding-left: initial;
+    /* --sbdoc-local-font-size: 20px; */
+    /* border-left: 2px solid var(--vp-c-divider); */
+    /* padding-left: 16px; */
+    transition: border-color 0.5s;
+  }
+
+  blockquote > p {
+    color: inherit;
+    /* @extend %paragraph; */
+    /* --sbdoc-local-font-size: calc(var(--sbdoc-font-size) * 1.4); */
+    /* font-size: var(--sbdoc-local-font-size); */
+
+    transition: color 0.5s;
+  }
+
+  a {
+    font-weight: 500;
+    color: var(--vp-c-brand);
+    text-decoration-style: dotted;
+    transition: color 0.25s;
+  }
+
+  a:hover {
+    color: var(--vp-c-brand-dark);
+  }
+
+  strong {
+    font-weight: 600;
+  }
+}

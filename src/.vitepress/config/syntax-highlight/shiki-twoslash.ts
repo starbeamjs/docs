@@ -53,7 +53,9 @@ export function runTwoSlashOnNode(
   // Offer a way to do high-perf iterations, this is less useful
   // given that we cache the results of twoslash in the file-system
   const shouldDisableTwoslash =
-    typeof process !== "undefined" && process.env && !!process.env["TWOSLASH_DISABLE"];
+    typeof process !== "undefined" &&
+    process.env &&
+    !!process.env["TWOSLASH_DISABLE"];
   if (shouldDisableTwoslash) return undefined;
 
   // Only run twoslash when the meta has the attribute twoslash
@@ -86,16 +88,23 @@ function getHTML(
   // Support 'twoslash' includes
   if (fence.lang === "twoslash") {
     if (!fence.meta["include"] || typeof fence.meta["include"] !== "string") {
-      throw new Error("A twoslash code block needs a pragma like 'twoslash include [name]'");
+      throw new Error(
+        "A twoslash code block needs a pragma like 'twoslash include [name]'"
+      );
     }
 
     addIncludes(includes, fence.meta["include"] as string, code);
-    results = twoslashSettings.wrapFragments ? `<div class="shiki-twoslash-fragment"></div>` : "";
+    results = twoslashSettings.wrapFragments
+      ? `<div class="shiki-twoslash-fragment"></div>`
+      : "";
   } else {
     // All good, get each highlighter and render the shiki output for it
     const output = highlighters.map((highlighter) => {
       // @ts-ignore
-      const themeName: string = highlighter.customName.split("/").pop().replace(".json", "");
+      const themeName: string = highlighter.customName
+        .split("/")
+        .pop()
+        .replace(".json", "");
       return renderCodeToHTML(
         code,
         fence.lang,

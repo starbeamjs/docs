@@ -36,7 +36,7 @@ class EsmShTypes {
     const ts = response.headers.get("x-typescript-types");
 
     if (ts) {
-      console.log("found", `${pkg}@${version}`, ts);
+      console.info("found", `${pkg}@${version}`, ts);
     } else {
       console.warn("not found", `${pkg}@${version}`);
     }

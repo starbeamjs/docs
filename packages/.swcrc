@@ -2,8 +2,12 @@
   "$schema": "https://json.schemastore.org/swcrc.json",
   "jsc": {
     "target": "es2022",
+    "experimental": {
+      "plugins": [["swc-plugin-vue-jsx", {}]]
+    },
     "parser": {
       "syntax": "typescript",
+      "tsx": true,
       "decorators": false,
       "dynamicImport": true
     },
