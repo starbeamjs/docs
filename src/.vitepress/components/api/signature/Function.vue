@@ -36,7 +36,7 @@ const signature = tokens()
     t.add("param", name).if(type.isOptional, "?").if(!isLast, ", ")
   )
   .add("): ")
-  .add("type", props.fn.ret.name)
+  .add("return", props.fn.ret.name)
   .add(";");
 </script>
 
@@ -91,8 +91,8 @@ const signature = tokens()
 
           <Def v-if="ret.name !== 'void'">
             <template #entry>
-              <EntryTag>returns</EntryTag>
-              <Type>{{ ret.name }}</Type>
+              <EntryTag class="starbeam-return">returns</EntryTag>
+              <Type class="starbeam-return">{{ ret.name }}</Type>
             </template>
             <template #definition>
               <Docs>{{ ret.docs }}</Docs>

@@ -5,10 +5,10 @@
 
 @using content {
   :top {
-    --sbdoc-line-height: calc(1.4 * var(--sbdoc-up));
     line-height: var(--sbdoc-line-height);
-    --sbdoc-default-fg: var(--vp-c-text-1);
-    --sbdoc-default-block-bg: var(--vp-c-bg-alt);
+    --sbdoc-local-accent-fg: var(--sb-fg-gray-stronger);
+    --sbdoc-local-accent-bg: var(--sb-bg-gray-ultramuted);
+    --sbdoc-local-accent-border: var(--sb-fg-gray-muted);
   }
 
   @section annotations {

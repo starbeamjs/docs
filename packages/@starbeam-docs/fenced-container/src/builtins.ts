@@ -36,9 +36,11 @@ const BUILTINS = Builtins.empty()
       CUSTOM_EL,
       {
         class: ["lightbulb"],
-        border: "nw",
+        border: "se",
         ":style": encode({
           "--sbdoc-local-border-color": "var(--sb-fg-yellow)",
+          "--sbdoc-local-fg": "var(--sb-fg-yellow)",
+          "--sbdoc-local-bg": "var(--sb-bg-yellow-ultramuted)",
         }),
       },
       [title, content]

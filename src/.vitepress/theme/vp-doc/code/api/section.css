@@ -1,4 +1,4 @@
-.VPDoc {
+@using content {
   span.codicon[class*="codicon-"] {
     display: grid;
     grid-template-columns: max-content 0.3em;
@@ -30,6 +30,11 @@
         margin: 0 0 0 var(--sb-gap);
       }
     }
+  }
+
+  section.api-notes {
+    display: grid;
+    row-gap: var(--sbdoc-font-size);
   }
 
   section {
@@ -70,10 +75,11 @@
 
     &.card {
       display: grid;
+      row-gap: var(--sbdoc-font-size);
       padding: 1.3em 1em;
       border-radius: 4px;
-      box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
-        0 1px 3px 0 rgb(0 0 0 / 12%);
+      box-shadow: 0 2px 1px -1px rgb(0 0 0 / 40%), 0 1px 1px 0 rgb(0 0 0 / 20%),
+        0 1px 5px 0 rgb(0 0 0 / 18%);
       border: 1px solid var(--vp-c-divider-light);
 
       :first-child {

@@ -7,7 +7,6 @@
 @import "./vars.postcss";
 @import "./text/typography.postcss";
 @import "./static/index.postcss";
-@import "./diagram.postcss";
 @import "./icons.postcss";
 
 :root,

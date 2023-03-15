@@ -14,7 +14,7 @@ import Language from "../components/code/Language.vue";
 import { Code } from "@starbeam-docs/snippets";
 import { CustomBlock } from "@starbeam-docs/custom-block";
 import Layout from "./Layout.vue";
-import "./index.postcss";
+import "./index.css";
 import "./static/lch.postcss";
 
 export default {

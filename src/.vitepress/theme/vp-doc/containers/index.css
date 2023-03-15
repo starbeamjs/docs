@@ -49,10 +49,11 @@
     .content-block {
       &.tip,
       &.info,
-      &.warning {
+      &.warning,
+      &.lightbulb {
         background-color: var(--sbdoc-local-bg);
         color: var(--sbdoc-local-fg);
-        border: var(--sbdoc-border-size) solid var(--sbdoc-local-border-color);
+        border-color: var(--sbdoc-local-border-color);
       }
     }
 

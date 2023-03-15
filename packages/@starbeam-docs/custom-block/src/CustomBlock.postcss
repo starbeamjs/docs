@@ -15,10 +15,12 @@
 
   .custom-block:not(:has(details)) {
     display: grid;
-    grid-template-columns: var(--sb-ui-padding-inline) min-content 1fr var(--sb-ui-padding-inline);
+    grid-template-columns: var(--sbdoc-ui-inner-padding) min-content 1fr var(
+        --sbdoc-ui-inner-padding
+      );
     align-items: first baseline;
     row-gap: var(--sbdoc-font-size);
-    padding-block: 0;
+    padding-block: var(--sbdoc-ui-inner-padding);
     border-radius: var(--sb-radius);
     border-width: 0;
     border-style: solid;
@@ -34,14 +36,6 @@
       border-radius: 0;
       background-color: var(--sbdoc-local-bg);
     }
-  }
-
-  .custom-block.north {
-    padding-block-start: var(--sb-ui-padding-inline);
-  }
-
-  .custom-block.south {
-    padding-block-end: var(--sb-ui-padding-inline);
   }
 
   .custom-block:not(.north) > :first-child {

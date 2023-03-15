@@ -400,31 +400,14 @@ The cool thing about adding reactive outputs to our program is
 that they don't change the data flow that we saw way back when we
 were talking about data-oriented programming.
 
-```lifecycle {BT}
-subgraph inputs [Reactive Inputs]
-  subgraph person [Person]
-    name[Name]
-    location[Location]
-    subgraph contact [Contact]
-      home[Home]
-      work[Work]
-    end
-  end
-end
-subgraph output [Reactive Output]
-  contactCard(Contact Card)
-end
-subgraph functions [Functions]
-  display(display)
-  displayPhone(displayPhone)
-end
-output--calls-->display
-display--reads-->name
-display--reads-->location
-display--reads-->contact
-display--calls-->displayPhone
-displayPhone--reads-->home
-displayPhone--reads-->work
+```md info Reactive Outputs Read Inputs
+As before, the `display` function reads the person's name,
+location and information from their contacts.
+
+Even though we used the same `display` function we wrote when we
+_weren't thinking about reactivity_ at all, the output
+automatically updates when the input changes, and only when the
+input changes.
 ```
 
 A **reactive** output is responsible for a piece of the "real

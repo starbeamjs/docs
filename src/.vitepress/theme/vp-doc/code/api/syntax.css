@@ -14,6 +14,107 @@ html.dark {
   --sb-fg-saturation-dim: 20%;
 }
 
+:root {
+  --sb-docs-param-color: var(--sb-fg-theme);
+}
+
+@using content {
+  section.api {
+    div.generics {
+      margin-block: 0;
+    }
+
+    dl.docs {
+      display: grid;
+      row-gap: var(--sbdoc-font-size);
+
+      > * {
+        margin-block: 0;
+      }
+
+      dd > div.docs {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        column-gap: var(--sbdoc-ui-inline-padding);
+
+        code {
+          justify-self: stretch;
+          text-align: center;
+        }
+      }
+
+      margin-block: 0;
+      .starbeam-inline.generic {
+        span.starbeam-type {
+          color: var(--sb-fg-yellow);
+        }
+      }
+
+      &:not(.generics) dd {
+        margin-inline-start: var(--sbdoc-ui-inner-padding);
+        margin-block: 0;
+
+        p {
+          font-size: calc(var(--sbdoc-font-size) * 0.95);
+          color: var(--sb-fg-theme);
+          font-weight: 200;
+          text-style: italic;
+        }
+      }
+    }
+  }
+
+  section.card div.docs {
+    display: grid;
+    row-gap: var(--sbdoc-font-size);
+  }
+
+  section.card-container {
+    h3,
+    h4 {
+      display: grid;
+      column-gap: 1ex;
+    }
+
+    .starbeam-tag {
+      font-weight: 100;
+
+      &::before {
+        content: "(";
+      }
+
+      &::after {
+        content: ")";
+      }
+    }
+
+    .starbeam-param {
+      span {
+        color: var(--sb-fg-highlight);
+      }
+    }
+
+    code.starbeam-inline {
+      &.starbeam-param {
+        &:has(.starbeam-name) {
+          background-color: var(--sb-fg-theme-ultra);
+          span {
+            color: var(--sb-fg-theme-dimmer);
+          }
+        }
+
+        &:has(.starbeam-type) {
+          background-color: var(--sb-bg-theme-muted);
+
+          span {
+            color: var(--sb-fg-theme-strong);
+          }
+        }
+      }
+    }
+  }
+}
+
 .VPDoc {
   --vp-code-font-size: 0.8rem;
   --vp-code-line-height: 1.7;
@@ -31,77 +132,111 @@ html.dark {
   code {
     span {
       display: inline-block;
-      color: hsl(
-        var(--sb-hl-hue) var(--sb-hl-saturation) var(--sb-hl-lightness)
-      );
     }
 
     &.starbeam-inline {
-      color: hsl(
-        var(--sb-hl-hue) var(--sb-hl-saturation) var(--sb-hl-lightness)
-      );
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: repeat(auto-fit, max-content);
+      align-content: center;
     }
 
     &.starbeam-inline.starbeam-bg-alt {
-      --sb-hl-lightness: var(--sb-fg-lightness);
-      --sb-hl-saturation: var(--sb-fg-saturation);
-      background-color: var(--sb-inline-light-bg-c);
-      border-color: hsl(
-        var(--sb-hl-kind-ch) var(--sb-fg-saturation) var(--sb-fg-lightness)
-      );
-      border-style: solid;
-      border-width: 1px;
+      border: 2px solid var(--sb-fg-yellow);
+
+      span {
+        color: var(--sb-fg-yellow);
+      }
     }
 
     &.starbeam-inline.starbeam-bg-light {
-      --sb-hl-lightness: var(--sb-fg-lightness-dim);
-      --sb-hl-saturation: 100%;
-      background-color: var(--sb-inline-light-bg-c);
+      background-color: var(--sb-bg-yellow-muted);
+      span {
+        color: var(--sb-fg-yellow);
+      }
+
+      &.starbeam-return {
+        background-color: var(--sb-bg-yellow-muted);
+        span {
+          color: var(--sb-fg-yellow);
+        }
+      }
+
+      .starbeam-type {
+        color: var(--sb-fg-theme-strong);
+      }
     }
 
     &.starbeam-inline.starbeam-bg-dark {
-      --sb-hl-lightness: 80%;
-      background-color: hsl(var(--sb-code-block-ch) 40% 30%);
+      background-color: var(--sb-fg-theme-ultra);
+
+      .starbeam-kind {
+        color: var(--sb-fg-theme-dimmer);
+      }
+      .starbeam-name {
+        color: var(--sb-fg-blue);
+      }
+      .starbeam-punct {
+        color: var(--sb-fg-blue-dimmer);
+      }
+      .starbeam-param {
+        color: var(--sb-fg-theme-dim);
+      }
+      .starbeam-type {
+        color: var(--sb-fg-yellow-dim);
+      }
+      .starbeam-docs {
+        color: var(--sb-fg-theme-strong);
+      }
+      .starbeam-key {
+        color: var(--sb-fg-red-dimmer);
+      }
+      .starbeam-string {
+        color: var(--sb-fg-green);
+      }
     }
 
     &.starbeam-inline.starbeam-bg-light.starbeam-optional {
       background-color: transparent;
       padding: 0;
-
-      span {
-        --sb-hl-hue: var(--sb-hl-docs-ch);
-        --sb-hl-saturation: 50%;
-        --sb-hl-lightness: 60%;
-        font-style: italic;
-      }
     }
+
+    span {
+      color: red;
+    }
+    .starbeam-return {
+      color: var(--sb-fg-yellow-dim);
+    }
+
     span.starbeam-kind {
-      --sb-hl-hue: var(--sb-hl-kind-ch);
+      color: var(--sb-fg-theme-dimmer);
     }
     span.starbeam-name {
-      --sb-hl-hue: var(--sb-hl-name-ch);
+      color: var(--sb-fg-blue);
     }
     span.starbeam-punct {
-      --sb-hl-hue: var(--sb-hl-punct-ch);
+      color: var(--sb-fg-blue-dimmer);
     }
     span.starbeam-param {
-      --sb-hl-hue: var(--sb-hl-param-ch);
+      color: var(--sb-fg-theme-dim);
     }
     span.starbeam-type {
-      --sb-hl-hue: var(--sb-hl-type-ch);
+      color: var(--sb-fg-yellow-dim);
     }
     span.starbeam-docs {
-      --sb-hl-hue: var(--sb-hl-docs-ch);
-      --sb-hl-saturation: 25%;
+      color: var(--sb-fg-theme-strong);
     }
     span.starbeam-key {
-      --sb-hl-hue: var(--sb-hl-key-ch);
+      color: var(--sb-fg-red-dimmer);
     }
     span.starbeam-string {
-      --sb-hl-hue: var(--sb-hl-string-ch);
+      color: var(--sb-fg-green);
     }
     span.starbeam-newline {
       white-space: pre;
+    }
+    span[class*="starbeam-"].dim {
+      color: var(--sb-fg-theme-strong);
     }
     span.dim {
       --sb-hl-lightness: 50%;

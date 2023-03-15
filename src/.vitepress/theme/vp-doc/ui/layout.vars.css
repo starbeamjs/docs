@@ -1,12 +1,15 @@
 @def-vars {
-  --sbdoc-ui-inner-padding: 1rem;
+  /** this is intentionally an em so it scales with the font size */
+  --sbdoc-ui-inner-padding: 1em;
   --sbdoc-ui-inner-padding-sm: calc(
     var(--sbdoc-ui-inner-padding) / var(--sb-ratio) / var(--sb-ratio)
   );
   --sbdoc-ui-inner-padding-xsm: calc(
-    var(--sbdoc-ui-inner-padding-sm) / var(--sb-ratio)
+    var(--sbdoc-ui-inner-padding-sm) / var(--sbdoc-up)
   );
-  --sbdoc-ui-inline-padding: var(--sbdoc-ui-inner-padding-xsm);
+  --sbdoc-ui-inline-padding: calc(
+    var(--sbdoc-ui-inner-padding-xsm) / var(--sbdoc-up)
+  );
 
   --sbdoc-ui-layer-index-bg-base: 98;
   --sbdoc-ui-layer-index-bg-decor: 99;

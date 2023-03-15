@@ -12,11 +12,10 @@
   em,
   strong {
     code {
+      @extend %accented;
+
       display: inline-block;
-      padding-inline: var(--sbdoc-ui-inline-padding);
-      padding-block: 0;
-      border-block: 1px solid transparent;
-      align-self: center;
+      line-height: var(--sbdoc-line-height);
     }
   }
 
@@ -24,11 +23,9 @@
     display: inline;
     line-height: var(--sbdoc-line-height);
     padding-inline: 2px;
-    code {
-      color: var(--sb-fg-yellow-strong);
-      background-color: var(--sb-bg-yellow-ultramuted);
-      border: 1px solid var(--sb-fg-yellow-dim);
-    }
+    --sbdoc-local-accent-fg: var(--sb-fg-yellow-strong);
+    --sbdoc-local-accent-bg: var(--sb-bg-yellow-ultramuted);
+    --sbdoc-local-accent-border: var(--sb-fg-yellow-muted);
   }
 
   .lang-docs.custom-block p > code {

@@ -11,6 +11,11 @@
   --sbdoc-default-line-height: calc(1.4 * var(--sbdoc-up));
 
   --sbdoc-up: 1.3;
+  --sbdoc-up2: calc(var(--sbdoc-up) * var(--sbdoc-up));
+  --sbdoc-up3: calc(var(--sbdoc-up) * var(--sbdoc-up2));
+  --sbdoc-up4: calc(var(--sbdoc-up) * var(--sbdoc-up3));
+  --sbdoc-up5: calc(var(--sbdoc-up) * var(--sbdoc-up4));
+  --sbdoc-up6: calc(var(--sbdoc-up) * var(--sbdoc-up5));
 
   /**
    * The default font family for body text.
@@ -28,6 +33,12 @@
    * The default font family for emphasized content.
    */
   --sbdoc-font-em: "Sofia Sans", sans-serif;
+
+  --sbdoc-line-height: calc(1.4 * var(--sbdoc-up));
+  --sbdoc-default-fg: var(--vp-c-text-1);
+  --sbdoc-default-block-bg: var(--vp-c-bg-alt);
+  --sbdoc-default-accent-fg: var(--sb-fg-theme-stronger);
+  --sbdoc-default-accent-bg: var(--sb-bg-theme-ultramuted);
 }
 
 @def-derived-vars {
@@ -61,4 +72,14 @@
       var(--sbdoc-default-border-color, var(--sbdoc-color-err))
     )
   );
+
+  --sbdoc-accent-fg: var(
+    --sbdoc-local-accent-fg,
+    var(--sbdoc-default-accent-fg)
+  );
+  --sbdoc-accent-bg: var(
+    --sbdoc-local-accent-bg,
+    var(--sbdoc-default-accent-bg)
+  );
+  --sbdoc-accent-border: var(--sbdoc-local-accent-border, red);
 }

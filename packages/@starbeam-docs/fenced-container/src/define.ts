@@ -154,16 +154,6 @@ class Builtin {
         )
         .append(content);
     };
-
-    //   { class: [kind] }, [
-    //     If(title, (title, tokens) =>
-    //       tokens.el("p", { class: "custom-block-title" }, [
-    //         title,
-    //       ])
-    //     ),
-    //     content,
-    //   ]).tokens;
-    // };
   }
 
   get #defaultTitle(): string | void {

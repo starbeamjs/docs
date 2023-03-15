@@ -18,17 +18,43 @@
     row-gap: var(--sbdoc-font-size);
   }
 
-  :top(:not(:--header)) {
+  :top(:not(:--heading)) {
     margin-block: 0;
   }
 
-  :top(aside > :not(:--header)) {
+  :top(aside > :not(:--heading)) {
     margin-block: 0;
   }
 
   :--paragraph {
     @extend %font;
     /* line-height: inherit; */
+  }
+
+  :--heading {
+    --sbdoc-local-accent-fg: var(--sb-fg-green-dim);
+    --sbdoc-local-accent-bg: var(--sb-bg-green-ultramuted);
+    --sbdoc-local-accent-border: var(--sb-fg-green-strong);
+    margin-block: 0;
+
+    .marker {
+      @extend %accented;
+
+      font-weight: 300;
+      font-size: 0.8em;
+    }
+  }
+
+  h1 {
+    margin-block-start: 2em;
+  }
+
+  h2 {
+    margin-block-start: calc(2em / var(--sbdoc-up));
+  }
+
+  h3 {
+    margin-block-start: calc(2em / pow(var(--sbdoc-up), 2));
   }
 
   aside {

@@ -21,7 +21,7 @@ const signature = tokens()
   .add("kind", props.property.prefix)
   .add("name", props.property.name)
   .add(": ")
-  .add("type", props.property.type.name)
+  .add("return", props.property.type.name)
   .add(";");
 </script>
 

@@ -25,3 +25,12 @@
     calc(var(--sbdoc-font-size) * var(--sbdoc-internal-multiple))
   );
 }
+
+%accented {
+  color: var(--sbdoc-accent-fg);
+  background-color: var(--sbdoc-accent-bg);
+  border: 1px solid var(--sbdoc-accent-border);
+  padding-inline: var(--sbdoc-ui-inline-padding);
+  border-radius: var(--sbdoc-radius);
+  padding-block: 0;
+}

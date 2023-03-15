@@ -18,9 +18,17 @@ import nested from "postcss-nested";
 import preset from "postcss-preset-env";
 import property from "postcss-property-lookup";
 import prefixSelector from "postcss-prefix-selector";
+// import { parse, walk, generate, fromPlainObject, } from "css-tree";
+import * as csstree from "css-tree";
 
 const PRESET = preset({
   stage: 1,
+  browsers: "supports css-matches-pseudo",
+  autoprefixer: {
+    overrideBrowserslist: ["last 2 versions"],
+    add: true,
+    remove: true,
+  },
   features: {
     "lab-function": true,
     "oklab-function": true,
@@ -28,12 +36,15 @@ const PRESET = preset({
     "color-function": true,
     "custom-selectors": true,
     "cascade-layers": false,
+    "is-pseudo-class": false,
   },
 });
 
 export default {
   plugins: [
     section(),
+    pow(),
+
     using({
       content: [
         nested(),
@@ -88,38 +99,9 @@ export default {
       ],
     }),
 
-    pow(),
     PRESET,
   ],
 } satisfies Config;
-
-function exportedVar(decl: Declaration): boolean | "computed" {
-  if (decl.variable && decl.prop.match(/^[-][-](sb|vp)[-]/)) {
-    return "computed";
-  } else {
-    return false;
-  }
-}
-
-const LIGHT = {
-  dimmest: "95%",
-  dimmer: "90%",
-  dim: "80%",
-  normal: "70%",
-  strong: "60%",
-  stronger: "50%",
-  strongest: "40%",
-};
-
-const DARK = {
-  dimmest: "5%",
-  dimmer: "10%",
-  dim: "20%",
-  normal: "30%",
-  strong: "60%",
-  stronger: "50%",
-  strongest: "40%",
-};
 
 export function color(
   h: string | number,
@@ -130,8 +112,6 @@ export function color(
 
   return `hsl(${h}, ${sat}, var(--color-lightness-${l}))`;
 }
-
-var comma = list.comma;
 
 function using(plugins: Record<string, AcceptedPlugin[]>): Plugin {
   return {
@@ -172,40 +152,39 @@ function pow(): Plugin {
     prepare: (result) => {
       return {
         Declaration: (decl, h) => {
-          const POW_REGEX = /pow\(([^)]+.+?)\)/;
+          const val = csstree.parse(decl.value, { context: "value" });
 
-          // Check if decl has a pow function inside it
-          const matches = POW_REGEX.exec(decl.value);
+          let modified = false;
 
-          if (!matches) {
-            return;
-          }
+          csstree.walk(val, {
+            visit: "Function",
+            enter(node, item, list) {
+              if (node.name === "pow") {
+                const count = node.children.pop()?.data;
+                const expr = node.children.shift()?.data;
+                if (count?.type !== "Number" || !expr) {
+                  // @ts-expect-error 2339
+                  return csstree.walk.break;
+                }
 
-          const [base, power] = (matches[1] as string).split(",") as [string, string];
-          const fnArgs = {
-            base: base.trim(),
-            power: Number(power.trim()),
-          };
+                const countVal = Number(count.value);
+                const items = new csstree.List<csstree.CssNode>();
 
-          // Replace the function with css variable that calculates the power
-          decl.value = decl.value.replace(POW_REGEX, () => {
-            if (fnArgs.power !== undefined && fnArgs.power > 0) {
-              let string = "(" + fnArgs.base;
-              for (let i = 0; i < fnArgs.power - 1; i++) {
-                string += " * " + fnArgs.base;
+                for (let i = 0; i < countVal - 1; i++) {
+                  items.push(csstree.clone(expr));
+                  items.push(cssNode("Operator", { value: "*" }));
+                }
+                items.push(csstree.clone(expr));
+
+                modified = true;
+                list.replace(item, items);
               }
-              return string + ")";
-            } else if (fnArgs.power === 0) {
-              return "1";
-            } else {
-              fnArgs.power = Math.abs(fnArgs.power);
-              let string = "(1 / (" + fnArgs.base;
-              for (let i = 0; i < fnArgs.power - 1; i++) {
-                string += " * " + fnArgs.base;
-              }
-              return string + "))";
-            }
+            },
           });
+
+          if (modified) {
+            decl.value = csstree.generate(val);
+          }
         },
       };
     },
@@ -247,4 +226,15 @@ function defVars(): Plugin {
       };
     },
   } satisfies Plugin;
+}
+
+type CssNodeName = csstree.CssNode["type"];
+type TypedCssNode<T extends CssNodeName = CssNodeName> = Extract<csstree.CssNode, { type: T }>;
+type CssNodeData<T extends CssNodeName> = Omit<TypedCssNode<T>, "type">;
+
+function cssNode<T extends CssNodeName>(type: T, data: CssNodeData<T>): TypedCssNode<T> {
+  return {
+    type,
+    ...data,
+  } as TypedCssNode<T>;
 }

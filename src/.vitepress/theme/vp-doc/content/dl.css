@@ -3,8 +3,12 @@
     &.generics {
       display: grid;
       grid-template-columns: max-content 1fr;
-      align-items: baseline;
+      align-items: center;
       column-gap: 1ch;
+
+      dd {
+        margin: 0;
+      }
     }
 
     dt {
@@ -34,7 +38,7 @@
     }
 
     code {
-      background-color: var(--vp-code-block-bg);
+      /* background-color: var(--vp-code-block-bg); */
     }
 
     dt {

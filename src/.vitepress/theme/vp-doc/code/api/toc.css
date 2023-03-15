@@ -57,14 +57,17 @@
                 display: contents;
               }
               > a::before {
+                display: grid;
                 grid-column: 2;
                 justify-self: end;
+                align-content: center;
+                height: 1fr;
                 content: attr(data-kind);
                 font-size: 0.8em;
                 padding-inline: 0.5em;
                 padding-block: 0;
                 border-radius: 1ch;
-                background: var(--sb-inline-light-bg-c);
+                background: var(--vp-c-text-inverse-1);
                 color: hsl(
                   var(--sb-hl-kind-ch) 30% var(--sb-fg-lightness-bright)
                 );

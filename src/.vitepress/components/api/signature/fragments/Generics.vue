@@ -10,8 +10,8 @@ defineProps<{ generics: Generic[] }>();
   <div class="generics">
     <Defs class="docs generics" :defs="generics">
       <template #entry="{ item }: { item: Generic }">
-        <Type>{{ item.name }}</Type>
-        <Type v-if="item.extends">
+        <Type class="generic">{{ item.name }}</Type>
+        <Type class="kw-extends" v-if="item.extends">
           {{ item.extends }}
         </Type>
       </template>

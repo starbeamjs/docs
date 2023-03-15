@@ -5,6 +5,7 @@
   $red: 16;
   $orange: 70;
   $blue: 240;
+  $purple: 320;
   $neutral: 285;
   $highlight: 107;
 
@@ -21,11 +22,16 @@
     --sb-fg-$(name): oklch(var(--fglt) $chroma $hue);
     --sb-fg-$(name)-dim: oklch(var(--fglt-dim) $chroma-soft $hue);
     --sb-fg-$(name)-dimmer: oklch(var(--fglt-dimmer) $chroma-softer $hue);
+    --sb-fg-$(name)-muted: oklch(var(--fglt-dimmer) $chroma-muted $hue);
+    --sb-fg-$(name)-ultramuted: oklch(
+      var(--fglt-dimmer) $chroma-ultramuted $hue
+    );
     --sb-fg-$(name)-strong: oklch(var(--fglt-strong) $chroma-vivid $hue);
     --sb-fg-$(name)-stronger: oklch(var(--fglt-stronger) $chroma-vibrant $hue);
     --sb-fg-$(name)-strongest: oklch(
       var(--fglt-strongest) $chroma-vibrant $hue
     );
+    --sb-fg-$(name)-ultra: oklch(var(--fglt-ultra) $chroma-vibrant $hue);
 
     --sb-bg-$(name): oklch(var(--bglt) $chroma $hue);
     --sb-bg-$(name)-muted: oklch(var(--bglt-strongest) $chroma-muted $hue);
@@ -96,6 +102,30 @@
     --vp-code-block-bg-light: oklch(var(--bglt-max) $chroma-muted $theme);
   }
 
+  @define-mixin muted $name, $hue {
+    --sb-fg-$(name): oklch(var(--fglt) $chroma-muted $hue);
+    --sb-fg-$(name)-dim: oklch(var(--fglt-dim) $chroma-muted $hue);
+    --sb-fg-$(name)-dimmer: oklch(var(--fglt-dimmer) $chroma-muted $hue);
+    --sb-fg-$(name)-muted: oklch(var(--fglt-dimmer) $chroma-muted $hue);
+    --sb-fg-$(name)-ultramuted: oklch(
+      var(--fglt-dimmer) $chroma-ultramuted $hue
+    );
+    --sb-fg-$(name)-strong: oklch(var(--fglt-strong) $chroma-muted $hue);
+    --sb-fg-$(name)-stronger: oklch(var(--fglt-stronger) $chroma-muted $hue);
+    --sb-fg-$(name)-strongest: oklch(var(--fglt-strongest) $chroma-muted $hue);
+    --sb-fg-$(name)-ultra: oklch(var(--fglt-ultra) $chroma-muted $hue);
+
+    --sb-bg-$(name): oklch(var(--bglt) $chroma $hue);
+
+    --sb-bg-$(name)-dim: oklch(var(--bglt-dim) $chroma-muted $hue);
+    --sb-bg-$(name)-dimmer: oklch(var(--bglt-dimmer) $chroma-muted $hue);
+    --sb-bg-$(name)-strong: oklch(var(--bglt-strong) $chroma-muted $hue);
+    --sb-bg-$(name)-stronger: oklch(var(--bglt-stronger) $chroma-muted $hue);
+    --sb-bg-$(name)-strongest: oklch(var(--bglt-strongest) $chroma-muted $hue);
+    --sb-bg-$(name)-muted: oklch(var(--bglt-strongest) $chroma-muted $hue);
+    --sb-bg-$(name)-ultramuted: oklch(var(--bglt-max) $chroma-ultramuted $hue);
+  }
+
   @define-mixin scheme {
     @mixin colors theme, $theme;
     @mixin colors red, $red;
@@ -103,13 +133,17 @@
     @mixin colors green, $green;
     @mixin colors yellow, $yellow;
     @mixin colors blue, $blue;
+    @mixin colors purple, $purple;
+
     @mixin colors highlight, $highlight;
     @mixin text $neutral;
     @mixin gray;
+    @mixin muted gray, $neutral;
   }
 
   :root {
-    --fglt-max: 0%;
+    --fglt-max: 2%;
+    --fglt-ultra: 25%;
     --fglt-strongest: 35%;
     --fglt-stronger: 40%;
     --fglt-strong: 45%;
@@ -136,7 +170,8 @@
   }
 
   :root.dark {
-    --fglt-max: 100%;
+    --fglt-max: 99%;
+    --fglt-ultra: 98%;
     --fglt-stronger: 96%;
     --fglt-strong: 84%;
     --fglt: 72%;
@@ -168,5 +203,5 @@
   --vp-c-brand-dark: var(--sb-fg-theme-strong);
   --vp-c-brand-darker: var(--sb-fg-theme-stronger);
 
-  --vp-sidebar-bg-color: var(--sb-bg-theme-muted);
+  --vp-sidebar-bg-color: var(--vp-c-neutral-inverse);
 }

@@ -12,8 +12,10 @@ defineProps<{ param: Parameter }>();
 <template>
   <Def>
     <template #entry>
-      <Name :optional="param.type.isOptional">{{ param.fullName }}</Name>
-      <Type>{{ param.type.name }}</Type>
+      <Name :optional="param.type.isOptional" class="starbeam-param">{{
+        param.fullName
+      }}</Name>
+      <Type class="starbeam-param">{{ param.type.name }}</Type>
     </template>
     <template #definition v-if="param.type.docs">
       <p v-if="param.type.docs">

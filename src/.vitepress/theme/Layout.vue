@@ -91,7 +91,7 @@ onMounted(() => {
   transition: border 0.4s ease-in-out, background-color 0.4s ease-in-out;
   border-radius: var(--sb-radius-sm);
   background-color: var(--local-bg);
-  contain: paint;
+  contain: strict;
   font-family: var(--sb-font-fancy);
   font-weight: var(--sb-font-weight-bold);
   font-size: 80%;
@@ -176,8 +176,8 @@ onMounted(() => {
 
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 17px;
+    height: 18px;
     display: grid;
     place-content: center;
   }

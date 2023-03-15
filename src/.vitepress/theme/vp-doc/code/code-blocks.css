@@ -1,6 +1,7 @@
 @custom-selector :--shiki-block div[class^="language-"]:not(.language-id);
 @custom-selector :--top-level-code-block :--shiki-block, section.code-block;
 @custom-selector :--shiki-language-id div.language-id;
+@custom-selector :--code-pre pre.shiki, pre.manual;
 
 @using content {
   code {
@@ -11,12 +12,8 @@
     padding: initial;
   }
 
-  pre.shiki {
+  :--code-pre {
     background-color: initial !important;
-  }
-
-  code {
-    padding: initial;
   }
 }
 
@@ -53,7 +50,8 @@ Code blocks structurally look like:
     }
 
     code {
-      background-color: var(--sb-bg-theme-muted);
+      padding: initial;
+      background-color: var(--sb-bg-theme-ultramuted);
       border-radius: var(--sbdoc-local-radius);
     }
 
@@ -62,8 +60,12 @@ Code blocks structurally look like:
     }
   }
 
-  pre.shiki {
+  :--code-pre {
     margin: initial;
+  }
+
+  :--shiki-block {
+    margin: 0;
   }
 
   pre {
@@ -83,31 +85,37 @@ Code blocks structurally look like:
     overflow-x: auto;
     position: relative;
   }
-  pre.shiki {
+
+  :--shiki-block pre.manual,
+  :--shiki-block pre.manual > code {
+    background-color: var(--sb-fg-theme-ultra);
+  }
+
+  :--code-pre {
     overflow-x: auto;
   }
-  pre.shiki:hover .dim {
+  :--code-pre :hover .dim {
     opacity: 1;
   }
-  pre.shiki div.dim {
+  :--code-pre div.dim {
     opacity: 0.5;
     transition: opacity 0.2s ease-in-out;
   }
-  pre.shiki div.dim,
-  pre.shiki div.highlight {
+  :--code-pre div.dim,
+  :--code-pre div.highlight {
     margin: 0;
     padding: 0;
   }
-  pre.shiki div.highlight {
+  :--code-pre div.highlight {
     opacity: 1;
-    background-color: #f1f8ff;
+    background-color: var(--sb-bg-theme-muted);
   }
-  pre.shiki div.line {
+  :--code-pre div.line {
     min-height: 1rem;
   }
 
   /** Don't show the language identifiers */
-  pre.shiki .language-id {
+  :--code-pre .language-id {
     display: none;
   }
 
@@ -146,7 +154,7 @@ Code blocks structurally look like:
   }
 
   pre.shiki.twoslash .code-container > code,
-  pre.shiki:not(.twoslash) > code {
+  :--code-pre:not(.twoslash) > code {
     display: grid;
     grid-template-columns:
       var(--sbdoc-ui-inner-padding)

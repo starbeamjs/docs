@@ -178,15 +178,6 @@ function get_renderFn() {
                 title
             ]))).append(content);
     };
-//   { class: [kind] }, [
-//     If(title, (title, tokens) =>
-//       tokens.el("p", { class: "custom-block-title" }, [
-//         title,
-//       ])
-//     ),
-//     content,
-//   ]).tokens;
-// };
 }
 function get_defaultTitle() {
     if (typeof _classPrivateFieldGet(this, _config) === "object" && "defaultTitle" in _classPrivateFieldGet(this, _config) && typeof _classPrivateFieldGet(this, _config).defaultTitle === "string") {

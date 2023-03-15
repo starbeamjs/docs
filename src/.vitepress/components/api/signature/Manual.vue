@@ -17,7 +17,7 @@ const body = computed(() => {
     }
   }
 
-  return out.join("");
+  return `<div class="line">${out.join("")}</div>`;
 });
 </script>
 

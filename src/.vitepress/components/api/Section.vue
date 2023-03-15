@@ -24,7 +24,7 @@ const slug = computed(() => {
 </script>
 
 <template>
-  <section :class="[props.kind, props.class]">
+  <section :class="[props.kind, props.class, 'api', 'api-notes']">
     <component class="section-head" :is="`h${props.level}`" :id="slug">
       <slot name="head" />
       <Tag v-if="props.for.tag" :tag="props.for.tag" />
