@@ -1,0 +1,28 @@
+@def-vars {
+  --sb-icon-protip: "lightbulb";
+  --sb-icon-optimization: "tools_power_drill";
+  --sb-icon-between: "\200a";
+  --sb-icon-after: "\2009";
+}
+
+@layer content() {
+  .decor {
+    &.protip:not([title])::before {
+      content: "PROTIP";
+    }
+
+    &.demo:not([title])::before {
+      content: "DEMO";
+    }
+
+    &::before {
+      color: var(--sbdoc-block-fg-accent);
+      content: attr(title);
+      margin-inline-end: 0.5ch;
+      font-family: var(--sb-font-decor);
+      font-weight: var(--sb-font-weight-decor);
+      text-decoration: wavy underline 1px;
+      font-size: 80%;
+    }
+  }
+}

@@ -1,12 +1,5 @@
-/* @import "./annotations.css";
-@import "./code-tabs.css";
-@import "./collected.css";
-@import "./code/index.css";
-@import "./containers.css";
-@import "./copy.css"; */
-
 @import "./ui/index.css";
-@import "./text/index.css";
 @import "./content/index.css";
 @import "./containers/index.css";
 @import "./code/index.css";
+@import "./annotations.legacy.css";

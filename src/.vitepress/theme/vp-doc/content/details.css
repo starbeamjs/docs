@@ -1,16 +1,14 @@
-@custom-selector :--details-block .content-block > details;
-
 @using content {
-  :--details-block {
+  details.content-block {
     border: 1px solid var(--inactive-color-bg);
     box-shadow: 2px 2px var(--inactive-color-bg);
-    border-radius: var(--sb-radius);
-    background-color: var(--vp-c-mute);
-    color: var(--inactive-color-fg);
-    padding: var(--sbdoc-ui-inner-padding);
+    border-radius: var(--sbdoc-radius);
+    background-color: var(--sb-bg-gray-maxmuted);
+    color: var(--sb-fg-gray-strong);
+    padding-block: var(--sbdoc-ui-inner-padding-sm);
 
     > p {
-      margin-block: var(--sbdoc-font-size);
+      margin-block: 1rem;
     }
 
     > :last-child {
@@ -32,7 +30,7 @@
     }
   }
 
-  :--details-block {
+  details.content-block {
     --protip-icon: var(--sb-icon-protip);
     --expand-icon: "chevron_right";
     --contract-icon: "expand_more";
@@ -44,7 +42,7 @@
     }
   }
 
-  :--details-block.protip {
+  details.content-block.protip {
     > summary::before {
       content: var(--expand-icon) var(--between-icons) var(--protip-icon)
         var(--after-icons);
@@ -56,11 +54,11 @@
     }
   }
 
-  :--details-block.deep-dive {
+  details.content-block.deep-dive {
     summary span {
       border: 1px solid var(--vp-badge-tip-border);
       background-color: var(--vp-badge-tip-bg);
-      border-radius: var(--sb-radius-sm);
+      border-radius: var(--sbdoc-radius-sm);
       color: var(--vp-badge-tip-text);
       margin-inline-end: 0.5em;
       padding-inline-end: 0.3em;
@@ -72,10 +70,10 @@
     }
   }
 
-  :--details-block[open] summary::before {
+  details.content-block[open] summary::before {
     content: "expand_more";
   }
-  :--details-block summary {
+  details.content-block summary {
     display: grid;
     grid-template-columns: max-content max-content 1fr;
     align-items: center;
@@ -89,7 +87,7 @@
     }
   }
 
-  :--details-block:not([open]) summary {
+  details.content-block:not([open]) summary {
     margin: 0;
     cursor: pointer;
   }

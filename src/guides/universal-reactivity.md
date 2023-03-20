@@ -300,9 +300,9 @@ To create the contact card, the `display` function reads the
 person's name, location, and phone numbers. It then calls the
 `displayPhone` function to display each phone number.
 
-This kind of data-oriented programming is easy to understand. The
-output of the program is computed by reading from inputs or
-calling functions that ultimately read from inputs.
+This kind of data-oriented programming is easy to understand.
+**The output of the program is computed by reading from inputs or
+calling functions that ultimately read from inputs.**
 
 ## The Problem With State
 

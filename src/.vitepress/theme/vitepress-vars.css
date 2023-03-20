@@ -1,0 +1,15 @@
+/**
+ * These variables customize the Vitepress theme.
+ */
+@def-vars {
+  --theme-color: var(--vp-c-brand);
+  --theme-color-bright: var(--vp-c-brand-light);
+  --theme-color-brighter: var(--vp-c-brand-lighter);
+  --theme-color-dim: var(--vp-c-brand-dark);
+  --theme-color-dimmer: var(--vp-c-brand-darker);
+
+  --vp-code-copy-color: var(--sb-fg-theme-strong);
+  --vp-code-copy-code-active-text: var(--sb-fg-theme-strongest);
+  --vp-code-copy-code-hover-bg: var(--sb-bg-theme-strong);
+  --vp-code-copy-code-hover-border-color: var(--sb-fg-theme-strong);
+}

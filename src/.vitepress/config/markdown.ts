@@ -8,11 +8,10 @@ import { codeTabs } from "../plugins/code-tabs/code-tabs.js";
 import { containers } from "../plugins/containers/containers.js";
 import { fences } from "../plugins/fences.js";
 import { mark } from "../plugins/mark/mark.js";
-import { flowchart } from "../plugins/mermaid/flowchart.js";
-import { mermaid } from "../plugins/mermaid/mermaid.js";
 import d2, { DarkTheme, LightTheme, type D2Options } from "./d2/d2.js";
 import { highlight as createHighlight } from "./syntax-highlight/highlight.js";
 import { markdownItShikiTwoslashSetup } from "./syntax-highlight/setup.js";
+import bracketedSpans from "markdown-it-bracketed-spans";
 import { root } from "./vite.js";
 
 const Shiki = await markdownItShikiTwoslashSetup({
@@ -41,6 +40,7 @@ export const MARKDOWN: MarkdownOptions = {
   theme: THEME,
   highlight,
   config: (md) => {
+    md.use(bracketedSpans);
     md.use(snippets);
     md.use(shiki);
     md.use(fencedContainer);
@@ -58,8 +58,6 @@ export const MARKDOWN: MarkdownOptions = {
       theme: LightTheme.EarthTones,
       darkTheme: DarkTheme.DarkMauve,
     } satisfies D2Options);
-    md.use(mermaid);
-    md.use(flowchart);
     md.use(mark);
     md.use(tabsMarkdownPlugin);
     md.use(codeTabs);

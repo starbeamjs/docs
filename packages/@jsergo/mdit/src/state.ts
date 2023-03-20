@@ -62,11 +62,20 @@ export class MDState<Env = unknown> {
     return this.#md.render(content, this.#state.env);
   }
 
+  renderInline(content: string) {
+    return this.#md.renderInline(content, this.#state.env);
+  }
+
   parse(content: string) {
     const tokens: Token[] = [];
     this.#md.block.parse(content, this.#md, this.#env, tokens);
     return tokens;
-    // return this.#md.parse(content, this.#state.env);
+  }
+
+  parseInline(content: string) {
+    const tokens: Token[] = [];
+    this.#md.inline.parse(content, this.#md, this.#env, tokens);
+    return tokens;
   }
 
   error(message: string) {

@@ -173,16 +173,16 @@ watch(sandpack.activeFile, (activeFile) => {
 
 .files-wrapper,
 :deep(.demo-console) {
-  border-bottom-left-radius: var(--sb-radius);
-  border-bottom-right-radius: var(--sb-radius);
+  border-bottom-left-radius: var(--sbdoc-radius);
+  border-bottom-right-radius: var(--sbdoc-radius);
   contain: paint;
 }
 
 .files {
   display: grid;
   grid-template-columns: max-content 1fr;
-  border-bottom-left-radius: var(--sb-radius);
-  border-bottom-right-radius: var(--sb-radius);
+  border-bottom-left-radius: var(--sbdoc-radius);
+  border-bottom-right-radius: var(--sbdoc-radius);
 
   :deep(.sp-file-explorer) {
     background-color: hsl(var(--sb-bg-hue), 50%, var(--sb-bg-lightness-brightest));
@@ -190,15 +190,15 @@ watch(sandpack.activeFile, (activeFile) => {
 }
 
 .preview {
-  border-top-left-radius: var(--sb-radius);
-  border-top-right-radius: var(--sb-radius);
+  border-top-left-radius: var(--sbdoc-radius);
+  border-top-right-radius: var(--sbdoc-radius);
 }
 
 :deep(.code-editor) {
   display: grid;
   width: 100%;
   border: 2px solid var(--sp-colors-surface3);
-  border-radius: var(--sb-radius);
+  border-radius: var(--sbdoc-radius);
 
   > div.sp-file-explorer {
     background-color: var(--sp-colors-surface3);

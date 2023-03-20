@@ -9,6 +9,16 @@ export function El(...args) {
         render: (fragment)=>fragment.el(...args)
     };
 }
+export function BlockHtml(text) {
+    return {
+        render: (fragment)=>fragment.blockHtml(text)
+    };
+}
+export function InlineHtml(text) {
+    return {
+        render: (fragment)=>fragment.inlineHtml(String(text))
+    };
+}
 export function HtmlEl(...args) {
     return {
         render: (fragment)=>fragment.htmlEl(...args)

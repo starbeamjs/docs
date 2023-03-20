@@ -18,6 +18,8 @@
   $chroma-vivid: 0.25;
   $chroma-vibrant: 0.3;
 
+  $translucent: 20%;
+
   @define-mixin colors $name, $hue {
     --sb-fg-$(name): oklch(var(--fglt) $chroma $hue);
     --sb-fg-$(name)-dim: oklch(var(--fglt-dim) $chroma-soft $hue);
@@ -35,7 +37,16 @@
 
     --sb-bg-$(name): oklch(var(--bglt) $chroma $hue);
     --sb-bg-$(name)-muted: oklch(var(--bglt-strongest) $chroma-muted $hue);
-    --sb-bg-$(name)-ultramuted: oklch(var(--bglt-max) $chroma-ultramuted $hue);
+    --sb-bg-$(name)-ultramuted: oklch(
+      var(--bglt-ultra) $chroma-ultramuted $hue
+    );
+    --sb-bg-$(name)-ultramuted-translucent: oklch(
+      var(--bglt-ultra) $chroma-ultramuted $hue / $translucent
+    );
+    --sb-bg-$(name)-maxmuted: oklch(var(--bglt-max) $chroma-ultramuted $hue);
+    --sb-bg-$(name)-maxmuted-translucent: oklch(
+      var(--bglt-max) $chroma-ultramuted $hue / $translucent
+    );
 
     --sb-bg-$(name)-dim: oklch(var(--bglt-dim) $chroma-soft $hue);
     --sb-bg-$(name)-dimmer: oklch(var(--bglt-dimmer) $chroma-softer $hue);
@@ -83,47 +94,51 @@
     --vp-c-bg-alt: var(--vp-c-bg-elv-down);
 
     --vp-c-border: oklch(
-      var(--fglt-stronger) $chroma-muted $neutral / var(--alpha-border)
+      var(--fglt-stronger) $chroma-pure $neutral / var(--alpha-border)
     );
     --vp-c-divider: oklch(
-      var(--fglt-stronger) $chroma-muted $neutral / var(--alpha-divider)
+      var(--fglt-stronger) $chroma-pure $neutral / var(--alpha-divider)
     );
     --vp-c-gutter: var(--vp-c-divider);
 
     --vp-c-neutral: oklch(
-      var(--fglt-max) $chroma-muted $neutral / var(--alpha-max)
+      var(--fglt-max) $chroma-pure $neutral / var(--alpha-max)
     );
     --vp-c-neutral-inverse: oklch(
-      var(--bglt-max) $chroma-muted $neutral / var(--alpha-max)
+      var(--bglt-max) $chroma-pure $neutral / var(--alpha-max)
     );
 
-    --sb-code-block-bg: oklch(var(--bglt-strongest) $chroma-muted $theme);
-    --vp-code-block-bg: var(--sb-code-block-bg);
-    --vp-code-block-bg-light: oklch(var(--bglt-max) $chroma-muted $theme);
+    --vp-code-block-bg: oklch(var(--bglt-strongest) $chroma-pure $theme);
+    --vp-code-block-bg-light: oklch(var(--bglt-max) $chroma-pure $theme);
   }
 
   @define-mixin muted $name, $hue {
-    --sb-fg-$(name): oklch(var(--fglt) $chroma-muted $hue);
-    --sb-fg-$(name)-dim: oklch(var(--fglt-dim) $chroma-muted $hue);
+    --sb-fg-$(name): oklch(var(--fglt) $chroma-pure $hue);
+    --sb-fg-$(name)-dim: oklch(var(--fglt-dim) $chroma-pure $hue);
     --sb-fg-$(name)-dimmer: oklch(var(--fglt-dimmer) $chroma-muted $hue);
     --sb-fg-$(name)-muted: oklch(var(--fglt-dimmer) $chroma-muted $hue);
-    --sb-fg-$(name)-ultramuted: oklch(
-      var(--fglt-dimmer) $chroma-ultramuted $hue
-    );
+    --sb-fg-$(name)-ultramuted: oklch(var(--fglt-dimmer) $chroma-pure $hue);
     --sb-fg-$(name)-strong: oklch(var(--fglt-strong) $chroma-muted $hue);
     --sb-fg-$(name)-stronger: oklch(var(--fglt-stronger) $chroma-muted $hue);
     --sb-fg-$(name)-strongest: oklch(var(--fglt-strongest) $chroma-muted $hue);
     --sb-fg-$(name)-ultra: oklch(var(--fglt-ultra) $chroma-muted $hue);
 
-    --sb-bg-$(name): oklch(var(--bglt) $chroma $hue);
+    --sb-bg-$(name): oklch(var(--bglt) $chroma-pure $hue);
 
-    --sb-bg-$(name)-dim: oklch(var(--bglt-dim) $chroma-muted $hue);
-    --sb-bg-$(name)-dimmer: oklch(var(--bglt-dimmer) $chroma-muted $hue);
-    --sb-bg-$(name)-strong: oklch(var(--bglt-strong) $chroma-muted $hue);
-    --sb-bg-$(name)-stronger: oklch(var(--bglt-stronger) $chroma-muted $hue);
-    --sb-bg-$(name)-strongest: oklch(var(--bglt-strongest) $chroma-muted $hue);
-    --sb-bg-$(name)-muted: oklch(var(--bglt-strongest) $chroma-muted $hue);
-    --sb-bg-$(name)-ultramuted: oklch(var(--bglt-max) $chroma-ultramuted $hue);
+    --sb-bg-$(name)-dim: oklch(var(--bglt-dim) $chroma-pure $hue);
+    --sb-bg-$(name)-dimmer: oklch(var(--bglt-dimmer) $chroma-pure $hue);
+    --sb-bg-$(name)-strong: oklch(var(--bglt-strong) $chroma-pure $hue);
+    --sb-bg-$(name)-stronger: oklch(var(--bglt-stronger) $chroma-pure $hue);
+    --sb-bg-$(name)-strongest: oklch(var(--bglt-strongest) $chroma-pure $hue);
+    --sb-bg-$(name)-muted: oklch(var(--bglt-strongest) $chroma-pure $hue);
+    --sb-bg-$(name)-ultramuted: oklch(var(--bglt-ultra) $chroma-pure $hue);
+    --sb-bg-$(name)-ultramuted-translucent: oklch(
+      var(--bglt-ultra) $chroma-pure $hue / $translucent
+    );
+    --sb-bg-$(name)-maxmuted: oklch(var(--bglt-max) $chroma-pure $hue);
+    --sb-bg-$(name)-maxmuted-translucent: oklch(
+      var(--bglt-max) $chroma-pure $hue / $translucent
+    );
   }
 
   @define-mixin scheme {
@@ -151,7 +166,8 @@
     --fglt-dim: 72%;
     --fglt-dimmer: 84%;
 
-    --bglt-max: 98%;
+    --bglt-max: 99%;
+    --bglt-ultra: 97%;
     --bglt-strongest: 93%;
     --bglt-stronger: 88%;
     --bglt-strong: 75%;
@@ -179,6 +195,7 @@
     --fglt-dimmer: 48%;
 
     --bglt-max: 0%;
+    --bglt-ultra: 10%;
     --bglt-strongest: 20%;
     --bglt-stronger: 23%;
     --bglt-strong: 26%;

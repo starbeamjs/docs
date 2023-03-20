@@ -20,9 +20,9 @@ structured. You use normal functions, getters and methods to
 build up your rendered value, and ==none of that code needs to be
 aware of reactivity at all==.
 
-```md info
-Reactive collections, like `Map`s and `Set`s, work exactly the
-same way.
+```md info Reactive Collections
+Reactive collections, like `Map` and `Set`, work exactly the same
+way.
 
 For example, if you `get` a value from a reactive map in a
 rendered function, the rendered function _consumes_ the cell for
@@ -70,7 +70,7 @@ rendered function.
 Finally, since invalidation simply schedules revalidation, our
 renderer only ran once.
 
-### **demo**{.marker} Rendering With the Debug Renderer
+### Rendering With the Debug Renderer {.decor .demo}
 
 <Demo :config="validation" />
 

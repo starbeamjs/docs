@@ -41,8 +41,13 @@ export abstract class MarkdownFragment implements LazyChild {
     return this.#md;
   }
 
-  html(html: string): this {
-    this.push(...this.md.parse(html));
+  blockHtml(markdown: ToString): this {
+    this.push(...this.md.parseBlock(ToString(markdown)));
+    return this;
+  }
+
+  inlineHtml(markdown: ToString): this {
+    this.push(...this.md.parseInline(ToString(markdown)));
     return this;
   }
 
@@ -125,6 +130,10 @@ export abstract class MarkdownElement extends MarkdownFragment {
       this.attr(key, value);
     }
     return this;
+  }
+
+  renderInline(text: string): string {
+    return this.md.renderInline(text);
   }
 }
 
@@ -277,31 +286,24 @@ export interface LazyChild {
   render(tokens: MarkdownFragment): MarkdownFragment;
 }
 
-export function text(string: string): Token {
-  const token = new Token("text", "", 0);
-  token.content = string;
-  return token;
+export interface TextLike {
+  stringify(): string;
 }
 
-function applyValue(
-  token: Token,
-  name: string,
-  value: AttrValue
-): void {
-  if (value === undefined || value === false) {
-    return;
-  } else if (Array.isArray(value)) {
-    for (const val of attrListValue(value)) {
-      token.attrJoin(name, val);
-    }
-  } else if (value === true) {
-    token.attrSet(name, "");
+export type ToString = TextLike | string | number | boolean;
+
+function ToString(stringlike: ToString): string {
+  if (typeof stringlike !== "object") {
+    return String(stringlike);
   } else {
-    const val = attrPart(value);
-    if (val) {
-      token.attrSet(name, val);
-    }
+    return stringlike.stringify();
   }
+}
+
+export function text(string: ToString): Token {
+  const token = new Token("text", "", 0);
+  token.content = ToString(string);
+  return token;
 }
 
 function attrListValue(value: AttrPart[]) {

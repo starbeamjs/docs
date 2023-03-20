@@ -11,6 +11,7 @@ import postcss, {
   type Plugin,
   Declaration,
   Node,
+  Rule,
 } from "postcss";
 import cssvars from "postcss-css-variables";
 import mixins from "postcss-mixins";
@@ -37,39 +38,41 @@ const PRESET = preset({
     "custom-selectors": true,
     "cascade-layers": false,
     "is-pseudo-class": false,
+    "logical-properties-and-values": false,
+    "logical-viewport-units": false,
   },
+});
+
+const USING_CONTENT = using({
+  content: [
+    nested(),
+    prefixSelector({
+      prefix: "#app .vp-doc",
+      transform: (prefix, selector, prefixedSelector, file) => {
+        const topMatch = selector.match(/^:top(?:\((.*)\))?$/);
+
+        if (topMatch) {
+          const child = topMatch[1];
+
+          if (child) {
+            return `${prefix} > div > ${topMatch[1]}`;
+          } else {
+            return `${prefix} > div`;
+          }
+        }
+
+        return prefixedSelector;
+      },
+    }) as AcceptedPlugin,
+
+    PRESET,
+  ],
 });
 
 export default {
   plugins: [
-    section(),
-    pow(),
-
-    using({
-      content: [
-        nested(),
-        prefixSelector({
-          prefix: "#app .vp-doc",
-          transform: (prefix, selector, prefixedSelector, file) => {
-            const topMatch = selector.match(/^:top(?:\((.*)\))?$/);
-
-            if (topMatch) {
-              const child = topMatch[1];
-
-              if (child) {
-                return `${prefix} > div > ${topMatch[1]}`;
-              } else {
-                return `${prefix} > div`;
-              }
-            }
-
-            return prefixedSelector;
-          },
-        }) as AcceptedPlugin,
-
-        PRESET,
-      ],
-    }),
+    customBlocks(),
+    USING_CONTENT,
     extend(),
     vars({}),
     functions({ color }),
@@ -113,6 +116,86 @@ export function color(
   return `hsl(${h}, ${sat}, var(--color-lightness-${l}))`;
 }
 
+function customBlocks(): Plugin {
+  return {
+    postcssPlugin: "custom-blocks",
+    prepare: () => {
+      return {
+        AtRule: {
+          layer: async (rule, h) => {
+            if (rule.params.includes("content")) {
+              const match = rule.params.match(/^content\((.*)\)$/);
+              const param = match?.[1];
+
+              let next;
+
+              if (!param || param.trim() === "default") {
+                next = await postcss([USING_CONTENT]).process(
+                  `@using content {\n${rule.nodes.join("")}\n}`
+                );
+              } else {
+                next = await postcss([USING_CONTENT]).process(
+                  `@layer ${param} {\n@using content {\n${rule.nodes.join("")}\n}\n}`
+                );
+              }
+
+              rule.replaceWith(next.root.nodes);
+            }
+          },
+
+          "custom-blocks": async (rule, h) => {
+            const colors = rule.params.split(",").map((p) => p.trim());
+
+            if (colors === undefined) {
+              throw Error(
+                "@custom-block: color must be a list of names, e.g. `@custom-block: red where red is a style defined as sb-fg-$(color)-* and sb-bg-$(color)-*"
+              );
+            }
+
+            const newRules: Rule[] = [];
+
+            for (const color of colors) {
+              const decl = (
+                name: `bg` | `bg-${string}` | `fg` | `fg-${string}`,
+                style?: string
+              ) => {
+                const type = name.startsWith("bg") ? "bg" : "fg";
+                const subcolor = style ? `${color}-${style}` : color;
+
+                return new h.Declaration({
+                  prop: `--sbdoc-block-${name}`,
+                  value: `var(--sb-${type}-${subcolor})`,
+                });
+              };
+
+              const newRule = new h.Rule({
+                selectors: [`.sbdoc-custom-block-${color}`],
+              });
+
+              newRule.append(
+                decl("fg"),
+                decl("bg", "maxmuted"),
+                decl("bg-accent", "ultramuted"),
+                decl("fg-accent", "strong"),
+                decl("fg-accent-hover", "stronger"),
+                decl("fg-accent-border", "muted"),
+                decl("fg-code"),
+                decl("bg-code", "muted"),
+                decl("fg-code-border", "muted"),
+                decl("bg-code-bg", "dim")
+              );
+
+              newRules.push(newRule);
+            }
+
+            rule.replaceWith(newRules);
+          },
+        },
+      };
+    },
+  };
+}
+
 function using(plugins: Record<string, AcceptedPlugin[]>): Plugin {
   return {
     postcssPlugin: "using",
@@ -149,9 +232,9 @@ function using(plugins: Record<string, AcceptedPlugin[]>): Plugin {
 function pow(): Plugin {
   return {
     postcssPlugin: "pow",
-    prepare: (result) => {
+    prepare: () => {
       return {
-        Declaration: (decl, h) => {
+        Declaration: (decl) => {
           const val = csstree.parse(decl.value, { context: "value" });
 
           let modified = false;
@@ -169,12 +252,14 @@ function pow(): Plugin {
 
                 const countVal = Number(count.value);
                 const items = new csstree.List<csstree.CssNode>();
+                items.push(cssNode("Operator", { value: "(" }));
 
                 for (let i = 0; i < countVal - 1; i++) {
                   items.push(csstree.clone(expr));
                   items.push(cssNode("Operator", { value: "*" }));
                 }
                 items.push(csstree.clone(expr));
+                items.push(cssNode("Operator", { value: ")" }));
 
                 modified = true;
                 list.replace(item, items);
@@ -191,25 +276,10 @@ function pow(): Plugin {
   };
 }
 
-function section(): Plugin {
-  return {
-    postcssPlugin: "section",
-    prepare: (result) => {
-      return {
-        AtRule: {
-          section: async (rule, h) => {
-            rule.replaceWith(rule.nodes);
-          },
-        },
-      };
-    },
-  } satisfies Plugin;
-}
-
 function defVars(): Plugin {
   return {
     postcssPlugin: "def-vars",
-    prepare: (result) => {
+    prepare: () => {
       return {
         AtRule: {
           "def-vars": async (rule, h) => {

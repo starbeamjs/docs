@@ -1,5 +1,5 @@
 %border-base {
-  border-color: var(--sbdoc-border-color);
+  border-color: var(--sbdoc-local-border-color);
   border-style: var(--sbdoc-default-border-style);
   border-width: 0;
 }

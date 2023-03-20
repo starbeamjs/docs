@@ -75,8 +75,14 @@ export class PluginHelper {
     renderHTML(content) {
         return _classPrivateFieldGet(this, _state).renderHTML(content);
     }
-    parse(content) {
+    renderInline(content) {
+        return _classPrivateFieldGet(this, _state).renderInline(content);
+    }
+    parseBlock(content) {
         return _classPrivateFieldGet(this, _state).parse(content);
+    }
+    parseInline(content) {
+        return _classPrivateFieldGet(this, _state).parseInline(content);
     }
     error(message) {
         return _classPrivateFieldGet(this, _state).error(message);

@@ -6,17 +6,19 @@ export const SIDEBAR: Sidebar = {
     {
       items: [
         item("Getting Started", "/guides/index.md"),
-        item("Universal Reactivity", "/guides/universal-reactivity.md"),
         item("Our Guiding Principle", "/guides/principle.md"),
       ],
     },
+    group("How to Read These Guides", [
+      item("Stylistic Conventions", "/guides/legend.md"),
+    ]),
+
     group("Reactive Fundamentals", [
       item("Cells", "/guides/fundamentals/cells.md"),
       item("Functions", "/guides/fundamentals/functions.md"),
-      item("Validation", "/guides/fundamentals/validation.md"),
       item("Resources", "/guides/fundamentals/resources.md"),
     ]),
-    group("Universal Code", []),
+    // group("Universal Code", []),
     // group("Universal Building Blocks", [
     //   item("Introduction", "/guides/universal/index.md"),
     //   item("Reactives", "/guides/universal/reactive.md"),
@@ -25,6 +27,10 @@ export const SIDEBAR: Sidebar = {
     //   item("Modifiers", "/guides/universal/modifiers.md"),
     //   item("Services", "/guides/universal/services.md"),
     // ]),
+    group("Philosophy", [
+      item("Universal Reactivity", "/guides/universal-reactivity.md"),
+      item("Validation", "/guides/fundamentals/validation.md"),
+    ]),
     group(
       "Digging Deeper",
       [
@@ -50,6 +56,10 @@ export const SIDEBAR: Sidebar = {
       item("Resource", "/api/core/resource.md"),
       item("ResourceList", "/api/core/resource-list.md"),
     ]),
+  ],
+  "/frameworks": [
+    item("React", "/frameworks/react/index.md"),
+    item("Preact", "/frameworks/preact/index.md"),
   ],
   "/frameworks/react/": [
     group("React", [item("Getting Started", "/frameworks/react/index.md")]),

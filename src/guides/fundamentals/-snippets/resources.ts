@@ -27,4 +27,4 @@ const Stopwatch = Resource(({ on }) => {
     }).format(now);
   });
 });
-// #endregion stopwatch
+// #endregion

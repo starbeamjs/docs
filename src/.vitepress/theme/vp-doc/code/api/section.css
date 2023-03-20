@@ -1,4 +1,4 @@
-@using content {
+@layer content() {
   span.codicon[class*="codicon-"] {
     display: grid;
     grid-template-columns: max-content 0.3em;
@@ -34,7 +34,7 @@
 
   section.api-notes {
     display: grid;
-    row-gap: var(--sbdoc-font-size);
+    row-gap: var(--sbdoc-default-line-spacing);
   }
 
   section {
@@ -75,7 +75,7 @@
 
     &.card {
       display: grid;
-      row-gap: var(--sbdoc-font-size);
+      row-gap: var(--sbdoc-default-line-spacing);
       padding: 1.3em 1em;
       border-radius: 4px;
       box-shadow: 0 2px 1px -1px rgb(0 0 0 / 40%), 0 1px 1px 0 rgb(0 0 0 / 20%),

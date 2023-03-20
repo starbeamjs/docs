@@ -8,15 +8,12 @@ export default defineComponent({
         const js = ref();
         const ts = ref();
         const container = ref();
-        function current() {
-            return `${STORAGE.currentLang} lang-switcher`;
-        }
         onMounted(()=>{
             mountElements(ts, js, container);
         });
         return ()=>_createVNode("section", {
                 "class": [
-                    langClass(STORAGE.currentLang),
+                    sectionLangClass(STORAGE.currentLang),
                     "code-block",
                     sectionClass,
                     codeSnippet
@@ -33,7 +30,10 @@ export default defineComponent({
 });
 function toggler() {
     return _createVNode("section", {
-        "class": togglerClass
+        "class": [
+            togglerClass,
+            "code-toggler"
+        ]
     }, [
         langButton("js"),
         langButton("ts")
@@ -49,7 +49,10 @@ function langSlot(slots, lang, ref) {
     const slot = slots[lang];
     if (slot) {
         return _createVNode("div", {
-            "class": langClass(lang),
+            "class": [
+                langClass(lang),
+                `lang-${lang}`
+            ],
             "ref": ref
         }, [
             slot()
@@ -105,12 +108,12 @@ function mountElements(ts, js, container) {
     onMounted(()=>{
         const tsSection = ts.value;
         const jsSection = js.value;
-        const tsContainer = tsSection.querySelector("div[class^=language-]");
+        const tsContainer = tsSection.querySelector("[class*=language-]");
         assert(tsContainer, exists);
         addToggle(tsContainer, "typescript", ()=>{
             STORAGE.lang = "js";
         });
-        const jsContainer = jsSection.querySelector("div[class^=language-]");
+        const jsContainer = jsSection.querySelector("[class*=language-]");
         assert(jsContainer, exists);
         addToggle(jsContainer, "javascript", ()=>{
             STORAGE.lang = "ts";
@@ -119,7 +122,7 @@ function mountElements(ts, js, container) {
     // TODO: Generate the right markdown
     onMounted(()=>{
         let x = 1;
-        for (const item of container.value.querySelectorAll("code[class^=language-]")){
+        for (const item of container.value.querySelectorAll("[class*=language-]")){
             assert(item.parentElement, exists);
             item.parentElement.classList.add("code-container");
             for (const child of item.querySelectorAll(".code-container")){
@@ -139,6 +142,12 @@ function exists(value) {
 }
 function langClass(lang) {
     return lang === "ts" ? tsClass : jsClass;
+}
+function sectionLangClass(lang) {
+    return [
+        langClass(lang),
+        `language-${lang}`
+    ];
 }
 
 

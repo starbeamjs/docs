@@ -18,7 +18,7 @@ defineProps<{ param: Parameter }>();
       <Type class="starbeam-param">{{ param.type.name }}</Type>
     </template>
     <template #definition v-if="param.type.docs">
-      <p v-if="param.type.docs">
+      <p v-if="param.type.docs" class="tagged-desc">
         <Docs line>{{ param.type.docs }}</Docs>
         <MiniTag v-if="param.type.isOptional"> optional</MiniTag>
       </p>

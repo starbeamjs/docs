@@ -70,8 +70,12 @@ export class MarkdownFragment {
     get md() {
         return _classPrivateFieldGet(this, _md1);
     }
-    html(html) {
-        this.push(...this.md.parse(html));
+    blockHtml(markdown) {
+        this.push(...this.md.parseBlock(ToString(markdown)));
+        return this;
+    }
+    inlineHtml(markdown) {
+        this.push(...this.md.parseInline(ToString(markdown)));
         return this;
     }
     append(child) {
@@ -128,6 +132,9 @@ export class MarkdownElement extends MarkdownFragment {
             this.attr(key, value);
         }
         return this;
+    }
+    renderInline(text) {
+        return this.md.renderInline(text);
     }
     constructor(_tag, md){
         super(md);
@@ -263,26 +270,17 @@ export class ParagraphElement extends MarkdownElement {
         _classPrivateFieldSet(this, _children1, children);
     }
 }
+function ToString(stringlike) {
+    if (typeof stringlike !== "object") {
+        return String(stringlike);
+    } else {
+        return stringlike.stringify();
+    }
+}
 export function text(string) {
     const token = new Token("text", "", 0);
-    token.content = string;
+    token.content = ToString(string);
     return token;
-}
-function applyValue(token, name, value) {
-    if (value === undefined || value === false) {
-        return;
-    } else if (Array.isArray(value)) {
-        for (const val of attrListValue(value)){
-            token.attrJoin(name, val);
-        }
-    } else if (value === true) {
-        token.attrSet(name, "");
-    } else {
-        const val = attrPart(value);
-        if (val) {
-            token.attrSet(name, val);
-        }
-    }
 }
 function attrListValue(value) {
     return value.map(attrPart).filter(isPresent);

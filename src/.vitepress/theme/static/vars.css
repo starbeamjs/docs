@@ -1,0 +1,38 @@
+:root {
+  --icons: "Material Symbols Outlined";
+}
+
+@using content {
+  .sp-wrapper {
+    /**
+     * TODO: Use symbolic colors for all of these instead of hard-coded colors.
+     */
+    --highlight-color: #ffcdca;
+    --dropdown-border: var(--vp-c-brand-dark);
+    --dropdown-bg: var(--vp-c-brand-dark);
+
+    --sp-font-size: 14px;
+
+    --sp-colors-surface1: var(--sb-bg-gray-maxmuted);
+    --sp-colors-surface2: var(--sb-bg-gray-ultramuted);
+    --sp-colors-surface3: var(--sb-bg-gray-muted);
+    --sp-colors-clickable: #737373;
+    --sp-colors-base: #323232;
+    --sp-colors-disabled: #c5c5c5;
+    --sp-colors-hover: #1f2933;
+    --sp-colors-accent: #2e7692;
+    --sp-colors-error: var(--sb-fg-red);
+    --sp-colors-errorSurface: var(--sb-bg-red-ultramuted);
+    --sp-font-lineHeight: 20px;
+    --sp-syntax-color-plain: #1f2933;
+    --sp-syntax-color-comment: #a7b6c2;
+    --sp-syntax-fontStyle-comment: italic;
+    --sp-syntax-color-keyword: #1a56db;
+    --sp-syntax-color-tag: #1a56db;
+    --sp-syntax-color-punctuation: #394b59;
+    --sp-syntax-color-definition: #a23dad;
+    --sp-syntax-color-property: #2e7692;
+    --sp-syntax-color-static: #1a56db;
+    --sp-syntax-color-string: #1992d4;
+  }
+}

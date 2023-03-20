@@ -3,6 +3,7 @@ import {
   MarkdownFragment,
   type Child,
   type LazyChild,
+  type ToString,
 } from "./tokens.js";
 
 export type Falsy = null | undefined | false | 0 | "";
@@ -18,6 +19,18 @@ export function El(
 ): LazyChild {
   return {
     render: (fragment) => fragment.el(...args),
+  };
+}
+
+export function BlockHtml(text: ToString): LazyChild {
+  return {
+    render: (fragment) => fragment.blockHtml(text),
+  };
+}
+
+export function InlineHtml(text: ToString): LazyChild {
+  return {
+    render: (fragment) => fragment.inlineHtml(String(text)),
   };
 }
 

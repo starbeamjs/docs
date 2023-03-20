@@ -40,10 +40,11 @@ initial value.
 Once you've created a cell, you can immediately access its value
 using the cell's `current` property.
 
-```md details type="protip" title="You Probably Don't Want Cell(null)"
-In Starbeam, you rarely initialize a cell to `null`. Since the
-value of a cell is always updated immediately, you don't need to
-use `null` to represent the time before the value is set.
+```md tip "You Probably Don't Want <code>Cell(null)</code>"
+In Starbeam, you rarely initialize a cell to `null`. In Starbeam,
+there's no time delay between initializing the cell and setting
+its value, so there's no need to use `null` to represent that
+time.
 
 If you use TypeScript, that means that you typically won't need
 to worry about `null` checks in situations where `null` is
@@ -52,14 +53,34 @@ logically impossible.
 
 ## Updating a Cell
 
-You update a cell by modifying its `current` property.
+The simplest way to update a cell is by modifying its `current`
+property.
 
 !(./-snippets/cells.ts#updating-with-set)
 
 Once you've updated a cell, you can immediately access its value
 using the cell's `current` property.
 
-### Updating Based on the Previous Value {.protip title="Protip"}
+```md tip The <code>set</code> method
+Calling a cell's `set` method is equivalent to updating its
+`current` property.
+```
+
+### In-Place Updates
+
+You can use `++`, `+=` and other in-place operators to update the
+cell's value.
+
+!(./-snippets/cells.ts#updating-in-place)
+
+```md tip No Limitations
+You can even use the `??=` operator to initialize the cell's
+value if it started with `undefined`.
+
+!(./-snippets/cells.ts#question-equals)
+```
+
+### Updating Based on the Previous Value {.decor title="PROTIP"}
 
 As a convenience, you can use the `update` function to update a
 cell based on the previous value.
@@ -75,12 +96,10 @@ You can even use the `++` shorthand to update `cell.current`:
 
 !(./-snippets/cells.ts#updating-by-shorthand)
 
-```md info Updates Take Effect Immediately
 No matter which of these methods you use to update a cell, the
-value of the cell will always update immediately.
-```
+value of the cell will **always update immediately.**
 
-## Adding a Debug Description {.protip}
+## Adding a Debug Description {.decor .protip}
 
 Whenever you create a reactive value in Starbeam, you can specify
 a `description` property. This is a string that is used to
@@ -88,8 +107,9 @@ describe the value in the developer tools.
 
 !(./-snippets/cell-description.ts#describe-string)
 
-If you specify an `equals` parameter (see [Equality](#equality)
-below), you specify the description of the cell as an additional
-option.
+If your cell has an `equals` parameter (see [Equivalence]), you
+specify the description of the cell as an additional option.
 
 !(./-snippets/cell-description.ts#describe-with-equals)
+
+[equivalence]: ../advanced/equivalence.md

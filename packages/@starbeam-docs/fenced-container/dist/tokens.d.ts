@@ -15,7 +15,8 @@ export declare abstract class MarkdownFragment implements LazyChild {
     constructor(md: PluginHelper);
     render(tokens: MarkdownFragment): MarkdownFragment;
     protected get md(): PluginHelper;
-    html(html: string): this;
+    blockHtml(markdown: ToString): this;
+    inlineHtml(markdown: ToString): this;
     append(child: Child): this;
     push(...children: Child[]): this;
     element({ tag, attrs, children, }: {
@@ -34,6 +35,7 @@ export declare abstract class MarkdownElement extends MarkdownFragment {
     abstract attr(key: string, value: AttrValue): this;
     constructor(_tag: string, md: PluginHelper);
     attrs(attrs: Record<string, AttrValue>): this;
+    renderInline(text: string): string;
 }
 export declare class BasicFragment extends MarkdownFragment {
     #private;
@@ -62,7 +64,11 @@ export type Children = Child[] | ((el: MarkdownFragment) => MarkdownFragment);
 export interface LazyChild {
     render(tokens: MarkdownFragment): MarkdownFragment;
 }
-export declare function text(string: string): Token;
+export interface TextLike {
+    stringify(): string;
+}
+export type ToString = TextLike | string | number | boolean;
+export declare function text(string: ToString): Token;
 type ElArgs = [
     tag: string,
     attrs?: Record<string, AttrValue> | Children | undefined,

@@ -16,9 +16,6 @@ export default defineComponent({
 
     const container = ref();
 
-    function current() {
-      return `${STORAGE.currentLang} lang-switcher`;
-    }
     onMounted(() => {
       mountElements(ts, js, container);
     });
@@ -26,7 +23,7 @@ export default defineComponent({
     return () => (
       <section
         class={[
-          langClass(STORAGE.currentLang),
+          sectionLangClass(STORAGE.currentLang),
           "code-block",
           sectionClass,
           codeSnippet,
@@ -42,7 +39,7 @@ export default defineComponent({
 
 function toggler() {
   return (
-    <section class={togglerClass}>
+    <section class={[togglerClass, "code-toggler"]}>
       {langButton("js")}
       {langButton("ts")}
     </section>
@@ -68,7 +65,7 @@ function langSlot(
 
   if (slot) {
     return (
-      <div class={langClass(lang)} ref={ref}>
+      <div class={[langClass(lang), `lang-${lang}`]} ref={ref}>
         {slot()}
       </div>
     );
@@ -142,7 +139,7 @@ function mountElements(
     const jsSection = js.value;
 
     const tsContainer = tsSection.querySelector(
-      "div[class^=language-]"
+      "[class*=language-]"
     );
 
     assert(tsContainer, exists);
@@ -152,7 +149,7 @@ function mountElements(
     });
 
     const jsContainer = jsSection.querySelector(
-      "div[class^=language-]"
+      "[class*=language-]"
     );
 
     assert(jsContainer, exists);
@@ -166,7 +163,7 @@ function mountElements(
   onMounted(() => {
     let x = 1;
     for (const item of container.value.querySelectorAll(
-      "code[class^=language-]"
+      "[class*=language-]"
     )) {
       assert(item.parentElement, exists);
       item.parentElement.classList.add("code-container");
@@ -194,6 +191,10 @@ function exists<T>(value: T | null | undefined): value is T {
   return value !== null && value !== undefined;
 }
 
-function langClass(lang: "ts" | "js") {
+function langClass(lang: "ts" | "js"): string {
   return lang === "ts" ? tsClass : jsClass;
+}
+
+function sectionLangClass(lang: "ts" | "js"): string[] {
+  return [langClass(lang), `language-${lang}`];
 }

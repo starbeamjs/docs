@@ -17,14 +17,14 @@ const person = { name: "John", age: 30 };
 const cell = Cell(person, {
   equals: (a, b) => a.name === b.name && a.age === b.age,
 });
-// #endregion equality
+// #endregion
 
 // #region update-with-equivalent
 cell.set({ name: "John", age: 30 });
 expect(cell.current).toBe(person);
-// #endregion update-with-equivalent
+// #endregion
 
 // #region update-with-non-equivalent
 cell.set({ name: "John", age: 31 });
 expect(cell.current).not.toBe(person);
-// #endregion update-with-non-equivalent
+// #endregion

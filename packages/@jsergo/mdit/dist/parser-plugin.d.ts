@@ -24,7 +24,9 @@ export declare class PluginHelper<Env = unknown> {
     get md(): MarkdownIt;
     get env(): unknown;
     renderHTML(content: string): string;
-    parse(content: string): Token[];
+    renderInline(content: string): string;
+    parseBlock(content: string): Token[];
+    parseInline(content: string): Token[];
     error(message: string): string;
 }
 export type BlockPlugin<Env> = (line: LineState, helper: PluginHelper<Env>) => Consume | false | undefined;

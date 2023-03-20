@@ -62,7 +62,7 @@
   --sb-border-thick-width: 0.2rem;
 
   --sb-code-radius: 0.4rem;
-  --sb-code-padding-inline: var(--sb-container-padding-inline);
+  --sb-code-padding-inline: var(--sbdoc-ui-inner-padding-sm);
   --sb-code-padding-block: calc(var(--sb-code-padding-inline) / 2);
   --sb-code-padding: var(--sb-code-padding-block) var(--sb-code-padding-inline);
 }

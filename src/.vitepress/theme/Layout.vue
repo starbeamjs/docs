@@ -89,8 +89,8 @@ onMounted(() => {
   aspect-ratio: 1/1;
   border: var(--border-size) solid var(--local-fg);
   transition: border 0.4s ease-in-out, background-color 0.4s ease-in-out;
-  border-radius: var(--sb-radius-sm);
-  background-color: var(--local-bg);
+  border-radius: var(--sbdoc-radius-sm);
+  background-color: var(--local-bgcolor);
   contain: strict;
   font-family: var(--sb-font-fancy);
   font-weight: var(--sb-font-weight-bold);

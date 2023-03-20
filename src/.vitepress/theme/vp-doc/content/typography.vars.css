@@ -5,12 +5,14 @@
   --sb-font-mono: "Martian Mono", monospace;
   --sb-font-fancy: "Comfortaa", sans-serif;
   --sb-font-em: "Sofia Sans", sans-serif;
+  --sb-font-decor: "Overpass", sans-serif;
 
   --vp-font-family-base: var(--sb-font-base);
   --vp-font-family-mono: var(--sb-font-mono);
 
   --sb-font-weight-thin: 100;
   --sb-font-weight-light: 300;
+  --sb-font-weight-decor: 300;
   --sb-font-weight-label: 500;
   --sb-font-weight-body: 470;
   --sb-font-weight-keyword: 500;

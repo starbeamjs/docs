@@ -5,7 +5,7 @@ updates to cells take effect immediately. That will start to
 matter once we build functions that compute values based on the
 value of a cell.
 
-```md info Compute Values Using Functions
+```md info Just Use Functions
 In Starbeam, there is no special concept such as "derived state"
 or "computed property" that you use to compute a value from
 reactive values.
@@ -50,7 +50,7 @@ And then use the function as normal.
 !(./-snippets/functions.ts#use-cell-arguments-as-normal)
 
 ````md persona power-user
-## Optionally Reactive Arguments {.protip}
+## Optionally Reactive Arguments {.decor.protip}
 
 You may want to write a function that is _able_ to take a
 reactive value as an argument, but will also accept a normal
@@ -79,7 +79,7 @@ you had passed in a reactive value that never changes.
 !(./-snippets/functions.ts#calling-into-reactive)
 ````
 
-## Optimizing Expensive Computations {.optimization}
+## What About Expensive Computations? {.decor .protip}
 
 So far, we've seen that you can use normal functions to compute
 values.

@@ -18,7 +18,9 @@
           "extend",
           "def-vars",
           "def-derived-vars",
-          "section"
+          "section",
+          "custom-blocks",
+          "block"
         ]
       }
     ]

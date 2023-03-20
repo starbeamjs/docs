@@ -25,7 +25,7 @@ const Stopwatch = Resource(({ on }) => {
     }).format(now);
   });
 });
-// #endregion stopwatch
+// #endregion
 
 // #region component
 import { use } from "@starbeam/preact";
@@ -36,4 +36,4 @@ export const Clock = () => {
 
   return <div>{time ?? "now"}</div>;
 };
-// #endregion app
+// #endregion

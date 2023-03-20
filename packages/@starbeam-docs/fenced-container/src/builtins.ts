@@ -4,11 +4,12 @@ import parseFence from "fenceparser";
 import {
   Builtins,
   CUSTOM_EL,
+  CustomEl,
   Title,
   UnparsedContent,
 } from "./define.js";
-import { Do, El, HtmlEl } from "./nodes.js";
-import type { AttrPart, AttrValue } from "./tokens.js";
+import { Do, El } from "./nodes.js";
+import type { AttrPart } from "./tokens.js";
 
 type OBJECT = ReturnType<typeof parseFence>;
 type VALUE = OBJECT[keyof OBJECT];
@@ -16,53 +17,51 @@ type VALUE = OBJECT[keyof OBJECT];
 const BUILTINS = Builtins.empty()
   .basic("info", {
     defaultTitle: "INFO",
-    colors: {
-      bg: "var(--sb-bg-blue-ultramuted)",
-      fg: "var(--sb-fg-blue-strongest)",
-    },
+    color: "blue",
   })
-  .basic("warning")
-  .basic("error")
+  .basic("construction", {
+    defaultTitle: "Under Construction",
+    color: "orange",
+  })
+  .basic("warning", {
+    color: "yellow",
+  })
+  .basic("error", {
+    color: "red",
+  })
   .basic("tip", {
     defaultTitle: null,
-    colors: {
-      bg: "var(--sb-bg-green-ultramuted)",
-      fg: "var(--sb-fg-green-strongest)",
-    },
+    color: "green",
   })
   .basic("callout", { defaultTitle: null })
   .custom("💡", ({ title, content }) =>
-    El(
-      CUSTOM_EL,
+    CustomEl(
+      "lightbulb",
       {
-        class: ["lightbulb"],
         border: "se",
-        ":style": encode({
-          "--sbdoc-local-border-color": "var(--sb-fg-yellow)",
-          "--sbdoc-local-fg": "var(--sb-fg-yellow)",
-          "--sbdoc-local-bg": "var(--sb-bg-yellow-ultramuted)",
-        }),
+        color: "yellow",
+        style: {
+          "padding-block": "0.5em",
+        },
       },
       [title, content]
     )
   )
   .custom("lang-ts", ({ content }) =>
-    El(CUSTOM_EL, { class: ["lang-ts"] }, [content])
+    CustomEl("lang-ts", { color: "neutral" }, [content])
   )
   .custom("em", ({ title, content }) =>
-    HtmlEl(
-      CUSTOM_EL,
+    CustomEl(
+      "em",
       {
-        class: "em",
+        color: "orange",
         border: "w",
-        color: "var(--sb-fg-orange)",
-        ":style": encode({
-          "--sbdoc-local-font-size": "1.3em",
-          "--sbdoc-local-line-height": 1.2,
-          "--sbdoc-local-font-weight":
-            "var(--sb-font-weight-bold)",
-          "--sbdoc-local-bg": "var(--sb-bg-orange)",
-        }),
+        style: {
+          "font-size": `calc(1em * var(--sbdoc-ratio))`,
+          "font-weight": "600",
+          "border-size": "2px",
+          "line-height": "1",
+        },
       },
       [
         title
@@ -76,11 +75,16 @@ const BUILTINS = Builtins.empty()
     El("aside", { class: ["persona", String(title)] }, [content])
   )
   .custom("details", ({ title, content, attrs }) => {
-    return El(CUSTOM_EL, { class: ["details"] }, [
+    return El(CUSTOM_EL, { kind: "details", color: "gray" }, [
       El(
         "details",
         {
-          class: ["container", ...normalizePart(attrs["type"])],
+          class: [
+            "content-block",
+            "callout-block",
+            "container",
+            ...normalizePart(attrs["type"]),
+          ],
         },
         [
           Do(() => {
@@ -218,20 +222,6 @@ function split2(
   return [p0, p1];
 }
 
-function normalize(value: VALUE): AttrValue {
-  if (value === null || value === undefined) {
-    return undefined;
-  } else if (Array.isArray(value)) {
-    return value.flatMap(normalizePart);
-  } else if (typeof value === "object") {
-    throw Error(
-      `Objects are not currently supported as attr values.`
-    );
-  } else {
-    return normalizePart(value);
-  }
-}
-
 function normalizePart(value: VALUE): AttrPart[] {
   if (value === null || value === undefined) {
     return [];
@@ -256,13 +246,4 @@ function normalizePart(value: VALUE): AttrPart[] {
 
 function isPresent<T>(value: T | undefined | null): value is T {
   return value !== undefined && value !== null;
-}
-
-function encode(
-  attrs: Record<
-    string,
-    string | number | boolean | null | undefined
-  >
-): string {
-  return JSON.stringify(attrs).replace(/\"/g, "'");
 }

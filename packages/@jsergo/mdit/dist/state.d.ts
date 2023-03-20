@@ -16,7 +16,9 @@ export declare class MDState<Env = unknown> {
     get env(): Env;
     open(): Token;
     renderHTML(content: string): string;
+    renderInline(content: string): string;
     parse(content: string): Token[];
+    parseInline(content: string): Token[];
     error(message: string): string;
 }
 export type HighlightFn = (str: string, lang: string, attrs: string) => string;

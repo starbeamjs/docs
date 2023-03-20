@@ -6,38 +6,26 @@
 @import "./api/syntax.css";
 @import "./api/generics.css";
 
-@using content {
+@layer content() {
   p,
   mark,
   em,
   strong {
-    code {
+    > code {
       @extend %accented;
 
-      display: inline-block;
-      line-height: var(--sbdoc-line-height);
+      display: inline;
+      padding-block: calc(0.3em);
+      line-height: 1;
     }
   }
 
   mark {
     display: inline;
-    line-height: var(--sbdoc-line-height);
+    line-height: var(--sbdoc-default-line-height);
     padding-inline: 2px;
-    --sbdoc-local-accent-fg: var(--sb-fg-yellow-strong);
-    --sbdoc-local-accent-bg: var(--sb-bg-yellow-ultramuted);
-    --sbdoc-local-accent-border: var(--sb-fg-yellow-muted);
-  }
-
-  .lang-docs.custom-block p > code {
-    color: hsl(
-      var(--sb-fg-hue) var(--sb-fg-saturation) var(--sb-fg-lightness-bright)
-    );
-    background-color: hsl(
-      var(--sb-bg-hue) var(--sb-bg-saturation) var(--sb-bg-lightness-brightest)
-    );
-    padding: var(--sb-nested-inline-code-padding);
-    font-size: calc(var(--sb-font-size) * var(--sb-ratio-down1));
-    font-family: var(--vp-font-family-mono);
-    font-weight: var(--sb-font-weight-light);
+    --sbdoc-block-fg-accent: var(--sb-fg-yellow-strong);
+    --sbdoc-block-bg-accent: var(--sb-bg-yellow-ultramuted);
+    --sbdoc-block-fg-accent-border: var(--sb-fg-yellow-muted);
   }
 }

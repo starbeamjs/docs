@@ -1,11 +1,11 @@
+@import "./accented.extends.css";
+
 @custom-selector :--content-block p, .content-block;
 /** TODO: Don't use a p for custom-block-title */
 @custom-selector :--paragraph p:not(.custom-block-title);
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
 
 @using content {
-  @extend %font;
-
   p,
   summary,
   blockquote {
@@ -15,27 +15,23 @@
 
   :top {
     display: grid;
-    row-gap: var(--sbdoc-font-size);
+    row-gap: var(--sbdoc-default-line-spacing);
   }
 
-  :top(:not(:--heading)) {
-    margin-block: 0;
+  @layer defaults {
+    :top(:not(:--heading)) {
+      margin-block: 0;
+    }
+
+    :top(aside > :not(:--heading)) {
+      margin-block: 0;
+    }
   }
 
-  :top(aside > :not(:--heading)) {
-    margin-block: 0;
-  }
-
-  :--paragraph {
-    @extend %font;
-    /* line-height: inherit; */
-  }
-
-  :--heading {
-    --sbdoc-local-accent-fg: var(--sb-fg-green-dim);
-    --sbdoc-local-accent-bg: var(--sb-bg-green-ultramuted);
-    --sbdoc-local-accent-border: var(--sb-fg-green-strong);
-    margin-block: 0;
+  :top(:--heading) {
+    --sbdoc-block-fg-accent: var(--sb-fg-green-dim);
+    --sbdoc-block-fg-accent-border: var(--sb-fg-green-strong);
+    --sbdoc-block-bg-accent: var(--sb-bg-green-ultramuted);
 
     .marker {
       @extend %accented;
@@ -50,11 +46,17 @@
   }
 
   h2 {
-    margin-block-start: calc(2em / var(--sbdoc-up));
+    margin-block-start: calc(2em / var(--sbdoc-ratio));
   }
 
   h3 {
-    margin-block-start: calc(2em / pow(var(--sbdoc-up), 2));
+    margin-block-start: calc(2em / var(--sbdoc-ratio) / var(--sbdoc-ratio));
+  }
+
+  h4,
+  h5,
+  h6 {
+    margin-block-start: 0;
   }
 
   aside {
@@ -66,22 +68,15 @@
   }
 
   p {
-    @extend %paragraph;
   }
 
   blockquote {
     padding-left: initial;
-    /* --sbdoc-local-font-size: 20px; */
-    /* border-left: 2px solid var(--vp-c-divider); */
-    /* padding-left: 16px; */
     transition: border-color 0.5s;
   }
 
   blockquote > p {
     color: inherit;
-    /* @extend %paragraph; */
-    /* --sbdoc-local-font-size: calc(var(--sbdoc-font-size) * 1.4); */
-    /* font-size: var(--sbdoc-local-font-size); */
 
     transition: color 0.5s;
   }

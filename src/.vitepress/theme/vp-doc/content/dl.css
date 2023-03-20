@@ -20,6 +20,10 @@
       margin-inline-start: 1rem;
     }
 
+    dd:empty {
+      display: none;
+    }
+
     &.docs {
       margin: 1em 0 0 1em;
 
@@ -34,6 +38,12 @@
 
       p {
         margin-block-start: 0;
+      }
+
+      p.tagged-desc {
+        display: flex;
+        align-items: center;
+        column-gap: 0.5em;
       }
     }
 

@@ -32,11 +32,12 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 
       // use named captures
       const match = snippet.match(
-        /^!\((?<file>(.*?))(?:#(?<region>.*))?\)$/
+        /^!\((?:(?<lang>[a-z-]+):)?(?<file>(.*?))(?:#(?<region>.*))?\)$/
       );
 
       if (match) {
-        const { region, file } = match.groups as {
+        const { region, file, lang } = match.groups as {
+          lang: string | undefined;
           region: string | undefined;
           file: string;
         };
@@ -45,7 +46,8 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         pushSnippetToken(
           mdState,
           mdState.env.resolve(file),
-          region
+          region,
+          lang
         );
         return true;
       }
@@ -125,6 +127,7 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
         filename,
         region,
         complete: snippet,
+        lang: undefined,
       });
 
       return true;
@@ -139,7 +142,8 @@ export function snippetPlugin(md: MarkdownIt, srcDir: string) {
 function pushSnippetToken(
   state: MDState,
   filename: string,
-  regionName: string | undefined
+  regionName: string | undefined,
+  lang: string | undefined
 ) {
   const token = state.open();
 
@@ -182,6 +186,7 @@ function pushSnippetToken(
       filename,
       region,
       complete: snippet,
+      lang,
     });
   } else {
     token.content = highlight(state, filename, snippet);
@@ -195,12 +200,34 @@ function highlightRegion({
   filename,
   region,
   complete,
+  lang,
 }: {
   state: MDState;
   filename: string;
   region: Region;
   complete: Snippets;
+  lang: string | undefined;
 }): string {
+  if (lang) {
+    if (lang !== "js" && lang !== "ts") {
+      return error(
+        `Invalid language "${lang}" (must be one of ts or js)\n\n${codeForError(
+          region.js.code
+        )}`
+      );
+    }
+
+    const fenced = RenderLanguageRegion.create({
+      filename,
+      region,
+      parsed: complete,
+      kind: lang,
+      env: state.env,
+    }).highlight(state.highlight);
+
+    return `<section class="code-block language-${lang}">${fenced}</section>`;
+  }
+
   const tsFenced = RenderLanguageRegion.create({
     filename,
     region,
@@ -210,7 +237,7 @@ function highlightRegion({
   }).highlight(state.highlight);
 
   if (region.ts.code === region.js.code) {
-    return `<section class="both-lang code-block">${tsFenced}</section>`;
+    return `<section class="both-lang code-block language-ts">${tsFenced}</section>`;
   }
 
   const jsFenced = RenderLanguageRegion.create({
@@ -238,7 +265,7 @@ function highlight(
   });
 
   if (region.ts.code === region.js.code) {
-    return `<section class="both-lang code-block">${tsFenced}</section>`;
+    return `<section class="both-lang code-block language-ts">${tsFenced}</section>`;
   }
 
   const jsFenced = highlightLang(state, {

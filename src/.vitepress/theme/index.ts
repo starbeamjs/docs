@@ -5,7 +5,6 @@ import { enhanceAppWithTabs } from "vitepress-plugin-tabs/client";
 import theme from "vitepress/theme";
 import type { App } from "vue";
 import Demo from "../components/Demo/Demo.vue";
-import Mermaid from "../components/Mermaid.js";
 import StackBlitz from "../components/StackBlitz.vue";
 import CodeTabs from "../components/Tabs/CodeTabs.vue";
 import Tabs from "../components/Tabs/Tabs.vue";
@@ -15,7 +14,6 @@ import { Code } from "@starbeam-docs/snippets";
 import { CustomBlock } from "@starbeam-docs/custom-block";
 import Layout from "./Layout.vue";
 import "./index.css";
-import "./static/lch.postcss";
 
 export default {
   ...theme,
@@ -29,7 +27,6 @@ export default {
     app.component("StackBlitz", StackBlitz);
 
     app.component("Demo", Demo);
-    app.component("Mermaid", Mermaid);
     app.component("Tabs", Tabs);
     app.component("CodeTabs", CodeTabs);
     app.component("Api", Api);

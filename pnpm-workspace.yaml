@@ -1,6 +1,5 @@
 packages:
   - .
-  - jonas
   - types/@types/*
   - src/.vitepress
   - src/frameworks/react

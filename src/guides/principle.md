@@ -1,19 +1,56 @@
 # Our Guiding Principle
 
 ```md em title=null
-We believe that reactive programming should feel exactly like
-regular programming.
+We believe that reactive programming should feel like regular
+programming.
 ```
 
-Reactive UI frameworks have a way of describing reactive inputs
-and a way of describing an output in terms of those inputs, which
-the framework automatically keeps up to date.
+Starbeam reactivity looks and feels like normal JavaScript
+programming.
 
-Starbeam's APIs for input data are annotated versions of normal
-JavaScript data structures, and you use normal JavaScript
-functions for all of your computation.
+You store state in reactive variables and use functions to
+compute values based on the state.
 
-## What That Means in Practice
+You can decompose your functions into more functions, just like
+you would in normal JavaScript, and none of those functions ever
+need to know that they're reactive.
+
+You can also use classes to organize your reactive state and
+functions, and even use [private fields] and [accessors].
+
+In Starbeam, ==any computation based on reactive variables is
+reactive==, no matter how many abstractions are between the
+reactive variable and the reactive output.
+
+## A Quick Demonstration
+
+Let's start with a simple example of reactive programming in
+Starbeam. It has reactive variables, a reactive function, and
+renders a reactive output.
+
+!(./-snippets/principle.ts#a)
+
+To push the envelope, let's refactor the example to use clases
+and private fields.
+
+!(./-snippets/principle.ts#b)
+
+Even though the two cells are now stored in private fields, and
+the value is returned from a getter, the rendered reactive output
+will still update when the cells change.
+
+```md details A real-world implementation using decorators
+This quick demonstration used cells and manual getters to make it
+clear that there's no Starbeam-specific magic in the fields or
+getters that makes the rendered output reactive.
+
+In practice, you would probably write the `Person` class using
+JavaScript decorators:
+
+!(./-snippets/principle.ts#decorators)
+```
+
+## Some of the Benefits
 
 Here are some examples of how Starbeam's principles work in
 practice, especially in ways that might be different from other
@@ -42,36 +79,53 @@ match JavaScript features however you want. Once you've used a
 reactive value to store your state, ==you don't have to think
 about reactivity as you compute values.==
 
-````md details Example
+### A Longer Demonstration Using Reactive Arrays
+
+This "regular programming" principle goes far beyond single
+values.
+
+When your reactive code needs to work with collections, like
+arrays, maps and sets, Starbeam's design is based on the same
+guiding principle: you can use reactive arrays, maps and sets,
+and then ==read from those collections using normal JavaScript==.
+
+In this longer demonstration, we'll create a `People` class that
+holds multiple people in a reactive array.
+
 !(./-snippets/items.ts#reactive-class)
 
-In this example, we built a `People` class that stores a list of
-people. We used a [private field] to store a reactive array.
+As before, we used a private field to store our reactive state,
+and created methods for adding more items to the array and
+querying the array.
 
-```md info
+```md 💡
 We could have stored it some other way (like a public field or
 even in a `WeakMap`) and everything would have worked just as
 well.
 ```
 
 We created a `byLocation` method that uses a normal JavaScript
-`filter` function to filter the array by location. And we use the
-somewhat obscure `findIndex` method to find the person we're
-updating, and updated the array by replacing the item at that
-index.
+`filter` function to filter the array by location.
 
-At this point, we have a very normal JavaScript library that
-completely hides the reactivity at its core.
+The `update` method uses the somewhat obscure `findIndex` method
+to find the person we're updating, and updated the array by
+replacing the item at that index.
 
-If we then **render** the result of `byLocation`, the renderer
-will update the output whenever `update` is called.
+==Other than defining `#people` as a `reactive.array`, the rest
+of the `People` class looks and feels like a normal, encapsulated
+JavaScript class.==
+
+If we then render the result of `byLocation` into a reactive
+output, the renderer will update the output whenever `update` is
+called.
 
 **The bottom line is**: While Starbeam's reactive values and
 rendering concept may feel analogous to the reactive systems
 you're used to, the similarities end with those concepts. All
 other reads and writes to those reactive values are normal
 JavaScript.
-````
 
-[private field]:
+[private fields]:
   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields
+[accessors]:
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors

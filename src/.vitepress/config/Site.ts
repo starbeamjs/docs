@@ -4,7 +4,7 @@ import type { ThemeConfig } from "./types.js";
 
 export const SITE: Partial<ThemeConfig> = {
   siteTitle: "Starbeam",
-  lastUpdatedText: "Last Updated:",
+  lastUpdatedText: "Last Updated",
   footer: {
     message: "Released under the MIT license",
     copyright:

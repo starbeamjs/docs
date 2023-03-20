@@ -103,9 +103,9 @@ function current() {
 .lang-docs.js > div.js:not(:empty) {
   display: block;
 
-  border-radius: var(--sb-radius);
+  border-radius: var(--sbdoc-radius);
 
-  margin-block: var(--sb-p-break) calc(var(--sb-p-break) + 0.3rem);
+  margin-block: 1rem 1.3rem;
 
   > :first-child {
     margin-block-start: 0;
@@ -119,8 +119,8 @@ function current() {
     display: grid;
     align-items: baseline;
     grid-template-columns: 1fr 1000fr;
-    row-gap: var(--sb-p-break);
-    column-gap: calc(var(--sb-ui-text-offset-start) * var(--sb-ratio-up2));
+    row-gap: 1rem;
+    column-gap: var(--sbdoc-ui-inner-padding);
   }
 
   > p {
@@ -142,17 +142,18 @@ function current() {
     line-height: 1;
     grid-column: 1;
 
-    padding-inline: calc(var(--sb-ui-padding-inline) * var(--sb-ratio-down2));
-    padding-block-start: calc(var(--sb-ui-padding-block) * var(--sb-ratio-down1));
-    padding-block-end: calc(var(--sb-ui-padding-block) + 0.05rem);
+    padding-inline: calc(
+      var(--sbdoc-ui-inline-padding) / var(--sbdoc-ratio) / var(--sbdoc-ratio)
+    );
+    padding-block-start: calc(var(--sbdoc-ui-inner-padding-xxs));
+    padding-block-end: calc(var(--sbdoc-ui-inner-padding-xxs) + 0.05rem);
 
-    border-radius: var(--sb-radius-xsm);
-    font-size: calc(var(--sb-font-size) / var(--sb-ratio));
+    border-radius: var(--sbdoc-radius-xsm);
+    font-size: calc(var(--sbdoc-default-font-size) / var(--sbdoc-ratio));
     content: attr(class);
     background-color: var(--bg-color);
     color: var(--fg-color);
-    border-block-end: var(--sb-border-thicker) solid var(--border-color);
-    border-inline-end: var(--sb-border-thicker) solid var(--border-color);
+    border-block: 0.1rem solid var(--border-color);
   }
 }
 

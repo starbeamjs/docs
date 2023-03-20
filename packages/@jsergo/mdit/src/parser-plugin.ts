@@ -74,8 +74,16 @@ export class PluginHelper<Env = unknown> {
     return this.#state.renderHTML(content);
   }
 
-  parse(content: string): Token[] {
+  renderInline(content: string): string {
+    return this.#state.renderInline(content);
+  }
+
+  parseBlock(content: string): Token[] {
     return this.#state.parse(content);
+  }
+
+  parseInline(content: string): Token[] {
+    return this.#state.parseInline(content);
   }
 
   error(message: string): string {

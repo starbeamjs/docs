@@ -3,7 +3,7 @@ import "@mdit-vue/plugin-sfc";
 import parseFence from "fenceparser";
 import Token from "markdown-it/lib/token.js";
 import { type LazyChildren } from "./nodes.js";
-import { MarkdownElement, type LazyChild, CustomBuiltin } from "./tokens.js";
+import { MarkdownElement, type LazyChild, CustomBuiltin, type Children, type TextLike } from "./tokens.js";
 type OBJECT = ReturnType<typeof parseFence>;
 type VALUE = OBJECT[keyof OBJECT];
 export declare const CUSTOM_EL = "CustomBlock";
@@ -35,22 +35,14 @@ type RenderContainer = ({ title, kind, attrs, content, md, define, }: {
 }) => LazyChildren;
 type BuiltinConfig = {
     defaultTitle?: string | null | undefined;
-    colors?: {
-        fg?: string | undefined;
-        bg?: string | undefined;
-        border?: string | undefined;
-    };
+    color: string;
 } | CustomConfig;
 /**
  * A bare string is the default title.
  */
 type BasicConfig = {
     defaultTitle?: string | null | undefined;
-    colors?: {
-        fg?: string | undefined;
-        bg?: string | undefined;
-        border?: string | undefined;
-    };
+    color?: string;
 } | string;
 interface CustomConfig {
     render: RenderContainer;
@@ -61,7 +53,7 @@ declare class Builtin {
     constructor(config: BuiltinConfig);
     render(options: RenderOptions): Token[];
 }
-export declare class Title implements LazyChild {
+export declare class Title implements LazyChild, TextLike {
     #private;
     static provided(provided: string | false | undefined): Title;
     static create(provided: string | false | undefined, defaultValue: string | undefined): Title;
@@ -72,6 +64,7 @@ export declare class Title implements LazyChild {
     map<T>(callback: (title: string) => T): T | null;
     exists(): boolean;
     get provided(): string | undefined | false;
+    stringify(): string;
     toString(): string;
 }
 export declare class Builtins<N extends string> {
@@ -84,5 +77,20 @@ export declare class Builtins<N extends string> {
     tryGet(name: string): Builtin | undefined;
     get(name: N): Builtin;
 }
+export declare function styles(color: string, otherStyles?: Record<string, string>): string;
+export declare function namespaceStyle(styles: Record<string, string>): {
+    [k: string]: string;
+};
+export declare function fg(color: string, style?: string): string;
+export declare function bg(color: string, style?: string): string;
+export declare function encode(attrs?: Record<string, string | number | boolean | null | undefined>): string;
+type BlockBorder = "n" | "s" | "ns" | "";
+type InlineBorder = "e" | "w" | "ew" | "";
+type Border = `${BlockBorder}${InlineBorder}`;
+export declare function CustomEl(kind: string, options: {
+    color: string;
+    border?: Border;
+    style?: Record<string, string>;
+}, children?: Children): LazyChild;
 export {};
 //# sourceMappingURL=define.d.ts.map

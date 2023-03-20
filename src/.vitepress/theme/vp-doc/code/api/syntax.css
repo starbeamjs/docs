@@ -26,7 +26,7 @@ html.dark {
 
     dl.docs {
       display: grid;
-      row-gap: var(--sbdoc-font-size);
+      row-gap: var(--sbdoc-default-line-spacing);
 
       > * {
         margin-block: 0;
@@ -38,8 +38,9 @@ html.dark {
         column-gap: var(--sbdoc-ui-inline-padding);
 
         code {
+          display: inline-grid;
+          place-content: center;
           justify-self: stretch;
-          text-align: center;
         }
       }
 
@@ -55,7 +56,7 @@ html.dark {
         margin-block: 0;
 
         p {
-          font-size: calc(var(--sbdoc-font-size) * 0.95);
+          font-size: calc(1rem * 0.95);
           color: var(--sb-fg-theme);
           font-weight: 200;
           text-style: italic;
@@ -66,7 +67,7 @@ html.dark {
 
   section.card div.docs {
     display: grid;
-    row-gap: var(--sbdoc-font-size);
+    row-gap: var(--sbdoc-default-line-spacing);
   }
 
   section.card-container {

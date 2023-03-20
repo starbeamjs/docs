@@ -1,4 +1,9 @@
-@using content {
+@layer content() {
+  .code-tabs {
+    --local-bg-active: var(--sb-bg-gray-dimmer);
+    --local-bg-inactive: var(--sb-bg-gray-strong);
+  }
+
   .code-tabs-nav {
     overflow-x: auto;
 
@@ -6,7 +11,7 @@
     padding: 0;
     border-radius: 6px 6px 0 0;
 
-    background-color: var(--code-tabs-nav-bg-color, #3a404c);
+    background-color: var(--local-bg-inactive);
     list-style: none;
 
     white-space: nowrap;
@@ -31,9 +36,10 @@
     border-radius: 6px 6px 0 0;
 
     background-color: transparent;
-    color: var(--code-tabs-nav-text-color, #eee);
+    color: var(--sb-fg-gray-strong);
+    text-align: center;
 
-    font-weight: var(--sb-font-weight-title);
+    font-weight: var(--sb-font-weight-label);
     font-size: 0.85em;
     line-height: 1.4;
 
@@ -43,7 +49,7 @@
       color var(--color-transition, 0.3s ease);
 
     &:hover {
-      background-color: var(--code-tabs-nav-hover-color, #434a57);
+      background-color: var(--code-tabs-nav-hover-color, var(--sb-bg-gray-dim));
     }
 
     &::before,
@@ -67,13 +73,15 @@
     }
 
     &.active {
-      background-color: var(--code-bg-color, #282c34);
+      color: var(--sb-fg-gray-muted);
+      background-color: var(--local-bg-active);
+      font-weight: var(--sb-font-weight-title);
 
       &::before {
         background: radial-gradient(
           12px at left top,
           transparent 50%,
-          var(--code-bg-color, #282c34) 50%
+          var(--local-bg-active) 50%
         );
       }
 
@@ -81,7 +89,7 @@
         background: radial-gradient(
           12px at right top,
           transparent 50%,
-          var(--code-bg-color, #282c34) 50%
+          var(--local-bg-active) 50%
         );
       }
     }
@@ -98,11 +106,26 @@
 
     &.active {
       display: block;
+      width: calc(100cqi - 2px);
+    }
+
+    .shiki.github-dark {
+      display: initial;
+      code {
+        background-color: var(--local-bg-active);
+      }
+    }
+
+    .shiki.github-light {
+      display: none;
     }
 
     /* TODO: Use custom shiki selector */
     div[class*="language-"]:not(.language-id) {
       box-shadow: 2px 2px var(--sb-fg-theme), 2px 0px var(--sb-fg-theme);
+      border-end-end-radius: var(--sbdoc-radius);
+      border-end-start-radius: var(--sbdoc-radius);
+      border-block-start: none;
 
       &,
       & code {

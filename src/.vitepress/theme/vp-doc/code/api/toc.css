@@ -20,7 +20,7 @@
         display: grid;
         grid-template-columns: 0.1em max-content 1fr;
         column-gap: 1ch;
-        row-gap: var(--sb-gap);
+        row-gap: var(--sbdoc-default-line-spacing);
         margin: 0;
         padding: 0;
 

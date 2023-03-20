@@ -92,8 +92,8 @@ function _objectSpreadProps(target, source) {
 }
 import "@mdit-vue/plugin-sfc";
 import { mapEntries } from "@wycatsjs/utils";
-import { El, If } from "./nodes.js";
-import { ParagraphElement, text, CustomBuiltin, BasicFragment } from "./tokens.js";
+import { El, InlineHtml } from "./nodes.js";
+import { CustomBuiltin, BasicFragment } from "./tokens.js";
 export const CUSTOM_EL = "CustomBlock";
 var _content = /*#__PURE__*/ new WeakMap();
 export class UnparsedContent {
@@ -105,7 +105,7 @@ export class UnparsedContent {
     }
     render(tokens) {
         if (_classPrivateFieldGet(this, _content)) {
-            return tokens.html(_classPrivateFieldGet(this, _content));
+            return tokens.blockHtml(_classPrivateFieldGet(this, _content));
         }
         return tokens;
     }
@@ -115,6 +115,19 @@ export class UnparsedContent {
             value: void 0
         });
         _classPrivateFieldSet(this, _content, content);
+    }
+}
+const DEFAULT_COLOR = "theme";
+function ToBuiltinConfig(config) {
+    if (config === undefined || typeof config === "string") {
+        return {
+            defaultTitle: config !== null && config !== void 0 ? config : null,
+            color: DEFAULT_COLOR
+        };
+    } else {
+        return _objectSpread({
+            color: "theme"
+        }, config);
     }
 }
 var _config = /*#__PURE__*/ new WeakMap(), _renderFn = /*#__PURE__*/ new WeakMap(), _defaultTitle = /*#__PURE__*/ new WeakMap();
@@ -148,35 +161,23 @@ class Builtin {
     }
 }
 function get_renderFn() {
-    var _classPrivateFieldGet_colors, _classPrivateFieldGet_colors1, _classPrivateFieldGet_colors2;
     if (typeof _classPrivateFieldGet(this, _config) === "object" && "render" in _classPrivateFieldGet(this, _config)) {
         return _classPrivateFieldGet(this, _config).render;
     }
-    const defaultBg = "var(--sbdoc-default-block-bg)";
-    const defaultFg = "var(--sbdoc-default-block-fg)";
-    var _classPrivateFieldGet_colors_bg;
-    const bgcolor = (_classPrivateFieldGet_colors_bg = (_classPrivateFieldGet_colors = _classPrivateFieldGet(this, _config).colors) === null || _classPrivateFieldGet_colors === void 0 ? void 0 : _classPrivateFieldGet_colors.bg) !== null && _classPrivateFieldGet_colors_bg !== void 0 ? _classPrivateFieldGet_colors_bg : defaultBg;
-    var _classPrivateFieldGet_colors_fg;
-    const fgcolor = (_classPrivateFieldGet_colors_fg = (_classPrivateFieldGet_colors1 = _classPrivateFieldGet(this, _config).colors) === null || _classPrivateFieldGet_colors1 === void 0 ? void 0 : _classPrivateFieldGet_colors1.fg) !== null && _classPrivateFieldGet_colors_fg !== void 0 ? _classPrivateFieldGet_colors_fg : defaultFg;
-    var _classPrivateFieldGet_colors_border;
-    const border = (_classPrivateFieldGet_colors_border = (_classPrivateFieldGet_colors2 = _classPrivateFieldGet(this, _config).colors) === null || _classPrivateFieldGet_colors2 === void 0 ? void 0 : _classPrivateFieldGet_colors2.border) !== null && _classPrivateFieldGet_colors_border !== void 0 ? _classPrivateFieldGet_colors_border : fgcolor;
-    console.log({
-        config: _classPrivateFieldGet(this, _config),
-        bgcolor
-    });
-    return ({ md , kind , title: providedTitle , content  })=>{
+    const color = _classPrivateFieldGet(this, _config).color;
+    return ({ kind , title: providedTitle , content  })=>{
         var _classPrivateFieldGet1;
         const title = providedTitle.withDefault((_classPrivateFieldGet1 = _classPrivateFieldGet(this, _defaultTitle)) !== null && _classPrivateFieldGet1 !== void 0 ? _classPrivateFieldGet1 : undefined);
-        return ParagraphElement.tag(CUSTOM_EL, md).attrs({
-            class: [
-                kind
-            ],
-            style: `--sbdoc-local-bg: ${bgcolor}; --sbdoc-local-fg: ${fgcolor}; --sbdoc-local-border-color: ${border};`
-        }).append(If(title, (title)=>El("p", {
-                class: "custom-block-title"
-            }, [
-                title
-            ]))).append(content);
+        return CustomEl(kind, {
+            color: color !== null && color !== void 0 ? color : DEFAULT_COLOR
+        }, [
+            title.map((t)=>El("p", {
+                    class: "custom-block-title"
+                }, [
+                    t
+                ])),
+            content
+        ]);
     };
 }
 function get_defaultTitle() {
@@ -200,7 +201,7 @@ export class Title {
         return new Title(_classPrivateFieldGet(this, _provided), defaultValue);
     }
     render(tokens) {
-        return tokens.append(text(String(this)));
+        return tokens.append(InlineHtml(this));
     }
     isBlank() {
         return _classPrivateFieldGet(this, _provided) === false;
@@ -225,7 +226,7 @@ export class Title {
     get provided() {
         return _classPrivateFieldGet(this, _provided);
     }
-    toString() {
+    stringify() {
         if (_classPrivateFieldGet(this, _provided) === false) {
             return "";
         } else if (_classPrivateFieldGet(this, _provided) === undefined) {
@@ -234,6 +235,9 @@ export class Title {
         } else {
             return _classPrivateFieldGet(this, _provided);
         }
+    }
+    toString() {
+        return this.stringify();
     }
     constructor(provided, defaultValue){
         _classPrivateFieldInit(this, _provided, {
@@ -267,12 +271,8 @@ export class Builtins {
         }));
     }
     basic(name, config) {
-        var _config_defaultTitle;
-        const defaultTitle = typeof config === "string" ? config : (_config_defaultTitle = config === null || config === void 0 ? void 0 : config.defaultTitle) !== null && _config_defaultTitle !== void 0 ? _config_defaultTitle : name.toLocaleUpperCase();
         return new Builtins(_objectSpreadProps(_objectSpread({}, _classPrivateFieldGet(this, _builtins)), {
-            [name]: new Builtin(_objectSpreadProps(_objectSpread({}, typeof config === "string" ? {} : config), {
-                defaultTitle
-            }))
+            [name]: new Builtin(ToBuiltinConfig(config))
         }));
     }
     tryGet(name) {
@@ -288,6 +288,53 @@ export class Builtins {
         });
         _classPrivateFieldSet(this, _builtins, builtins);
     }
+}
+export function styles(color, otherStyles = {}) {
+    return encode(_objectSpread({}, namespaceStyle({
+        "border-color": fg(color),
+        fg: fg(color),
+        bg: bg(color, "ultramuted"),
+        "accent-fg": fg(color, "dim"),
+        "accent-hover-bg": bg(color, "strong"),
+        "code-border": fg(color, "muted"),
+        "code-bg": bg(color, "muted"),
+        "code-fg": bg(color, "dim")
+    }), otherStyles));
+}
+export function namespaceStyle(styles) {
+    return Object.fromEntries(Object.entries(styles).map(([k, v])=>[
+            `--sbdoc-block-${k}`,
+            `var(--sb-${v})`
+        ]));
+}
+export function fg(color, style) {
+    if (style) {
+        return `fg-${color}-${style}`;
+    } else {
+        return `fg-${color}`;
+    }
+}
+export function bg(color, style) {
+    if (style) {
+        return `bg-${color}-${style}`;
+    } else {
+        return `bg-${color}`;
+    }
+}
+export function encode(attrs) {
+    if (attrs === undefined) {
+        return "";
+    }
+    return JSON.stringify(attrs).replace(/\"/g, "'");
+}
+export function CustomEl(kind, options, children) {
+    var _options_border;
+    return El(CUSTOM_EL, {
+        kind,
+        border: (_options_border = options.border) !== null && _options_border !== void 0 ? _options_border : "nsew",
+        color: options.color,
+        ":style": encode(options.style)
+    }, children);
 }
 
 

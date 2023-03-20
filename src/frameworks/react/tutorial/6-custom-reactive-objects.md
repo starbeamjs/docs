@@ -42,11 +42,13 @@ Here's how we use `CounterData` in our `Counter` component:
 You can also build custom reactive objects using a native
 JavaScript class.
 
-:::💡 As a project, Starbeam supports both styles as first-class
-ways to create custom reactive objects. If you prefer native
-classes, go for it! On the other hand, if you dislike native
-classes, you can do everything using normal JavaScript functions.
-The choice is yours 😁. :::
+```md 💡
+As a project, Starbeam supports both styles as first-class ways
+to create custom reactive objects. If you prefer native classes,
+go for it! On the other hand, if you dislike native classes, you
+can do everything using normal JavaScript functions. The choice
+is yours 😁.
+```
 
 Here's the same `CounterData` reactive constructor, but
 implemented as a native class using private fields:

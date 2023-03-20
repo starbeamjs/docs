@@ -1,124 +1,176 @@
-@import "./custom-block.extends.css";
 @import "./code-tabs.css";
 
-@using content {
+@layer content() {
+  @custom-blocks red, orange, yellow, green, blue, purple, neutral, highlight, theme {
+    /** TODO Make this work without the block. Requires investigation */
+  }
+
+  :top {
+    container: content / inline-size;
+  }
+
+  .content-block .code-block {
+    code {
+      background-color: var(--sb-bg-gray-ultramuted);
+    }
+  }
+
   @layer theme {
-    @section em {
-      blockquote.em {
-        @extend %border-is, %container;
-        --sbdoc-local-border-size: 2px;
-        --sbdoc-local-fg: var(--sb-fg-orange-dim);
-        --sbdoc-local-font-size: calc(1rem * var(--sbdoc-up));
-        --sbdoc-local-font-weight: 600;
-        padding-inline-start: var(--sbdoc-ui-inner-padding);
+    :not(pre) > code {
+      background-color: var(--vp-c-mute);
+    }
+
+    .callout-block {
+      width: calc(100cqi + (var(--sbdoc-ui-inner-padding) * 2));
+      transform: translateX(calc(var(--sbdoc-ui-inner-padding) * -1));
+    }
+
+    .display-contents {
+      display: contents;
+    }
+
+    .content-block.lightbulb {
+      grid-template-columns: var(--sbdoc-ui-inner-padding) min-content 1fr var(
+          --sbdoc-ui-inner-padding
+        );
+
+      &::before {
+        content: "💡";
+        padding-inline-end: var(--sbdoc-ui-inline-padding);
+        grid-column: 2;
+      }
+
+      > :first-child {
+        grid-column: 3;
+      }
+
+      > * {
+        grid-column: 2 / span 2;
       }
     }
 
-    @section ts-lang {
-      .content-block.lang-ts {
-        position: relative;
-        display: none;
-        background-color: var(--sb-bg-blue-muted);
-        padding: var(--sbdoc-ui-inner-padding-xsm) var(--sbdoc-ui-inner-padding);
-        border: initial;
-        border-radius: initial;
-
-        > p > code {
-          display: inline-block;
-          padding-inline: var(--sbdoc-ui-inner-padding);
-        }
-      }
-
-      .content-block.lang-ts::before {
-        content: "TS";
-        display: grid;
-        position: absolute;
-        line-height: 1.3;
-        width: max-content;
-        aspect-ratio: 1/1;
-        align-content: center;
-        right: 0;
-        padding: 0.3em;
-        background-color: var(--sb-bg-blue-stronger);
-        color: var(--sb-fg-blue);
-      }
-    }
-  }
-
-  @section tip {
     .content-block {
-      &.tip,
-      &.info,
-      &.warning,
-      &.lightbulb {
-        background-color: var(--sbdoc-local-bg);
-        color: var(--sbdoc-local-fg);
-        border-color: var(--sbdoc-local-border-color);
-      }
-    }
+      container: callout / inline-size;
+      margin-block: var(--sbdoc-ui-inner-padding);
+      width: calc(100% + var(--sbdoc-ui-inner-padding) * 2);
+      transform: translateX(calc(var(--sbdoc-ui-inner-padding) * -1));
+      grid-template-columns:
+        var(--sbdoc-ui-inner-padding)
+        1fr var(--sbdoc-ui-inner-padding);
 
-    .content-block.tip {
-      background-color: var(--sb-bg-green-ultramuted);
-      --sbdoc-local-fg: var(--sb-fg-green-strongest);
+      :--code-block {
+        box-shadow: initial;
+        border-radius: initial;
+        border-block: 2px solid var(--sb-fg-gray);
 
-      a {
-        color: var(--sb-fg-green);
-      }
-
-      a:hover {
-        color: var(--sb-fg-green-strong);
-        text-decoration: underline;
-      }
-
-      blockquote {
-        margin: initial;
-        padding: initial;
-        border: initial;
-
-        display: grid;
-        grid-template-columns: max-content 1fr max-content;
-        column-gap: var(--sbdoc-ui-inner-padding);
-
-        p {
-          color: var(--sb-fg-blue-strong);
+        code {
+          background-color: var(--sb-bg-gray-muted);
         }
 
-        &::before,
-        &::after {
-          line-height: 1;
-          font-size: calc(var(--sbdoc-font-size) * pow(var(--sbdoc-up), 4));
-          font-weight: bold;
-          color: var(--sb-fg-blue-dimmer);
+        .code-toggler,
+        .code-toggler > button {
+          border-radius: 0;
         }
+      }
 
-        &::before {
-          content: "“";
-          align-self: first baseline;
-        }
+      .callout-block {
+        border: none;
+        width: 100cqi;
+        transform: none;
+      }
 
-        &::after {
-          content: ",,";
-          align-self: last baseline;
-          letter-spacing: -0.06em;
+      &.lang-ts {
+        border: none;
+        padding: 0;
+        display: none;
+      }
+
+      &.em {
+        padding-block: var(--sbdoc-ui-inner-padding-xsm);
+        row-gap: 0;
+
+        h5 {
+          color: var(--sbdoc-block-fg-accent);
         }
       }
     }
   }
 
-  @section reset {
-    details.custom-block {
+  .callout-block {
+    background-color: var(--sbdoc-block-bg);
+    color: var(--sbdoc-block-fg);
+    border-color: var(--sbdoc-block-border-color);
+
+    a {
+      color: var(--sbdoc-block-fg-accent);
+    }
+
+    a:hover {
+      color: var(--sbdoc-block-fg-accent-hover);
+    }
+
+    margin-block-start: var(--sbdoc-ui-inner-padding);
+
+    &:not(:last-child) {
+      margin-block-end: var(--sbdoc-ui-inner-padding);
+    }
+
+    blockquote {
       margin: initial;
+      margin-inline-start: 1rem;
+      margin-inline-end: 2rem;
+
       padding: initial;
-    }
+      border: initial;
 
-    p {
-      margin: initial;
+      display: grid;
+      grid-template-columns: max-content 1fr max-content;
+      column-gap: var(--sbdoc-ui-inner-padding);
+
+      p {
+        font-style: italic;
+      }
+
+      &::before,
+      &::after {
+        line-height: 1;
+        font-size: calc(
+          1rem * var(--sbdoc-ratio) * var(--sbdoc-ratio) * var(--sbdoc-ratio) *
+            var(--sbdoc-ratio)
+        );
+        font-weight: bold;
+        /* color: var(--sb-fg-blue-dimmer); */
+      }
+
+      &::before {
+        content: "“";
+        align-self: first baseline;
+      }
+
+      &::after {
+        content: ",,";
+        align-self: last baseline;
+        letter-spacing: -0.06em;
+      }
     }
   }
+
+  /* #region reset */
+  details.custom-block {
+    margin: initial;
+    padding: initial;
+  }
+
+  p {
+    margin: initial;
+  }
+  /* #endregion */
 }
 
-@layer theme {
-  body[data-lang="ts"] #app .vp-doc .content-block.lang-ts {
-    display: block;
-  }
+body[data-lang="ts"] #app .VPDoc {
+  /* padding-inline: var(--sbdoc-ui-inner-padding); */
+}
+
+body[data-lang="ts"] #app .vp-doc .callout-block.lang-ts {
+  display: block;
 }

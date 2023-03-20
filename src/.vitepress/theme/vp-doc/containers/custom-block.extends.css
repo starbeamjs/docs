@@ -1,4 +1,0 @@
-%custom-block {
-  @extend %container, %border;
-  padding-inline: var (--sbdoc-local-padding, var(--sbdoc-ui-inner-padding));
-}

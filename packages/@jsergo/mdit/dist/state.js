@@ -79,11 +79,18 @@ export class MDState {
     renderHTML(content) {
         return _classPrivateFieldGet(this, _md1).render(content, _classPrivateFieldGet(this, _state).env);
     }
+    renderInline(content) {
+        return _classPrivateFieldGet(this, _md1).renderInline(content, _classPrivateFieldGet(this, _state).env);
+    }
     parse(content) {
         const tokens = [];
         _classPrivateFieldGet(this, _md1).block.parse(content, _classPrivateFieldGet(this, _md1), _classPrivateFieldGet(this, _env), tokens);
         return tokens;
-    // return this.#md.parse(content, this.#state.env);
+    }
+    parseInline(content) {
+        const tokens = [];
+        _classPrivateFieldGet(this, _md1).inline.parse(content, _classPrivateFieldGet(this, _md1), _classPrivateFieldGet(this, _env), tokens);
+        return tokens;
     }
     error(message) {
         return `<div class="language-error ext-error"><pre class="ext-error"><code>${message}</code></pre></div>`;

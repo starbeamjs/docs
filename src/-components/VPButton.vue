@@ -53,7 +53,7 @@ const component = computed(() => {
   border-radius: 24px;
   padding: 0 24px;
   line-height: 46px;
-  font-size: var(--sb-font-size);
+  font-size: var(--sbdoc-default-font-size);
 }
 .VPButton.brand {
   border-color: var(--vp-button-brand-border);

@@ -87,7 +87,6 @@
       "url": "./packages/api-docs/dist/api.schema.json"
     }
   ],
-  "postcss.validate": false,
   "prettier.resolveGlobalModules": true,
   "search.exclude": {
     "**/*.code-search": true,
@@ -140,5 +139,6 @@
     "./packages/api-docs/dist/api.schema.json": "/src/api/**/*.yml"
   },
   "yaml.schemaStore.enable": true,
-  "yaml.trace.server": "messages"
+  "yaml.trace.server": "messages",
+  "postcss.validate": false
 }

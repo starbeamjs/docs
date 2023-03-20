@@ -27,12 +27,4 @@ collection in TypeScript, its type is literally the same as the
 JavaScript type.
 ```
 
-```ts
-import reactive from "@starbeam/js";
-
-const map = reactive.Map<string, number>(); // [!code ann]
-```
-
-1. typeof map is `Map<string, number>`
-
-{.annotation}
+!(ts:./universal/-snippets/collections.ts#collection)

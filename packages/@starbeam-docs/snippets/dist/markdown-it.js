@@ -15,11 +15,11 @@ export function snippetPlugin(md, srcDir) {
         if (line.startsWith("!(")) {
             const snippet = line.string();
             // use named captures
-            const match = snippet.match(RegExp("^!\\((?<file>(.*?))(?:#(?<region>.*))?\\)$"));
+            const match = snippet.match(RegExp("^!\\((?:(?<lang>[a-z-]+):)?(?<file>(.*?))(?:#(?<region>.*))?\\)$"));
             if (match) {
-                const { region , file  } = match.groups;
+                const { region , file , lang  } = match.groups;
                 mdState.consumeLine();
-                pushSnippetToken(mdState, mdState.env.resolve(file), region);
+                pushSnippetToken(mdState, mdState.env.resolve(file), region, lang);
                 return true;
             }
         }
@@ -70,7 +70,8 @@ export function snippetPlugin(md, srcDir) {
                 state: mdState,
                 filename,
                 region,
-                complete: snippet
+                complete: snippet,
+                lang: undefined
             });
             return true;
         }
@@ -78,7 +79,7 @@ export function snippetPlugin(md, srcDir) {
     };
     md.block.ruler.before("fence", "snippet", parser);
 }
-function pushSnippetToken(state, filename, regionName) {
+function pushSnippetToken(state, filename, regionName, lang) {
     const token = state.open();
     if (!existsSync(filename)) {
         token.content = state.error(`File "${filename}" does not exist`);
@@ -104,14 +105,28 @@ function pushSnippetToken(state, filename, regionName) {
             state,
             filename,
             region,
-            complete: snippet
+            complete: snippet,
+            lang
         });
     } else {
         token.content = highlight(state, filename, snippet);
     }
     return token;
 }
-function highlightRegion({ state , filename , region , complete  }) {
+function highlightRegion({ state , filename , region , complete , lang  }) {
+    if (lang) {
+        if (lang !== "js" && lang !== "ts") {
+            return error(`Invalid language "${lang}" (must be one of ts or js)\n\n${codeForError(region.js.code)}`);
+        }
+        const fenced = RenderLanguageRegion.create({
+            filename,
+            region,
+            parsed: complete,
+            kind: lang,
+            env: state.env
+        }).highlight(state.highlight);
+        return `<section class="code-block language-${lang}">${fenced}</section>`;
+    }
     const tsFenced = RenderLanguageRegion.create({
         filename,
         region,
@@ -120,7 +135,7 @@ function highlightRegion({ state , filename , region , complete  }) {
         env: state.env
     }).highlight(state.highlight);
     if (region.ts.code === region.js.code) {
-        return `<section class="both-lang code-block">${tsFenced}</section>`;
+        return `<section class="both-lang code-block language-ts">${tsFenced}</section>`;
     }
     const jsFenced = RenderLanguageRegion.create({
         filename,
@@ -140,7 +155,7 @@ function highlight(state, filename, region) {
         prefix: ""
     });
     if (region.ts.code === region.js.code) {
-        return `<section class="both-lang code-block">${tsFenced}</section>`;
+        return `<section class="both-lang code-block language-ts">${tsFenced}</section>`;
     }
     const jsFenced = highlightLang(state, {
         filename,

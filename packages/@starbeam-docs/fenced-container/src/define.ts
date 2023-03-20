@@ -3,7 +3,14 @@ import "@mdit-vue/plugin-sfc";
 import { mapEntries } from "@wycatsjs/utils";
 import parseFence from "fenceparser";
 import Token from "markdown-it/lib/token.js";
-import { El, HTML, If, type LazyChildren } from "./nodes.js";
+import {
+  El,
+  HTML,
+  HtmlEl,
+  If,
+  InlineHtml,
+  type LazyChildren,
+} from "./nodes.js";
 import {
   MarkdownElement,
   ParagraphElement,
@@ -11,6 +18,8 @@ import {
   type LazyChild,
   CustomBuiltin,
   BasicFragment,
+  type Children,
+  type TextLike,
 } from "./tokens.js";
 
 type OBJECT = ReturnType<typeof parseFence>;
@@ -46,7 +55,7 @@ export class UnparsedContent implements LazyChild {
 
   render(tokens: MarkdownElement): MarkdownElement {
     if (this.#content) {
-      return tokens.html(this.#content);
+      return tokens.blockHtml(this.#content);
     }
     return tokens;
   }
@@ -71,11 +80,7 @@ type RenderContainer = ({
 type BuiltinConfig =
   | {
       defaultTitle?: string | null | undefined;
-      colors?: {
-        fg?: string | undefined;
-        bg?: string | undefined;
-        border?: string | undefined;
-      };
+      color: string;
     }
   | CustomConfig;
 
@@ -85,13 +90,27 @@ type BuiltinConfig =
 type BasicConfig =
   | {
       defaultTitle?: string | null | undefined;
-      colors?: {
-        fg?: string | undefined;
-        bg?: string | undefined;
-        border?: string | undefined;
-      };
+      color?: string;
     }
   | string;
+
+const DEFAULT_COLOR = "theme";
+
+function ToBuiltinConfig(
+  config: BasicConfig | undefined
+): BuiltinConfig {
+  if (config === undefined || typeof config === "string") {
+    return {
+      defaultTitle: config ?? null,
+      color: DEFAULT_COLOR,
+    };
+  } else {
+    return {
+      color: "theme",
+      ...config,
+    };
+  }
+}
 
 interface CustomConfig {
   render: RenderContainer;
@@ -130,29 +149,25 @@ class Builtin {
       return this.#config.render;
     }
 
-    const defaultBg = "var(--sbdoc-default-block-bg)";
-    const defaultFg = "var(--sbdoc-default-block-fg)";
-    const bgcolor = this.#config.colors?.bg ?? defaultBg;
-    const fgcolor = this.#config.colors?.fg ?? defaultFg;
-    const border = this.#config.colors?.border ?? fgcolor;
-    console.log({ config: this.#config, bgcolor });
+    const color = this.#config.color;
 
-    return ({ md, kind, title: providedTitle, content }) => {
+    return ({ kind, title: providedTitle, content }) => {
       const title = providedTitle.withDefault(
         this.#defaultTitle ?? undefined
       );
 
-      return ParagraphElement.tag(CUSTOM_EL, md)
-        .attrs({
-          class: [kind],
-          style: `--sbdoc-local-bg: ${bgcolor}; --sbdoc-local-fg: ${fgcolor}; --sbdoc-local-border-color: ${border};`,
-        })
-        .append(
-          If(title, (title) =>
-            El("p", { class: "custom-block-title" }, [title])
-          )
-        )
-        .append(content);
+      return CustomEl(
+        kind,
+        {
+          color: color ?? DEFAULT_COLOR,
+        },
+        [
+          title.map((t) =>
+            El("p", { class: "custom-block-title" }, [t])
+          ),
+          content,
+        ]
+      );
     };
   }
 
@@ -167,7 +182,7 @@ class Builtin {
   }
 }
 
-export class Title implements LazyChild {
+export class Title implements LazyChild, TextLike {
   static provided(provided: string | false | undefined): Title {
     return new Title(provided, undefined);
   }
@@ -199,7 +214,7 @@ export class Title implements LazyChild {
   }
 
   render(tokens: MarkdownElement): MarkdownElement {
-    return tokens.append(text(String(this)));
+    return tokens.append(InlineHtml(this));
   }
 
   isBlank(): boolean {
@@ -230,7 +245,7 @@ export class Title implements LazyChild {
     return this.#provided;
   }
 
-  toString(): string {
+  stringify(): string {
     if (this.#provided === false) {
       return "";
     } else if (this.#provided === undefined) {
@@ -238,6 +253,10 @@ export class Title implements LazyChild {
     } else {
       return this.#provided;
     }
+  }
+
+  toString(): string {
+    return this.stringify();
   }
 }
 
@@ -279,18 +298,10 @@ export class Builtins<N extends string> {
     name: NewName,
     config?: BasicConfig
   ): Builtins<N | NewName> {
-    const defaultTitle =
-      typeof config === "string"
-        ? config
-        : config?.defaultTitle ?? name.toLocaleUpperCase();
-
     return new Builtins({
       ...this.#builtins,
-      [name]: new Builtin({
-        ...(typeof config === "string" ? {} : config),
-        defaultTitle,
-      }),
-    } as Record<N | NewName, Builtin>);
+      [name]: new Builtin(ToBuiltinConfig(config)),
+    });
   }
 
   tryGet(name: string): Builtin | undefined {
@@ -300,4 +311,85 @@ export class Builtins<N extends string> {
   get(name: N): Builtin {
     return this.#builtins[name];
   }
+}
+
+export function styles(
+  color: string,
+  otherStyles: Record<string, string> = {}
+) {
+  return encode({
+    ...namespaceStyle({
+      "border-color": fg(color),
+      fg: fg(color),
+      bg: bg(color, "ultramuted"),
+      "accent-fg": fg(color, "dim"),
+      "accent-hover-bg": bg(color, "strong"),
+      "code-border": fg(color, "muted"),
+      "code-bg": bg(color, "muted"),
+      "code-fg": bg(color, "dim"),
+    }),
+    ...otherStyles,
+  });
+}
+
+export function namespaceStyle(styles: Record<string, string>) {
+  return Object.fromEntries(
+    Object.entries(styles).map(([k, v]) => [
+      `--sbdoc-block-${k}`,
+      `var(--sb-${v})`,
+    ])
+  );
+}
+
+export function fg(color: string, style?: string) {
+  if (style) {
+    return `fg-${color}-${style}`;
+  } else {
+    return `fg-${color}`;
+  }
+}
+
+export function bg(color: string, style?: string) {
+  if (style) {
+    return `bg-${color}-${style}`;
+  } else {
+    return `bg-${color}`;
+  }
+}
+
+export function encode(
+  attrs?: Record<
+    string,
+    string | number | boolean | null | undefined
+  >
+): string {
+  if (attrs === undefined) {
+    return "";
+  }
+  return JSON.stringify(attrs).replace(/\"/g, "'");
+}
+
+type BlockBorder = "n" | "s" | "ns" | "";
+type InlineBorder = "e" | "w" | "ew" | "";
+type Border = `${BlockBorder}${InlineBorder}`;
+
+export function CustomEl(
+  kind: string,
+  options: {
+    color: string;
+    border?: Border;
+    style?: Record<string, string>;
+  },
+  children?: Children
+) {
+  return El(
+    CUSTOM_EL,
+    {
+      kind,
+      border: options.border ?? "nsew",
+      color: options.color,
+      ":style": encode(options.style),
+    },
+    children
+  );
 }

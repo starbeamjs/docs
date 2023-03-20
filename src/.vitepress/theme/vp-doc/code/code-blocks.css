@@ -1,15 +1,22 @@
-@custom-selector :--shiki-block div[class^="language-"]:not(.language-id);
-@custom-selector :--top-level-code-block :--shiki-block, section.code-block;
+@custom-selector :--code-block [class*="language-"]:not(.language-id);
 @custom-selector :--shiki-language-id div.language-id;
 @custom-selector :--code-pre pre.shiki, pre.manual;
 
-@using content {
+@layer content() {
   code {
     font-weight: initial;
   }
 
   pre {
     padding: initial;
+    margin: initial;
+
+    background-color: white;
+    color: black;
+
+    /* Important to allow the code to move horizontally; */
+    overflow-x: auto;
+    position: relative;
   }
 
   :--code-pre {
@@ -17,8 +24,7 @@
   }
 }
 
-@using content {
-  /*  Start of Shiki Twoslash CSS:
+/*  Start of Shiki Twoslash CSS:
 
 Code blocks structurally look like: 
 
@@ -31,19 +37,69 @@ Code blocks structurally look like:
   </pre> 
 */
 
-  :--top-level-code-block {
-    @extend %custom-block;
-    margin: initial;
+@layer content(default) {
+  .language-error .ext-error {
+    padding: 0.5rem;
+  }
+}
+
+@layer content() {
+  :top(:--code-block) {
     margin-block-end: 2rem;
-    --sbdoc-border-color: var(--sb-fg-theme);
-    box-shadow: 2px 2px var(--sb-fg-theme);
+  }
+
+  .language-error .ext-error {
+    background-color: var(--sb-bg-red-muted);
+    code {
+      display: flex;
+      --local-bg: var(--sb-bg-red-muted);
+
+      white-space: pre-wrap;
+      color: var(--sb-fg-red);
+    }
+  }
+
+  .content-block :--code-block {
+    --local-radius: 0;
+    --local-box-shadow-color: transparent;
+    --local-bg: var(--sb-bg-gray-ultramuted-translucent);
+    border-block: 1px solid var(--sb-fg-gray-muted);
+  }
+
+  .content-block.callout-block :--code-block {
+    grid-column: 1 / span 3;
+  }
+
+  .content-block:not(.callout-block) :--code-block {
+    width: var(--sbdoc-inline-size);
+    margin-inline: calc(var(--sbdoc-block-inline-padding) * -1);
+  }
+
+  :--code-block {
+    button.copy {
+      --height: 1.5rem;
+      width: var(--height);
+      height: var(--height);
+      background-size: 0.8rem;
+      color: var(--vp-code-copy-color);
+
+      &.copied::before {
+        height: var(--height);
+      }
+    }
+  }
+
+  :--code-block {
+    --local-radius: var(--sbdoc-radius);
+    --local-box-shadow-color: var(--sb-fg-gray);
+    --local-bg: var(--sb-bg-gray-maxmuted);
+    padding-inline: 0;
+    border-radius: var(--local-radius);
+    margin: initial;
+    box-shadow: 2px 2px var(--local-box-shadow-color);
     background-color: transparent;
     border: none;
-    width: calc(100% - 2px);
-
-    /* --sbdoc-border-size: 2px; */
-    --sbdoc-local-radius: var(--sbdoc-radius);
-    /* contain: paint; */
+    width: calc(100cqi - 2px);
 
     & > :--shiki-language-id {
       display: none;
@@ -51,8 +107,8 @@ Code blocks structurally look like:
 
     code {
       padding: initial;
-      background-color: var(--sb-bg-theme-ultramuted);
-      border-radius: var(--sbdoc-local-radius);
+      background-color: var(--local-bg);
+      border-radius: var(--local-radius);
     }
 
     button.copy {
@@ -60,34 +116,13 @@ Code blocks structurally look like:
     }
   }
 
-  :--code-pre {
-    margin: initial;
+  :--code-block {
+    display: grid;
+    grid-template-rows: 1fr;
   }
 
-  :--shiki-block {
-    margin: 0;
-  }
-
-  pre {
-    /* In theory shiki will overwrite these, but this is to make sure there are defaults regardless */
-    background-color: white;
-    color: black;
-
-    /* Give it some space to breathe */
-    /* padding: 12px; */
-
-    /* All code samples get a grey border, twoslash ones get a different color */
-
-    margin-block-start: 0;
-    margin-block-end: 2rem;
-
-    /* Important to allow the code to move horizontally; */
-    overflow-x: auto;
-    position: relative;
-  }
-
-  :--shiki-block pre.manual,
-  :--shiki-block pre.manual > code {
+  :--code-block pre.manual,
+  :--code-block pre.manual > code {
     background-color: var(--sb-fg-theme-ultra);
   }
 
@@ -110,7 +145,7 @@ Code blocks structurally look like:
     opacity: 1;
     background-color: var(--sb-bg-theme-muted);
   }
-  :--code-pre div.line {
+  :--code-pre div:is(.line, .meta-line) {
     min-height: 1rem;
   }
 
@@ -162,11 +197,16 @@ Code blocks structurally look like:
       var(--sbdoc-ui-inner-padding);
     padding: var(--sbdoc-ui-inner-padding) 0;
 
-    & > .line {
+    & > :is(.line, .meta-line) {
       grid-column: 2;
+      /* height: calc(); */
     }
 
-    & > .line.highlight {
+    & > :is(.line, .meta-line):empty:not(:last-child)::before {
+      content: " ";
+    }
+
+    & > :is(.line, .meta-line).highlight {
       grid-column: 1 / span 3;
       padding-inline-start: var(--sbdoc-ui-inner-padding);
     }
@@ -220,7 +260,10 @@ Code blocks structurally look like:
       pointer-events: auto;
       opacity: 1;
       transform: translateY(
-        calc(var(--sbdoc-line-height) * var(--sbdoc-font-size) - 2px)
+        calc(
+          var(--sbdoc-default-line-height) * var(--sbdoc-default-font-size) -
+            2px
+        )
       );
     }
   }
@@ -257,9 +300,9 @@ Code blocks structurally look like:
   }
 
   pre code {
-    font-size: 15px;
-    font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New,
-      monospace;
+    font-size: 14px;
+    font-weight: 230;
+    font-family: var(--sbdoc-font-mono);
     white-space: pre;
     -webkit-overflow-scrolling: touch;
   }
@@ -291,7 +334,7 @@ Code blocks structurally look like:
     margin-bottom: 4px;
     padding: 6px;
     padding-left: 14px;
-    width: calc(100% - 20px);
+    width: 100cqi;
     white-space: pre-wrap;
     display: block;
   }
@@ -417,7 +460,7 @@ Code blocks structurally look like:
     color: var(--twoslash-logger-fg);
     padding: 6px;
     padding-left: 8px;
-    width: calc(100% - 19px);
+    width: calc(100cqi - 19px);
     white-space: pre-wrap;
   }
   pre .logger svg {

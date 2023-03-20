@@ -1,11 +1,10 @@
-import { defineComponent, type Prop, type PropType } from "vue";
 import {
-  customBlock,
-  north,
-  south,
-  east,
-  west,
-} from "./CustomBlock.css.js";
+  defineComponent,
+  type Prop,
+  type PropType,
+  type StyleValue,
+} from "vue";
+import { customBlock } from "./CustomBlock.css.js";
 
 export interface Props {
   readonly color?: string;
@@ -15,6 +14,11 @@ export interface Props {
 type BorderPosition =
   | `${"n" | "s" | "ns" | ""}${"e" | "w" | "ew" | ""}`
   | "-";
+
+const north = "north";
+const south = "south";
+const east = "east";
+const west = "west";
 
 type BorderClass =
   | typeof north
@@ -32,15 +36,11 @@ const MAPPING = {
 function computeBorder(position: BorderPosition): BorderClass[] {
   const classes: BorderClass[] = [];
 
-  console.log({ position, MAPPING });
-
   for (const [input, className] of Object.entries(MAPPING)) {
     if (position.includes(input)) {
       classes.push(className);
     }
   }
-
-  console.log({ position, classes });
 
   return classes;
 }
@@ -63,33 +63,36 @@ function prop<U extends T, T = U>(
   }
 }
 
-function string(): string {
-  return "string";
-}
-
 export default defineComponent({
   props: {
-    border: prop<Border, string>(string),
+    kind: prop(String),
+    border: prop<Border, string>(String),
     color: prop(String),
-    style: prop<Record<string, unknown>, object>(Object),
+    style: prop<Extract<StyleValue, object>, object>(Object),
   },
   setup: (props, { slots }) => {
-    console.log({ ...props });
     return () => (
       <div
         class={[
           customBlock,
-          "content-block",
+          `sbdoc-custom-block-${props.color}`,
+          ...computeKindClass(props.kind),
           ...computeBorder(props.border ?? ("nsew" as Border)),
         ]}
-        style={{
-          "--sbdoc-local-border-color": props.color,
-          "--sbdoc-local-fg": props.color,
-          ...props.style,
-        }}
+        style={props.style ?? {}}
       >
         {slots["default"]?.()}
       </div>
     );
   },
 });
+
+function computeKindClass(kind: string | undefined): string[] {
+  if (kind === "details") {
+    return ["display-contents", "details"];
+  } else if (kind) {
+    return ["content-block", "callout-block", kind];
+  } else {
+    return ["content-block", "callout-block"];
+  }
+}

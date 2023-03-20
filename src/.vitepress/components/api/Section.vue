@@ -28,7 +28,7 @@ const slug = computed(() => {
     <component class="section-head" :is="`h${props.level}`" :id="slug">
       <slot name="head" />
       <Tag v-if="props.for.tag" :tag="props.for.tag" />
-      <a class="header-anchor" aria-hidden="true" :href="`#${slug}`"> # </a>
+      <a class="header-anchor" aria-hidden="true" :href="`#${slug}`"></a>
     </component>
     <slot name="contents" />
   </section>
