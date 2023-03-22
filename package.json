@@ -97,6 +97,7 @@
     "@vue/test-utils": "^2.3.0",
     "@vueuse/core": "^9.13.0",
     "@wycatsjs/utils": "workspace:^",
+    "chomp": "^0.2.13",
     "class-transformer": "^0.5.1",
     "css-tree": "^2.3.1",
     "cypress": "^12.7.0",
