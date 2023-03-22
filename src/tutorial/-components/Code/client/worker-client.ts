@@ -1,4 +1,5 @@
 import { onUnmounted } from "vue";
+import { inBrowser } from "vitepress";
 import { logOnClient } from "../shared/log.js";
 
 export class WorkerClient {
@@ -74,12 +75,27 @@ export class WorkerClient {
   }
 }
 
+class SsrWorkerClient {
+  on<D extends object>(
+    _event: string,
+    _callback: (data: D) => void
+  ): () => void {
+    return () => undefined;
+  }
+
+  post(_event: string, _details: object): void {}
+}
+
 export function useWorkerClient(name = "ts-server") {
-  const client = WorkerClient.create();
+  if (inBrowser) {
+    const client = WorkerClient.create();
 
-  onUnmounted(() => {
-    WorkerClient.dispose(client);
-  });
+    onUnmounted(() => {
+      WorkerClient.dispose(client);
+    });
 
-  return client;
+    return client;
+  } else {
+    return new SsrWorkerClient();
+  }
 }

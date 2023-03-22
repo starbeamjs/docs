@@ -26,26 +26,27 @@ Chomp.registerTemplate(
     return [
       {
         name: task.name,
+        serial: true,
         deps: [...task.deps, `${task.name}:pkg`],
-        serial: task.serial,
       },
       {
         name: `${task.name}:pkg`,
-        deps: [`${task.name}:dts`, `${task.name}:js`, `${task.name}:jsx`],
+        deps: [`${task.name}:js`, `${task.name}:jsx`],
+        serial: task.serial,
       },
       {
         name: `${task.name}:clean`,
         invalidation: "always",
         run: `rm -rf ${root}/dist`,
       },
-      {
-        name: `${task.name}:dts`,
-        display: DISPLAY,
-        template: "dts",
-        templateOptions: {
-          root,
-        },
-      },
+      // {
+      //   name: `${task.name}:dts`,
+      //   display: DISPLAY,
+      //   template: "dts",
+      //   templateOptions: {
+      //     root,
+      //   },
+      // },
       {
         name: `${task.name}:js`,
         template: "swc",

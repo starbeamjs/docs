@@ -1,24 +1,15 @@
-import type { PluginHelper, Render } from "@jsergo/mdit";
+import type { PluginHelper } from "@jsergo/mdit";
 import "@mdit-vue/plugin-sfc";
 import { mapEntries } from "@wycatsjs/utils";
 import parseFence from "fenceparser";
 import Token from "markdown-it/lib/token.js";
+import { El, InlineHtml, type LazyChildren } from "./nodes.js";
 import {
-  El,
-  HTML,
-  HtmlEl,
-  If,
-  InlineHtml,
-  type LazyChildren,
-} from "./nodes.js";
-import {
-  MarkdownElement,
-  ParagraphElement,
-  text,
-  type LazyChild,
-  CustomBuiltin,
   BasicFragment,
+  CustomBuiltin,
+  MarkdownElement,
   type Children,
+  type LazyChild,
   type TextLike,
 } from "./tokens.js";
 
@@ -163,7 +154,9 @@ class Builtin {
         },
         [
           title.map((t) =>
-            El("p", { class: "custom-block-title" }, [t])
+            El("p", { class: "custom-block-title" }, [
+              InlineHtml(t),
+            ])
           ),
           content,
         ]

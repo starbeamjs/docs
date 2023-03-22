@@ -1,5 +1,5 @@
 {
-  "name": "@wycatsjs/utils",
+  "name": "@starbeam-docs/theme",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,10 @@
       "default": "./dist/index.js"
     }
   },
-  "dependencies": {
-    "@jsergo/tagged-templates": "workspace:^"
+  "devDependencies": {
+    "vue": "*",
+    "vue-sfc2esm": "^0.1.6",
+    "vite": "*",
+    "@types/node": "^18.15.0"
   }
 }

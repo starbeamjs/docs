@@ -70,7 +70,7 @@ export default {
  */
 function inject(css) {
   return `
-if (typeof document !== undefined) {
+if (globalThis.document !== undefined) {
   const style = document.createElement('style');
   style.setAttribute("type", "text/css");
   const text = document.createTextNode(${JSON.stringify(css)});

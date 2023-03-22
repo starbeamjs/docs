@@ -13,7 +13,7 @@
     "noImplicitOverride": true,
     "allowJs": true,
     "jsx": "preserve",
-    "types": ["@vue/runtime-dom"]
+    "types": ["@vue/runtime-dom", "node"]
   },
-  "include": ["./src/**/*", "../../../builtins.ts"]
+  "include": ["./src/**/*", "build.mts"]
 }

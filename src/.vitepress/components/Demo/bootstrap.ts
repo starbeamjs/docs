@@ -67,9 +67,6 @@ export function usePreviewHeight(): Ref<HTMLDivElement> {
       console.warn("No preview actions found");
       return;
     }
-
-    // previewContainer.style.setProperty("--sp-layout-height", `${h + 1}px`);
-    console.log("height", { height: h });
   });
   return container;
 }

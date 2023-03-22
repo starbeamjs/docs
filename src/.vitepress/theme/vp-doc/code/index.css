@@ -10,7 +10,8 @@
   p,
   mark,
   em,
-  strong {
+  strong,
+  li {
     > code {
       @extend %accented;
 

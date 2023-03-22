@@ -25,8 +25,13 @@
       return [
         {
           name: task.name,
-          target: `${root}/dist/##.css`,
-          dep: `${root}/src/##.postcss`,
+          serial: true,
+          deps: [`${task.name}:css`],
+        },
+        {
+          name: `${task.name}:css`,
+          targets: [`${root}/dist/##.css`],
+          deps: [`${root}/src/##.postcss`],
           display: task.display,
           echo: true,
 

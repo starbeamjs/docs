@@ -1,5 +1,6 @@
 packages:
   - .
+  - bin
   - types/@types/*
   - src/.vitepress
   - src/frameworks/react

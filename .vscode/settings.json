@@ -55,7 +55,7 @@
   ],
 
   "editor.wordWrap": "bounded",
-  "explorer.excludeGitIgnore": true,
+  "explorer.excludeGitIgnore": false,
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
@@ -76,7 +76,6 @@
     "**/.svn": true,
     "**/CVS": true,
     "**/Thumbs.db": true,
-    "docs": true,
     "node_modules": true,
     "vitepress": true
   },

@@ -15,12 +15,15 @@ function toggle() {
   isChecked.value = !isChecked.value;
 }
 
-watch(
-  () => STORAGE.lang,
-  (lang) => {
-    document.body.setAttribute("data-lang", lang);
-  }
-);
+onMounted(() => {
+  watch(
+    () => STORAGE.lang,
+    (lang) => {
+      if (typeof globalThis.document !== undefined)
+        document.body.setAttribute("data-lang", lang);
+    }
+  );
+});
 
 onMounted(() => {
   const ts = document.querySelector("#app .social-links a[href*=typescript]");
@@ -58,7 +61,7 @@ onMounted(() => {
 
       function toggle() {
         label.classList.toggle("checked", isChecked.value);
-        STORAGE.lang = isChecked.value ? "ts" : "js";
+        // STORAGE.lang = isChecked.value ? "ts" : "js";
       }
 
       watch(isChecked, toggle);

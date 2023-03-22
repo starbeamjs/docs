@@ -9,19 +9,6 @@ import postcss from "../../postcss.config.mjs";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const root = path.resolve(__dirname, "../../..");
 
-// export const CSS: CSSOptions = {
-//   postcss: {
-//     plugins: [
-//       vars(),
-//       functions({ color }),
-//       values(),
-//       property(),
-//       nested(),
-//     ],
-//   },
-//   devSourcemap: true,
-// };
-
 export const VITE: UserConfig = {
   css: { postcss },
   logLevel: "info",
@@ -44,6 +31,7 @@ export const VITE: UserConfig = {
   envDir: resolve(root, ".config", ".env"),
   envPrefix: "STARBEAM_",
   build: {
+    assetsInlineLimit: 0,
     rollupOptions: {
       plugins: [
         visualizer({

@@ -121,7 +121,6 @@ function mountElements(ts, js, container) {
     });
     // TODO: Generate the right markdown
     onMounted(()=>{
-        let x = 1;
         for (const item of container.value.querySelectorAll("[class*=language-]")){
             assert(item.parentElement, exists);
             item.parentElement.classList.add("code-container");

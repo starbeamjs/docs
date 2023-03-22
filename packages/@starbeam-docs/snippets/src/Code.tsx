@@ -161,7 +161,6 @@ function mountElements(
 
   // TODO: Generate the right markdown
   onMounted(() => {
-    let x = 1;
     for (const item of container.value.querySelectorAll(
       "[class*=language-]"
     )) {

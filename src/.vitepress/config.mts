@@ -15,7 +15,10 @@ export default defineConfig({
   ...CONFIG,
   ...BUILD_HOOKS,
   head: HEAD,
+  cleanUrls: false,
   outDir: path.resolve(dirname, "../../docs"),
+  srcDir: path.resolve(dirname, "../../src"),
+  base: "/",
   markdown: MARKDOWN,
 
   themeConfig: {
@@ -32,7 +35,7 @@ export default defineConfig({
   vue: {
     template: {
       compilerOptions: {
-        isCustomElement: (tag) => tag.includes("-"),
+        isCustomElement: (tag: string) => tag.includes("-"),
       },
     },
   },

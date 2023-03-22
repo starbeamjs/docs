@@ -28,7 +28,7 @@ export const BUILD_HOOKS: Partial<UserConfig<DefaultTheme.Config>> = {
     );
 
     if ("STARBEAM_REGISTRY" in process.env) {
-      page.frontmatter["@starbeam:registry"] = process.env.STARBEAM_REGISTRY;
+      page.frontmatter["@starbeam:registry"] = process.env["STARBEAM_REGISTRY"];
     }
   },
 };

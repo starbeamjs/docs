@@ -5,7 +5,6 @@ extensions = [
   './packages/chomp-extensions/pkg.js',
   './packages/chomp-extensions/postcss.js',
   './packages/chomp-extensions/inline-css.js',
-
 ]
 
 [env]
@@ -44,7 +43,12 @@ deps = [
   "fenced-container",
   "snippets",
   "custom-block",
+  "theme",
 ]
+
+[[task]]
+name = "build:pre"
+deps = ["snippets:postcss", "custom-block:postcss", "theme:postcss"]
 
 [[task]]
 name = "mdit"
@@ -68,10 +72,8 @@ template-options = { root = "packages/@starbeam-docs/fenced-container" }
 
 [[task]]
 name = "custom-block"
-deps = ["custom-block:postcss"]
 template = "pkg"
 template-options = { root = "packages/@starbeam-docs/custom-block" }
-
 
 [[task]]
 name = "custom-block:postcss"
@@ -79,21 +81,12 @@ template = "postcss"
 template-options = { root = "packages/@starbeam-docs/custom-block" }
 
 [[task]]
-name = "custom-block:inline-css"
-dep = "packages/@starbeam-docs/custom-block/dist/##.css"
-template-options = { from = 'import "./Code.css";', to = "packages/@starbeam-docs/custom-block/dist/Code.css" }
-template = "inline-css"
-
-[[task]]
 name = "vue-jsx-runtime"
 template = "pkg"
 template-options = { root = "packages/@starbeam-docs/vue-jsx-runtime" }
 
-
 [[task]]
 name = "snippets"
-deps = ["snippets:postcss"]
-serial = true
 template = "pkg"
 template-options = { root = "packages/@starbeam-docs/snippets" }
 
@@ -102,8 +95,13 @@ name = "snippets:postcss"
 template = "postcss"
 template-options = { root = "packages/@starbeam-docs/snippets" }
 
+
 [[task]]
-name = "snippets:inline-css"
-dep = "packages/@starbeam-docs/snippets/dist/##.css"
-template-options = { from = 'import "./Code.css";', to = "packages/@starbeam-docs/snippets/dist/Code.css" }
-template = "inline-css"
+name = "theme"
+template = "pkg"
+template-options = { root = "packages/@starbeam-docs/theme" }
+
+[[task]]
+name = "theme:postcss"
+template = "postcss"
+template-options = { root = "packages/@starbeam-docs/theme" }

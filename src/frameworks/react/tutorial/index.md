@@ -46,4 +46,4 @@ This tutorial teaches you what you need to know to:
 [computed data]: ./2-computed-data.md
 [reactive builtins]: ./3-reactive-builtins.md
 [reactive arrays]: ./4-reactive-arrays.md
-[reactive arrays bonus]: ./5-custom-reactive-objects.md
+[reactive arrays bonus]: ./5-reactive-arrays-bonus.md

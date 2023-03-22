@@ -10,13 +10,11 @@ This will teach you everything you need to know to build
 reusable, universal code with Starbeam, and how to use it in
 React with TypeScript.
 
-You can also read the docs:
+You can also read the the [universal docs], which describe
+Starbeam's API for creating reusable code that works in any
+framework (including React).
 
-- the [universal docs], which describe Starbeam's API for
-  creating reusable code that works in any framework (including
-  React).
-- the [React docs], which give you a more in-depth look at how to
-  use Starbeam in React.
+[universal docs]: /guides/fundamentals/cells.md
 
 ## What is Starbeam?
 

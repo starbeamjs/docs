@@ -1,2 +1,4 @@
 dist
 *.css.ts
+**/dist
+**/node_modules

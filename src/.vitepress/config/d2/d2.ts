@@ -1,12 +1,12 @@
 import type { ExecaError } from "execa";
 import { execaSync } from "execa";
+import type { MarkdownEnv } from "vitepress";
 import parseFence from "fenceparser";
 import { existsSync } from "fs";
 import type MarkdownIt from "markdown-it";
 import type { PluginWithOptions } from "markdown-it";
 import Renderer from "markdown-it/lib/renderer";
 import Token from "markdown-it/lib/token";
-import encodeSVG from "mini-svg-data-uri";
 import { resolve } from "path";
 import { root } from "../paths.js";
 import { preprocess } from "./styles.js";
@@ -15,7 +15,10 @@ type OBJECT = ReturnType<typeof parseFence>;
 
 function default_render(result: string, attrs: OBJECT): string {
   const width = attrs["width"] ?? "100%";
-  return `<div class="d2" style="width: ${width};">${result}</div>`;
+  const expr = `decode('${btoa(result)}')`;
+
+  const injection = `<div class="d2" style="width:${width};" v-html="${expr}" />\n`;
+  return injection;
 }
 
 export enum LightTheme {
@@ -47,6 +50,7 @@ export interface D2Options {
   darkTheme?: DarkTheme | undefined;
   sketch?: true | undefined;
   pad?: number | undefined;
+  bundle?: boolean;
 }
 
 function optionsToFlags(options?: D2Options | undefined): string[] {
@@ -76,6 +80,14 @@ function optionsToFlags(options?: D2Options | undefined): string[] {
 
   if (options.pad !== undefined) {
     out.push(`--pad`, `${options.pad}`);
+  }
+
+  if ("bundle" in options) {
+    if (options.bundle) {
+      out.push("--bundle");
+    } else {
+      out.push("--no-bundle");
+    }
   }
 
   return out;
@@ -158,7 +170,7 @@ const D2Plugin: PluginWithOptions<D2Options> = (
     tokens: Token[],
     idx: number,
     options: MarkdownIt.Options,
-    env: any,
+    env: MarkdownEnv,
     slf: Renderer
   ) => {
     const token = tokens[idx]!;
@@ -173,25 +185,66 @@ const D2Plugin: PluginWithOptions<D2Options> = (
     const isD2 = lang === "d2";
 
     if (isD2) {
-      const cmd = resolve(root, "bin", "d2");
+      const d2 = resolve(root, "bin", "d2");
 
-      if (!existsSync(cmd)) {
+      if (!existsSync(d2)) {
         return `<pre class='error'>d2 binary was not found</pre>`;
       }
 
       const original = token.content.trim();
       const code = preprocess(original);
 
+      const cmd = `node`;
+
       try {
-        const result = execaSync(cmd, [...optionsToFlags(opts), "-"], {
+        const result = execaSync(cmd, [`${d2}.mjs`, ...optionsToFlags(opts)], {
           cwd: resolve(root, "bin"),
           input: code,
+          extendEnv: true,
+          env: {
+            NODE_DEBUG: "d2",
+          },
         });
 
         if (result.exitCode === 0) {
-          const output = encodeSVG(result.stdout);
+          const output = postprocess(result.stdout);
+          // console.log("stderr", result.stderr);
+          // console.log("stdout", result.stdout);
+          // console.log("output", output);
+          // let content = /*js*/ `
+          //   if (globalThis.document) {
+          //     const content = ${JSON.stringify(output)};
+          //     const template = document.createElement("template");
+          //     template.innerHTML = content;
+          //     console.log(template.cloneNode(true));
+          //     document.body.appendChild(template.content);
+          //     debugger;
+          //   }
+          // `;
 
-          return default_render(`<img src="${output}">`, parsed);
+          // const sfcBlocks = env.sfcBlocks!;
+          // let setup = sfcBlocks!.scriptSetup;
+
+          // if (setup) {
+          //   setup.contentStripped += `\n${content}`;
+          //   const newContent = setup.contentStripped;
+
+          //   setup.content = setup.content.replace(
+          //     /(<script[^>]*>)(.*)(<\/script>)/g,
+          //     (_, open, _content, close) => open + newContent + close
+          //   );
+          // } else {
+          //   setup = sfcBlocks.scriptSetup = {
+          //     type: "script",
+          //     content: `<script setup>${content}</script>`,
+          //     contentStripped: content,
+          //     tagOpen: "<script setup>",
+          //     tagClose: "</script>",
+          //   };
+          //   sfcBlocks.scripts.push(setup);
+          // }
+
+          return default_render(output, parsed);
         } else {
           console.group("code");
           console.debug(code);
@@ -223,6 +276,13 @@ const D2Plugin: PluginWithOptions<D2Options> = (
   };
 };
 export default D2Plugin;
+
+/**
+ * Postprocess the output and encode it as a data URI.
+ */
+function postprocess(output: string): string {
+  return output.replaceAll(/<[?].*?[?]>/gm, "");
+}
 
 function escapeHTML(str: string): string {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");

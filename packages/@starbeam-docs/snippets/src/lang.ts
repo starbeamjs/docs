@@ -5,19 +5,25 @@ const LANG_KEY = "default-lang";
 const DEFAULT_LANG = "js";
 
 export class Lang {
-  store: Ref<Record<string, string>> = useStorage<
-    Record<string, string>
-  >("VUEPRESS_CODE_TAB_STORE", {});
-  readonly #currentLang = ref(this.lang);
+  #store: Ref<Record<string, string>>;
+  readonly #currentLang: Ref<"ts" | "js">;
 
   constructor() {
+    const store = (this.#store = useStorage<
+      Record<string, string>
+    >("VUEPRESS_CODE_TAB_STORE", {}));
+    this.#currentLang = ref(this.lang);
+
     watch(
-      () =>
-        this.store.value[LANG_KEY] as "ts" | "js" | undefined,
+      () => store.value[LANG_KEY] as "ts" | "js" | undefined,
       (newValue) => {
         this.#currentLang.value = newValue ?? DEFAULT_LANG;
       }
     );
+  }
+
+  get store(): Record<string, string> {
+    return this.#store.value;
   }
 
   get currentLang(): "ts" | "js" {
@@ -25,11 +31,11 @@ export class Lang {
   }
 
   get lang(): "ts" | "js" {
-    return this.store.value[LANG_KEY] === "ts" ? "ts" : "js";
+    return this.store[LANG_KEY] === "ts" ? "ts" : "js";
   }
 
   set lang(lang: "ts" | "js") {
-    this.store.value[LANG_KEY] = lang;
+    this.store[LANG_KEY] = lang;
   }
 }
 

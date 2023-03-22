@@ -1,4 +1,4 @@
-@using content {
+@layer content() {
   div.d2 {
     margin-inline: auto;
     margin-block: var(--sbdoc-default-line-spacing);
@@ -8,7 +8,6 @@
       border-radius: var(--sbdoc-radius);
       box-shadow: 0px 2px 1px -1px oklch(0 0 0 / 20%),
         0px 1px 1px 0px oklch(0 0 0 / 14%), 0px 1px 3px 0px oklch(0 0 0 / 12%);
-      -webkit-mask: url(attr(src));
     }
   }
 }

@@ -115,7 +115,7 @@ to the `Now` resource. The main difference is that the
 From the perspective of the code that _uses_ the stopwatch, the
 return value is a normal reactive string.
 
-## The `use` Method: Reusing the `Now` Resource in `Stopwatch`
+## Reusing the `Now` Resource in `Stopwatch`
 
 You might be thinking that `Stopwatch` reimplements a whole bunch
 of `Now`, and you ought to be able to just use `Now` directly

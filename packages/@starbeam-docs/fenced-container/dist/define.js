@@ -93,7 +93,7 @@ function _objectSpreadProps(target, source) {
 import "@mdit-vue/plugin-sfc";
 import { mapEntries } from "@wycatsjs/utils";
 import { El, InlineHtml } from "./nodes.js";
-import { CustomBuiltin, BasicFragment } from "./tokens.js";
+import { BasicFragment, CustomBuiltin } from "./tokens.js";
 export const CUSTOM_EL = "CustomBlock";
 var _content = /*#__PURE__*/ new WeakMap();
 export class UnparsedContent {
@@ -174,7 +174,7 @@ function get_renderFn() {
             title.map((t)=>El("p", {
                     class: "custom-block-title"
                 }, [
-                    t
+                    InlineHtml(t)
                 ])),
             content
         ]);

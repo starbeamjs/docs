@@ -1,4 +1,22 @@
-import { Cell, Formula, Resource } from "@starbeam/universal";
+// #region dts
+interface ResourceRun<T> {
+  on: {
+    cleanup: (callback: () => void) => void;
+  };
+  use<T>(resource: ResourceBlueprint<T>): Reactive<T>;
+}
+
+declare function Resource<T, U>(
+  create: (run: ResourceRun<T>) => Reactive<U>
+): ResourceBlueprint<U, undefined>;
+// #endregion
+
+import {
+  Cell,
+  Formula,
+  Reactive,
+  ResourceBlueprint,
+} from "@starbeam/universal";
 
 // #region now
 const Now = Resource(({ on }) => {
