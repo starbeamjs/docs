@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/index.ts"],"names":[],"mappings":"AAAA,SAAS,WAAW,WAAW,QAAQ,mBAAmB","file":"index.js","sourcesContent":["export { default as CustomBlock } from \"./CustomBlock.js\";\n"]}
