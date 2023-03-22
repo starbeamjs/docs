@@ -1,0 +1,51 @@
+@def-vars {
+  --sbdoc-font-weight-body: 400;
+  --sbdoc-font-weight-body-strong: 500;
+  --sbdoc-font-weight-headline: 600;
+
+  /**
+   * The size of 1rem.
+   */
+  --sbdoc-default-font-size: 16px;
+  /**
+   * The default spacing between lines, when they're expressed as row-gap or margin. It's intended
+   * to produce the same effect as the default `line-height`.
+   */
+  --sbdoc-default-line-spacing: 1.2ex;
+  /**
+   * The default font-weight for body text
+   */
+  --sbdoc-default-font-weight: var(--sbdoc-font-weight-body);
+  /**
+   * The default line-height for body text
+   */
+  --sbdoc-default-line-height: calc(1.4 * var(--sbdoc-ratio));
+
+  /**
+   * The scaling factor for changes to elements.
+   * @see https://every-layout.dev/rudiments/modular-scale/
+   */
+  --sbdoc-ratio: 1.3;
+
+  /**
+   * The default font family for body text.
+   */
+  --sbdoc-font-body: "Readex Pro", sans-serif;
+  /**
+   * The default font family for code (monospace).
+   */
+  --sbdoc-font-mono: "Azeret Mono", monospace;
+  /**
+   * The default font family for headings, including stuff like `dt`.
+   */
+  --sbdoc-font-fancy: "Comfortaa", sans-serif;
+  /**
+   * The default font family for emphasized content.
+   */
+  --sbdoc-font-em: "Sofia Sans", sans-serif;
+
+  --sbdoc-default-fg: var(--vp-c-text-1);
+  --sbdoc-default-block-bg: var(--vp-c-bg-alt);
+  --sbdoc-default-accent-fg: var(--sb-fg-theme-stronger);
+  --sbdoc-default-accent-bg: var(--sb-bg-theme-ultramuted);
+}

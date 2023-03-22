@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "shelljs": "*",
+    "shell-escape-tag": "*",
+    "execa": "^7.1.1",
+    "svgo": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.5",
+    "@types/shelljs": "*",
+    "@types/shell-escape-tag": "workspace:^",
+    "@types/svgo": "^3.0.0"
+  }
+}

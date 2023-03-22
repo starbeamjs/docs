@@ -1,0 +1,10 @@
+{
+  "name": "@types/markdown-it-bracketed-spans",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "types": "index.d.ts",
+  "dependencies": {
+    "markdown-it": "*"
+  }
+}

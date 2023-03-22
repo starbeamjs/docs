@@ -1,0 +1,39 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "composite": true,
+    "noEmit": true,
+
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+
+    "esModuleInterop": true,
+
+    "verbatimModuleSyntax": true,
+    "importsNotUsedAsValues": "remove",
+    "forceConsistentCasingInFileNames": true,
+    "allowArbitraryExtensions": true,
+
+    "skipLibCheck": true,
+
+    "baseUrl": ".",
+    "lib": ["DOM", "ESNext"],
+    "jsx": "preserve",
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "types": ["vite/client", "vitepress"],
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "customConditions": ["dev"]
+  },
+  "include": [
+    "./**/vite.config.mts",
+    "./src/postcss.config.ts",
+    "*.quokka.ts",
+    "./src/postcss.config.mts"
+  ]
+}

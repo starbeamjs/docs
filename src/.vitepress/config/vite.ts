@@ -1,34 +1,37 @@
 import path, { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import vars from "postcss-advanced-variables";
-import functions from "postcss-functions";
-import values from "postcss-modules-values";
-import nested from "postcss-nested";
-import property from "postcss-property-lookup";
-import * as sass from "postcss-scss";
 import { visualizer } from "rollup-plugin-visualizer";
-import type { CSSOptions, UserConfig } from "vite";
-import { color } from "./css-functions/color.js";
+import Icons from "unplugin-icons/vite";
+import type { UserConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import postcss from "../../postcss.config.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const root = path.resolve(__dirname, "../../..");
 
-export const CSS: CSSOptions = {
-  postcss: {
-    syntax: sass,
-    plugins: [vars(), functions({ color }), values(), property(), nested()],
-  },
-  devSourcemap: true,
-};
-
 export const VITE: UserConfig = {
-  css: CSS,
+  css: { postcss },
   logLevel: "info",
-  plugins: [],
-  ssr: {},
+
+  plugins: [
+    tsconfigPaths({
+      loose: true,
+    }),
+    Icons({
+      autoInstall: true,
+    }),
+  ],
+  resolve: {
+    alias: {},
+  },
+
+  optimizeDeps: {
+    exclude: ["vitepress-plugin-tabs"],
+  },
   envDir: resolve(root, ".config", ".env"),
   envPrefix: "STARBEAM_",
   build: {
+    assetsInlineLimit: 0,
     rollupOptions: {
       plugins: [
         visualizer({

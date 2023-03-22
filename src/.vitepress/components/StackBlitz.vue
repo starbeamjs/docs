@@ -6,7 +6,7 @@ const props = defineProps({
   },
   height: {
     type: [String, Number],
-    default: "80vh",
+    default: 600,
   },
   file: {
     type: String,
@@ -32,6 +32,19 @@ const props = defineProps({
   hideNavigation: Boolean,
   hidedevtools: Boolean,
 });
+
+import sdk from "@stackblitz/sdk";
+import { onMounted, ref } from "vue";
+
+onMounted(() => {
+  sdk.embedProjectId(element.value, "starbeam-react-example-counter", {
+    openFile: props.file ?? props.initialpath,
+    width: style.width,
+    height: 800,
+  });
+});
+
+const element = ref();
 
 function src() {
   let path = `https://stackblitz.com/edit/${props.id}`;
@@ -63,11 +76,16 @@ function src() {
 
 const style = {
   width: "100%",
-  "border-radius": "var(--starbeam-radius)",
+  "border-radius": "var(--sbdoc-radius)",
   height: typeof props.height === "string" ? props.height : `${props.height}px`,
 };
 </script>
 
 <template>
-  <iframe class="stack-blitz-iframe" :src="src()" :style="style"></iframe>
+  <iframe
+    class="stack-blitz-iframe"
+    ref="element"
+    :src="src()"
+    :style="style"
+  ></iframe>
 </template>

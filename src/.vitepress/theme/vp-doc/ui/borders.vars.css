@@ -1,0 +1,42 @@
+/**
+ * sbdoc prefix means "starbeam documentation content"
+ * sbc prefix means "starbeam custom container"
+ * -local- infix means "expected to be defined by the rule that used this"
+ */
+
+@def-vars {
+  /** 
+   * The color that should be used for development errors to highlight a missing parameter.
+   * @type {color}
+   */
+  --sbdoc-color-err: var(--sb-fg-red);
+
+  /**
+   * The default border size for UI elements.
+   */
+  --sbdoc-default-border-size: 1px;
+  /**
+   * The default border style for UI elements.
+   */
+  --sbdoc-default-border-style: solid;
+
+  /**
+   * The default border radius.
+   */
+  --sbdoc-radius: 0.5rem;
+  /**
+   * A small variation of the default border radius.
+   */
+  --sbdoc-radius-sm: 0.25rem;
+  /**
+   * An extra small variation of the default border radius.
+   */
+  --sbdoc-radius-xsm: 0.15rem;
+}
+
+@def-derived-vars {
+  --sbdoc-border-size: var(
+    --sbdoc-local-border-size,
+    var(--sbdoc-default-border-size)
+  );
+}

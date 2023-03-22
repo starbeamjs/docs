@@ -1,0 +1,176 @@
+@import "./code-tabs.css";
+
+@layer content() {
+  @custom-blocks red, orange, yellow, green, blue, purple, neutral, highlight, theme {
+    /** TODO Make this work without the block. Requires investigation */
+  }
+
+  :top {
+    container: content / inline-size;
+  }
+
+  .content-block .code-block {
+    code {
+      background-color: var(--sb-bg-gray-ultramuted);
+    }
+  }
+
+  @layer theme {
+    :not(pre) > code {
+      background-color: var(--vp-c-mute);
+    }
+
+    .callout-block {
+      width: calc(100cqi + (var(--sbdoc-ui-inner-padding) * 2));
+      transform: translateX(calc(var(--sbdoc-ui-inner-padding) * -1));
+    }
+
+    .display-contents {
+      display: contents;
+    }
+
+    .content-block.lightbulb {
+      grid-template-columns: var(--sbdoc-ui-inner-padding) min-content 1fr var(
+          --sbdoc-ui-inner-padding
+        );
+
+      &::before {
+        content: "💡";
+        padding-inline-end: var(--sbdoc-ui-inline-padding);
+        grid-column: 2;
+      }
+
+      > :first-child {
+        grid-column: 3;
+      }
+
+      > * {
+        grid-column: 2 / span 2;
+      }
+    }
+
+    .content-block {
+      container: callout / inline-size;
+      margin-block: var(--sbdoc-ui-inner-padding);
+      width: calc(100% + var(--sbdoc-ui-inner-padding) * 2);
+      transform: translateX(calc(var(--sbdoc-ui-inner-padding) * -1));
+      grid-template-columns:
+        var(--sbdoc-ui-inner-padding)
+        1fr var(--sbdoc-ui-inner-padding);
+
+      :--code-block {
+        box-shadow: initial;
+        border-radius: initial;
+        border-block: 2px solid var(--sb-fg-gray);
+
+        code {
+          background-color: var(--sb-bg-gray-muted);
+        }
+
+        .code-toggler,
+        .code-toggler > button {
+          border-radius: 0;
+        }
+      }
+
+      .callout-block {
+        border: none;
+        width: 100cqi;
+        transform: none;
+      }
+
+      &.lang-ts {
+        border: none;
+        padding: 0;
+        display: none;
+      }
+
+      &.em {
+        padding-block: var(--sbdoc-ui-inner-padding-xsm);
+        row-gap: 0;
+
+        h5 {
+          color: var(--sbdoc-block-fg-accent);
+        }
+      }
+    }
+  }
+
+  .callout-block {
+    background-color: var(--sbdoc-block-bg);
+    color: var(--sbdoc-block-fg);
+    border-color: var(--sbdoc-block-border-color);
+
+    a {
+      color: var(--sbdoc-block-fg-accent);
+    }
+
+    a:hover {
+      color: var(--sbdoc-block-fg-accent-hover);
+    }
+
+    margin-block-start: var(--sbdoc-ui-inner-padding);
+
+    &:not(:last-child) {
+      margin-block-end: var(--sbdoc-ui-inner-padding);
+    }
+
+    blockquote {
+      margin: initial;
+      margin-inline-start: 1rem;
+      margin-inline-end: 2rem;
+
+      padding: initial;
+      border: initial;
+
+      display: grid;
+      grid-template-columns: max-content 1fr max-content;
+      column-gap: var(--sbdoc-ui-inner-padding);
+
+      p {
+        font-style: italic;
+      }
+
+      &::before,
+      &::after {
+        line-height: 1;
+        font-size: calc(
+          1rem * var(--sbdoc-ratio) * var(--sbdoc-ratio) * var(--sbdoc-ratio) *
+            var(--sbdoc-ratio)
+        );
+        font-weight: bold;
+        /* color: var(--sb-fg-blue-dimmer); */
+      }
+
+      &::before {
+        content: "“";
+        align-self: first baseline;
+      }
+
+      &::after {
+        content: ",,";
+        align-self: last baseline;
+        letter-spacing: -0.06em;
+      }
+    }
+  }
+
+  /* #region reset */
+  details.custom-block {
+    margin: initial;
+    padding: initial;
+  }
+
+  p {
+    margin: initial;
+  }
+  /* #endregion */
+}
+
+body[data-lang="ts"] #app .VPDoc {
+  /* padding-inline: var(--sbdoc-ui-inner-padding); */
+}
+
+body[data-lang="ts"] #app .vp-doc .callout-block.lang-ts {
+  display: block;
+}

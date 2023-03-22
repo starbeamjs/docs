@@ -28,7 +28,10 @@ export function toSandpackDep(dep: string): [name: string, version: string] {
     const [name, version = "package.json"] = dep.slice(1).split("@");
     return [`@${name}`, version];
   } else {
-    const [name, version = "package.json"] = dep.split("@");
+    const [name, version = "package.json"] = dep.split("@") as [
+      string,
+      string | undefined
+    ];
     return [name, version];
   }
 }
@@ -113,7 +116,7 @@ export const ARRAY_LOG_METHODS = [
   "debug",
   "error",
 ] as const;
-export type ArrayLogMethod = typeof ARRAY_LOG_METHODS[number];
+export type ArrayLogMethod = (typeof ARRAY_LOG_METHODS)[number];
 
 export function isArrayLogMethod(method: string): method is ArrayLogMethod {
   return (ARRAY_LOG_METHODS as readonly string[]).includes(method);

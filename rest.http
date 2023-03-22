@@ -1,0 +1,74 @@
+@bucket = https://prod-packager-packages.codesandbox.io/v1/typings
+@service = https://ata.codesandbox.io/api/v8
+@fallback = https://typings.csb.dev/api/v8
+###
+HEAD  https://esm.sh/@starbeam/universal@0.8.9
+
+content-type: application/javascript; charset=utf-8
+
+HTTP/1.1 200  - OK
+date: Tue, 14 Feb 2023 21:51:40 GMT
+content-type: application/json; charset=utf-8
+transfer-encoding: chunked
+connection: close
+cf-ray: 799906c429ccef6f-PDX
+access-control-allow-origin: *
+age: 9778
+cache-control: public, max-age=31536000, immutable
+last-modified: Tue, 14 Feb 2023 19:08:42 GMT
+vary: Origin, Accept-Encoding
+cf-cache-status: HIT
+report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=NSy1YD3Tj%2FCch7FzfeZ05eKlngsbHNFzod3XsDU%2FzKcaEk%2BshBbfrltDWeWduhlHo%2FLIm5tXj46EwzXF7eFewez8yAbIpK2ZFLTHQyhSXoZpyCwOxr4gq94%3D"}],"group":"cf-nel","max_age":604800}
+nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+server: cloudflare
+content-encoding: br
+alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+###
+GET {{bucket}}/@starbeam/js/0.8.9.json
+
+HTTP/1.1 200  - OK
+date: Wed, 15 Feb 2023 22:10:10 GMT
+content-type: application/json
+transfer-encoding: chunked
+connection: close
+x-amz-id-2: qbTy71i4z+qQtuve/k57zcylf5dOA30Kj6OzuqlhNAUBmGdLsEuOxr7uRrdAN58D9DIFv0EVINw=
+x-amz-request-id: CSNE1T06XYK080ZE
+last-modified: Wed, 15 Feb 2023 22:05:05 GMT
+etag: W/"a6cb34aa91c4b76c16824ef9f442e0d4"
+x-amz-server-side-encryption: AES256
+cache-control: public, max-age=31536000
+cf-cache-status: MISS
+server-timing: cf-q-config;dur=6.9999996412662e-06
+vary: Accept-Encoding
+server: cloudflare
+cf-ray: 79a15f3f2da0ebfa-SEA
+content-encoding: br
+alt-svc: h3=":443"; ma=86400, h3-29=":443"; ma=86400
+###
+GET {{service}}/%40starbeam%2Finterfaces%400.8.9
+
+HTTP/1.1 520 
+date: Wed, 15 Feb 2023 22:11:29 GMT
+content-type: text/html; charset=UTF-8
+transfer-encoding: chunked
+connection: close
+set-cookie: cf_use_ob=0; path=/; expires=Wed, 15-Feb-23 22:11:59 GMT
+x-frame-options: SAMEORIGIN
+referrer-policy: same-origin
+cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+expires: Thu, 01 Jan 1970 00:00:01 GMT
+cf-ray: 79a16129ce4b6820-SEA
+server: cloudflare
+###
+GET {{fallback}}/%40starbeam%2Finterfaces%400.8.9
+
+HTTP/1.1 200  - OK
+server: nginx/1.17.5
+date: Wed, 15 Feb 2023 22:12:14 GMT
+content-type: application/json
+content-length: 36952
+connection: close
+x-powered-by: Express
+access-control-allow-origin: *
+cache-control: public, max-age=31536000
+strict-transport-security: max-age=31536000

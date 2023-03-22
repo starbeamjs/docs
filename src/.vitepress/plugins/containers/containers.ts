@@ -1,13 +1,6 @@
 import type { PluginSimple } from "markdown-it";
 import { container } from "./container.js";
 
-export const blockEmphasis: PluginSimple = (md) =>
-  container(md, {
-    name: "emphasis",
-    openRender: () => "<blockquote class='em'>\n",
-    closeRender: () => "</blockquote>\n",
-  });
-
 export const hack: PluginSimple = (md) =>
   container(md, {
     name: "hack",
@@ -20,6 +13,27 @@ export const lightBulb: PluginSimple = (md) =>
     name: "💡",
     openRender: () => "<div class='lightbulb'>\n",
     closeRender: () => "</div>\n",
+  });
+
+export const reactPreact: PluginSimple = (md) =>
+  container(md, {
+    name: "react-preact",
+    openRender: () => "<div class='react-preact'>\n",
+    closeRender: () => "</div>\n",
+  });
+
+export const typescript: PluginSimple = (md) =>
+  container(md, {
+    name: "typescript",
+    openRender: () => "<Language><template #ts>\n",
+    closeRender: () => "</template></Language>\n",
+  });
+
+export const javascript: PluginSimple = (md) =>
+  container(md, {
+    name: "javascript",
+    openRender: () => "<Language><template #js>\n",
+    closeRender: () => "</template></Language>\n",
   });
 
 export const construction: PluginSimple = (md) =>
@@ -52,7 +66,9 @@ export const docs: PluginSimple = (md) =>
 
 export const containers: PluginSimple = (md) => {
   md.use(hack);
-  md.use(blockEmphasis);
+  md.use(typescript);
+  md.use(javascript);
+  md.use(reactPreact);
   md.use(lightBulb);
   md.use(construction);
   md.use(algorithm);

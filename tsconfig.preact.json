@@ -9,15 +9,14 @@
     "jsxImportSource": "preact",
     "module": "esnext",
     "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "importsNotUsedAsValues": "error",
-    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
   },
+  "files": [],
   "references": [
     {
       "path": "./src/frameworks/preact/tsconfig.json"

@@ -1,0 +1,71 @@
+:root {
+  --icons: "Material Symbols Outlined";
+  --sb-gap: 0.5ch;
+
+  --sb-hl-kind-ch: 276;
+  --sb-hl-kind-c: hsl(var(--sb-hl-kind-ch) 68% 75%);
+  --sb-hl-kind-c-demo: hsl(276 68% 75%);
+
+  --sb-hl-name-ch: 221;
+  --sb-hl-name-c: hsl(var(--sb-hl-name-ch) 100% 75%);
+  --sb-hl-name-c-demo: hsl(221 100% 75%);
+
+  --sb-hl-punct-ch: 197;
+  --sb-hl-punct: hsl(var(--sb-hl-punct-ch) 100% 75%);
+  --sb-hl-punct-c-demo: hsl(197 100% 75%);
+
+  --sb-hl-param-ch: 231;
+  --sb-hl-param-c: hsl(var(--sb-hl-param-ch) 28% 75%);
+  --sb-hl-param-c-demo: hsl(231 28% 75%);
+  --sb-inline-param-c: hsl(var(--sb-hl-param-ch) 50% 50%);
+  --sb-inline-param-c-demo: hsl(231 50% 50%);
+
+  --sb-hl-type-ch: 39;
+  --sb-hl-type-c-demo: hsl(39 100% 75%);
+  --sb-inline-type-c-demo: hsl(39 50% 50%);
+
+  --sb-hl-key-ch: 357;
+  --sb-hl-key-c-demo: hsl(357 100% 75%);
+  --sb-inline-key-c-demo: hsl(357 50% 50%);
+
+  --sb-hl-string-ch: 84;
+  --sb-hl-string-c-demo: hsl(84 100% 75%);
+  --sb-inline-string-c-demo: hsl(84 50% 50%);
+
+  --sb-hl-docs-ch: 231;
+  --sb-hl-docs-c-demo: hsl(231 18% 49%);
+
+  --sb-inline-light-bg-c: var(--vp-c-bg-mute);
+  --sb-inline-dark-bg-c: var(--vp-code-block-bg);
+
+  --sb-code-block-ch: 229;
+
+  --sb-hl-hue: var(--sb-hl-kind-ch);
+  --sb-hl-saturation: 50%;
+  --sb-hl-lightness: 75%;
+
+  --sb-hl-saturated: 90%;
+
+  --sb-hover-bg: hsl(
+    var(--sb-bg-hue) var(--sb-hl-saturation) var(--sb-bg-lightness-dim)
+  );
+
+  --sb-hover-bg-overlay: hsl(
+    var(--sb-bg-hue) var(--sb-hl-saturation) var(--sb-bg-lightness-bright)
+  );
+
+  --sb-mark-bg: var(--sb-bg-highlight-strongest);
+  --sb-mark-fg: var(--sb-fg-highlight-stronger);
+
+  --sb-border-thin-width: 0.05rem;
+  --sb-border-normal-width: 0.1rem;
+  --sb-border-thick-width: 0.2rem;
+
+  --sb-code-radius: 0.4rem;
+  --sb-code-padding-inline: var(--sbdoc-ui-inner-padding-sm);
+  --sb-code-padding-block: calc(var(--sb-code-padding-inline) / 2);
+  --sb-code-padding: var(--sb-code-padding-block) var(--sb-code-padding-inline);
+}
+
+html *::before {
+}

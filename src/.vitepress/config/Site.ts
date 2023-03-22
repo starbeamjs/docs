@@ -4,7 +4,7 @@ import type { ThemeConfig } from "./types.js";
 
 export const SITE: Partial<ThemeConfig> = {
   siteTitle: "Starbeam",
-  lastUpdatedText: "Last Updated:",
+  lastUpdatedText: "Last Updated",
   footer: {
     message: "Released under the MIT license",
     copyright:
@@ -28,7 +28,7 @@ export const BUILD_HOOKS: Partial<UserConfig<DefaultTheme.Config>> = {
     );
 
     if ("STARBEAM_REGISTRY" in process.env) {
-      page.frontmatter["@starbeam:registry"] = process.env.STARBEAM_REGISTRY;
+      page.frontmatter["@starbeam:registry"] = process.env["STARBEAM_REGISTRY"];
     }
   },
 };

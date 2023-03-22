@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "typeRoots": ["node_modules"],
+
+    "paths": {
+      "@starbeam/*": ["node_modules/@starbeam/*/dist/index.js"]
+    }
+  }
+}

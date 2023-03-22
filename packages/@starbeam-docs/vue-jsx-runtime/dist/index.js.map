@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/index.ts"],"names":[],"mappings":"AAAA,SAAS,CAAC,EAAE,QAAQ,QAAQ,MAAM;AAElC,OAAO,MAAM,MAAM,EAAE;AACrB,OAAO,MAAM,OAAO,SAAS","file":"index.js","sourcesContent":["import { h, Fragment } from \"vue\";\n\nexport const jsx = h;\nexport const jsxs = Fragment;\n"]}

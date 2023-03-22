@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "dist": "./tsdist/react",
+    "jsx": "preserve"
+  },
+  "files": ["**/*.tsx"],
+  "references": [
+    {
+      "path": "./frameworks/react/tsconfig.json"
+    }
+  ]
+}

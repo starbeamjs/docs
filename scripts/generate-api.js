@@ -5,10 +5,6 @@ import sh from "shell-escape-tag";
 import shell from "shelljs";
 import yaml from "yaml";
 
-const cwd = process.cwd();
-
-console.log(cwd);
-
 const docs = await glob("src/api/**/$api/*.yml", {
   ignore: ["**/node_modules"],
 });
@@ -21,7 +17,7 @@ for (const doc of docs) {
   const filename = path.join(root, `${base}.md`);
   const output = template(base, body.page);
 
-  console.log("- writing", filename);
+  console.info("- writing", filename);
 
   await writeFile(filename, output);
 }

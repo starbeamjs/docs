@@ -1,6 +1,9 @@
-- .
-- ./types/@types/*
-- ./src/frameworks/react
-- ./packages/*
-- ./packages/@types/*
-- ./scripts
+packages:
+  - .
+  - bin
+  - types/@types/*
+  - src/.vitepress
+  - src/frameworks/react
+  - packages/*
+  - packages/@*/*
+  - scripts

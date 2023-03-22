@@ -1,0 +1,18 @@
+.VPHome {
+  .VPHero {
+    font-family: var(--sb-font-fancy);
+  }
+
+  .VPFeatures > .container > .items {
+    display: grid;
+    grid-template: "a b c" auto "d d d" auto / 1fr 1fr 1fr;
+
+    > .item {
+      width: initial;
+
+      :nth-child(4) {
+        grid-column: 1 / span 3;
+      }
+    }
+  }
+}

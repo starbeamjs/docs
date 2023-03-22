@@ -17,7 +17,7 @@ const slots = useSlots();
 <template>
   <Toc :api="api" />
 
-  <section class="head-notes" v-if="slots.default">
+  <section class="head-notes api api-notes" v-if="slots.default">
     <slot></slot>
   </section>
 

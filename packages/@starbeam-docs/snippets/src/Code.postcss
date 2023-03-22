@@ -1,0 +1,104 @@
+.code-snippet button {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  font-family: var(--vp-font-family-base), sans-serif;
+  font-size: 0.75rem;
+  padding-block: 0;
+  padding-inline: var(--sbdoc-ui-inner-padding-sm);
+  border: 0;
+
+  background-color: var(--vp-button-alt-bg);
+  color: var(--vp-button-alt-text);
+}
+
+.code-snippet button:hover {
+  background-color: var(--vp-button-brand-hover-bg);
+  color: var(--vp-button-brand-hover-text);
+}
+
+@layer defaults {
+  .code-snippet button:first-child {
+    border-end-start-radius: var(--sbdoc-radius-xsm);
+  }
+
+  .code-snippet button:last-child {
+    border-start-end-radius: var(--sbdoc-radius-xsm);
+  }
+}
+
+.section.ts button.ts,
+.section.js button.js {
+  background-color: var(--vp-button-brand-bg);
+  color: var(--vp-button-brand-text);
+}
+
+@layer defaults {
+  :global(html.dark .shiki.github-light) {
+    display: none;
+  }
+
+  :global(html:not(.dark) .shiki.github-dark) {
+    display: none;
+  }
+
+  .code-snippet {
+    position: relative;
+    display: grid;
+    width: 100%;
+  }
+
+  section.toggler {
+    border-start-end-radius: var(--sbdoc-radius);
+    contain: paint;
+    margin: 0;
+  }
+
+  :global(body:not(:has(:focus-visible))) section.toggler {
+    z-index: var(--sbdoc-ui-layer-index-hud);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  section.toggler button:focus-visible {
+    contain: paint;
+  }
+
+  .section:hover .toggler {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  div.ts,
+  div.js {
+    display: none;
+  }
+
+  .section.ts div.ts,
+  .section.js div.js {
+    display: block;
+  }
+
+  .section :global(pre.shiki) {
+    padding: 1em;
+    margin: 0;
+  }
+
+  .toggler {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    position: absolute;
+    top: 0;
+    right: 0;
+    align-items: center;
+    align-content: center;
+    user-select: none;
+    z-index: 3;
+    font-size: 0.75rem;
+
+    border: var(--sb-border-thin-width) solid var(--vp-button-brand-border);
+    border-inline-end: none;
+    background-color: var(--vp-button-alt-bg);
+    border-end-start-radius: var(--sbdoc-radius-sm);
+    border-start-end-radius: var(--sbdoc-radius-sm);
+  }
+}

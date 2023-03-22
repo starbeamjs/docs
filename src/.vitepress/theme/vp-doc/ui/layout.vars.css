@@ -1,0 +1,22 @@
+@def-vars {
+  /** this is intentionally an em so it scales with the font size */
+  --sbdoc-ui-inner-padding: 1em;
+  --sbdoc-ui-inner-padding-sm: calc(
+    var(--sbdoc-ui-inner-padding) / var(--sbdoc-ratio) / var(--sbdoc-ratio)
+  );
+  --sbdoc-ui-inner-padding-xsm: calc(
+    var(--sbdoc-ui-inner-padding-sm) / var(--sbdoc-ratio)
+  );
+  --sbdoc-ui-inner-padding-xxs: calc(
+    var(--sbdoc-ui-inner-padding-xsm) / var(--sbdoc-ratio) / var(--sbdoc-ratio)
+  );
+  --sbdoc-ui-inline-padding: calc(
+    var(--sbdoc-ui-inner-padding-xsm) / var(--sbdoc-ratio)
+  );
+
+  --sbdoc-ui-layer-index-bg-base: 98;
+  --sbdoc-ui-layer-index-bg-decor: 99;
+  --sbdoc-ui-layer-index-normal: 100;
+  --sbdoc-ui-layer-index-hud: 101;
+  --sbdoc-ui-layer-index-popover: 102;
+}

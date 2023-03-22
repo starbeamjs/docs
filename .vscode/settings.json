@@ -1,94 +1,145 @@
 {
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "node_modules": true,
-    "docs": true
-  },
   "[markdown]": {
-    "editor.unicodeHighlight.ambiguousCharacters": false,
-    "editor.unicodeHighlight.invisibleCharacters": false,
-    "editor.wordWrap": "on",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.quickSuggestions": {
       "comments": "on",
-      "strings": "on",
-      "other": "on"
+      "other": "on",
+      "strings": "on"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.wordWrap": "on"
   },
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.patterns": {
-    "*.ts": "${capture}.js, ${capture}.ts.js",
-    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-    "*.jsx": "${capture}.js",
-    "*.tsx": "${capture}.ts",
-    "tsconfig.json": "tsconfig.*.json",
-    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .npmrc, .markdownlint.json"
+  "[postcss]": {
+    "editor.codeActionsOnSave": ["source.fixAll.stylelint", "source.formatDocument"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
   },
-  "explorer.excludeGitIgnore": true,
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/*.code-search": true,
-    "docs": true
-  },
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
-
-  "scss.lint.float": "warning",
-  "scss.lint.ieHack": "error",
-  "scss.lint.important": "warning",
-  "scss.lint.importStatement": "warning",
-  "scss.lint.universalSelector": "warning",
-  "scss.lint.unknownAtRules": "warning",
-  "scss.lint.unknownVendorSpecificProperties": "warning",
-  "scss.lint.zeroUnits": "error",
-  "scssLint.languages": ["scss"],
-  "scssLint.showHighlights": true,
-
   "[vue][scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
   "[yaml]": {
-    "editor.insertSpaces": true,
-    "editor.defaultFormatter": "redhat.vscode-yaml",
-    "editor.tabSize": 2,
     "editor.autoIndent": "keep",
-    "gitlens.codeLens.scopes": ["document"],
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.insertSpaces": true,
     "editor.quickSuggestions": {
-      "other": true,
       "comments": false,
+      "other": true,
       "strings": true
-    }
+    },
+    "editor.tabSize": 2,
+    "gitlens.codeLens.scopes": ["document"]
   },
-
-  "volar.takeOverMode.enabled": "auto",
-  "volar.autoWrapParentheses": true,
-  "volar.updateImportsOnFileMove.enabled": true,
-  "volar.doctor.statusBarItem": true,
-  "volar.vueserver.vitePress.processMdFile": true,
-  "volar.autoCompleteRefs": true,
-  "volar.completion.normalizeComponentAutoImportName": true,
-  "volar.vueserver.textDocumentSync": "incremental",
-
-  "yaml.schemaStore.enable": true,
-  "yaml.schemas": {
-    "./packages/api-docs/dist/api.schema.json": "/src/api/**/*.yml"
+  "codeium.enableConfig": {
+    "*": true
   },
-  "yaml.trace.server": "messages",
+  "cssVariables.lookupFiles": [
+    "**/*.vars.css",
+    "src/.vitepress/**/*.vars.css",
+    "**/*.extends.css",
+    "src/.vitepress/**/*.extends.css"
+  ],
+  "cssVariables.blacklistFolders": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/.git",
+    "**/node_modules",
+    "**/bower_components",
+    "**/tmp",
+    "**/dist",
+    "**/tests",
+    "src/.vitepress/cache"
+  ],
 
+  "editor.wordWrap": "bounded",
+  "explorer.excludeGitIgnore": false,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.postcss": "${capture}.css.ts",
+    "*.ts": "${capture}.js, ${capture}.ts.js",
+    "*.tsx": "${capture}.ts",
+    "package.json": "package-lock.json, yarn.lock, pnpm-*.yaml, .npmrc, .markdownlint.json",
+    "tsconfig.json": "tsconfig.*.json"
+  },
+  "files.associations": {
+    "tsconfig.*.json": "jsonc"
+  },
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/CVS": true,
+    "**/Thumbs.db": true,
+    "vitepress": true,
+    "*.css.ts": true,
+    "**/dist": true,
+    "**/node_modules": true
+  },
+  "files.trimTrailingWhitespace": false,
   "json.schemas": [
     {
       "fileMatch": ["src/api/**/$api/*.json", "src/api/**/$api/*.jsonc"],
       "url": "./packages/api-docs/dist/api.schema.json"
     }
   ],
-  "files.trimTrailingWhitespace": false,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "prettier.resolveGlobalModules": true,
+  "search.exclude": {
+    "**/*.code-search": true,
+    "**/bower_components": true,
+    "**/node_modules": true,
+    "docs": true
+  },
+  "stylelint.packageManager": "pnpm",
+  "stylelint.reportDescriptionlessDisables": true,
+  "stylelint.reportInvalidScopeDisables": true,
+  "stylelint.reportNeedlessDisables": true,
+  "stylelint.snippet": ["css", "postcss"],
+  "stylelint.validate": ["css", "postcss"],
+  "todo-tree.filtering.excludeGlobs": ["**/node_modules/**", "docs/**"],
+  "todo-tree.filtering.includeGlobs": [],
+  "todo-tree.filtering.includeHiddenFiles": true,
+  "todo-tree.filtering.scopes": [
+    {
+      "includeGlobs": ["**/*"],
+      "name": "all"
+    },
+    {
+      "excludeGlobs": ["src/.vitepress/**"],
+      "includeGlobs": ["src/**/*.{md,ts,vue}"],
+      "name": "docs"
+    },
+    {
+      "excludeGlobs": ["**/node_modules/**"],
+      "includeGlobs": ["packages/**/*", "src/.vitepress/packages/**/*.{ts,vue}"],
+      "name": "packages"
+    },
+    {
+      "excludeGlobs": ["src/.vitepress/cache/**"],
+      "includeGlobs": ["src/.vitepress/**/*.{ts,vue}"],
+      "name": "vitepress config"
+    }
+  ],
+  "todo-tree.filtering.useBuiltInExcludes": "file excludes",
+  "todo-tree.general.showActivityBarBadge": true,
+  "todo-tree.tree.buttons.groupBySubTag": true,
+  "todo-tree.tree.buttons.scanMode": true,
+  "todo-tree.tree.scanAtStartup": false,
+  "todo-tree.tree.scanMode": "workspace only",
+  "todo-tree.tree.showCountsInTree": true,
+  "todo-tree.tree.showCurrentScanMode": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "volar.vueserver.noProjectReferences": true,
+  "volar.vueserver.vitePress.processMdFile": true,
+  "yaml.schemas": {
+    "./packages/api-docs/dist/api.schema.json": "/src/api/**/*.yml"
+  },
+  "yaml.schemaStore.enable": true,
+  "yaml.trace.server": "messages",
+  "postcss.validate": false
 }

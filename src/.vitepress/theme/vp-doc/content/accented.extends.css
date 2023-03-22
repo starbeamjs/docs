@@ -1,0 +1,8 @@
+%accented {
+  color: var(--sbdoc-block-fg-accent);
+  background-color: var(--sbdoc-block-bg-accent);
+  border: 1px solid var(--sbdoc-block-fg-accent-border);
+  padding-inline: var(--sbdoc-ui-inner-padding-xxs);
+  border-radius: var(--sbdoc-radius);
+  padding-block: 0;
+}

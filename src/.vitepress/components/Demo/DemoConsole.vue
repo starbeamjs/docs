@@ -1,12 +1,11 @@
-<script lang="ts">
-</script>
+<script lang="ts"></script>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch } from "vue";
 import { Console, ConsoleItem, DataAPI, Encode } from "vue-console-feed";
-import { ConsoleData, isArrayLogMethod } from './demo.js';
+import { ConsoleData, isArrayLogMethod } from "./demo.js";
 
-const { consoleData, isVisible } = defineProps<{ consoleData: ConsoleData, isVisible: boolean }>();
+const { consoleData, isVisible } = defineProps<{ consoleData: ConsoleData; isVisible: boolean }>();
 const API = new DataAPI(true, 0);
 
 const offset = ref(0);
@@ -30,9 +29,7 @@ watch([consoleData.logs, offset], ([allLogs, currentOffset]) => {
     const method = log.method;
     if (Array.isArray(log.data)) {
       if (isArrayLogMethod(method)) {
-        API[method](...log.data.map((data, i) =>
-          Encode(data, false, i === 0)
-        ));
+        API[method](...log.data.map((data, i) => Encode(data, false, i === 0)));
         continue;
       }
     }
@@ -49,7 +46,9 @@ function reset() {
 
 <template>
   <div class="demo-console" v-show="isVisible">
-    <button class="clear" v-on:click="reset" data-logs=""><span class="icon">clear_all</span> Clear Logs</button>
+    <button class="clear" v-on:click="reset" data-logs="">
+      <span class="icon">clear_all</span> Clear Logs
+    </button>
     <Console v-if="API.value.length > 0" :data="API.value" />
     <template v-else>
       <ConsoleItem class="empty" :data="Encode('No logs yet')" :no-location="true" type="log" />
@@ -57,7 +56,7 @@ function reset() {
   </div>
 </template>
 
-<style lang="scss" scopes>
+<style lang="postcss" scopes>
 @use "vue-console-feed/style.css";
 
 div.demo-console {

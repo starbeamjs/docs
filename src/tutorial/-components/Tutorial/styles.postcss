@@ -1,0 +1,113 @@
+:root {
+  --t-font-body: "Readex Pro", sans-serif;
+  --t-font-mono: var(--sb-font-mono);
+  --t-font-fancy: "Comfortaa", sans-serif;
+  --t-font-em: "Sofia Sans", sans-serif;
+
+  --t-margin-block: calc(1em / var(--sbdoc-ratio));
+  --t-margin-inline: calc(1em / var(--sbdoc-ratio));
+
+  --t-ui-gap: 1rem;
+  --t-ui-gap-sm: calc(var(--t-ui-gap) / var(--sbdoc-ratio));
+  --t-ui-gap-xs: calc(var(--t-ui-gap-sm) / var(--sbdoc-ratio));
+  --t-ui-gap-xxs: calc(var(--t-ui-gap-xs) / var(--sbdoc-ratio));
+
+  --t-ui-gap-lg: calc(var(--t-ui-gap) * var(--sbdoc-ratio));
+  --t-ui-gap-xl: calc(var(--t-ui-gap-lg) * var(--sbdoc-ratio));
+
+  --t-rest: 1fr;
+  --t-fit: max-content;
+
+  --size-small: 384px;
+  --size-medium: 768px;
+  --size-large: 1024px;
+}
+
+section.tutorial {
+  height: 100vh;
+  width: 100vw;
+
+  section.description {
+    overflow: hidden;
+    transition: overflow 0.5s ease-in-out;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: initial;
+    }
+
+    h1 {
+      /* margin-block-start: 0.1em; */
+    }
+
+    &:hover {
+      overflow: auto;
+      scrollbar-color: red yellow;
+    }
+
+    > * + :has(.shiki.twoslash) {
+      margin-block: var(--t-ui-gap);
+    }
+
+    .shiki.twoslash {
+      padding: var(--t-ui-gap-xs);
+      font-size: calc(var(--vp-code-font-size) * 0.8);
+    }
+  }
+
+  section.code {
+    height: 100cqh;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-block: var(--t-margin-block);
+  }
+
+  h1 {
+    margin-block-end: var(--t-margin-block);
+  }
+
+  :is(p, blockquote, ul, ol, div.custom-block) + :is(p, blockquote, ul, ol, div.custom-block) {
+    margin-block-start: calc(var(--t-margin-block) / var(--sbdoc-ratio));
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--t-font-fancy);
+  }
+
+  h1 {
+    font-size: var(--big2);
+    font-weight: 900;
+  }
+
+  h2 {
+    font-size: var(--big1);
+    font-weight: 700;
+  }
+
+  h3 {
+    font-weight: 500;
+  }
+
+  a {
+    color: var(--vp-c-brand);
+    text-decoration-style: dotted;
+
+    &:hover {
+      color: var(--vp-c-brand-dark);
+    }
+  }
+}

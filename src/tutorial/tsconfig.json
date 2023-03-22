@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "dist": "./tsdist",
+    "types": ["vite/client", "@vue/runtime-dom", "../components"],
+
+    "paths": {
+      "@/*": ["../*"],
+      "@tutorial-lib/*": ["./-components/lib/*"],
+      "@tutorial-vue/*": ["./-components/*"]
+    }
+  }
+}

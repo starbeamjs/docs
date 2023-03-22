@@ -2,7 +2,7 @@
 import { useStorage } from "@vueuse/core";
 import { PropType, ref, watch } from "vue";
 
-import "./tabs.scss";
+import "./tabs.postcss";
 
 export interface TabProps extends Record<string, unknown> {
   title: string;
@@ -82,9 +82,7 @@ watch(
   () => tabStore.value[props.tabId],
   (newValue, oldValue) => {
     if (props.tabId && newValue !== oldValue) {
-      const index = props.data.findIndex(
-        ({ title, value = title }) => value === newValue
-      );
+      const index = props.data.findIndex(({ title, value = title }) => value === newValue);
 
       if (index !== -1) activeIndex.value = index;
     }

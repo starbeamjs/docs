@@ -68,12 +68,12 @@ const stackblitzRender = (
     attrs.push(`${key}=${JSON.stringify(value)}`);
   }
 
-  const title = options.title ?? "Play with it on StackBlitz";
-  delete options.title;
+  const title = options["title"] ?? "Play with it on StackBlitz";
+  delete options["title"];
 
   const props = attrs.join(" ");
 
-  const body = `::: details ${title}\n\n<StackBlitz ${props} />\n\n:::`;
+  const body = `\`\`\`md details ${title}\n\n<StackBlitz ${props} />\n\n\`\`\``;
 
   return md.render(body);
 };

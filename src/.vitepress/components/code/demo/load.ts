@@ -1,4 +1,9 @@
-import type { Code, CodeDemoOptions, CodeType, PreProcessorType } from "./types.js";
+import type {
+  Code,
+  CodeDemoOptions,
+  CodeType,
+  PreProcessorType,
+} from "./types.js";
 
 export type ScriptLoadState = Record<string, Promise<void>>;
 
@@ -16,13 +21,16 @@ export const loadReact = (code: Code): Promise<void[]> =>
 export const loadVue = (code: Code): Promise<void[]> => {
   const promises = [loadScript(state, code.vue)];
 
-  if (code.useBabel) promises.push(loadScript(state, code.babel));
+  if (code.useBabel)
+    promises.push(loadScript(state, code.babel));
 
   return Promise.all(promises);
 };
 
 export const loadNormal = (code: Code): Promise<void> =>
-  code.useBabel ? loadScript(state, code.babel) : Promise.resolve();
+  code.useBabel
+    ? loadScript(state, code.babel)
+    : Promise.resolve();
 
 function loadScript(
   state: Record<string, Promise<void>>,
@@ -55,20 +63,22 @@ export function getCode(code: Record<string, string>): CodeType {
     isLegal: false,
   };
 
-  (["html", "js", "css"] as PreProcessorType[]).forEach((type) => {
-    const match = languages.filter((language) =>
-      preProcessorConfig[type].types.includes(language)
-    );
+  (["html", "js", "css"] as PreProcessorType[]).forEach(
+    (type) => {
+      const match = languages.filter((language) =>
+        preProcessorConfig[type].types.includes(language)
+      );
 
-    if (match.length) {
-      const language = match[0];
+      if (match.length) {
+        const language = match[0];
 
-      result[type] = [
-        code[language].replace(/^\n|\n$/g, ""),
-        preProcessorConfig[type].map[language] || language,
-      ];
+        result[type] = [
+          code[language].replace(/^\n|\n$/g, ""),
+          preProcessorConfig[type].map[language] || language,
+        ];
+      }
     }
-  });
+  );
 
   result.isLegal =
     (!result.html.length || result.html[1] === "none") &&
@@ -130,7 +140,7 @@ export const preProcessorConfig: Record<
     },
   },
   css: {
-    types: ["css", "less", "sass", "scss", "stylus", "styl"],
+    types: ["css", "less", "stylus", "styl"],
     map: {
       css: "none",
       styl: "stylus",
@@ -138,7 +148,9 @@ export const preProcessorConfig: Record<
   },
 };
 
-export function getConfig(config: Partial<CodeDemoOptions>): CodeDemoOptions {
+export function getConfig(
+  config: Partial<CodeDemoOptions>
+): CodeDemoOptions {
   const jsLib = Array.from(new Set([...(config.jsLib ?? [])]));
   const cssLib = Array.from(new Set([...(config.cssLib ?? [])]));
 

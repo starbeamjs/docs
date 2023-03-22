@@ -1,0 +1,32 @@
+@import "./code-blocks.css";
+@import "./api/section.css";
+@import "./api/toc.css";
+@import "./api/docs.css";
+@import "./api/prose.css";
+@import "./api/syntax.css";
+@import "./api/generics.css";
+
+@layer content() {
+  p,
+  mark,
+  em,
+  strong,
+  li {
+    > code {
+      @extend %accented;
+
+      display: inline;
+      padding-block: calc(0.3em);
+      line-height: 1;
+    }
+  }
+
+  mark {
+    display: inline;
+    line-height: var(--sbdoc-default-line-height);
+    padding-inline: 2px;
+    --sbdoc-block-fg-accent: var(--sb-fg-yellow-strong);
+    --sbdoc-block-bg-accent: var(--sb-bg-yellow-ultramuted);
+    --sbdoc-block-fg-accent-border: var(--sb-fg-yellow-muted);
+  }
+}

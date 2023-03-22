@@ -1,0 +1,50 @@
+@import "./text.vars.css";
+@import "./decor.vars.css";
+@import "./paragraphs.css";
+@import "./details.css";
+@import "./dl.css";
+@import "./typography.vars.css";
+
+@layer content() {
+  :top {
+    line-height: var(--sbdoc-default-line-height);
+    --sbdoc-block-fg-accent: var(--sb-fg-gray-stronger);
+    --sbdoc-block-fg-accent-border: var(--sb-fg-gray-muted);
+    --sbdoc-block-bg-accent: var(--sb-bg-gray-ultramuted);
+  }
+
+  p {
+    hyphens: manual !important;
+  }
+
+  :is(a, span).coming-soon {
+    color: var(--sb-fg-yellow);
+    cursor: not-allowed;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      top: -2em;
+      left: 2px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 200ms ease-in-out, transform 100ms ease-in-out;
+      pointer-events: none;
+
+      width: max-content;
+      padding: 0 0.3em;
+      border-radius: 0.5em;
+      contain: paint;
+      content: "Coming Soon";
+      background-color: var(--sb-bg-yellow-muted);
+      box-shadow: 0 0 2px 3px var(--sb-bg-yellow-strong),
+        0 0 10px 10px var(--sb-bg-gray-ultramuted);
+      color: var(--sb-fg-yellow);
+    }
+
+    &:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist",
+    "allowJs": true,
+    "checkJs": true,
+    "target": "esnext",
+    "jsx": "preserve",
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["**/*"],
+  "exclude": ["**/*.tsx"],
+  "references": [
+    {
+      "path": "./tsconfig.jsx.json"
+    }
+  ]
+}

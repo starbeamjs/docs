@@ -34,5 +34,10 @@ exports:
         params:
           "options":
             - "@options"
-            - owner: [object]
+            - owner:
+                - object
+                - |
+                  The owner of the ResourceList. The lifetime of each member of the
+                  list will be linked to this owner. This means that members will
+                  be cleaned up when this owner is cleaned up, at the latest.
         returns: [ResourceList]

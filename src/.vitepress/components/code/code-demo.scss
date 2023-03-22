@@ -1,5 +1,5 @@
-@use "../shared/arrow.scss";
-@use "../shared/reset.scss";
+@import "../shared/arrow.postcss";
+@import "../shared/reset.postcss";
 
 :root {
   --code-demo-header-bg-color: #eee;
@@ -49,8 +49,8 @@ html.dark {
   text-align: left;
 
   .toggle-button {
-    @include reset.button;
-    @include arrow.arrow;
+    @extend %button;
+    @extend %arrow;
     position: relative;
 
     margin: 8px 12px 8px 8px;
@@ -82,7 +82,7 @@ html.dark {
     vertical-align: top;
     flex: 1;
 
-    font-weight: 500;
+    font-weight: var(--sb-font-weight-body);
     font-size: 1.25rem;
     line-height: 2.5rem;
 
@@ -93,7 +93,7 @@ html.dark {
 
   .codepen-button,
   .jsfiddle-button {
-    @include reset.button;
+    @extend %button;
     position: relative;
 
     box-sizing: content-box;

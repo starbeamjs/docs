@@ -1,21 +1,24 @@
 import type { DefaultTheme } from "vitepress";
-import type { ThemeConfig } from "./types.js";
+import type { Sidebar } from "./types.js";
 
-export const SIDEBAR: ThemeConfig["sidebar"] = {
+export const SIDEBAR: Sidebar = {
   "/guides/": [
     {
       items: [
         item("Getting Started", "/guides/index.md"),
-        item("Universal Reactivity", "/guides/universal-reactivity.md"),
         item("Our Guiding Principle", "/guides/principle.md"),
       ],
     },
-    group("Fundamentals", [
+    group("How to Read These Guides", [
+      item("Stylistic Conventions", "/guides/legend.md"),
+    ]),
+
+    group("Reactive Fundamentals", [
       item("Cells", "/guides/fundamentals/cells.md"),
       item("Functions", "/guides/fundamentals/functions.md"),
-      item("Validation", "/guides/fundamentals/validation.md"),
       item("Resources", "/guides/fundamentals/resources.md"),
     ]),
+    // group("Universal Code", []),
     // group("Universal Building Blocks", [
     //   item("Introduction", "/guides/universal/index.md"),
     //   item("Reactives", "/guides/universal/reactive.md"),
@@ -24,6 +27,10 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
     //   item("Modifiers", "/guides/universal/modifiers.md"),
     //   item("Services", "/guides/universal/services.md"),
     // ]),
+    group("Philosophy", [
+      item("Universal Reactivity", "/guides/universal-reactivity.md"),
+      item("Validation", "/guides/fundamentals/validation.md"),
+    ]),
     group(
       "Digging Deeper",
       [
@@ -49,6 +56,10 @@ export const SIDEBAR: ThemeConfig["sidebar"] = {
       item("Resource", "/api/core/resource.md"),
       item("ResourceList", "/api/core/resource-list.md"),
     ]),
+  ],
+  "/frameworks": [
+    item("React", "/frameworks/react/index.md"),
+    item("Preact", "/frameworks/preact/index.md"),
   ],
   "/frameworks/react/": [
     group("React", [item("Getting Started", "/frameworks/react/index.md")]),
@@ -101,7 +112,7 @@ function item(text: string, link: string): DefaultTheme.SidebarItem {
 
 function group(
   ...args: AnonymousGroupArgs | NamedGroupArgs
-): DefaultTheme.SidebarGroup {
+): DefaultTheme.SidebarItem {
   if (Array.isArray(args[0])) {
     const [items, collapse] = args as AnonymousGroupArgs;
 
@@ -122,16 +133,12 @@ function group(
 
 function groupOptions(
   collapse: "expanded" | "collapsed" | undefined
-): Pick<DefaultTheme.SidebarGroup, "collapsed" | "collapsible"> {
+): Pick<DefaultTheme.SidebarItem, "collapsed"> {
   switch (collapse) {
     case "expanded":
-      return {
-        collapsible: true,
-      };
     case "collapsed":
       return {
-        collapsible: true,
-        collapsed: true,
+        collapsed: collapse === "collapsed",
       };
     case undefined:
       return {};

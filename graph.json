@@ -1,0 +1,1340 @@
+{
+  "graph": {
+    "nodes": {
+      "@types/postcss-advanced-variables": {
+        "name": "@types/postcss-advanced-variables",
+        "type": "lib",
+        "data": {
+          "root": "types/@types/postcss-advanced-variables",
+          "sourceRoot": "types/@types/postcss-advanced-variables",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "types/@types/postcss-advanced-variables/index.d.ts",
+              "hash": "8140595398123466766"
+            },
+            {
+              "file": "types/@types/postcss-advanced-variables/package.json",
+              "hash": "2077978552930008349",
+              "dependencies": [
+                {
+                  "source": "@types/postcss-advanced-variables",
+                  "target": "npm:postcss",
+                  "type": "dynamic"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "@types/postcss-modules-values": {
+        "name": "@types/postcss-modules-values",
+        "type": "lib",
+        "data": {
+          "root": "types/@types/postcss-modules-values",
+          "sourceRoot": "types/@types/postcss-modules-values",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "types/@types/postcss-modules-values/index.d.ts",
+              "hash": "8286539355328588885"
+            },
+            {
+              "file": "types/@types/postcss-modules-values/package.json",
+              "hash": "1686462013149884837",
+              "dependencies": [
+                {
+                  "source": "@types/postcss-modules-values",
+                  "target": "npm:postcss",
+                  "type": "dynamic"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "@types/postcss-env-function": {
+        "name": "@types/postcss-env-function",
+        "type": "lib",
+        "data": {
+          "root": "types/@types/postcss-env-function",
+          "sourceRoot": "types/@types/postcss-env-function",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "types/@types/postcss-env-function/index.d.ts",
+              "hash": "13081795570994003637"
+            },
+            {
+              "file": "types/@types/postcss-env-function/package.json",
+              "hash": "16404638468977448442",
+              "dependencies": [
+                {
+                  "source": "@types/postcss-env-function",
+                  "target": "npm:postcss",
+                  "type": "dynamic"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "@types/shell-escape-tag": {
+        "name": "@types/shell-escape-tag",
+        "type": "lib",
+        "data": {
+          "root": "packages/@types/shell-escape-tag",
+          "sourceRoot": "packages/@types/shell-escape-tag",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/@types/shell-escape-tag/index.d.ts",
+              "hash": "4595979742548113990"
+            },
+            {
+              "file": "packages/@types/shell-escape-tag/package.json",
+              "hash": "17313747928406559349"
+            }
+          ]
+        }
+      },
+      "@types/postcss-extend-rule": {
+        "name": "@types/postcss-extend-rule",
+        "type": "lib",
+        "data": {
+          "root": "types/@types/postcss-extend-rule",
+          "sourceRoot": "types/@types/postcss-extend-rule",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "types/@types/postcss-extend-rule/index.d.ts",
+              "hash": "353095608683152500"
+            },
+            {
+              "file": "types/@types/postcss-extend-rule/package.json",
+              "hash": "11851677598237457474",
+              "dependencies": [
+                {
+                  "source": "@types/postcss-extend-rule",
+                  "target": "npm:postcss",
+                  "type": "dynamic"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "@jsergo/tagged-templates": {
+        "name": "@jsergo/tagged-templates",
+        "type": "lib",
+        "data": {
+          "root": "packages/ergo-tagged-templates",
+          "sourceRoot": "packages/ergo-tagged-templates",
+          "projectType": "library",
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              }
+            }
+          },
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/ergo-tagged-templates/dist/index.d.ts",
+              "hash": "271305939318037446"
+            },
+            {
+              "file": "packages/ergo-tagged-templates/dist/index.d.ts.map",
+              "hash": "13516610566759240034"
+            },
+            {
+              "file": "packages/ergo-tagged-templates/dist/index.js",
+              "hash": "15868140944897436270"
+            },
+            {
+              "file": "packages/ergo-tagged-templates/index.ts",
+              "hash": "16926337401752159355"
+            },
+            {
+              "file": "packages/ergo-tagged-templates/package.json",
+              "hash": "4572657409882776829",
+              "dependencies": [
+                {
+                  "source": "@jsergo/tagged-templates",
+                  "target": "npm:vite",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@jsergo/tagged-templates",
+                  "target": "@wycatsjs/building",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "packages/ergo-tagged-templates/tsconfig.build.json",
+              "hash": "2990437284747688058"
+            },
+            {
+              "file": "packages/ergo-tagged-templates/tsconfig.json",
+              "hash": "4545538838524457687"
+            },
+            {
+              "file": "packages/ergo-tagged-templates/vite.config.mts",
+              "hash": "11378356452738396496"
+            }
+          ]
+        }
+      },
+      "@types/postcss-functions": {
+        "name": "@types/postcss-functions",
+        "type": "lib",
+        "data": {
+          "root": "types/@types/postcss-functions",
+          "sourceRoot": "types/@types/postcss-functions",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "types/@types/postcss-functions/index.d.ts",
+              "hash": "7263656636281007223"
+            },
+            {
+              "file": "types/@types/postcss-functions/package.json",
+              "hash": "9162196695992917209",
+              "dependencies": [
+                {
+                  "source": "@types/postcss-functions",
+                  "target": "npm:postcss",
+                  "type": "dynamic"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "@types/postcss-nesting": {
+        "name": "@types/postcss-nesting",
+        "type": "lib",
+        "data": {
+          "root": "types/@types/postcss-nesting",
+          "sourceRoot": "types/@types/postcss-nesting",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "types/@types/postcss-nesting/index.d.ts",
+              "hash": "8286539355328588885"
+            },
+            {
+              "file": "types/@types/postcss-nesting/package.json",
+              "hash": "5890903310065677872",
+              "dependencies": [
+                {
+                  "source": "@types/postcss-nesting",
+                  "target": "npm:postcss",
+                  "type": "dynamic"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "@starbeam/vitepress": {
+        "name": "@starbeam/vitepress",
+        "type": "lib",
+        "data": {
+          "root": "packages/starbeam-vitepress",
+          "sourceRoot": "packages/starbeam-vitepress",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/starbeam-vitepress/.gitignore",
+              "hash": "8529327063868831978"
+            },
+            {
+              "file": "packages/starbeam-vitepress/index.ts",
+              "hash": "4595979742548113990"
+            },
+            {
+              "file": "packages/starbeam-vitepress/package.json",
+              "hash": "2509757974568401129"
+            },
+            {
+              "file": "packages/starbeam-vitepress/tsconfig.json",
+              "hash": "8908893198441302132"
+            }
+          ]
+        }
+      },
+      "@types/postcss-scss": {
+        "name": "@types/postcss-scss",
+        "type": "lib",
+        "data": {
+          "root": "types/@types/postcss-scss",
+          "sourceRoot": "types/@types/postcss-scss",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "types/@types/postcss-scss/index.d.ts",
+              "hash": "6425107214242101413"
+            },
+            {
+              "file": "types/@types/postcss-scss/package.json",
+              "hash": "2575867067671258572",
+              "dependencies": [
+                {
+                  "source": "@types/postcss-scss",
+                  "target": "npm:postcss",
+                  "type": "dynamic"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "@wycatsjs/building": {
+        "name": "@wycatsjs/building",
+        "type": "lib",
+        "data": {
+          "root": "packages/wycats-building",
+          "sourceRoot": "packages/wycats-building",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/wycats-building/index.d.ts",
+              "hash": "14598862672064152418"
+            },
+            {
+              "file": "packages/wycats-building/index.js",
+              "hash": "9635599247754226068"
+            },
+            {
+              "file": "packages/wycats-building/package.json",
+              "hash": "6497757436739417657",
+              "dependencies": [
+                {
+                  "source": "@wycatsjs/building",
+                  "target": "npm:vite",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "packages/wycats-building/src/vite.js",
+              "hash": "8340858006132466710"
+            },
+            {
+              "file": "packages/wycats-building/tsconfig.json",
+              "hash": "3187088736463454643"
+            }
+          ]
+        }
+      },
+      "@types/jsdoc-api": {
+        "name": "@types/jsdoc-api",
+        "type": "lib",
+        "data": {
+          "root": "types/@types/jsdoc-api",
+          "sourceRoot": "types/@types/jsdoc-api",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "types/@types/jsdoc-api/index.d.ts",
+              "hash": "1894544754924258120"
+            },
+            {
+              "file": "types/@types/jsdoc-api/package.json",
+              "hash": "9910297767440946752"
+            }
+          ]
+        }
+      },
+      "@wycatsjs/utils": {
+        "name": "@wycatsjs/utils",
+        "type": "lib",
+        "data": {
+          "root": "packages/wycats-utils",
+          "sourceRoot": "packages/wycats-utils",
+          "projectType": "library",
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              }
+            }
+          },
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/wycats-utils/dist/index.d.ts",
+              "hash": "6882770338505365799"
+            },
+            {
+              "file": "packages/wycats-utils/dist/index.d.ts.map",
+              "hash": "14202411542211458813"
+            },
+            {
+              "file": "packages/wycats-utils/dist/index.js",
+              "hash": "14793909439077665922"
+            },
+            {
+              "file": "packages/wycats-utils/dist/src/object.d.ts",
+              "hash": "9662363850896214216"
+            },
+            {
+              "file": "packages/wycats-utils/dist/src/object.d.ts.map",
+              "hash": "9371791638664428879"
+            },
+            {
+              "file": "packages/wycats-utils/dist/src/strip.d.ts",
+              "hash": "8558121147210836745"
+            },
+            {
+              "file": "packages/wycats-utils/dist/src/strip.d.ts.map",
+              "hash": "12518049099475564984"
+            },
+            {
+              "file": "packages/wycats-utils/index.ts",
+              "hash": "15342642973145420880"
+            },
+            {
+              "file": "packages/wycats-utils/package.json",
+              "hash": "529561990116532883",
+              "dependencies": [
+                {
+                  "source": "@wycatsjs/utils",
+                  "target": "@jsergo/tagged-templates",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@wycatsjs/utils",
+                  "target": "@wycatsjs/building",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@wycatsjs/utils",
+                  "target": "npm:vite",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@wycatsjs/utils",
+                  "target": "npm:vite-plugin-dts",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@wycatsjs/utils",
+                  "target": "npm:typescript",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "packages/wycats-utils/src/object.ts",
+              "hash": "17894943989087955096"
+            },
+            {
+              "file": "packages/wycats-utils/src/strip.ts",
+              "hash": "6585613930997386587"
+            },
+            {
+              "file": "packages/wycats-utils/tsconfig.build.json",
+              "hash": "2867645405986222819"
+            },
+            {
+              "file": "packages/wycats-utils/tsconfig.json",
+              "hash": "4545538838524457687"
+            },
+            {
+              "file": "packages/wycats-utils/vite.config.mts",
+              "hash": "11378356452738396496"
+            }
+          ]
+        }
+      },
+      "react": {
+        "name": "react",
+        "type": "app",
+        "data": {
+          "root": "src/frameworks/react",
+          "sourceRoot": "src/frameworks/react",
+          "projectType": "application",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "src/frameworks/react/$snippets/quickstart.tsx",
+              "hash": "8226376233237179577"
+            },
+            {
+              "file": "src/frameworks/react/$snippets/resources.tsx",
+              "hash": "12133016694008005903"
+            },
+            {
+              "file": "src/frameworks/react/$snippets/tutorial-6-component.tsx",
+              "hash": "1531628801666408053"
+            },
+            {
+              "file": "src/frameworks/react/$snippets/tutorial-6-native-class-stage-1-decorators.ts",
+              "hash": "5469482886073969461"
+            },
+            {
+              "file": "src/frameworks/react/$snippets/tutorial-6-native-class.ts",
+              "hash": "11953409747657530233"
+            },
+            {
+              "file": "src/frameworks/react/demos/quickstart/config.ts",
+              "hash": "11980325922993509577"
+            },
+            {
+              "file": "src/frameworks/react/demos/quickstart/index.html",
+              "hash": "17267172312098703937"
+            },
+            {
+              "file": "src/frameworks/react/demos/quickstart/src/App.tsx",
+              "hash": "18007207895087765949"
+            },
+            {
+              "file": "src/frameworks/react/demos/quickstart/src/index.ts",
+              "hash": "5880255842241435567"
+            },
+            {
+              "file": "src/frameworks/react/demos/quickstart/src/stopwatch.ts",
+              "hash": "12050697615563667994"
+            },
+            {
+              "file": "src/frameworks/react/demos/quickstart/src/styles.css",
+              "hash": "18365562102290484490"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/config.ts",
+              "hash": "553483488093567124"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/index.html",
+              "hash": "17267172312098703937"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/src/App.css",
+              "hash": "7912995977079687306"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/src/App.tsx",
+              "hash": "12474377923750940311"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/src/components/Counter.tsx",
+              "hash": "7513743302057414223"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/src/index.css",
+              "hash": "13524894482572056015"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/src/index.ts",
+              "hash": "4734072752240905032"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/src/prism.css",
+              "hash": "6739665496633660392"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-1/src/stopwatch.ts",
+              "hash": "12050697615563667994"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/config.ts",
+              "hash": "553483488093567124"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/index.html",
+              "hash": "17267172312098703937"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/src/App.css",
+              "hash": "7912995977079687306"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/src/App.tsx",
+              "hash": "12474377923750940311"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/src/components/Counter.css",
+              "hash": "12091787071635330700"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/src/components/Counter.tsx",
+              "hash": "5782442229758667934"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/src/index.css",
+              "hash": "13524894482572056015"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/src/index.ts",
+              "hash": "4734072752240905032"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/src/prism.css",
+              "hash": "6739665496633660392"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-2/src/stopwatch.ts",
+              "hash": "12050697615563667994"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/config.ts",
+              "hash": "553483488093567124"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/index.html",
+              "hash": "17267172312098703937"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/src/App.css",
+              "hash": "7912995977079687306"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/src/App.tsx",
+              "hash": "12474377923750940311"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/src/components/Counter.css",
+              "hash": "12091787071635330700"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/src/components/Counter.tsx",
+              "hash": "3486848991661035612"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/src/index.css",
+              "hash": "13524894482572056015"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/src/index.ts",
+              "hash": "4734072752240905032"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/src/prism.css",
+              "hash": "6739665496633660392"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-3/src/stopwatch.ts",
+              "hash": "12050697615563667994"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/config.ts",
+              "hash": "553483488093567124"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/index.html",
+              "hash": "17267172312098703937"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/src/App.css",
+              "hash": "7912995977079687306"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/src/App.tsx",
+              "hash": "12474377923750940311"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/src/components/Counter.css",
+              "hash": "12091787071635330700"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/src/components/Counter.tsx",
+              "hash": "11235760648855983915"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/src/index.css",
+              "hash": "13524894482572056015"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/src/index.ts",
+              "hash": "4734072752240905032"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/src/prism.css",
+              "hash": "6739665496633660392"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-4/src/stopwatch.ts",
+              "hash": "12050697615563667994"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/config.ts",
+              "hash": "6958946977898823473"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/index.html",
+              "hash": "17267172312098703937"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/App.css",
+              "hash": "7912995977079687306"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/App.tsx",
+              "hash": "15791195198057736511"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/components/Counter.css",
+              "hash": "10982867809145376318"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/components/Counter.tsx",
+              "hash": "10491898660875075620"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/components/Equation.tsx",
+              "hash": "8099866556438898489"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/components/Sum.css",
+              "hash": "9581171695367580565"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/components/Sum.tsx",
+              "hash": "17426662282420159300"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/index.css",
+              "hash": "13940153659030512618"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/index.ts",
+              "hash": "4734072752240905032"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/prism.css",
+              "hash": "6739665496633660392"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-5/src/stopwatch.ts",
+              "hash": "12050697615563667994"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/config.ts",
+              "hash": "6958946977898823473"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/index.html",
+              "hash": "17267172312098703937"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/App.css",
+              "hash": "7912995977079687306"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/App.tsx",
+              "hash": "12474377923750940311"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/components/Counter.css",
+              "hash": "12091787071635330700"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/components/Counter.tsx",
+              "hash": "2387925955483507524"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/index.css",
+              "hash": "13940153659030512618"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/index.ts",
+              "hash": "4734072752240905032"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/lib/counter.ts",
+              "hash": "16437602476763602039"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/prism.css",
+              "hash": "6739665496633660392"
+            },
+            {
+              "file": "src/frameworks/react/demos/tutorial-6/src/stopwatch.ts",
+              "hash": "12050697615563667994"
+            },
+            {
+              "file": "src/frameworks/react/index.md",
+              "hash": "2223391322158351001"
+            },
+            {
+              "file": "src/frameworks/react/package.json",
+              "hash": "14037141672109898463",
+              "dependencies": [
+                {
+                  "source": "react",
+                  "target": "npm:@starbeam/react",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "react",
+                  "target": "npm:@starbeam/universal",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "react",
+                  "target": "npm:react-dom",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "react",
+                  "target": "npm:@types/react",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "react",
+                  "target": "npm:@types/react-dom",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "src/frameworks/react/tsconfig.json",
+              "hash": "17111893439500246187"
+            },
+            {
+              "file": "src/frameworks/react/tutorial/1-getting-started.md",
+              "hash": "14002638239484813280"
+            },
+            {
+              "file": "src/frameworks/react/tutorial/2-computed-data.md",
+              "hash": "7261542651644723622"
+            },
+            {
+              "file": "src/frameworks/react/tutorial/3-reactive-builtins.md",
+              "hash": "15725621188168765440"
+            },
+            {
+              "file": "src/frameworks/react/tutorial/4-reactive-arrays.md",
+              "hash": "3635360655577200568"
+            },
+            {
+              "file": "src/frameworks/react/tutorial/5-reactive-arrays-bonus.md",
+              "hash": "10241815338367170590"
+            },
+            {
+              "file": "src/frameworks/react/tutorial/6-custom-reactive-objects.md",
+              "hash": "17341585645234009521"
+            },
+            {
+              "file": "src/frameworks/react/tutorial/index.md",
+              "hash": "12996898633558523491"
+            }
+          ]
+        }
+      },
+      "@jsergo/mdit": {
+        "name": "@jsergo/mdit",
+        "type": "lib",
+        "data": {
+          "root": "packages/ergo-mdit",
+          "sourceRoot": "packages/ergo-mdit",
+          "projectType": "library",
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              }
+            }
+          },
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/ergo-mdit/dist/index.d.ts",
+              "hash": "7751864091504296235"
+            },
+            {
+              "file": "packages/ergo-mdit/dist/index.d.ts.map",
+              "hash": "10378685441292326324"
+            },
+            {
+              "file": "packages/ergo-mdit/dist/index.js",
+              "hash": "17855981290349306116"
+            },
+            {
+              "file": "packages/ergo-mdit/dist/src/parser-plugin.d.ts",
+              "hash": "15279669633049978278"
+            },
+            {
+              "file": "packages/ergo-mdit/dist/src/parser-plugin.d.ts.map",
+              "hash": "2935464369778946848"
+            },
+            {
+              "file": "packages/ergo-mdit/dist/src/state.d.ts",
+              "hash": "1571880389061185414"
+            },
+            {
+              "file": "packages/ergo-mdit/dist/src/state.d.ts.map",
+              "hash": "6163298507740657157"
+            },
+            {
+              "file": "packages/ergo-mdit/dist/src/types.d.ts",
+              "hash": "3350085797304186521"
+            },
+            {
+              "file": "packages/ergo-mdit/dist/src/types.d.ts.map",
+              "hash": "16242218196079971292"
+            },
+            {
+              "file": "packages/ergo-mdit/index.ts",
+              "hash": "11882666096998113143"
+            },
+            {
+              "file": "packages/ergo-mdit/package.json",
+              "hash": "3923395510591132249",
+              "dependencies": [
+                {
+                  "source": "@jsergo/mdit",
+                  "target": "@wycatsjs/building",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@jsergo/mdit",
+                  "target": "npm:markdown-it",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "packages/ergo-mdit/src/parser-plugin.ts",
+              "hash": "1656664214280092722"
+            },
+            {
+              "file": "packages/ergo-mdit/src/state.ts",
+              "hash": "11470681553661450935"
+            },
+            {
+              "file": "packages/ergo-mdit/src/types.ts",
+              "hash": "6967459702667174432"
+            },
+            {
+              "file": "packages/ergo-mdit/tsconfig.build.json",
+              "hash": "2867645405986222819"
+            },
+            {
+              "file": "packages/ergo-mdit/tsconfig.json",
+              "hash": "4545538838524457687"
+            },
+            {
+              "file": "packages/ergo-mdit/vite.config.mts",
+              "hash": "11378356452738396496"
+            }
+          ]
+        }
+      },
+      "@starbeam/api-docs": {
+        "name": "@starbeam/api-docs",
+        "type": "lib",
+        "data": {
+          "root": "packages/api-docs",
+          "sourceRoot": "packages/api-docs",
+          "projectType": "library",
+          "targets": {
+            "schema:build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "schema:build"
+              }
+            }
+          },
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/api-docs/dist/api.schema.json",
+              "hash": "12710500909163842911"
+            },
+            {
+              "file": "packages/api-docs/package.json",
+              "hash": "18291471681445699136",
+              "dependencies": [
+                {
+                  "source": "@starbeam/api-docs",
+                  "target": "npm:ts-json-schema-generator",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "packages/api-docs/src/api.d.ts",
+              "hash": "4188303172426255206"
+            },
+            {
+              "file": "packages/api-docs/src/index.ts",
+              "hash": "15819189742333349605"
+            }
+          ]
+        }
+      },
+      "@starbeam/docs-twoslash": {
+        "name": "@starbeam/docs-twoslash",
+        "type": "lib",
+        "data": {
+          "root": "packages/twoslash",
+          "sourceRoot": "packages/twoslash",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/twoslash/package.json",
+              "hash": "17546516428941951861",
+              "dependencies": [
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@types/react",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@types/react-dom",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:typescript",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@starbeam/debug",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@starbeam/universal",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@starbeam/js",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@starbeam/preact",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@starbeam/react",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@starbeam/timeline",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:@starbeam/interfaces",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "react",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:react-dom",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:preact",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/docs-twoslash",
+                  "target": "npm:preact-render-to-string",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "packages/twoslash/src/dummy.ts",
+              "hash": "4595979742548113990"
+            },
+            {
+              "file": "packages/twoslash/tsconfig.json",
+              "hash": "7316307873088833610"
+            }
+          ]
+        }
+      },
+      "@starbeam/monaco": {
+        "name": "@starbeam/monaco",
+        "type": "lib",
+        "data": {
+          "root": "packages/monaco",
+          "sourceRoot": "packages/monaco",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "packages/monaco/package.json",
+              "hash": "2577179966730496807",
+              "dependencies": [
+                {
+                  "source": "@starbeam/monaco",
+                  "target": "npm:monaco-editor",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "packages/monaco/src/dummy.ts",
+              "hash": "4595979742548113990"
+            },
+            {
+              "file": "packages/monaco/src/worker/dependencies.ts",
+              "hash": "15148699378937487547"
+            },
+            {
+              "file": "packages/monaco/src/worker/enums.ts",
+              "hash": "10234420728873901708"
+            },
+            {
+              "file": "packages/monaco/src/worker/events.ts",
+              "hash": "12351651363866387948"
+            },
+            {
+              "file": "packages/monaco/src/worker/main.ts",
+              "hash": "15184465848559767603"
+            },
+            {
+              "file": "packages/monaco/src/worker/ts/build.ts",
+              "hash": "18022535197855374300"
+            },
+            {
+              "file": "packages/monaco/src/worker/ts/dep.ts",
+              "hash": "5065237143517026209"
+            },
+            {
+              "file": "packages/monaco/src/worker/ts/index.ts",
+              "hash": "2090912977337311969"
+            },
+            {
+              "file": "packages/monaco/src/worker/ts/input.ts",
+              "hash": "1247750143166068917"
+            },
+            {
+              "file": "packages/monaco/src/worker/ts/system.ts",
+              "hash": "7638161244933482445"
+            },
+            {
+              "file": "packages/monaco/src/worker/ts/utils.ts",
+              "hash": "18407101688913646668"
+            },
+            {
+              "file": "packages/monaco/src/worker/utils.ts",
+              "hash": "509567725488073008"
+            }
+          ]
+        }
+      },
+      "@starbeam/doc-scripts": {
+        "name": "@starbeam/doc-scripts",
+        "type": "lib",
+        "data": {
+          "root": "scripts",
+          "sourceRoot": "scripts",
+          "projectType": "library",
+          "targets": {},
+          "implicitDependencies": [],
+          "tags": [],
+          "files": [
+            {
+              "file": "scripts/fast-extract.d.ts",
+              "hash": "17198808155772572016"
+            },
+            {
+              "file": "scripts/fetch-d2.js",
+              "hash": "17578677837714288250"
+            },
+            {
+              "file": "scripts/generate-api.js",
+              "hash": "16132632896089703741"
+            },
+            {
+              "file": "scripts/package.json",
+              "hash": "16168620043834291009",
+              "dependencies": [
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:fast-glob",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:shell-escape-tag",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:shelljs",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:yaml",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:wget-improved",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:cli-progress",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:fast-extract",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:chalk",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:@types/cli-progress",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:@types/node",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "@types/shell-escape-tag",
+                  "type": "dynamic"
+                },
+                {
+                  "source": "@starbeam/doc-scripts",
+                  "target": "npm:@types/shelljs",
+                  "type": "dynamic"
+                }
+              ]
+            },
+            {
+              "file": "scripts/tsconfig.json",
+              "hash": "12597526385696827842"
+            }
+          ]
+        }
+      }
+    },
+    "dependencies": {
+      "@types/postcss-advanced-variables": [],
+      "@types/postcss-modules-values": [],
+      "@types/postcss-env-function": [],
+      "@types/shell-escape-tag": [],
+      "@types/postcss-extend-rule": [],
+      "@jsergo/tagged-templates": [
+        {
+          "source": "@jsergo/tagged-templates",
+          "target": "@wycatsjs/building",
+          "type": "dynamic"
+        }
+      ],
+      "@types/postcss-functions": [],
+      "@types/postcss-nesting": [],
+      "@starbeam/vitepress": [],
+      "@types/postcss-scss": [],
+      "@wycatsjs/building": [],
+      "@types/jsdoc-api": [],
+      "@wycatsjs/utils": [
+        {
+          "source": "@wycatsjs/utils",
+          "target": "@jsergo/tagged-templates",
+          "type": "dynamic"
+        },
+        {
+          "source": "@wycatsjs/utils",
+          "target": "@wycatsjs/building",
+          "type": "dynamic"
+        }
+      ],
+      "react": [],
+      "@jsergo/mdit": [
+        {
+          "source": "@jsergo/mdit",
+          "target": "@wycatsjs/building",
+          "type": "dynamic"
+        }
+      ],
+      "@starbeam/api-docs": [],
+      "@starbeam/docs-twoslash": [
+        {
+          "source": "@starbeam/docs-twoslash",
+          "target": "react",
+          "type": "dynamic"
+        }
+      ],
+      "@starbeam/monaco": [],
+      "@starbeam/doc-scripts": [
+        {
+          "source": "@starbeam/doc-scripts",
+          "target": "@types/shell-escape-tag",
+          "type": "dynamic"
+        }
+      ]
+    }
+  },
+  "affectedProjects": [],
+  "criticalPath": []
+}

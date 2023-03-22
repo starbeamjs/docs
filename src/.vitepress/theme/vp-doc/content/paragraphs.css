@@ -1,0 +1,98 @@
+@import "./accented.extends.css";
+
+@custom-selector :--content-block p, .content-block;
+/** TODO: Don't use a p for custom-block-title */
+@custom-selector :--paragraph p:not(.custom-block-title);
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
+@using content {
+  p,
+  summary,
+  blockquote {
+    --sbdoc-local-fg: var(--vp-c-text-1);
+    margin: initial;
+  }
+
+  :top {
+    display: grid;
+    row-gap: var(--sbdoc-default-line-spacing);
+  }
+
+  @layer defaults {
+    :top(:not(:--heading)) {
+      margin-block: 0;
+    }
+
+    :top(aside > :not(:--heading)) {
+      margin-block: 0;
+    }
+  }
+
+  :top(:--heading) {
+    --sbdoc-block-fg-accent: var(--sb-fg-green-dim);
+    --sbdoc-block-fg-accent-border: var(--sb-fg-green-strong);
+    --sbdoc-block-bg-accent: var(--sb-bg-green-ultramuted);
+
+    .marker {
+      @extend %accented;
+
+      font-weight: 300;
+      font-size: 0.8em;
+    }
+  }
+
+  h1 {
+    margin-block-start: 2em;
+  }
+
+  h2 {
+    margin-block-start: calc(2em / var(--sbdoc-ratio));
+  }
+
+  h3 {
+    margin-block-start: calc(2em / var(--sbdoc-ratio) / var(--sbdoc-ratio));
+  }
+
+  h4,
+  h5,
+  h6 {
+    margin-block-start: 0;
+  }
+
+  aside {
+    display: contents;
+  }
+
+  summary {
+    margin-block: 0;
+  }
+
+  p {
+  }
+
+  blockquote {
+    padding-left: initial;
+    transition: border-color 0.5s;
+  }
+
+  blockquote > p {
+    color: inherit;
+
+    transition: color 0.5s;
+  }
+
+  a {
+    font-weight: 500;
+    color: var(--vp-c-brand);
+    text-decoration-style: dotted;
+    transition: color 0.25s;
+  }
+
+  a:hover {
+    color: var(--vp-c-brand-dark);
+  }
+
+  strong {
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,33 @@
+.vp-doc {
+  ol.annotation {
+    list-style: annotation;
+
+    ::marker {
+      color: var(--annotation-color);
+    }
+  }
+
+  em.annotation {
+    color: hsl(var(--block-hue) 50% var(--sb-fg-lightness-bright));
+    background-color: transparent;
+  }
+}
+
+:root,
+:before,
+:after {
+  --annotation-saturation: 31%;
+  --annotation-lightness: var(--sb-fg-lightness-normal);
+  --annotation-hue: 250;
+
+  --annotation-color: hsl(
+    var(--annotation-hue) var(--annotation-saturation)
+      var(--annotation-lightness)
+  );
+}
+
+@counter-style annotation {
+  system: fixed;
+  symbols: ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓;
+  suffix: " ";
+}

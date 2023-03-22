@@ -1,0 +1,115 @@
+._code-snippet_1ftur_1 button {
+  -webkit-transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  font-family: var(--vp-font-family-base), sans-serif;
+  font-size: 0.75rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--sbdoc-ui-inner-padding-sm);
+  padding-right: var(--sbdoc-ui-inner-padding-sm);
+  border: 0;
+
+  background-color: var(--vp-button-alt-bg);
+  color: var(--vp-button-alt-text);
+}
+
+._code-snippet_1ftur_1 button:hover {
+  background-color: var(--vp-button-brand-hover-bg);
+  color: var(--vp-button-brand-hover-text);
+}
+
+@layer defaults {
+  ._code-snippet_1ftur_1 button:first-child {
+    border-bottom-left-radius: var(--sbdoc-radius-xsm);
+  }
+
+  ._code-snippet_1ftur_1 button:last-child {
+    border-top-right-radius: var(--sbdoc-radius-xsm);
+  }
+}
+
+._section_1ftur_28._ts_1ftur_28 button._ts_1ftur_28,
+._section_1ftur_28._js_1ftur_29 button._js_1ftur_29 {
+  background-color: var(--vp-button-brand-bg);
+  color: var(--vp-button-brand-text);
+}
+
+@layer defaults {
+  html.dark .shiki.github-light {
+    display: none;
+  }
+
+  html:not(.dark) .shiki.github-dark {
+    display: none;
+  }
+
+  ._code-snippet_1ftur_1 {
+    position: relative;
+    display: grid;
+    width: 100%;
+  }
+
+  section._toggler_1ftur_49 {
+    border-top-right-radius: var(--sbdoc-radius);
+    contain: paint;
+    margin: 0;
+  }
+
+  body:not(:has(:focus-visible)) section._toggler_1ftur_49 {
+    z-index: var(--sbdoc-ui-layer-index-hud);
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  section._toggler_1ftur_49 button:focus-visible {
+    contain: paint;
+  }
+
+  ._section_1ftur_28:hover ._toggler_1ftur_49 {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  div._ts_1ftur_28,
+  div._js_1ftur_29 {
+    display: none;
+  }
+
+  ._section_1ftur_28._ts_1ftur_28 div._ts_1ftur_28,
+  ._section_1ftur_28._js_1ftur_29 div._js_1ftur_29 {
+    display: block;
+  }
+
+  ._section_1ftur_28 pre.shiki {
+    padding: 1em;
+    margin: 0;
+  }
+
+  ._toggler_1ftur_49 {
+    display: grid;
+    grid-template-columns: -webkit-max-content 1fr;
+    grid-template-columns: max-content 1fr;
+    position: absolute;
+    top: 0;
+    right: 0;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    z-index: 3;
+    font-size: 0.75rem;
+
+    border: var(--sb-border-thin-width) solid var(--vp-button-brand-border);
+    border-right: none;
+    background-color: var(--vp-button-alt-bg);
+    border-bottom-left-radius: var(--sbdoc-radius-sm);
+    border-top-right-radius: var(--sbdoc-radius-sm);
+  }
+}
