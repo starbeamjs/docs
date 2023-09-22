@@ -1,0 +1,28 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  install_dependencies:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: volta-cli/action@v1
+    - uses: ./.github/actions/pnpm
+
+
+  docs_build:
+    name: "Build Docs"
+    runs-on: ubuntu-latest
+    needs: [install_dependencies]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/pnpm
+      - run: pnpm docs:build
+
+
