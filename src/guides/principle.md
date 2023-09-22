@@ -30,7 +30,7 @@ renders a reactive output.
 
 !(./-snippets/principle.ts#a)
 
-To push the envelope, let's refactor the example to use clases
+To push the envelope, let's refactor the example to use classes
 and private fields.
 
 !(./-snippets/principle.ts#b)
