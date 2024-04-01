@@ -28,11 +28,11 @@ const Stopwatch = Resource(({ on }) => {
 // #endregion
 
 // #region component
-import { use } from "@starbeam/react";
+import { useResource } from "@starbeam/react";
 
 export const Clock = () => {
   // #highlight:next
-  const time = use(() => Stopwatch, []);
+  const time = useResource(() => Stopwatch, []);
 
   return <div>{time ?? "now"}</div>;
 };
